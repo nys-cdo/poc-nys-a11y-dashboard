@@ -1,0 +1,31 @@
+{
+  "name": "nys-a11y-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "NYS Statewide Accessibility Dashboard (Phase 1 / MVP) — point-in-time snapshot of automated accessibility scan results across NYS public-facing sites, rolled up by agency.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "generate": "node scripts/generate.mjs",
+    "generate:refresh": "node scripts/generate.mjs --refresh",
+    "generate:offline": "node scripts/generate.mjs --offline",
+    "generate:check-env": "node scripts/generate.mjs --check-env",
+    "typecheck": "tsc --noEmit",
+    "deploy": "npm run build && gh-pages -d dist"
+  },
+  "dependencies": {
+    "@nysds/components": "^1.19.3",
+    "@nysds/styles": "^1.19.3",
+    "echarts": "^5.5.1"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2"
+  },
+  "allowScripts": {
+    "esbuild@0.21.5": true
+  }
+}

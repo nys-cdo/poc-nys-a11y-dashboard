@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "generatedAt": "2026-07-14T14:30:00.000Z",
+    "automatedCoveragePct": 30,
+    "rubric": { "red": [0, 40], "yellow": [41, 79], "green": [80, 100] },
+    "sources": ["axe Monitor", "SiteImprove", "Axe Auditor (manual)"],
+    "note": "SAMPLE / synthetic data for POC. Replace by running `npm run generate` against live axe Monitor + SiteImprove APIs."
+  },
+  "sites": [
+    { "domain": "health.ny.gov", "url": "https://health.ny.gov", "agency": "Department of Health", "axeMonitorScore": 84, "siteImproveScore": 81, "auditorScore": 58, "auditorReportUrl": "https://reports.example.ny.gov/health-2026-06.pdf", "auditorDeckUrl": "https://decks.example.ny.gov/health-priority-fixes.pdf", "blocked": false, "conflict": false },
+    { "domain": "coverage.health.ny.gov", "url": "https://coverage.health.ny.gov", "agency": "Department of Health", "axeMonitorScore": 76, "siteImproveScore": null, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+    { "domain": "profiles.health.ny.gov", "url": "https://profiles.health.ny.gov", "agency": "Department of Health", "axeMonitorScore": 38, "siteImproveScore": 42, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": true },
+    { "domain": "nyhealth.gov", "url": "https://nyhealth.gov", "agency": "Department of Health", "axeMonitorScore": 91, "siteImproveScore": null, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+
+    { "domain": "dmv.ny.gov", "url": "https://dmv.ny.gov", "agency": "Department of Motor Vehicles", "axeMonitorScore": 88, "siteImproveScore": 85, "auditorScore": 44, "auditorReportUrl": "https://reports.example.ny.gov/dmv-2026-05.pdf", "auditorDeckUrl": null, "blocked": true, "conflict": false },
+    { "domain": "process.dmv.ny.gov", "url": "https://process.dmv.ny.gov", "agency": "Department of Motor Vehicles", "axeMonitorScore": 67, "siteImproveScore": 71, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+    { "domain": "trafficsafety.ny.gov", "url": "https://trafficsafety.ny.gov", "agency": "Department of Motor Vehicles", "axeMonitorScore": 79, "siteImproveScore": null, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+
+    { "domain": "tax.ny.gov", "url": "https://tax.ny.gov", "agency": "Department of Taxation and Finance", "axeMonitorScore": 72, "siteImproveScore": 69, "auditorScore": 63, "auditorReportUrl": "https://reports.example.ny.gov/tax-2026-04.pdf", "auditorDeckUrl": "https://decks.example.ny.gov/tax-priority-fixes.pdf", "blocked": false, "conflict": false },
+    { "domain": "onlineservices.tax.ny.gov", "url": "https://onlineservices.tax.ny.gov", "agency": "Department of Taxation and Finance", "axeMonitorScore": 55, "siteImproveScore": null, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+
+    { "domain": "otda.ny.gov", "url": "https://otda.ny.gov", "agency": "Office of Temporary and Disability Assistance", "axeMonitorScore": 41, "siteImproveScore": 37, "auditorScore": 39, "auditorReportUrl": "https://reports.example.ny.gov/otda-2026-06.pdf", "auditorDeckUrl": "https://decks.example.ny.gov/otda-priority-fixes.pdf", "blocked": false, "conflict": false },
+    { "domain": "mybenefits.ny.gov", "url": "https://mybenefits.ny.gov", "agency": "Office of Temporary and Disability Assistance", "axeMonitorScore": 34, "siteImproveScore": null, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+    { "domain": "otda.ny.gov/programs/snap", "url": "https://otda.ny.gov/programs/snap", "agency": "Office of Temporary and Disability Assistance", "axeMonitorScore": 48, "siteImproveScore": 52, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": true },
+
+    { "domain": "dol.ny.gov", "url": "https://dol.ny.gov", "agency": "Department of Labor", "axeMonitorScore": 63, "siteImproveScore": 60, "auditorScore": 51, "auditorReportUrl": "https://reports.example.ny.gov/dol-2026-03.pdf", "auditorDeckUrl": null, "blocked": false, "conflict": false },
+    { "domain": "unemployment.labor.ny.gov", "url": "https://unemployment.labor.ny.gov", "agency": "Department of Labor", "axeMonitorScore": 57, "siteImproveScore": null, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+    { "domain": "dol.ny.gov/apprenticeship", "url": "https://dol.ny.gov/apprenticeship", "agency": "Department of Labor", "axeMonitorScore": 82, "siteImproveScore": null, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+
+    { "domain": "dec.ny.gov", "url": "https://dec.ny.gov", "agency": "Department of Environmental Conservation", "axeMonitorScore": 86, "siteImproveScore": 83, "auditorScore": 72, "auditorReportUrl": "https://reports.example.ny.gov/dec-2026-02.pdf", "auditorDeckUrl": null, "blocked": false, "conflict": false },
+    { "domain": "dec.ny.gov/permits", "url": "https://dec.ny.gov/permits", "agency": "Department of Environmental Conservation", "axeMonitorScore": 90, "siteImproveScore": null, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+    { "domain": "dec.ny.gov/lands", "url": "https://dec.ny.gov/lands", "agency": "Department of Environmental Conservation", "axeMonitorScore": 88, "siteImproveScore": 87, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+
+    { "domain": "dot.ny.gov", "url": "https://dot.ny.gov", "agency": "Department of Transportation", "axeMonitorScore": 74, "siteImproveScore": 70, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+    { "domain": "511ny.org", "url": "https://511ny.org", "agency": "Department of Transportation", "axeMonitorScore": 62, "siteImproveScore": null, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+
+    { "domain": "ocfs.ny.gov", "url": "https://ocfs.ny.gov", "agency": "Office of Children and Family Services", "axeMonitorScore": 69, "siteImproveScore": 66, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+    { "domain": "ocfs.ny.gov/childcare", "url": "https://ocfs.ny.gov/childcare", "agency": "Office of Children and Family Services", "axeMonitorScore": 45, "siteImproveScore": null, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+
+    { "domain": "omh.ny.gov", "url": "https://omh.ny.gov", "agency": "Office of Mental Health", "axeMonitorScore": 87, "siteImproveScore": 89, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": true, "conflict": false },
+    { "domain": "omh.ny.gov/find-services", "url": "https://omh.ny.gov/find-services", "agency": "Office of Mental Health", "axeMonitorScore": 80, "siteImproveScore": null, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+
+    { "domain": "esd.ny.gov", "url": "https://esd.ny.gov", "agency": "Empire State Development", "axeMonitorScore": 93, "siteImproveScore": 90, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+    { "domain": "esd.ny.gov/grants", "url": "https://esd.ny.gov/grants", "agency": "Empire State Development", "axeMonitorScore": 85, "siteImproveScore": null, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+    { "domain": "taste.ny.gov", "url": "https://taste.ny.gov", "agency": "Empire State Development", "axeMonitorScore": 95, "siteImproveScore": null, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+
+    { "domain": "its.ny.gov", "url": "https://its.ny.gov", "agency": "Office of Information Technology Services", "axeMonitorScore": 89, "siteImproveScore": 91, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+    { "domain": "search.its.ny.gov", "url": "https://search.its.ny.gov", "agency": "Office of Information Technology Services", "axeMonitorScore": 92, "siteImproveScore": null, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+
+    { "domain": "dos.ny.gov", "url": "https://dos.ny.gov", "agency": "Department of State", "axeMonitorScore": 78, "siteImproveScore": 75, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+    { "domain": "dos.ny.gov/licensing", "url": "https://dos.ny.gov/licensing", "agency": "Department of State", "axeMonitorScore": 40, "siteImproveScore": null, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+
+    { "domain": "on.ny.gov", "url": "https://on.ny.gov", "agency": "Unattributed", "axeMonitorScore": null, "siteImproveScore": 91, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": true, "conflict": false },
+    { "domain": "ny.gov", "url": "https://ny.gov", "agency": "Unattributed", "axeMonitorScore": null, "siteImproveScore": 84, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+    { "domain": "iloveny.com", "url": "https://iloveny.com", "agency": "Unattributed", "axeMonitorScore": null, "siteImproveScore": 58, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false },
+    { "domain": "getchecked.ny.gov", "url": "https://getchecked.ny.gov", "agency": "Unattributed", "axeMonitorScore": null, "siteImproveScore": 33, "auditorScore": null, "auditorReportUrl": null, "auditorDeckUrl": null, "blocked": false, "conflict": false }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "_comment": "Hand-maintained manual data layer (PRD §4.2). Keyed by bare domain. Merged into dashboard-data.json at generation time by scripts/generate.mjs. Edit this file directly; do not edit dashboard-data.json. `blocked_note` is internal-only and never surfaced in the UI.",
+
+  "health.ny.gov": {
+    "auditor_score": 58,
+    "auditor_report_url": "https://reports.example.ny.gov/health-2026-06.pdf",
+    "auditor_deck_url": "https://decks.example.ny.gov/health-priority-fixes.pdf",
+    "blocked": false,
+    "blocked_note": null
+  },
+  "dmv.ny.gov": {
+    "auditor_score": 44,
+    "auditor_report_url": "https://reports.example.ny.gov/dmv-2026-05.pdf",
+    "auditor_deck_url": null,
+    "blocked": true,
+    "blocked_note": "Online registration renewal flow: focus trap in the payment modal blocks keyboard users from completing the transaction. Automated scans pass because the modal markup is valid. Confirmed by Axe Auditor 2026-05."
+  },
+  "on.ny.gov": {
+    "auditor_score": null,
+    "auditor_report_url": null,
+    "auditor_deck_url": null,
+    "blocked": true,
+    "blocked_note": "Statewide URL shortener redirect page fails to announce destination to screen readers; scored 91 automated but functionally unusable for AT users."
+  },
+  "tax.ny.gov": {
+    "auditor_score": 63,
+    "auditor_report_url": "https://reports.example.ny.gov/tax-2026-04.pdf",
+    "auditor_deck_url": "https://decks.example.ny.gov/tax-priority-fixes.pdf",
+    "blocked": false,
+    "blocked_note": null
+  },
+  "otda.ny.gov": {
+    "auditor_score": 39,
+    "auditor_report_url": "https://reports.example.ny.gov/otda-2026-06.pdf",
+    "auditor_deck_url": "https://decks.example.ny.gov/otda-priority-fixes.pdf",
+    "blocked": false,
+    "blocked_note": null
+  },
+  "dol.ny.gov": {
+    "auditor_score": 51,
+    "auditor_report_url": "https://reports.example.ny.gov/dol-2026-03.pdf",
+    "auditor_deck_url": null,
+    "blocked": false,
+    "blocked_note": null
+  },
+  "dec.ny.gov": {
+    "auditor_score": 72,
+    "auditor_report_url": "https://reports.example.ny.gov/dec-2026-02.pdf",
+    "auditor_deck_url": null,
+    "blocked": false,
+    "blocked_note": null
+  },
+  "omh.ny.gov": {
+    "auditor_score": null,
+    "auditor_report_url": null,
+    "auditor_deck_url": null,
+    "blocked": true,
+    "blocked_note": "Crisis services locator map is a canvas element with no accessible alternative; high automated score masks a total AT failure on the core task."
+  }
+}

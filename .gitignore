@@ -1,0 +1,12 @@
+node_modules
+dist
+*.local
+
+# Secrets — used only by the generation script, never shipped to the client
+.env
+.env.*
+!.env.example
+
+# Raw API pulls (optional debugging artifacts from the generation script)
+scripts/.cache
+.DS_Store

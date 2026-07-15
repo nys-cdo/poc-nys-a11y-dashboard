@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>NYS Statewide Accessibility Dashboard</title>
+    <meta
+      name="description"
+      content="Internal point-in-time snapshot of automated accessibility scan results across New York State public-facing sites, rolled up by agency."
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <!-- Header, persistent 30%-caveat banner, last-refreshed, methodology link.
+         Rendered by src/components/header.ts -->
+    <header id="app-header" class="app-header"></header>
+
+    <main id="main-content" class="nys-grid-container app-main" tabindex="-1">
+      <!-- Statewide summary hero (PRD §6.2) -->
+      <section id="statewide-summary" aria-labelledby="statewide-summary-heading"></section>
+
+      <!-- Agency rollup league table (PRD §6.3) -->
+      <section id="agency-rollup" aria-labelledby="agency-rollup-heading"></section>
+
+      <!-- Site-level table (PRD §6.4) -->
+      <section id="site-table" aria-labelledby="site-table-heading"></section>
+    </main>
+
+    <footer id="app-footer" class="app-footer"></footer>
+
+    <!-- Methodology dialog content lives here, opened from the header -->
+    <div id="methodology-root"></div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

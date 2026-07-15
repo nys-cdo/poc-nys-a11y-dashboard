@@ -1,0 +1,53 @@
+// NYSDS design tokens, reset, typography, and utility classes.
+import '@nysds/styles/full';
+// NYSDS web components (registers nys-alert, nys-table, nys-badge, nys-select, …).
+import '@nysds/components';
+// NYS official fonts (Proxima Nova, D Sari).
+import '../assets/fonts/nysds-fonts.css';
+// App styles (tokens-only, no ad-hoc values).
+import './app.css';
+
+import { loadDashboardData } from './data';
+import { renderHeader } from './components/header';
+import { renderSummary } from './components/summary';
+import { renderAgencyRollup } from './components/agencyRollup';
+import { renderSiteTable } from './components/siteTable';
+
+async function boot(): Promise<void> {
+  const header = document.getElementById('app-header')!;
+  const summary = document.getElementById('statewide-summary')!;
+  const rollup = document.getElementById('agency-rollup')!;
+  const table = document.getElementById('site-table')!;
+  const footer = document.getElementById('app-footer')!;
+
+  try {
+    const data = await loadDashboardData();
+
+    renderHeader(header, data);
+    renderSummary(summary, data);
+    renderAgencyRollup(rollup, data);
+    renderSiteTable(table, data);
+
+    footer.innerHTML = `
+      <div class="nys-grid-container">
+        <p>
+          Internal working tool · Phase 1 snapshot · Sources:
+          ${data.meta.sources.map((s) => `<strong>${s}</strong>`).join(', ')}.
+          Automated testing detects ~${data.meta.automatedCoveragePct}% of accessibility issues.
+        </p>
+      </div>
+    `;
+  } catch (err) {
+    header.innerHTML = `
+      <div class="app-header__bar">
+        <h1 class="app-header__title">Statewide Accessibility Dashboard</h1>
+      </div>`;
+    summary.innerHTML = `
+      <nys-alert type="danger" heading="Could not load dashboard data">
+        ${(err as Error).message}
+      </nys-alert>`;
+    console.error(err);
+  }
+}
+
+boot();

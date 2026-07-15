@@ -1,0 +1,91 @@
+/* ==== Load core NYS web fonts (optimized for applications) */
+
+/* Proxima Nova: Regular */
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('./proximanova-regular.woff2') format('woff2'),
+        url('./proximanova-regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Proxima Nova: Bold */
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('./proximanova-bold.woff2') format('woff2'),
+        url('./proximanova-bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Proxima Nova: Light */
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('./proximanova-light.woff2') format('woff2'),
+        url('./proximanova-light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Proxima Nova: Semi Bold */
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('./proximanova-semibold.woff2') format('woff2'),
+        url('./proximanova-semibold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Proxima Nova: Italic */
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('./proximanova-italic.woff2') format('woff2'),
+        url('./proximanova-italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Proxima Nova: Bold Italic */
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('./proximanova-bolditalic.woff2') format('woff2'),
+        url('./proximanova-bolditalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Proxima Nova: Extra Bold */
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('./proximanova-extrabold.woff2') format('woff2'),
+        url('./proximanova-extrabold.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Proxima Nova: Light Italic */
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('./proximanova-lightitalic.woff2') format('woff2'),
+        url('./proximanova-lightitalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* D Sari: Bold */
+@font-face {
+    font-family: 'D Sari';
+    src: url('./dsari-bold.woff2') format('woff2'),
+        url('./dsari-bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
