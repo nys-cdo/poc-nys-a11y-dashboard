@@ -1,6 +1,6 @@
 import type { DashboardData, Site, Status } from '../types';
 import { siteStatus } from '../status';
-import { statusIntent, statusShort, formatScore, esc } from '../format';
+import { statusIntent, statusShort, formatScore, esc, safeHref } from '../format';
 
 /**
  * Site-level table (PRD §6.4): every site with domain, agency, the three
@@ -185,7 +185,7 @@ function rowHtml(site: Site, status: Status | 'unknown'): string {
   // Blocked note is intentionally NOT rendered (PRD §4.2 — internal only).
   return `
     <tr>
-      <td><a href="${esc(site.url)}" target="_blank" rel="noopener">${esc(site.domain)}<span class="visually-hidden"> (opens in new tab)</span></a></td>
+      <td><a href="${esc(safeHref(site.url))}" target="_blank" rel="noopener">${esc(site.domain)}<span class="visually-hidden"> (opens in new tab)</span></a></td>
       <td>${esc(site.agency)}</td>
       <td class="num" style="text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums">${formatScore(site.axeMonitorScore)}</td>
       <td class="num" style="text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums">${formatScore(site.siteImproveScore)}</td>

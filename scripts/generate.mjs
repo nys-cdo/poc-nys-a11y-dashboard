@@ -279,7 +279,7 @@ async function fetchAxeMonitor(env) {
     // Fall back to the scan name only if the API gave us no page URL at all.
     const domain = domainFromUrl(domainUrl || pageUrl || scan.name || '');
     if (!domain) return null;
-    return { domain, url: pageUrl || domainUrl || `https://${domain}`, agency, score };
+    return { domain, url: httpUrl(pageUrl || domainUrl, domain), agency, score };
   });
 
   if (multiGroup > 0) {
@@ -368,7 +368,7 @@ async function fetchSiteImprove(env) {
     } catch (err) {
       console.warn(`[SiteImprove] site ${site.id} (${domain}): no DCI score — ${err.message}`);
     }
-    return { domain, url: site.url || `https://${domain}`, score };
+    return { domain, url: httpUrl(site.url, domain), score };
   });
 
   return records.filter(Boolean);
@@ -491,6 +491,18 @@ async function axePaginate(url, headers, pick) {
     if (page > 1000) break; // safety valve
   }
   return out;
+}
+
+/**
+ * Ensure a linkable absolute URL. axe Monitor's `domainUrl` often comes back as
+ * a bare host ("my.ny.gov") with no scheme, which renders as a broken relative
+ * link. Prepend https:// when there's no scheme; fall back to the domain.
+ */
+function httpUrl(raw, domain) {
+  const s = String(raw ?? '').trim();
+  if (/^https?:\/\//i.test(s)) return s;
+  if (s) return `https://${s.replace(/^\/+/, '')}`;
+  return domain ? `https://${domain}` : '';
 }
 
 /** Best-effort bare-domain extraction from a URL string. */

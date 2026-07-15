@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-07-15T00:54:24.979Z",
+    "generatedAt": "2026-07-15T03:16:59.741Z",
     "automatedCoveragePct": 30,
     "rubric": {
       "red": [
@@ -25,7 +25,7 @@
   "sites": [
     {
       "domain": "my.ny.gov",
-      "url": "my.ny.gov",
+      "url": "https://my.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 26,
       "siteImproveScore": null,
@@ -37,7 +37,7 @@
     },
     {
       "domain": "publicapps.troopers.ny.gov",
-      "url": "publicapps.troopers.ny.gov",
+      "url": "https://publicapps.troopers.ny.gov",
       "agency": "Division of State Police",
       "axeMonitorScore": 51,
       "siteImproveScore": null,
@@ -49,7 +49,7 @@
     },
     {
       "domain": "cris.parks.ny.gov",
-      "url": "cris.parks.ny.gov",
+      "url": "https://cris.parks.ny.gov",
       "agency": "Parks",
       "axeMonitorScore": 10,
       "siteImproveScore": null,
@@ -61,7 +61,7 @@
     },
     {
       "domain": "water.ny.gov",
-      "url": "water.ny.gov",
+      "url": "https://water.ny.gov",
       "agency": "DEC",
       "axeMonitorScore": 20,
       "siteImproveScore": null,
@@ -73,7 +73,7 @@
     },
     {
       "domain": "cpp.dos.ny.gov",
-      "url": "cpp.dos.ny.gov",
+      "url": "https://cpp.dos.ny.gov",
       "agency": "DOS",
       "axeMonitorScore": 60,
       "siteImproveScore": null,
@@ -85,7 +85,7 @@
     },
     {
       "domain": "lobbyingtraining.ethics.ny.gov",
-      "url": "lobbyingtraining.ethics.ny.gov",
+      "url": "https://lobbyingtraining.ethics.ny.gov",
       "agency": "Ethics",
       "axeMonitorScore": 90,
       "siteImproveScore": 87,
@@ -97,7 +97,7 @@
     },
     {
       "domain": "apa.ny.gov",
-      "url": "apa.ny.gov",
+      "url": "https://apa.ny.gov",
       "agency": "APA",
       "axeMonitorScore": 43,
       "siteImproveScore": 73,
@@ -109,7 +109,7 @@
     },
     {
       "domain": "abo.ny.gov",
-      "url": "abo.ny.gov",
+      "url": "https://abo.ny.gov",
       "agency": "ABO",
       "axeMonitorScore": 52,
       "siteImproveScore": 93,
@@ -121,7 +121,7 @@
     },
     {
       "domain": "bpca.ny.gov",
-      "url": "bpca.ny.gov",
+      "url": "https://bpca.ny.gov",
       "agency": "BPCA",
       "axeMonitorScore": 38,
       "siteImproveScore": null,
@@ -133,7 +133,7 @@
     },
     {
       "domain": "nysba.ny.gov",
-      "url": "nysba.ny.gov",
+      "url": "https://nysba.ny.gov",
       "agency": "NYSBA",
       "axeMonitorScore": 39,
       "siteImproveScore": null,
@@ -145,7 +145,7 @@
     },
     {
       "domain": "electionenforcement.ny.gov",
-      "url": "electionenforcement.ny.gov",
+      "url": "https://electionenforcement.ny.gov",
       "agency": "NYSBE",
       "axeMonitorScore": 51,
       "siteImproveScore": 93,
@@ -157,7 +157,7 @@
     },
     {
       "domain": "bfsa.ny.gov",
-      "url": "bfsa.ny.gov",
+      "url": "https://bfsa.ny.gov",
       "agency": "BFSA",
       "axeMonitorScore": 46,
       "siteImproveScore": 90,
@@ -169,7 +169,7 @@
     },
     {
       "domain": "ethics.ny.gov",
-      "url": "ethics.ny.gov",
+      "url": "https://ethics.ny.gov",
       "agency": "Ethics",
       "axeMonitorScore": 53,
       "siteImproveScore": 90,
@@ -181,7 +181,7 @@
     },
     {
       "domain": "cjn.ny.gov",
-      "url": "cjn.ny.gov",
+      "url": "https://cjn.ny.gov",
       "agency": "CJN",
       "axeMonitorScore": 55,
       "siteImproveScore": 92,
@@ -193,7 +193,7 @@
     },
     {
       "domain": "ccf.ny.gov",
-      "url": "ccf.ny.gov",
+      "url": "https://ccf.ny.gov",
       "agency": "CC&F",
       "axeMonitorScore": 33,
       "siteImproveScore": null,
@@ -205,7 +205,7 @@
     },
     {
       "domain": "arts.ny.gov",
-      "url": "arts.ny.gov",
+      "url": "https://arts.ny.gov",
       "agency": "ARTS",
       "axeMonitorScore": 39,
       "siteImproveScore": 88,
@@ -217,7 +217,7 @@
     },
     {
       "domain": "deferredcompboard.ny.gov",
-      "url": "deferredcompboard.ny.gov",
+      "url": "https://deferredcompboard.ny.gov",
       "agency": "DCB",
       "axeMonitorScore": 48,
       "siteImproveScore": 93,
@@ -229,7 +229,7 @@
     },
     {
       "domain": "agriculture.ny.gov",
-      "url": "agriculture.ny.gov",
+      "url": "https://agriculture.ny.gov",
       "agency": "Ag&Markets",
       "axeMonitorScore": 53,
       "siteImproveScore": 90,
@@ -241,7 +241,7 @@
     },
     {
       "domain": "farmdirectory.agriculture.ny.gov",
-      "url": "farmdirectory.agriculture.ny.gov",
+      "url": "https://farmdirectory.agriculture.ny.gov",
       "agency": "👐 Non-auth Domains",
       "axeMonitorScore": 7,
       "siteImproveScore": null,
@@ -253,7 +253,7 @@
     },
     {
       "domain": "nourish.ny.gov",
-      "url": "nourish.ny.gov",
+      "url": "https://nourish.ny.gov",
       "agency": "Ag&Markets",
       "axeMonitorScore": 80,
       "siteImproveScore": null,
@@ -265,7 +265,7 @@
     },
     {
       "domain": "nysfair.ny.gov",
-      "url": "nysfair.ny.gov",
+      "url": "https://nysfair.ny.gov",
       "agency": "Ag&Markets",
       "axeMonitorScore": null,
       "siteImproveScore": 80,
@@ -277,7 +277,7 @@
     },
     {
       "domain": "nysfairgrounds.ny.gov",
-      "url": "nysfairgrounds.ny.gov",
+      "url": "https://nysfairgrounds.ny.gov",
       "agency": "Ag&Markets",
       "axeMonitorScore": 40,
       "siteImproveScore": 87,
@@ -289,7 +289,7 @@
     },
     {
       "domain": "certified.ny.gov",
-      "url": "certified.ny.gov",
+      "url": "https://certified.ny.gov",
       "agency": "Ag&Markets",
       "axeMonitorScore": 59,
       "siteImproveScore": 93,
@@ -301,7 +301,7 @@
     },
     {
       "domain": "careermobilityoffice.cs.ny.gov",
-      "url": "careermobilityoffice.cs.ny.gov",
+      "url": "https://careermobilityoffice.cs.ny.gov",
       "agency": "CS",
       "axeMonitorScore": 70,
       "siteImproveScore": null,
@@ -313,7 +313,7 @@
     },
     {
       "domain": "cs.ny.gov",
-      "url": "cs.ny.gov",
+      "url": "https://cs.ny.gov",
       "agency": "CS",
       "axeMonitorScore": 12,
       "siteImproveScore": 74,
@@ -325,7 +325,7 @@
     },
     {
       "domain": "doccs.ny.gov",
-      "url": "doccs.ny.gov",
+      "url": "https://doccs.ny.gov",
       "agency": "DOCS",
       "axeMonitorScore": 59,
       "siteImproveScore": 90,
@@ -337,7 +337,7 @@
     },
     {
       "domain": "statejobs.ny.gov",
-      "url": "statejobs.ny.gov",
+      "url": "https://statejobs.ny.gov",
       "agency": "CS",
       "axeMonitorScore": 57,
       "siteImproveScore": null,
@@ -349,7 +349,7 @@
     },
     {
       "domain": "info.nystateofhealth.ny.gov",
-      "url": "info.nystateofhealth.ny.gov",
+      "url": "https://info.nystateofhealth.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -361,7 +361,7 @@
     },
     {
       "domain": "nysdoccslookup.doccs.ny.gov",
-      "url": "nysdoccslookup.doccs.ny.gov",
+      "url": "https://nysdoccslookup.doccs.ny.gov",
       "agency": "DOCS",
       "axeMonitorScore": 100,
       "siteImproveScore": null,
@@ -373,7 +373,7 @@
     },
     {
       "domain": "corcraft.ny.gov",
-      "url": "corcraft.ny.gov",
+      "url": "https://corcraft.ny.gov",
       "agency": "DOCS",
       "axeMonitorScore": 43,
       "siteImproveScore": 92,
@@ -385,7 +385,7 @@
     },
     {
       "domain": "climate.ny.gov",
-      "url": "climate.ny.gov",
+      "url": "https://climate.ny.gov",
       "agency": "DEC",
       "axeMonitorScore": 55,
       "siteImproveScore": null,
@@ -397,7 +397,7 @@
     },
     {
       "domain": "dec.ny.gov",
-      "url": "dec.ny.gov",
+      "url": "https://dec.ny.gov",
       "agency": "DEC",
       "axeMonitorScore": 54,
       "siteImproveScore": 92,
@@ -409,7 +409,7 @@
     },
     {
       "domain": "lgpc.ny.gov",
-      "url": "lgpc.ny.gov",
+      "url": "https://lgpc.ny.gov",
       "agency": "DEC",
       "axeMonitorScore": 51,
       "siteImproveScore": 92,
@@ -421,7 +421,7 @@
     },
     {
       "domain": "woodproducts.ny.gov",
-      "url": "woodproducts.ny.gov",
+      "url": "https://woodproducts.ny.gov",
       "agency": "DEC",
       "axeMonitorScore": 55,
       "siteImproveScore": 92,
@@ -433,7 +433,7 @@
     },
     {
       "domain": "dfs.ny.gov",
-      "url": "dfs.ny.gov",
+      "url": "https://dfs.ny.gov",
       "agency": "👐 Non-auth Domains",
       "axeMonitorScore": 51,
       "siteImproveScore": 91,
@@ -445,7 +445,7 @@
     },
     {
       "domain": "collegecovidreportcard.health.ny.gov",
-      "url": "collegecovidreportcard.health.ny.gov",
+      "url": "https://collegecovidreportcard.health.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -457,7 +457,7 @@
     },
     {
       "domain": "coronavirus.health.ny.gov",
-      "url": "coronavirus.health.ny.gov",
+      "url": "https://coronavirus.health.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 31,
       "siteImproveScore": 89,
@@ -469,7 +469,7 @@
     },
     {
       "domain": "dsripdashboards.health.ny.gov",
-      "url": "dsripdashboards.health.ny.gov",
+      "url": "https://dsripdashboards.health.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -481,7 +481,7 @@
     },
     {
       "domain": "health.ny.gov",
-      "url": "health.ny.gov",
+      "url": "https://health.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 4,
       "siteImproveScore": null,
@@ -493,7 +493,7 @@
     },
     {
       "domain": "nyshc.health.ny.gov",
-      "url": "nyshc.health.ny.gov",
+      "url": "https://nyshc.health.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -505,7 +505,7 @@
     },
     {
       "domain": "nyspltc.health.ny.gov",
-      "url": "nyspltc.health.ny.gov",
+      "url": "https://nyspltc.health.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 60,
       "siteImproveScore": null,
@@ -517,7 +517,7 @@
     },
     {
       "domain": "obsaer.health.ny.gov",
-      "url": "obsaer.health.ny.gov",
+      "url": "https://obsaer.health.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -529,7 +529,7 @@
     },
     {
       "domain": "planaheadny.health.ny.gov",
-      "url": "planaheadny.health.ny.gov",
+      "url": "https://planaheadny.health.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -541,7 +541,7 @@
     },
     {
       "domain": "pndslookup.health.ny.gov",
-      "url": "pndslookup.health.ny.gov",
+      "url": "https://pndslookup.health.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 36,
       "siteImproveScore": null,
@@ -553,7 +553,7 @@
     },
     {
       "domain": "profiles.health.ny.gov",
-      "url": "profiles.health.ny.gov",
+      "url": "https://profiles.health.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 24,
       "siteImproveScore": null,
@@ -565,7 +565,7 @@
     },
     {
       "domain": "regs.health.ny.gov",
-      "url": "regs.health.ny.gov",
+      "url": "https://regs.health.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -577,7 +577,7 @@
     },
     {
       "domain": "talktoyourpatients.health.ny.gov",
-      "url": "talktoyourpatients.health.ny.gov",
+      "url": "https://talktoyourpatients.health.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 46,
       "siteImproveScore": null,
@@ -589,7 +589,7 @@
     },
     {
       "domain": "wic2go.health.ny.gov",
-      "url": "wic2go.health.ny.gov",
+      "url": "https://wic2go.health.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -601,7 +601,7 @@
     },
     {
       "domain": "abscessus.wadsworth.org",
-      "url": "abscessus.wadsworth.org",
+      "url": "https://abscessus.wadsworth.org",
       "agency": "DOH",
       "axeMonitorScore": 80,
       "siteImproveScore": null,
@@ -613,7 +613,7 @@
     },
     {
       "domain": "bac.prod.nyeihub.com",
-      "url": "bac.prod.nyeihub.com",
+      "url": "https://bac.prod.nyeihub.com",
       "agency": "DOH",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -625,7 +625,7 @@
     },
     {
       "domain": "donatelife.ny.gov",
-      "url": "donatelife.ny.gov",
+      "url": "https://donatelife.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 25,
       "siteImproveScore": null,
@@ -637,7 +637,7 @@
     },
     {
       "domain": "healthdata.ny.gov",
-      "url": "healthdata.ny.gov",
+      "url": "https://healthdata.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 78,
       "siteImproveScore": null,
@@ -649,7 +649,7 @@
     },
     {
       "domain": "helenhayeshospital.org",
-      "url": "helenhayeshospital.org",
+      "url": "https://helenhayeshospital.org",
       "agency": "DOH",
       "axeMonitorScore": 39,
       "siteImproveScore": null,
@@ -661,7 +661,7 @@
     },
     {
       "domain": "lgbthealthprogram.org",
-      "url": "lgbthealthprogram.org",
+      "url": "https://lgbthealthprogram.org",
       "agency": "DOH",
       "axeMonitorScore": 59,
       "siteImproveScore": null,
@@ -673,7 +673,7 @@
     },
     {
       "domain": "salmonella.wadsworth.org",
-      "url": "salmonella.wadsworth.org",
+      "url": "https://salmonella.wadsworth.org",
       "agency": "DOH",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -685,7 +685,7 @@
     },
     {
       "domain": "smegmatis.wadsworth.org",
-      "url": "smegmatis.wadsworth.org",
+      "url": "https://smegmatis.wadsworth.org",
       "agency": "DOH",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -697,7 +697,7 @@
     },
     {
       "domain": "wadsworth.org",
-      "url": "wadsworth.org",
+      "url": "https://wadsworth.org",
       "agency": "DOH",
       "axeMonitorScore": 44,
       "siteImproveScore": null,
@@ -709,7 +709,7 @@
     },
     {
       "domain": "dol.ny.gov",
-      "url": "dol.ny.gov",
+      "url": "https://dol.ny.gov",
       "agency": "DOL",
       "axeMonitorScore": 70,
       "siteImproveScore": 90,
@@ -721,7 +721,7 @@
     },
     {
       "domain": "careerzone.labor.ny.gov",
-      "url": "careerzone.labor.ny.gov",
+      "url": "https://careerzone.labor.ny.gov",
       "agency": "DOL",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -733,7 +733,7 @@
     },
     {
       "domain": "osos.labor.ny.gov",
-      "url": "osos.labor.ny.gov",
+      "url": "https://osos.labor.ny.gov",
       "agency": "DOL",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -745,7 +745,7 @@
     },
     {
       "domain": "industrialappeals.ny.gov",
-      "url": "industrialappeals.ny.gov",
+      "url": "https://industrialappeals.ny.gov",
       "agency": "DOL",
       "axeMonitorScore": 64,
       "siteImproveScore": 93,
@@ -757,7 +757,7 @@
     },
     {
       "domain": "uiappeals.ny.gov",
-      "url": "uiappeals.ny.gov",
+      "url": "https://uiappeals.ny.gov",
       "agency": "DOL",
       "axeMonitorScore": 61,
       "siteImproveScore": 90,
@@ -769,7 +769,7 @@
     },
     {
       "domain": "dmv.ny.gov",
-      "url": "dmv.ny.gov",
+      "url": "https://dmv.ny.gov",
       "agency": "DMV",
       "axeMonitorScore": 76,
       "siteImproveScore": 93,
@@ -781,7 +781,7 @@
     },
     {
       "domain": "dos.ny.gov",
-      "url": "dos.ny.gov",
+      "url": "https://dos.ny.gov",
       "agency": "DOS",
       "axeMonitorScore": 66,
       "siteImproveScore": 87,
@@ -793,7 +793,7 @@
     },
     {
       "domain": "filing.dos.ny.gov",
-      "url": "filing.dos.ny.gov",
+      "url": "https://filing.dos.ny.gov",
       "agency": "DOS",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -805,7 +805,7 @@
     },
     {
       "domain": "ejustice.ny.gov",
-      "url": "ejustice.ny.gov",
+      "url": "https://ejustice.ny.gov",
       "agency": "DOS",
       "axeMonitorScore": 80,
       "siteImproveScore": null,
@@ -817,7 +817,7 @@
     },
     {
       "domain": "businessexpress.ny.gov",
-      "url": "businessexpress.ny.gov",
+      "url": "https://businessexpress.ny.gov",
       "agency": "DOS",
       "axeMonitorScore": 58,
       "siteImproveScore": null,
@@ -829,7 +829,7 @@
     },
     {
       "domain": "eamjrp.dot.ny.gov",
-      "url": "eamjrp.dot.ny.gov",
+      "url": "https://eamjrp.dot.ny.gov",
       "agency": "DOT",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -841,7 +841,7 @@
     },
     {
       "domain": "pic.dot.ny.gov",
-      "url": "pic.dot.ny.gov",
+      "url": "https://pic.dot.ny.gov",
       "agency": "DOT",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -853,7 +853,7 @@
     },
     {
       "domain": "projectdocs.dot.ny.gov",
-      "url": "projectdocs.dot.ny.gov",
+      "url": "https://projectdocs.dot.ny.gov",
       "agency": "DOT",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -865,7 +865,7 @@
     },
     {
       "domain": "route17.dot.ny.gov",
-      "url": "route17.dot.ny.gov",
+      "url": "https://route17.dot.ny.gov",
       "agency": "DOT",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -877,7 +877,7 @@
     },
     {
       "domain": "webapps.dot.ny.gov",
-      "url": "webapps.dot.ny.gov",
+      "url": "https://webapps.dot.ny.gov",
       "agency": "DOT",
       "axeMonitorScore": 57,
       "siteImproveScore": 88,
@@ -889,7 +889,7 @@
     },
     {
       "domain": "dot.ny.gov",
-      "url": "dot.ny.gov",
+      "url": "https://dot.ny.gov",
       "agency": "DOT",
       "axeMonitorScore": 3,
       "siteImproveScore": null,
@@ -901,7 +901,7 @@
     },
     {
       "domain": "nymtc.org",
-      "url": "nymtc.org",
+      "url": "https://nymtc.org",
       "agency": "DOT",
       "axeMonitorScore": 14,
       "siteImproveScore": null,
@@ -913,7 +913,7 @@
     },
     {
       "domain": "projecttracker.ecointeractive.com",
-      "url": "projecttracker.ecointeractive.com",
+      "url": "https://projecttracker.ecointeractive.com",
       "agency": "DOT",
       "axeMonitorScore": null,
       "siteImproveScore": null,
@@ -925,7 +925,7 @@
     },
     {
       "domain": "riekersolutions.com",
-      "url": "riekersolutions.com",
+      "url": "https://riekersolutions.com",
       "agency": "DOT",
       "axeMonitorScore": 17,
       "siteImproveScore": null,
@@ -937,7 +937,7 @@
     },
     {
       "domain": "tig.nymtc.org",
-      "url": "tig.nymtc.org",
+      "url": "https://tig.nymtc.org",
       "agency": "DOT",
       "axeMonitorScore": 13,
       "siteImproveScore": null,
@@ -949,7 +949,7 @@
     },
     {
       "domain": "apps.criminaljustice.ny.gov",
-      "url": "apps.criminaljustice.ny.gov",
+      "url": "https://apps.criminaljustice.ny.gov",
       "agency": "DCJS",
       "axeMonitorScore": 38,
       "siteImproveScore": null,
@@ -961,7 +961,7 @@
     },
     {
       "domain": "nics.ny.gov",
-      "url": "nics.ny.gov",
+      "url": "https://nics.ny.gov",
       "agency": "DCJS",
       "axeMonitorScore": 68,
       "siteImproveScore": 95,
@@ -973,7 +973,7 @@
     },
     {
       "domain": "nysnics.ny.gov",
-      "url": "nysnics.ny.gov",
+      "url": "https://nysnics.ny.gov",
       "agency": "DCJS",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -985,7 +985,7 @@
     },
     {
       "domain": "amber.ny.gov",
-      "url": "amber.ny.gov",
+      "url": "https://amber.ny.gov",
       "agency": "DHSES",
       "axeMonitorScore": 80,
       "siteImproveScore": 93,
@@ -997,7 +997,7 @@
     },
     {
       "domain": "grants.dhses.ny.gov",
-      "url": "grants.dhses.ny.gov",
+      "url": "https://grants.dhses.ny.gov",
       "agency": "DHSES",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -1009,7 +1009,7 @@
     },
     {
       "domain": "oopalert.ny.gov",
-      "url": "oopalert.ny.gov",
+      "url": "https://oopalert.ny.gov",
       "agency": "DHSES",
       "axeMonitorScore": 10,
       "siteImproveScore": null,
@@ -1021,7 +1021,7 @@
     },
     {
       "domain": "resilient.ny.gov",
-      "url": "resilient.ny.gov",
+      "url": "https://resilient.ny.gov",
       "agency": "DHSES",
       "axeMonitorScore": 76,
       "siteImproveScore": 92,
@@ -1033,7 +1033,7 @@
     },
     {
       "domain": "hcr.ny.gov",
-      "url": "hcr.ny.gov",
+      "url": "https://hcr.ny.gov",
       "agency": "DHCR",
       "axeMonitorScore": 58,
       "siteImproveScore": 92,
@@ -1045,7 +1045,7 @@
     },
     {
       "domain": "housingsearch.hcr.ny.gov",
-      "url": "housingsearch.hcr.ny.gov",
+      "url": "https://housingsearch.hcr.ny.gov",
       "agency": "DHCR",
       "axeMonitorScore": 78,
       "siteImproveScore": null,
@@ -1057,7 +1057,7 @@
     },
     {
       "domain": "rent.hcr.ny.gov",
-      "url": "rent.hcr.ny.gov",
+      "url": "https://rent.hcr.ny.gov",
       "agency": "DHCR",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -1069,7 +1069,7 @@
     },
     {
       "domain": "section8.hcr.ny.gov",
-      "url": "section8.hcr.ny.gov",
+      "url": "https://section8.hcr.ny.gov",
       "agency": "DHCR",
       "axeMonitorScore": 72,
       "siteImproveScore": null,
@@ -1081,7 +1081,7 @@
     },
     {
       "domain": "dhr.ny.gov",
-      "url": "dhr.ny.gov",
+      "url": "https://dhr.ny.gov",
       "agency": "DHR",
       "axeMonitorScore": 70,
       "siteImproveScore": 93,
@@ -1093,7 +1093,7 @@
     },
     {
       "domain": "dmna.ny.gov",
-      "url": "dmna.ny.gov",
+      "url": "https://dmna.ny.gov",
       "agency": "DMNA",
       "axeMonitorScore": 41,
       "siteImproveScore": null,
@@ -1105,7 +1105,7 @@
     },
     {
       "domain": "museum.dmna.ny.gov",
-      "url": "museum.dmna.ny.gov",
+      "url": "https://museum.dmna.ny.gov",
       "agency": "DMNA",
       "axeMonitorScore": 25,
       "siteImproveScore": null,
@@ -1117,7 +1117,7 @@
     },
     {
       "domain": "nysmm.inmagic.com",
-      "url": "nysmm.inmagic.com",
+      "url": "https://nysmm.inmagic.com",
       "agency": "DMNA",
       "axeMonitorScore": 14,
       "siteImproveScore": null,
@@ -1129,7 +1129,7 @@
     },
     {
       "domain": "content.troopers.ny.gov",
-      "url": "content.troopers.ny.gov",
+      "url": "https://content.troopers.ny.gov",
       "agency": "DSP",
       "axeMonitorScore": null,
       "siteImproveScore": null,
@@ -1141,7 +1141,7 @@
     },
     {
       "domain": "firearms.troopers.ny.gov",
-      "url": "firearms.troopers.ny.gov",
+      "url": "https://firearms.troopers.ny.gov",
       "agency": "DSP",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -1153,7 +1153,7 @@
     },
     {
       "domain": "troopers.ny.gov",
-      "url": "troopers.ny.gov",
+      "url": "https://troopers.ny.gov",
       "agency": "DSP",
       "axeMonitorScore": 66,
       "siteImproveScore": 91,
@@ -1165,7 +1165,7 @@
     },
     {
       "domain": "joinstatepolice.ny.gov",
-      "url": "joinstatepolice.ny.gov",
+      "url": "https://joinstatepolice.ny.gov",
       "agency": "DSP",
       "axeMonitorScore": 40,
       "siteImproveScore": 93,
@@ -1177,7 +1177,7 @@
     },
     {
       "domain": "dta.ny.gov",
-      "url": "dta.ny.gov",
+      "url": "https://dta.ny.gov",
       "agency": "DTA",
       "axeMonitorScore": 87,
       "siteImproveScore": null,
@@ -1189,7 +1189,7 @@
     },
     {
       "domain": "openbudget.ny.gov",
-      "url": "openbudget.ny.gov",
+      "url": "https://openbudget.ny.gov",
       "agency": "DOB",
       "axeMonitorScore": 70,
       "siteImproveScore": null,
@@ -1201,7 +1201,7 @@
     },
     {
       "domain": "cpc.ny.gov",
-      "url": "cpc.ny.gov",
+      "url": "https://cpc.ny.gov",
       "agency": "DOB",
       "axeMonitorScore": 60,
       "siteImproveScore": 93,
@@ -1213,7 +1213,7 @@
     },
     {
       "domain": "frb.ny.gov",
-      "url": "frb.ny.gov",
+      "url": "https://frb.ny.gov",
       "agency": "DOB",
       "axeMonitorScore": 81,
       "siteImproveScore": null,
@@ -1225,7 +1225,7 @@
     },
     {
       "domain": "nylottery.ny.gov",
-      "url": "nylottery.ny.gov",
+      "url": "https://nylottery.ny.gov",
       "agency": "Lottery",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -1237,7 +1237,7 @@
     },
     {
       "domain": "memorials.veterans.ny.gov",
-      "url": "memorials.veterans.ny.gov",
+      "url": "https://memorials.veterans.ny.gov",
       "agency": "DVS",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -1249,7 +1249,7 @@
     },
     {
       "domain": "veterans.ny.gov",
-      "url": "veterans.ny.gov",
+      "url": "https://veterans.ny.gov",
       "agency": "DVS",
       "axeMonitorScore": 55,
       "siteImproveScore": 93,
@@ -1261,7 +1261,7 @@
     },
     {
       "domain": "nysveteransadmin.ny.gov",
-      "url": "nysveteransadmin.ny.gov",
+      "url": "https://nysveteransadmin.ny.gov",
       "agency": "DVS",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -1273,7 +1273,7 @@
     },
     {
       "domain": "digitalcollections.archives.nysed.gov",
-      "url": "digitalcollections.archives.nysed.gov",
+      "url": "https://digitalcollections.archives.nysed.gov",
       "agency": "NYSED",
       "axeMonitorScore": 1,
       "siteImproveScore": null,
@@ -1285,7 +1285,7 @@
     },
     {
       "domain": "nysed.gov",
-      "url": "nysed.gov",
+      "url": "https://nysed.gov",
       "agency": "NYSED",
       "axeMonitorScore": 45,
       "siteImproveScore": null,
@@ -1297,7 +1297,7 @@
     },
     {
       "domain": "nysm.nysed.gov",
-      "url": "nysm.nysed.gov",
+      "url": "https://nysm.nysed.gov",
       "agency": "NYSED",
       "axeMonitorScore": 37,
       "siteImproveScore": null,
@@ -1309,7 +1309,7 @@
     },
     {
       "domain": "p12.nysed.gov",
-      "url": "p12.nysed.gov",
+      "url": "https://p12.nysed.gov",
       "agency": "NYSED",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -1321,7 +1321,7 @@
     },
     {
       "domain": "stateaid.nysed.gov",
-      "url": "stateaid.nysed.gov",
+      "url": "https://stateaid.nysed.gov",
       "agency": "NYSED",
       "axeMonitorScore": 39,
       "siteImproveScore": null,
@@ -1333,7 +1333,7 @@
     },
     {
       "domain": "esd.ny.gov",
-      "url": "esd.ny.gov",
+      "url": "https://esd.ny.gov",
       "agency": "ESD",
       "axeMonitorScore": 38,
       "siteImproveScore": 84,
@@ -1345,7 +1345,7 @@
     },
     {
       "domain": "filmtaxcredit.apps.esd.ny.gov",
-      "url": "filmtaxcredit.apps.esd.ny.gov",
+      "url": "https://filmtaxcredit.apps.esd.ny.gov",
       "agency": "ESD",
       "axeMonitorScore": 13,
       "siteImproveScore": null,
@@ -1357,7 +1357,7 @@
     },
     {
       "domain": "formrouter.apps.esd.ny.gov",
-      "url": "formrouter.apps.esd.ny.gov",
+      "url": "https://formrouter.apps.esd.ny.gov",
       "agency": "ESD",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -1369,7 +1369,7 @@
     },
     {
       "domain": "nyventuresapply.esd.ny.gov",
-      "url": "nyventuresapply.esd.ny.gov",
+      "url": "https://nyventuresapply.esd.ny.gov",
       "agency": "ESD",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -1381,7 +1381,7 @@
     },
     {
       "domain": "cfaresources.ny.gov",
-      "url": "cfaresources.ny.gov",
+      "url": "https://cfaresources.ny.gov",
       "agency": "ESD",
       "axeMonitorScore": 60,
       "siteImproveScore": 96,
@@ -1393,7 +1393,7 @@
     },
     {
       "domain": "iloveny.com",
-      "url": "iloveny.com",
+      "url": "https://iloveny.com",
       "agency": "ESD",
       "axeMonitorScore": 29,
       "siteImproveScore": null,
@@ -1405,7 +1405,7 @@
     },
     {
       "domain": "plus.efc.ny.gov",
-      "url": "plus.efc.ny.gov",
+      "url": "https://plus.efc.ny.gov",
       "agency": "👐 Non-auth Domains",
       "axeMonitorScore": 16,
       "siteImproveScore": null,
@@ -1417,7 +1417,7 @@
     },
     {
       "domain": "portal.efc.ny.gov",
-      "url": "portal.efc.ny.gov",
+      "url": "https://portal.efc.ny.gov",
       "agency": "👐 Non-auth Domains",
       "axeMonitorScore": 16,
       "siteImproveScore": null,
@@ -1429,7 +1429,7 @@
     },
     {
       "domain": "hcsauth.health.ny.gov",
-      "url": "hcsauth.health.ny.gov",
+      "url": "https://hcsauth.health.ny.gov",
       "agency": "🔐 Auth-CUSTOM",
       "axeMonitorScore": null,
       "siteImproveScore": null,
@@ -1441,7 +1441,7 @@
     },
     {
       "domain": "hesc.ny.gov",
-      "url": "hesc.ny.gov",
+      "url": "https://hesc.ny.gov",
       "agency": "HESC",
       "axeMonitorScore": 76,
       "siteImproveScore": 90,
@@ -1453,7 +1453,7 @@
     },
     {
       "domain": "nysdreamists.hesc.ny.gov",
-      "url": "nysdreamists.hesc.ny.gov",
+      "url": "https://nysdreamists.hesc.ny.gov",
       "agency": "HESC",
       "axeMonitorScore": 27,
       "siteImproveScore": null,
@@ -1465,7 +1465,7 @@
     },
     {
       "domain": "billing.its.ny.gov",
-      "url": "billing.its.ny.gov",
+      "url": "https://billing.its.ny.gov",
       "agency": "ITS",
       "axeMonitorScore": 13,
       "siteImproveScore": null,
@@ -1477,7 +1477,7 @@
     },
     {
       "domain": "data.ny.gov",
-      "url": "data.ny.gov",
+      "url": "https://data.ny.gov",
       "agency": "ITS",
       "axeMonitorScore": 43,
       "siteImproveScore": null,
@@ -1489,7 +1489,7 @@
     },
     {
       "domain": "gis.ny.gov",
-      "url": "gis.ny.gov",
+      "url": "https://gis.ny.gov",
       "agency": "ITS",
       "axeMonitorScore": 50,
       "siteImproveScore": 90,
@@ -1501,7 +1501,7 @@
     },
     {
       "domain": "health.data.ny.gov",
-      "url": "health.data.ny.gov",
+      "url": "https://health.data.ny.gov",
       "agency": "ITS",
       "axeMonitorScore": 46,
       "siteImproveScore": null,
@@ -1513,7 +1513,7 @@
     },
     {
       "domain": "search.ny.gov",
-      "url": "search.ny.gov",
+      "url": "https://search.ny.gov",
       "agency": "ITS",
       "axeMonitorScore": 80,
       "siteImproveScore": null,
@@ -1525,7 +1525,7 @@
     },
     {
       "domain": "trainingspace.ny.gov",
-      "url": "trainingspace.ny.gov",
+      "url": "https://trainingspace.ny.gov",
       "agency": "ITS",
       "axeMonitorScore": 74,
       "siteImproveScore": null,
@@ -1537,7 +1537,7 @@
     },
     {
       "domain": "upload.ny.gov",
-      "url": "upload.ny.gov",
+      "url": "https://upload.ny.gov",
       "agency": "ITS",
       "axeMonitorScore": 80,
       "siteImproveScore": null,
@@ -1549,7 +1549,7 @@
     },
     {
       "domain": "whoswho.gis.ny.gov",
-      "url": "whoswho.gis.ny.gov",
+      "url": "https://whoswho.gis.ny.gov",
       "agency": "ITS",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -1561,7 +1561,7 @@
     },
     {
       "domain": "lab-my.ny.gov",
-      "url": "lab-my.ny.gov",
+      "url": "https://lab-my.ny.gov",
       "agency": "ITS",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -1573,7 +1573,7 @@
     },
     {
       "domain": "fs.svc.ny.gov",
-      "url": "fs.svc.ny.gov",
+      "url": "https://fs.svc.ny.gov",
       "agency": "ITS",
       "axeMonitorScore": null,
       "siteImproveScore": null,
@@ -1585,7 +1585,7 @@
     },
     {
       "domain": "rapps.ny.gov",
-      "url": "rapps.ny.gov",
+      "url": "https://rapps.ny.gov",
       "agency": "ITS",
       "axeMonitorScore": 20,
       "siteImproveScore": null,
@@ -1597,7 +1597,7 @@
     },
     {
       "domain": "legethics.ny.gov",
-      "url": "legethics.ny.gov",
+      "url": "https://legethics.ny.gov",
       "agency": "JCOPE",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -1609,7 +1609,7 @@
     },
     {
       "domain": "nypa.gov",
-      "url": "nypa.gov",
+      "url": "https://nypa.gov",
       "agency": "NYPA",
       "axeMonitorScore": 28,
       "siteImproveScore": null,
@@ -1621,7 +1621,7 @@
     },
     {
       "domain": "services.nypa.gov",
-      "url": "services.nypa.gov",
+      "url": "https://services.nypa.gov",
       "agency": "NYPA",
       "axeMonitorScore": 38,
       "siteImproveScore": null,
@@ -1633,7 +1633,7 @@
     },
     {
       "domain": "capandinvest.ny.gov",
-      "url": "capandinvest.ny.gov",
+      "url": "https://capandinvest.ny.gov",
       "agency": "NYSERDA",
       "axeMonitorScore": 80,
       "siteImproveScore": null,
@@ -1645,7 +1645,7 @@
     },
     {
       "domain": "der.nyserda.ny.gov",
-      "url": "der.nyserda.ny.gov",
+      "url": "https://der.nyserda.ny.gov",
       "agency": "NYSERDA",
       "axeMonitorScore": 17,
       "siteImproveScore": null,
@@ -1657,7 +1657,7 @@
     },
     {
       "domain": "forms.nyserda.ny.gov",
-      "url": "forms.nyserda.ny.gov",
+      "url": "https://forms.nyserda.ny.gov",
       "agency": "NYSERDA",
       "axeMonitorScore": 30,
       "siteImproveScore": null,
@@ -1669,7 +1669,7 @@
     },
     {
       "domain": "nyserda.ny.gov",
-      "url": "nyserda.ny.gov",
+      "url": "https://nyserda.ny.gov",
       "agency": "NYSERDA",
       "axeMonitorScore": 62,
       "siteImproveScore": null,
@@ -1681,7 +1681,7 @@
     },
     {
       "domain": "portal.nyserda.ny.gov",
-      "url": "portal.nyserda.ny.gov",
+      "url": "https://portal.nyserda.ny.gov",
       "agency": "NYSERDA",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -1693,7 +1693,7 @@
     },
     {
       "domain": "nygats.ny.gov",
-      "url": "nygats.ny.gov",
+      "url": "https://nygats.ny.gov",
       "agency": "NYSERDA",
       "axeMonitorScore": 21,
       "siteImproveScore": null,
@@ -1705,7 +1705,7 @@
     },
     {
       "domain": "fcb.ny.gov",
-      "url": "fcb.ny.gov",
+      "url": "https://fcb.ny.gov",
       "agency": "👐 Non-auth Domains",
       "axeMonitorScore": 34,
       "siteImproveScore": 93,
@@ -1717,7 +1717,7 @@
     },
     {
       "domain": "cgo.gaming.ny.gov",
-      "url": "cgo.gaming.ny.gov",
+      "url": "https://cgo.gaming.ny.gov",
       "agency": "Gaming",
       "axeMonitorScore": 30,
       "siteImproveScore": null,
@@ -1729,7 +1729,7 @@
     },
     {
       "domain": "exclusion.gaming.ny.gov",
-      "url": "exclusion.gaming.ny.gov",
+      "url": "https://exclusion.gaming.ny.gov",
       "agency": "Gaming",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -1741,7 +1741,7 @@
     },
     {
       "domain": "waterfront.ny.gov",
-      "url": "waterfront.ny.gov",
+      "url": "https://waterfront.ny.gov",
       "agency": "NYWC",
       "axeMonitorScore": 71,
       "siteImproveScore": 90,
@@ -1753,7 +1753,7 @@
     },
     {
       "domain": "thruway.ny.gov",
-      "url": "thruway.ny.gov",
+      "url": "https://thruway.ny.gov",
       "agency": "Thruway",
       "axeMonitorScore": 1,
       "siteImproveScore": 85,
@@ -1765,7 +1765,7 @@
     },
     {
       "domain": "mariomcuomobridge.ny.gov",
-      "url": "mariomcuomobridge.ny.gov",
+      "url": "https://mariomcuomobridge.ny.gov",
       "agency": "Thruway",
       "axeMonitorScore": 56,
       "siteImproveScore": 91,
@@ -1777,7 +1777,7 @@
     },
     {
       "domain": "cdd.ny.gov",
-      "url": "cdd.ny.gov",
+      "url": "https://cdd.ny.gov",
       "agency": "OPWDD",
       "axeMonitorScore": 60,
       "siteImproveScore": 93,
@@ -1789,7 +1789,7 @@
     },
     {
       "domain": "directsupportcareers.com",
-      "url": "directsupportcareers.com",
+      "url": "https://directsupportcareers.com",
       "agency": "OPWDD",
       "axeMonitorScore": 67,
       "siteImproveScore": 93,
@@ -1801,7 +1801,7 @@
     },
     {
       "domain": "opdv.ny.gov",
-      "url": "opdv.ny.gov",
+      "url": "https://opdv.ny.gov",
       "agency": "OPDV",
       "axeMonitorScore": 69,
       "siteImproveScore": 96,
@@ -1813,7 +1813,7 @@
     },
     {
       "domain": "apps.oasas.ny.gov",
-      "url": "apps.oasas.ny.gov",
+      "url": "https://apps.oasas.ny.gov",
       "agency": "OASAS",
       "axeMonitorScore": 7,
       "siteImproveScore": null,
@@ -1825,7 +1825,7 @@
     },
     {
       "domain": "credentialing.oasas.ny.gov",
-      "url": "credentialing.oasas.ny.gov",
+      "url": "https://credentialing.oasas.ny.gov",
       "agency": "OASAS",
       "axeMonitorScore": 33,
       "siteImproveScore": null,
@@ -1837,7 +1837,7 @@
     },
     {
       "domain": "oasas.ny.gov",
-      "url": "oasas.ny.gov",
+      "url": "https://oasas.ny.gov",
       "agency": "OASAS",
       "axeMonitorScore": 51,
       "siteImproveScore": 90,
@@ -1849,7 +1849,7 @@
     },
     {
       "domain": "cannabis.ny.gov",
-      "url": "cannabis.ny.gov",
+      "url": "https://cannabis.ny.gov",
       "agency": "OCFS",
       "axeMonitorScore": 65,
       "siteImproveScore": 94,
@@ -1861,7 +1861,7 @@
     },
     {
       "domain": "countyplans.ocfs.ny.gov",
-      "url": "countyplans.ocfs.ny.gov",
+      "url": "https://countyplans.ocfs.ny.gov",
       "agency": "OCFS",
       "axeMonitorScore": 80,
       "siteImproveScore": null,
@@ -1873,7 +1873,7 @@
     },
     {
       "domain": "ocfs.ny.gov",
-      "url": "ocfs.ny.gov",
+      "url": "https://ocfs.ny.gov",
       "agency": "OCFS",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -1885,7 +1885,7 @@
     },
     {
       "domain": "dfa.ny.gov",
-      "url": "dfa.ny.gov",
+      "url": "https://dfa.ny.gov",
       "agency": "OCFS",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -1897,7 +1897,7 @@
     },
     {
       "domain": "helphubforfamilies.ny.gov",
-      "url": "helphubforfamilies.ny.gov",
+      "url": "https://helphubforfamilies.ny.gov",
       "agency": "OCFS",
       "axeMonitorScore": 38,
       "siteImproveScore": 91,
@@ -1909,7 +1909,7 @@
     },
     {
       "domain": "eapstats.oer.ny.gov",
-      "url": "eapstats.oer.ny.gov",
+      "url": "https://eapstats.oer.ny.gov",
       "agency": "OER",
       "axeMonitorScore": null,
       "siteImproveScore": null,
@@ -1921,7 +1921,7 @@
     },
     {
       "domain": "educationbenefits.oer.ny.gov",
-      "url": "educationbenefits.oer.ny.gov",
+      "url": "https://educationbenefits.oer.ny.gov",
       "agency": "OER",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -1933,7 +1933,7 @@
     },
     {
       "domain": "cybertraining.ny.gov",
-      "url": "cybertraining.ny.gov",
+      "url": "https://cybertraining.ny.gov",
       "agency": "OER",
       "axeMonitorScore": 100,
       "siteImproveScore": null,
@@ -1945,7 +1945,7 @@
     },
     {
       "domain": "nyscseapartnership.org",
-      "url": "nyscseapartnership.org",
+      "url": "https://nyscseapartnership.org",
       "agency": "OER",
       "axeMonitorScore": 0,
       "siteImproveScore": 84,
@@ -1957,7 +1957,7 @@
     },
     {
       "domain": "apps.ogs.ny.gov",
-      "url": "apps.ogs.ny.gov",
+      "url": "https://apps.ogs.ny.gov",
       "agency": "OGS",
       "axeMonitorScore": null,
       "siteImproveScore": null,
@@ -1969,7 +1969,7 @@
     },
     {
       "domain": "ogs.ny.gov",
-      "url": "ogs.ny.gov",
+      "url": "https://ogs.ny.gov",
       "agency": "OGS",
       "axeMonitorScore": 53,
       "siteImproveScore": 91,
@@ -1981,7 +1981,7 @@
     },
     {
       "domain": "salesreports.ogs.ny.gov",
-      "url": "salesreports.ogs.ny.gov",
+      "url": "https://salesreports.ogs.ny.gov",
       "agency": "OGS",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -1993,7 +1993,7 @@
     },
     {
       "domain": "sdves.ogs.ny.gov",
-      "url": "sdves.ogs.ny.gov",
+      "url": "https://sdves.ogs.ny.gov",
       "agency": "OGS",
       "axeMonitorScore": 60,
       "siteImproveScore": null,
@@ -2005,7 +2005,7 @@
     },
     {
       "domain": "ars.omh.ny.gov",
-      "url": "ars.omh.ny.gov",
+      "url": "https://ars.omh.ny.gov",
       "agency": "OMH",
       "axeMonitorScore": null,
       "siteImproveScore": null,
@@ -2017,7 +2017,7 @@
     },
     {
       "domain": "cams.omh.ny.gov",
-      "url": "cams.omh.ny.gov",
+      "url": "https://cams.omh.ny.gov",
       "agency": "OMH",
       "axeMonitorScore": 80,
       "siteImproveScore": null,
@@ -2029,7 +2029,7 @@
     },
     {
       "domain": "cnda.omh.ny.gov",
-      "url": "cnda.omh.ny.gov",
+      "url": "https://cnda.omh.ny.gov",
       "agency": "OMH",
       "axeMonitorScore": 80,
       "siteImproveScore": null,
@@ -2041,7 +2041,7 @@
     },
     {
       "domain": "pcs.omh.ny.gov",
-      "url": "pcs.omh.ny.gov",
+      "url": "https://pcs.omh.ny.gov",
       "agency": "OMH",
       "axeMonitorScore": 80,
       "siteImproveScore": null,
@@ -2053,7 +2053,7 @@
     },
     {
       "domain": "psyckesmedicaid.omh.ny.gov",
-      "url": "psyckesmedicaid.omh.ny.gov",
+      "url": "https://psyckesmedicaid.omh.ny.gov",
       "agency": "OMH",
       "axeMonitorScore": 70,
       "siteImproveScore": null,
@@ -2065,7 +2065,7 @@
     },
     {
       "domain": "rtf.omh.ny.gov",
-      "url": "rtf.omh.ny.gov",
+      "url": "https://rtf.omh.ny.gov",
       "agency": "OMH",
       "axeMonitorScore": 60,
       "siteImproveScore": null,
@@ -2077,7 +2077,7 @@
     },
     {
       "domain": "clozapine.practiceinnovations.org",
-      "url": "clozapine.practiceinnovations.org",
+      "url": "https://clozapine.practiceinnovations.org",
       "agency": "OMH",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -2089,7 +2089,7 @@
     },
     {
       "domain": "ext.opwdd.ny.gov",
-      "url": "ext.opwdd.ny.gov",
+      "url": "https://ext.opwdd.ny.gov",
       "agency": "OPWDD",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -2101,7 +2101,7 @@
     },
     {
       "domain": "my.opwdd.ny.gov",
-      "url": "my.opwdd.ny.gov",
+      "url": "https://my.opwdd.ny.gov",
       "agency": "OPWDD",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -2113,7 +2113,7 @@
     },
     {
       "domain": "opwdd.ny.gov",
-      "url": "opwdd.ny.gov",
+      "url": "https://opwdd.ny.gov",
       "agency": "OPWDD",
       "axeMonitorScore": 58,
       "siteImproveScore": 89,
@@ -2125,7 +2125,7 @@
     },
     {
       "domain": "providerdirectory.opwdd.ny.gov",
-      "url": "providerdirectory.opwdd.ny.gov",
+      "url": "https://providerdirectory.opwdd.ny.gov",
       "agency": "OPWDD",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -2137,7 +2137,7 @@
     },
     {
       "domain": "securemail.opwdd.ny.gov",
-      "url": "securemail.opwdd.ny.gov",
+      "url": "https://securemail.opwdd.ny.gov",
       "agency": "OPWDD",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -2149,7 +2149,7 @@
     },
     {
       "domain": "parks.ny.gov",
-      "url": "parks.ny.gov",
+      "url": "https://parks.ny.gov",
       "agency": "Parks",
       "axeMonitorScore": 77,
       "siteImproveScore": 92,
@@ -2161,7 +2161,7 @@
     },
     {
       "domain": "mybenefits.ny.gov",
-      "url": "mybenefits.ny.gov",
+      "url": "https://mybenefits.ny.gov",
       "agency": "OTDA",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -2173,7 +2173,7 @@
     },
     {
       "domain": "otda.ny.gov",
-      "url": "otda.ny.gov",
+      "url": "https://otda.ny.gov",
       "agency": "OTDA",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -2185,7 +2185,7 @@
     },
     {
       "domain": "broadband.ny.gov",
-      "url": "broadband.ny.gov",
+      "url": "https://broadband.ny.gov",
       "agency": "Governor",
       "axeMonitorScore": 53,
       "siteImproveScore": 89,
@@ -2197,7 +2197,7 @@
     },
     {
       "domain": "governor.ny.gov",
-      "url": "governor.ny.gov",
+      "url": "https://governor.ny.gov",
       "agency": "Governor",
       "axeMonitorScore": 76,
       "siteImproveScore": 85,
@@ -2209,7 +2209,7 @@
     },
     {
       "domain": "omig.ny.gov",
-      "url": "omig.ny.gov",
+      "url": "https://omig.ny.gov",
       "agency": "OMIG",
       "axeMonitorScore": 42,
       "siteImproveScore": 86,
@@ -2221,7 +2221,7 @@
     },
     {
       "domain": "mtaig.ny.gov",
-      "url": "mtaig.ny.gov",
+      "url": "https://mtaig.ny.gov",
       "agency": "MTAIG",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -2233,7 +2233,7 @@
     },
     {
       "domain": "ecfsa.ny.gov",
-      "url": "ecfsa.ny.gov",
+      "url": "https://ecfsa.ny.gov",
       "agency": "OSC",
       "axeMonitorScore": 53,
       "siteImproveScore": 92,
@@ -2245,7 +2245,7 @@
     },
     {
       "domain": "grantsmanagement.ny.gov",
-      "url": "grantsmanagement.ny.gov",
+      "url": "https://grantsmanagement.ny.gov",
       "agency": "OSC",
       "axeMonitorScore": 72,
       "siteImproveScore": 92,
@@ -2257,7 +2257,7 @@
     },
     {
       "domain": "opengovernment.ny.gov",
-      "url": "opengovernment.ny.gov",
+      "url": "https://opengovernment.ny.gov",
       "agency": "OSC",
       "axeMonitorScore": 38,
       "siteImproveScore": 91,
@@ -2269,7 +2269,7 @@
     },
     {
       "domain": "ovs.ny.gov",
-      "url": "ovs.ny.gov",
+      "url": "https://ovs.ny.gov",
       "agency": "👐 Non-auth Domains",
       "axeMonitorScore": 48,
       "siteImproveScore": 92,
@@ -2281,7 +2281,7 @@
     },
     {
       "domain": "pcfb.ny.gov",
-      "url": "pcfb.ny.gov",
+      "url": "https://pcfb.ny.gov",
       "agency": "PCFB",
       "axeMonitorScore": 30,
       "siteImproveScore": 92,
@@ -2293,7 +2293,7 @@
     },
     {
       "domain": "perb.ny.gov",
-      "url": "perb.ny.gov",
+      "url": "https://perb.ny.gov",
       "agency": "PERB",
       "axeMonitorScore": 44,
       "siteImproveScore": 90,
@@ -2305,7 +2305,7 @@
     },
     {
       "domain": "nyenr.elections.ny.gov",
-      "url": "nyenr.elections.ny.gov",
+      "url": "https://nyenr.elections.ny.gov",
       "agency": "Elections",
       "axeMonitorScore": 100,
       "siteImproveScore": null,
@@ -2317,7 +2317,7 @@
     },
     {
       "domain": "nyovr.elections.ny.gov",
-      "url": "nyovr.elections.ny.gov",
+      "url": "https://nyovr.elections.ny.gov",
       "agency": "Elections",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -2329,7 +2329,7 @@
     },
     {
       "domain": "publicreporting.elections.ny.gov",
-      "url": "publicreporting.elections.ny.gov",
+      "url": "https://publicreporting.elections.ny.gov",
       "agency": "Elections",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -2341,7 +2341,7 @@
     },
     {
       "domain": "results.elections.ny.gov",
-      "url": "results.elections.ny.gov",
+      "url": "https://results.elections.ny.gov",
       "agency": "Elections",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -2353,7 +2353,7 @@
     },
     {
       "domain": "voterlookup.elections.ny.gov",
-      "url": "voterlookup.elections.ny.gov",
+      "url": "https://voterlookup.elections.ny.gov",
       "agency": "Elections",
       "axeMonitorScore": 100,
       "siteImproveScore": null,
@@ -2365,7 +2365,7 @@
     },
     {
       "domain": "scoc.ny.gov",
-      "url": "scoc.ny.gov",
+      "url": "https://scoc.ny.gov",
       "agency": "SCOC",
       "axeMonitorScore": 62,
       "siteImproveScore": 92,
@@ -2377,7 +2377,7 @@
     },
     {
       "domain": "lamp.sla.ny.gov",
-      "url": "lamp.sla.ny.gov",
+      "url": "https://lamp.sla.ny.gov",
       "agency": "SLA",
       "axeMonitorScore": 80,
       "siteImproveScore": null,
@@ -2389,7 +2389,7 @@
     },
     {
       "domain": "sla.ny.gov",
-      "url": "sla.ny.gov",
+      "url": "https://sla.ny.gov",
       "agency": "SLA",
       "axeMonitorScore": 50,
       "siteImproveScore": 91,
@@ -2401,7 +2401,7 @@
     },
     {
       "domain": "nyconnects.ny.gov",
-      "url": "nyconnects.ny.gov",
+      "url": "https://nyconnects.ny.gov",
       "agency": "SOFA",
       "axeMonitorScore": 80,
       "siteImproveScore": null,
@@ -2413,7 +2413,7 @@
     },
     {
       "domain": "planforaging.ny.gov",
-      "url": "planforaging.ny.gov",
+      "url": "https://planforaging.ny.gov",
       "agency": "SOFA",
       "axeMonitorScore": 63,
       "siteImproveScore": 95,
@@ -2425,7 +2425,7 @@
     },
     {
       "domain": "alert.ny.gov",
-      "url": "alert.ny.gov",
+      "url": "https://alert.ny.gov",
       "agency": "DSP",
       "axeMonitorScore": 53,
       "siteImproveScore": 93,
@@ -2437,7 +2437,7 @@
     },
     {
       "domain": "sfs.ny.gov",
-      "url": "sfs.ny.gov",
+      "url": "https://sfs.ny.gov",
       "agency": "OSC",
       "axeMonitorScore": 65,
       "siteImproveScore": null,
@@ -2449,7 +2449,7 @@
     },
     {
       "domain": "definedcontribution.ny.gov",
-      "url": "definedcontribution.ny.gov",
+      "url": "https://definedcontribution.ny.gov",
       "agency": "VDC",
       "axeMonitorScore": 80,
       "siteImproveScore": null,
@@ -2461,7 +2461,7 @@
     },
     {
       "domain": "edi.wcb.ny.gov",
-      "url": "edi.wcb.ny.gov",
+      "url": "https://edi.wcb.ny.gov",
       "agency": "WCB",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -2473,7 +2473,7 @@
     },
     {
       "domain": "justicecenter.ny.gov",
-      "url": "justicecenter.ny.gov",
+      "url": "https://justicecenter.ny.gov",
       "agency": "JCPPSN",
       "axeMonitorScore": 36,
       "siteImproveScore": 90,
@@ -2485,7 +2485,7 @@
     },
     {
       "domain": "elections.ny.gov",
-      "url": "elections.ny.gov",
+      "url": "https://elections.ny.gov",
       "agency": "Elections",
       "axeMonitorScore": 20,
       "siteImproveScore": 92,
@@ -2497,7 +2497,7 @@
     },
     {
       "domain": "shop.parks.ny.gov",
-      "url": "shop.parks.ny.gov",
+      "url": "https://shop.parks.ny.gov",
       "agency": "Parks",
       "axeMonitorScore": 23,
       "siteImproveScore": null,
@@ -2509,7 +2509,7 @@
     },
     {
       "domain": "nysmokefree.com",
-      "url": "nysmokefree.com",
+      "url": "https://nysmokefree.com",
       "agency": "DOH",
       "axeMonitorScore": 70,
       "siteImproveScore": null,
@@ -2521,7 +2521,7 @@
     },
     {
       "domain": "perinatalpathways.org",
-      "url": "perinatalpathways.org",
+      "url": "https://perinatalpathways.org",
       "agency": "DOH",
       "axeMonitorScore": 37,
       "siteImproveScore": null,
@@ -2533,7 +2533,7 @@
     },
     {
       "domain": "sfold.wadsworth.org",
-      "url": "sfold.wadsworth.org",
+      "url": "https://sfold.wadsworth.org",
       "agency": "DOH",
       "axeMonitorScore": 17,
       "siteImproveScore": null,
@@ -2545,7 +2545,7 @@
     },
     {
       "domain": "seasonalworks.labor.ny.gov",
-      "url": "seasonalworks.labor.ny.gov",
+      "url": "https://seasonalworks.labor.ny.gov",
       "agency": "DOL",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -2557,7 +2557,7 @@
     },
     {
       "domain": "ag.ny.gov",
-      "url": "ag.ny.gov",
+      "url": "https://ag.ny.gov",
       "agency": "Unattributed",
       "axeMonitorScore": 35,
       "siteImproveScore": null,
@@ -2569,7 +2569,7 @@
     },
     {
       "domain": "trafficsafety.ny.gov",
-      "url": "trafficsafety.ny.gov",
+      "url": "https://trafficsafety.ny.gov",
       "agency": "DMV",
       "axeMonitorScore": 47,
       "siteImproveScore": 92,
@@ -2581,7 +2581,7 @@
     },
     {
       "domain": "dps.ny.gov",
-      "url": "dps.ny.gov",
+      "url": "https://dps.ny.gov",
       "agency": "DPS",
       "axeMonitorScore": 23,
       "siteImproveScore": 93,
@@ -2593,7 +2593,7 @@
     },
     {
       "domain": "mapmybroadband.dps.ny.gov",
-      "url": "mapmybroadband.dps.ny.gov",
+      "url": "https://mapmybroadband.dps.ny.gov",
       "agency": "DPS",
       "axeMonitorScore": 80,
       "siteImproveScore": null,
@@ -2605,7 +2605,7 @@
     },
     {
       "domain": "apps.dos.ny.gov",
-      "url": "apps.dos.ny.gov",
+      "url": "https://apps.dos.ny.gov",
       "agency": "DOS",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -2617,7 +2617,7 @@
     },
     {
       "domain": "paidfamilyleave.ny.gov",
-      "url": "paidfamilyleave.ny.gov",
+      "url": "https://paidfamilyleave.ny.gov",
       "agency": "WCB",
       "axeMonitorScore": 53,
       "siteImproveScore": 92,
@@ -2629,7 +2629,7 @@
     },
     {
       "domain": "aging.ny.gov",
-      "url": "aging.ny.gov",
+      "url": "https://aging.ny.gov",
       "agency": "SOFA",
       "axeMonitorScore": 55,
       "siteImproveScore": 90,
@@ -2641,7 +2641,7 @@
     },
     {
       "domain": "newyorkersvolunteer.ny.gov",
-      "url": "newyorkersvolunteer.ny.gov",
+      "url": "https://newyorkersvolunteer.ny.gov",
       "agency": "Governor",
       "axeMonitorScore": 46,
       "siteImproveScore": 91,
@@ -2653,7 +2653,7 @@
     },
     {
       "domain": "childsupport.ny.gov",
-      "url": "childsupport.ny.gov",
+      "url": "https://childsupport.ny.gov",
       "agency": "OTDA",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -2665,7 +2665,7 @@
     },
     {
       "domain": "rwf.otda.ny.gov",
-      "url": "rwf.otda.ny.gov",
+      "url": "https://rwf.otda.ny.gov",
       "agency": "OTDA",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -2677,7 +2677,7 @@
     },
     {
       "domain": "empiretrail.ny.gov",
-      "url": "empiretrail.ny.gov",
+      "url": "https://empiretrail.ny.gov",
       "agency": "Parks",
       "axeMonitorScore": 44,
       "siteImproveScore": 83,
@@ -2689,7 +2689,7 @@
     },
     {
       "domain": "assembly.ny.gov",
-      "url": "assembly.ny.gov",
+      "url": "https://assembly.ny.gov",
       "agency": "👐 Non-auth Domains",
       "axeMonitorScore": 77,
       "siteImproveScore": null,
@@ -2701,7 +2701,7 @@
     },
     {
       "domain": "franchiseoversightboard.ny.gov",
-      "url": "franchiseoversightboard.ny.gov",
+      "url": "https://franchiseoversightboard.ny.gov",
       "agency": "Gaming",
       "axeMonitorScore": 54,
       "siteImproveScore": 93,
@@ -2713,7 +2713,7 @@
     },
     {
       "domain": "gaming.ny.gov",
-      "url": "gaming.ny.gov",
+      "url": "https://gaming.ny.gov",
       "agency": "Gaming",
       "axeMonitorScore": 47,
       "siteImproveScore": 92,
@@ -2725,7 +2725,7 @@
     },
     {
       "domain": "queencityforward.dot.ny.gov",
-      "url": "queencityforward.dot.ny.gov",
+      "url": "https://queencityforward.dot.ny.gov",
       "agency": "DOT",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -2737,7 +2737,7 @@
     },
     {
       "domain": "knowledgebank.criminaljustice.ny.gov",
-      "url": "knowledgebank.criminaljustice.ny.gov",
+      "url": "https://knowledgebank.criminaljustice.ny.gov",
       "agency": "DCJS",
       "axeMonitorScore": 54,
       "siteImproveScore": 91,
@@ -2749,7 +2749,7 @@
     },
     {
       "domain": "mtb.wadsworth.org",
-      "url": "mtb.wadsworth.org",
+      "url": "https://mtb.wadsworth.org",
       "agency": "DOH",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -2761,7 +2761,7 @@
     },
     {
       "domain": "boards.criminaljustice.ny.gov",
-      "url": "boards.criminaljustice.ny.gov",
+      "url": "https://boards.criminaljustice.ny.gov",
       "agency": "DCJS",
       "axeMonitorScore": 69,
       "siteImproveScore": 93,
@@ -2773,7 +2773,7 @@
     },
     {
       "domain": "criminaljustice.ny.gov",
-      "url": "criminaljustice.ny.gov",
+      "url": "https://criminaljustice.ny.gov",
       "agency": "DCJS",
       "axeMonitorScore": 38,
       "siteImproveScore": 80,
@@ -2785,7 +2785,7 @@
     },
     {
       "domain": "gunsafety.ny.gov",
-      "url": "gunsafety.ny.gov",
+      "url": "https://gunsafety.ny.gov",
       "agency": "DCJS",
       "axeMonitorScore": 69,
       "siteImproveScore": 93,
@@ -2797,7 +2797,7 @@
     },
     {
       "domain": "policereform.ny.gov",
-      "url": "policereform.ny.gov",
+      "url": "https://policereform.ny.gov",
       "agency": "DCJS",
       "axeMonitorScore": 52,
       "siteImproveScore": 93,
@@ -2809,7 +2809,7 @@
     },
     {
       "domain": "cdn.amber.ny.gov",
-      "url": "cdn.amber.ny.gov",
+      "url": "https://cdn.amber.ny.gov",
       "agency": "DHSES",
       "axeMonitorScore": 38,
       "siteImproveScore": null,
@@ -2821,7 +2821,7 @@
     },
     {
       "domain": "orthos.dhses.ny.gov",
-      "url": "orthos.dhses.ny.gov",
+      "url": "https://orthos.dhses.ny.gov",
       "agency": "DHSES",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -2833,7 +2833,7 @@
     },
     {
       "domain": "bonds.hcr.ny.gov",
-      "url": "bonds.hcr.ny.gov",
+      "url": "https://bonds.hcr.ny.gov",
       "agency": "DHCR",
       "axeMonitorScore": 22,
       "siteImproveScore": null,
@@ -2845,7 +2845,7 @@
     },
     {
       "domain": "portal.hcr.ny.gov",
-      "url": "portal.hcr.ny.gov",
+      "url": "https://portal.hcr.ny.gov",
       "agency": "DHCR",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -2857,7 +2857,7 @@
     },
     {
       "domain": "nysl.nysed.gov",
-      "url": "nysl.nysed.gov",
+      "url": "https://nysl.nysed.gov",
       "agency": "NYSED",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -2869,7 +2869,7 @@
     },
     {
       "domain": "nyscr.ny.gov",
-      "url": "nyscr.ny.gov",
+      "url": "https://nyscr.ny.gov",
       "agency": "ESD",
       "axeMonitorScore": 76,
       "siteImproveScore": 92,
@@ -2881,7 +2881,7 @@
     },
     {
       "domain": "regionalcouncils.ny.gov",
-      "url": "regionalcouncils.ny.gov",
+      "url": "https://regionalcouncils.ny.gov",
       "agency": "ESD",
       "axeMonitorScore": 42,
       "siteImproveScore": 86,
@@ -2893,7 +2893,7 @@
     },
     {
       "domain": "taste.ny.gov",
-      "url": "taste.ny.gov",
+      "url": "https://taste.ny.gov",
       "agency": "ESD",
       "axeMonitorScore": 63,
       "siteImproveScore": 90,
@@ -2905,7 +2905,7 @@
     },
     {
       "domain": "greenbank.ny.gov",
-      "url": "greenbank.ny.gov",
+      "url": "https://greenbank.ny.gov",
       "agency": "NYSERDA",
       "axeMonitorScore": 3,
       "siteImproveScore": null,
@@ -2917,7 +2917,7 @@
     },
     {
       "domain": "efc.ny.gov",
-      "url": "efc.ny.gov",
+      "url": "https://efc.ny.gov",
       "agency": "👐 Non-auth Domains",
       "axeMonitorScore": 64,
       "siteImproveScore": 92,
@@ -2929,7 +2929,7 @@
     },
     {
       "domain": "nycasinos.ny.gov",
-      "url": "nycasinos.ny.gov",
+      "url": "https://nycasinos.ny.gov",
       "agency": "Gaming",
       "axeMonitorScore": 58,
       "siteImproveScore": 91,
@@ -2941,7 +2941,7 @@
     },
     {
       "domain": "hudsongreenway.ny.gov",
-      "url": "hudsongreenway.ny.gov",
+      "url": "https://hudsongreenway.ny.gov",
       "agency": "👐 Non-auth Domains",
       "axeMonitorScore": 66,
       "siteImproveScore": 94,
@@ -2953,7 +2953,7 @@
     },
     {
       "domain": "hrbrrd.ny.gov",
-      "url": "hrbrrd.ny.gov",
+      "url": "https://hrbrrd.ny.gov",
       "agency": "👐 Non-auth Domains",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -2965,7 +2965,7 @@
     },
     {
       "domain": "its.ny.gov",
-      "url": "its.ny.gov",
+      "url": "https://its.ny.gov",
       "agency": "ITS",
       "axeMonitorScore": 58,
       "siteImproveScore": 92,
@@ -2977,7 +2977,7 @@
     },
     {
       "domain": "nki.rfmh.org",
-      "url": "nki.rfmh.org",
+      "url": "https://nki.rfmh.org",
       "agency": "OMH",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -2989,7 +2989,7 @@
     },
     {
       "domain": "nyspi.org",
-      "url": "nyspi.org",
+      "url": "https://nyspi.org",
       "agency": "OMH",
       "axeMonitorScore": 7,
       "siteImproveScore": null,
@@ -3001,7 +3001,7 @@
     },
     {
       "domain": "ontrackny.org",
-      "url": "ontrackny.org",
+      "url": "https://ontrackny.org",
       "agency": "OMH",
       "axeMonitorScore": 29,
       "siteImproveScore": null,
@@ -3013,7 +3013,7 @@
     },
     {
       "domain": "ny.gov",
-      "url": "ny.gov",
+      "url": "https://ny.gov",
       "agency": "ITS",
       "axeMonitorScore": 54,
       "siteImproveScore": 86,
@@ -3025,7 +3025,7 @@
     },
     {
       "domain": "comet.ogs.ny.gov",
-      "url": "comet.ogs.ny.gov",
+      "url": "https://comet.ogs.ny.gov",
       "agency": "OGS",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -3037,7 +3037,7 @@
     },
     {
       "domain": "empirestateplaza.ny.gov",
-      "url": "empirestateplaza.ny.gov",
+      "url": "https://empirestateplaza.ny.gov",
       "agency": "OGS",
       "axeMonitorScore": 55,
       "siteImproveScore": 91,
@@ -3049,7 +3049,7 @@
     },
     {
       "domain": "ig.ny.gov",
-      "url": "ig.ny.gov",
+      "url": "https://ig.ny.gov",
       "agency": "ITS",
       "axeMonitorScore": 59,
       "siteImproveScore": 90,
@@ -3061,7 +3061,7 @@
     },
     {
       "domain": "projectsunlight.ny.gov",
-      "url": "projectsunlight.ny.gov",
+      "url": "https://projectsunlight.ny.gov",
       "agency": "JCOPE",
       "axeMonitorScore": 80,
       "siteImproveScore": null,
@@ -3073,7 +3073,7 @@
     },
     {
       "domain": "canals.ny.gov",
-      "url": "canals.ny.gov",
+      "url": "https://canals.ny.gov",
       "agency": "NYPA",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -3085,7 +3085,7 @@
     },
     {
       "domain": "archives.nysed.gov",
-      "url": "archives.nysed.gov",
+      "url": "https://archives.nysed.gov",
       "agency": "NYSED",
       "axeMonitorScore": 35,
       "siteImproveScore": null,
@@ -3097,7 +3097,7 @@
     },
     {
       "domain": "gamfin.org",
-      "url": "gamfin.org",
+      "url": "https://gamfin.org",
       "agency": "OASAS",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
@@ -3109,7 +3109,7 @@
     },
     {
       "domain": "webapps.oasas.ny.gov",
-      "url": "webapps.oasas.ny.gov",
+      "url": "https://webapps.oasas.ny.gov",
       "agency": "OASAS",
       "axeMonitorScore": 39,
       "siteImproveScore": null,
@@ -3121,7 +3121,7 @@
     },
     {
       "domain": "oer.ny.gov",
-      "url": "oer.ny.gov",
+      "url": "https://oer.ny.gov",
       "agency": "OER",
       "axeMonitorScore": 77,
       "siteImproveScore": 92,
@@ -3133,7 +3133,7 @@
     },
     {
       "domain": "missingpersons.omh.ny.gov",
-      "url": "missingpersons.omh.ny.gov",
+      "url": "https://missingpersons.omh.ny.gov",
       "agency": "OMH",
       "axeMonitorScore": 0,
       "siteImproveScore": null,
@@ -3145,7 +3145,7 @@
     },
     {
       "domain": "omh.ny.gov",
-      "url": "omh.ny.gov",
+      "url": "https://omh.ny.gov",
       "agency": "OMH",
       "axeMonitorScore": 57,
       "siteImproveScore": 77,
@@ -3157,7 +3157,7 @@
     },
     {
       "domain": "bewell.ny.gov",
-      "url": "bewell.ny.gov",
+      "url": "https://bewell.ny.gov",
       "agency": "OMH",
       "axeMonitorScore": 56,
       "siteImproveScore": 92,
@@ -3169,7 +3169,7 @@
     },
     {
       "domain": "practiceinnovations.org",
-      "url": "practiceinnovations.org",
+      "url": "https://practiceinnovations.org",
       "agency": "OMH",
       "axeMonitorScore": 1,
       "siteImproveScore": null,
@@ -3181,7 +3181,7 @@
     },
     {
       "domain": "projectteachny.org",
-      "url": "projectteachny.org",
+      "url": "https://projectteachny.org",
       "agency": "OMH",
       "axeMonitorScore": 10,
       "siteImproveScore": null,
@@ -3193,7 +3193,7 @@
     },
     {
       "domain": "omhjobs.omh.ny.gov",
-      "url": "omhjobs.omh.ny.gov",
+      "url": "https://omhjobs.omh.ny.gov",
       "agency": "🤖 Scripted",
       "axeMonitorScore": 63,
       "siteImproveScore": null,
@@ -3205,7 +3205,7 @@
     },
     {
       "domain": "tax.ny.gov",
-      "url": "tax.ny.gov",
+      "url": "https://tax.ny.gov",
       "agency": "DTF",
       "axeMonitorScore": 58,
       "siteImproveScore": null,

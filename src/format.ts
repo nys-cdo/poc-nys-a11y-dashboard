@@ -60,6 +60,16 @@ export function formatScore(score: number | null): string {
   return score === null ? '—' : `${score}%`;
 }
 
+/**
+ * Normalize a URL to an absolute, linkable href. A bare host ("my.ny.gov")
+ * would otherwise resolve as a relative path and break; prepend https://.
+ */
+export function safeHref(url: string | null): string {
+  const s = (url ?? '').trim();
+  if (/^https?:\/\//i.test(s)) return s;
+  return s ? `https://${s.replace(/^\/+/, '')}` : '#';
+}
+
 /** Escape a string for safe interpolation into innerHTML. */
 export function esc(value: string): string {
   return value
