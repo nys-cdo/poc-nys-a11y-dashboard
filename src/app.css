@@ -281,8 +281,18 @@ a {
   gap: var(--nys-space-400);
   margin-bottom: var(--nys-space-200);
 }
+/* The nys-select input box is 40px tall and the host reserves ~4px below it
+   for error text. Make the button and count 40px boxes bottom-aligned to the
+   input box (host bottom minus the 4px reserve) so all three centers line up. */
+.filter-reset,
 .table-count {
-  margin: 0 0 var(--nys-space-200);
+  margin-bottom: 4px;
+}
+.table-count {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  margin-top: 0;
   color: var(--nys-color-text-weak);
   font-size: var(--nys-font-size-body-sm);
 }
