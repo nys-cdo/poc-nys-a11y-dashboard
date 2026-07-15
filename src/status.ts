@@ -9,11 +9,12 @@
  *    Auditor (manual) score is displayed side-by-side but does NOT drive the
  *    status chip.
  *
- * DESIGN DECISION (documented for confirmation): the status chip for a site is
- * driven by the *worst* of the available AUTOMATED scores (axe Monitor,
- * SiteImprove) — the conservative / accountability-oriented reading of §5.1 +
- * the "worst-case indicator" language in §6.3. Change `siteAutomatedScore`
- * below if leadership prefers "axe Monitor authoritative" or "average".
+ * DESIGN DECISION: the status for a site is driven by the AUTHORITATIVE axe
+ * Monitor score when present. When a site is scanned by both tools (a conflict),
+ * the axe Monitor score is the one that counts (PRD §4.1 — axe Monitor is
+ * authoritative). SiteImprove is used only when axe Monitor has no score.
+ * Applied uniformly so the agency chart, statewide summary, and site-table
+ * status chip all agree.
  */
 
 import type { DashboardData, Rubric, Site, Status } from './types';
@@ -27,20 +28,19 @@ export function scoreToStatus(score: number, rubric: Rubric): Status {
 }
 
 /**
- * The automated score that drives a site's status chip: the worst (lowest) of
- * the present automated scores. Null if the site has no automated score at all.
+ * The automated score that drives a site's status: the AUTHORITATIVE axe Monitor
+ * score when present (including when both tools scanned the site — a conflict).
+ * Falls back to the SiteImprove score only when axe Monitor has none. Null if
+ * the site has no automated score at all.
  */
 export function siteAutomatedScore(site: Site): number | null {
-  const scores = [site.axeMonitorScore, site.siteImproveScore].filter(
-    (s): s is number => typeof s === 'number',
-  );
-  return scores.length ? Math.min(...scores) : null;
+  return site.axeMonitorScore ?? site.siteImproveScore;
 }
 
 /**
  * Resolve a site's displayed status.
  *  - blocked always wins → red (PRD §5.3)
- *  - otherwise map the worst automated score
+ *  - otherwise map the authoritative automated score (axe Monitor first)
  *  - if there is no automated score, it is unknown (rendered as a neutral chip)
  */
 export function siteStatus(site: Site, rubric: Rubric): Status | 'unknown' {

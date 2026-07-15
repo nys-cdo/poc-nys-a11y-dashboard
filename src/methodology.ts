@@ -40,7 +40,7 @@ function buildDialog(): HTMLDialogElement {
         </ul>
 
         <h3>The traffic-light rubric</h3>
-        <p>Status color is driven by the automated score (the worst of the automated sources present):</p>
+        <p>Status color is driven by the automated score — the authoritative axe Monitor score when present (including when both tools scanned a site), otherwise SiteImprove:</p>
         <ul class="methodology-dialog__rubric">
           <li><span class="dot dot--red"></span> <strong>Red</strong> — 0–40%</li>
           <li><span class="dot dot--yellow"></span> <strong>Yellow</strong> — 41–79%</li>

@@ -136,10 +136,11 @@ Single source of truth: [`src/status.ts`](./src/status.ts).
 - **Conflict badge:** if the same URL appears in both scanning tools, it's
   flagged rather than averaged.
 
-> **Decision to confirm:** a site's status color is driven by the **worst of the
-> available automated scores** (the conservative / "worst-case indicator"
-> reading of the PRD). If leadership prefers "axe Monitor authoritative" or an
-> average, change `siteAutomatedScore()` in `src/status.ts` — it's a one-line edit.
+> **Status source:** a site's status color is driven by the **authoritative axe
+> Monitor score** when present — including when both tools scanned the site (a
+> conflict). SiteImprove is used only when axe Monitor has no score. Applied
+> uniformly across the agency chart, statewide summary, and site-table chip. See
+> `siteAutomatedScore()` in `src/status.ts` to change the rule.
 
 ## The 30% caveat
 
