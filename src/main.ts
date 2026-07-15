@@ -25,8 +25,16 @@ async function boot(): Promise<void> {
 
     renderHeader(header, data);
     renderSummary(summary, data);
-    renderAgencyRollup(rollup, data);
-    renderSiteTable(table, data);
+    const siteTable = renderSiteTable(table, data);
+    renderAgencyRollup(rollup, data, (agency, status) => {
+      // Clicking an agency's colored segment filters and reveals the site table.
+      siteTable.applyFilters(agency, status);
+      const heading = document.getElementById('site-table-heading');
+      table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Move focus to the section heading for screen-reader + keyboard context.
+      heading?.setAttribute('tabindex', '-1');
+      heading?.focus({ preventScroll: true });
+    });
 
     footer.innerHTML = `
       <div class="nys-grid-container">

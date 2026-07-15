@@ -11,9 +11,18 @@ import { statusIntent, statusShort, formatScore, esc } from '../format';
  * column sorting. The automated-only caveat is carried in the column headers
  * and a persistent caption so the score never travels without it.
  */
-type StatusFilter = 'all' | Status | 'unknown' | 'blocked' | 'conflict';
+export type StatusFilter = 'all' | Status | 'unknown' | 'blocked' | 'conflict';
 
-export function renderSiteTable(root: HTMLElement, data: DashboardData): void {
+/** Controller returned by renderSiteTable, for driving the filters externally. */
+export interface SiteTableController {
+  /** Set both filters programmatically (e.g. from an agency-chart click). */
+  applyFilters(agency: string, status: StatusFilter): void;
+}
+
+export function renderSiteTable(
+  root: HTMLElement,
+  data: DashboardData,
+): SiteTableController {
   const agencies = [...new Set(data.sites.map((s) => s.agency))].sort((a, b) =>
     a.localeCompare(b),
   );
@@ -35,6 +44,14 @@ export function renderSiteTable(root: HTMLElement, data: DashboardData): void {
         <option value="conflict" label="Conflict"></option>
         <option value="unknown" label="Not scored"></option>
       </nys-select>
+      <nys-button
+        id="filter-reset"
+        class="filter-reset"
+        label="Reset filters"
+        variant="ghost"
+        size="sm"
+        prefixIcon="restart_alt"
+      ></nys-button>
       <p id="table-count" class="table-count" aria-live="polite"></p>
     </div>
 
@@ -112,6 +129,30 @@ export function renderSiteTable(root: HTMLElement, data: DashboardData): void {
         ((e as CustomEvent<{ value: string }>).detail?.value as StatusFilter) ?? 'all';
       draw();
     });
+
+  // Reset button → clear both filters back to "all".
+  root
+    .querySelector('#filter-reset')
+    ?.addEventListener('nys-click', () => applyFilters('all', 'all'));
+
+  // Keep an nys-select's displayed value in sync when we set filters in code.
+  function syncSelect(id: string, value: string): void {
+    const el = root.querySelector(id) as (HTMLElement & { value?: string }) | null;
+    if (!el) return;
+    el.setAttribute('value', value);
+    el.value = value;
+  }
+
+  // Hoisted so the reset listener above can call it. Also the public API.
+  function applyFilters(agency: string, status: StatusFilter): void {
+    agencyFilter = agency;
+    statusFilter = status;
+    syncSelect('#filter-agency', agency);
+    syncSelect('#filter-status', status);
+    draw();
+  }
+
+  return { applyFilters };
 }
 
 function rowHtml(site: Site, status: Status | 'unknown'): string {

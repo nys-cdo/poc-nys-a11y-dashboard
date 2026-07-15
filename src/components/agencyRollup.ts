@@ -1,15 +1,36 @@
 import * as echarts from 'echarts';
-import type { DashboardData } from '../types';
+import type { DashboardData, Status } from '../types';
 import { agencyRollups, sortAgencyRollups, type AgencySort } from '../status';
 import { statusColor } from '../tokens';
 import { statusLabel } from '../format';
+
+/** Called when a user clicks an agency's colored segment. */
+export type SegmentClickHandler = (
+  agency: string,
+  status: Status | 'unknown',
+) => void;
+
+/** Reverse map: ECharts series name (a status label) → status key. */
+const LABEL_TO_STATUS: Record<string, Status | 'unknown'> = {
+  [statusLabel('red')]: 'red',
+  [statusLabel('yellow')]: 'yellow',
+  [statusLabel('green')]: 'green',
+  [statusLabel('unknown')]: 'unknown',
+};
 
 /**
  * Agency rollup (PRD §6.3): one horizontal stacked bar per agency (red/yellow/
  * green segments) — reads as an instant league table. Sortable. This is the
  * peer-comparison surface that does the accountability work at DCT Council.
+ *
+ * Clicking a colored segment invokes `onSegmentClick(agency, status)` so the
+ * caller can filter + scroll to the site table.
  */
-export function renderAgencyRollup(root: HTMLElement, data: DashboardData): void {
+export function renderAgencyRollup(
+  root: HTMLElement,
+  data: DashboardData,
+  onSegmentClick?: SegmentClickHandler,
+): void {
   root.innerHTML = `
     <div class="section-heading-row">
       <h2 id="agency-rollup-heading" class="section-heading">By agency</h2>
@@ -26,6 +47,7 @@ export function renderAgencyRollup(root: HTMLElement, data: DashboardData): void
     </div>
     <p class="section-sub">
       Each bar shows the share of an agency’s sites at each status.
+      <strong>Select a colored segment</strong> to see those sites below.
       <span class="caveat-inline"><span aria-hidden="true">⚠</span> automated testing only</span>
     </p>
     <div id="agency-chart" class="agency-chart" role="img" aria-label="Loading agency chart"></div>
@@ -34,6 +56,14 @@ export function renderAgencyRollup(root: HTMLElement, data: DashboardData): void
 
   const el = document.getElementById('agency-chart')!;
   const chart = echarts.init(el, undefined, { renderer: 'svg' });
+
+  // Clicking a colored segment → filter + jump to the site table.
+  chart.on('click', (params) => {
+    if (params.componentType !== 'series') return;
+    const agency = String(params.name);
+    const status = LABEL_TO_STATUS[String(params.seriesName)];
+    if (status) onSegmentClick?.(agency, status);
+  });
 
   const draw = (sort: AgencySort) => {
     const rollups = sortAgencyRollups(agencyRollups(data), sort);
@@ -89,6 +119,10 @@ export function renderAgencyRollup(root: HTMLElement, data: DashboardData): void
       { notMerge: true },
     );
     el.setAttribute('aria-label', agencyAria(rollups));
+    // The container height is dynamic (grows with agency count). The SVG
+    // renderer needs an explicit resize to match the new height, not just the
+    // ResizeObserver — otherwise the chart draws compressed on first paint.
+    chart.resize();
   };
 
   draw('worst');
