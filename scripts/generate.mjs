@@ -258,6 +258,11 @@ async function fetchAxeMonitor(env) {
     if (!latest) return null;
 
     const score = normalizeAxeScore(latest.score);
+    // Pages actually crawled + scored in this run (`pages.completed`). Some runs
+    // (errored/in-progress) omit the object entirely → null.
+    const pagesTested = Number.isFinite(latest.pages?.completed)
+      ? latest.pages.completed
+      : null;
 
     // Domain — read a single page from the chosen run to get its host.
     let domainUrl = '';
@@ -279,7 +284,7 @@ async function fetchAxeMonitor(env) {
     // Fall back to the scan name only if the API gave us no page URL at all.
     const domain = domainFromUrl(domainUrl || pageUrl || scan.name || '');
     if (!domain) return null;
-    return { domain, url: httpUrl(pageUrl || domainUrl, domain), agency, score };
+    return { domain, url: httpUrl(pageUrl || domainUrl, domain), agency, score, pagesTested };
   });
 
   if (multiGroup > 0) {
@@ -368,7 +373,10 @@ async function fetchSiteImprove(env) {
     } catch (err) {
       console.warn(`[SiteImprove] site ${site.id} (${domain}): no DCI score — ${err.message}`);
     }
-    return { domain, url: httpUrl(site.url, domain), score };
+    // Pages in SiteImprove's monitored index for this site (`pages` on the list
+    // item). Distinct from axe's "tested" count — this is index size, not scanned.
+    const pagesIndexed = Number.isFinite(site.pages) ? site.pages : null;
+    return { domain, url: httpUrl(site.url, domain), score, pagesIndexed };
   });
 
   return records.filter(Boolean);
@@ -598,6 +606,8 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
         agency: agencyByDomain.get(domain) ?? UNATTRIBUTED,
         axeMonitorScore: null,
         siteImproveScore: null,
+        axeMonitorPagesTested: null,
+        siteImprovePagesIndexed: null,
         auditorScore: null,
         auditorReportUrl: null,
         auditorDeckUrl: null,
@@ -618,6 +628,7 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
     if (!rec.domain) continue;
     const site = getSite(rec.domain, rec.url);
     site.axeMonitorScore = rec.score;
+    site.axeMonitorPagesTested = rec.pagesTested ?? null;
     site.agency = agencyByDomain.get(rec.domain) ?? UNATTRIBUTED;
     site._inAxe = true;
   }
@@ -627,6 +638,7 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
     if (!rec.domain) continue;
     const site = getSite(rec.domain, rec.url);
     site.siteImproveScore = rec.score;
+    site.siteImprovePagesIndexed = rec.pagesIndexed ?? null;
     // Agency comes from axe Monitor taxonomy; unresolved stays Unattributed.
     site.agency = agencyByDomain.get(rec.domain) ?? site.agency ?? UNATTRIBUTED;
     site._inSiteImprove = true;

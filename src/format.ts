@@ -60,6 +60,11 @@ export function formatScore(score: number | null): string {
   return score === null ? '—' : `${score}%`;
 }
 
+/** Integer count with thousands separators, or an em dash when absent. */
+export function formatCount(count: number | null): string {
+  return count === null ? '—' : count.toLocaleString('en-US');
+}
+
 /**
  * Normalize a URL to an absolute, linkable href. A bare host ("my.ny.gov")
  * would otherwise resolve as a relative path and break; prepend https://.

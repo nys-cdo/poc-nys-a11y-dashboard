@@ -30,6 +30,18 @@ export interface Site {
   /** SiteImprove automated composite score. */
   siteImproveScore: number | null;
 
+  // --- Coverage (pages), pulled from the same calls as the scores above ---
+  /**
+   * axe Monitor: pages actually crawled AND scored in the latest run
+   * (`pages.completed`). "Pages tested." Not comparable to SiteImprove's count.
+   */
+  axeMonitorPagesTested: number | null;
+  /**
+   * SiteImprove: pages in the site's monitored index (`pages`). "Pages indexed"
+   * — the set its DCI is computed across, not a per-run scanned count.
+   */
+  siteImprovePagesIndexed: number | null;
+
   // --- Manual layer (from manual-data.json, merged at build time) ---
   /** Axe Auditor comprehensive manual-test score. PRD §4.2. */
   auditorScore: number | null;
