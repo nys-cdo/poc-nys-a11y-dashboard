@@ -242,6 +242,12 @@ a {
   font-size: var(--nys-font-size-body-xs);
   color: var(--nys-color-text-weak);
 }
+.kpi__sub-lead {
+  display: block;
+  font-size: var(--nys-font-size-body-sm);
+  font-weight: var(--nys-font-weight-semibold);
+  color: var(--nys-color-text);
+}
 .summary__chart-card {
   background: var(--nys-color-surface-raised);
   border: var(--nys-border-width-sm) solid var(--nys-color-base-weak, #e4e4e2);

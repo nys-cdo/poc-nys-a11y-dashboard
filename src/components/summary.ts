@@ -18,10 +18,10 @@ export function renderSummary(root: HTMLElement, data: DashboardData): void {
 
     <div class="summary">
       <div class="summary__grid">
+        ${kpi('Red', `${s.counts.red}`, 'red', pctSub(s.percentages.red, 'needs urgent attention'))}
+        ${kpi('Yellow', `${s.counts.yellow}`, 'yellow', pctSub(s.percentages.yellow, 'needs review'))}
+        ${kpi('Green', `${s.counts.green}`, 'green', pctSub(s.percentages.green, 'no automated blockers'))}
         ${kpi('Total sites scanned', String(s.total), 'neutral', `across ${countAgencies(data)} agencies`)}
-        ${kpi('Red', `${s.counts.red}`, 'red', `${s.percentages.red}% of sites · needs urgent attention`)}
-        ${kpi('Yellow', `${s.counts.yellow}`, 'yellow', `${s.percentages.yellow}% of sites · needs review`)}
-        ${kpi('Green', `${s.counts.green}`, 'green', `${s.percentages.green}% of sites · no automated blockers`)}
         ${kpi('Blocked', `${s.blocked}`, 'red', 'known barrier automation missed — forced Red')}
         ${kpi('Unattributed', `${s.unattributed}`, 'neutral', 'agency not yet resolved')}
       </div>
@@ -40,6 +40,11 @@ export function renderSummary(root: HTMLElement, data: DashboardData): void {
   `;
 
   renderDonut(s);
+}
+
+/** Sub-line with a larger "X% of sites" lead on its own line over the descriptor. */
+function pctSub(pct: number, descriptor: string): string {
+  return `<span class="kpi__sub-lead">${pct}% of sites</span>${descriptor}`;
 }
 
 function kpi(
