@@ -26,11 +26,22 @@ const LABEL_TO_STATUS: Record<string, Status | 'unknown'> = {
  * Clicking a colored segment invokes `onSegmentClick(agency, status)` so the
  * caller can filter + scroll to the site table.
  */
+/** Render options. */
+export interface AgencyRollupOptions {
+  /**
+   * Succinct default: hide agencies with a single scanned site (siteCount < 2)
+   * behind the expand toggle. When false (the `?full` view), show every agency.
+   */
+  hideSingleScan?: boolean;
+}
+
 export function renderAgencyRollup(
   root: HTMLElement,
   data: DashboardData,
   onSegmentClick?: SegmentClickHandler,
+  opts?: AgencyRollupOptions,
 ): void {
+  const hideSingleScan = opts?.hideSingleScan ?? false;
   root.innerHTML = `
     <div class="section-heading-row">
       <h2 id="agency-rollup-heading" class="section-heading">By agency</h2>
@@ -86,9 +97,19 @@ export function renderAgencyRollup(
     currentSort = sort;
     const isMobile = mobileMq.matches;
     const allRollups = sortAgencyRollups(agencyRollups(data), sort);
-    // Cap to the top N on mobile unless the user has expanded the view.
-    const collapsed = isMobile && !expanded;
-    const rollups = collapsed ? allRollups.slice(0, MOBILE_CAP) : allRollups;
+
+    // Two collapsing dimensions, both released by the single expand toggle:
+    //   1. hideSingleScan (succinct default) — drop 1-site agencies.
+    //   2. mobile cap — only the top N fit legibly on a phone.
+    // The collapsed base is what's shown before the mobile cap is applied.
+    const collapsedBase = hideSingleScan
+      ? allRollups.filter((r) => r.siteCount >= 2)
+      : allRollups;
+    const rollups = expanded
+      ? allRollups
+      : isMobile
+        ? collapsedBase.slice(0, MOBILE_CAP)
+        : collapsedBase;
     // ECharts y-axis renders bottom-up; reverse so the first item sits on top.
     const ordered = [...rollups].reverse();
     const agencies = ordered.map((r) => r.agency);
@@ -115,12 +136,16 @@ export function renderAgencyRollup(
       series.push(mk('unknown', 'unknown'));
     }
 
-    el.style.height = `${Math.max(240, agencies.length * 40 + 80)}px`;
+    // Reserve room for the legend (which can wrap to two rows on a narrow
+    // phone) so neither it nor the top bar is clipped, plus the x-axis name at
+    // the bottom.
+    const topPad = isMobile ? 72 : 48;
+    el.style.height = `${Math.max(240, agencies.length * 40 + topPad + 40)}px`;
     chart.setOption(
       {
         aria: { enabled: true },
-        grid: { left: 8, right: 24, top: 40, bottom: 8, containLabel: true },
-        legend: { top: 0, left: 'center' },
+        grid: { left: 8, right: 24, top: topPad, bottom: 8, containLabel: true },
+        legend: { top: 8, left: 'center' },
         tooltip: {
           trigger: 'axis',
           axisPointer: { type: 'shadow' },
@@ -148,17 +173,23 @@ export function renderAgencyRollup(
       },
       { notMerge: true },
     );
-    // Screen-reader label always describes the FULL set — the cap is visual only.
-    el.setAttribute('aria-label', agencyAria(allRollups));
+    // Screen-reader label describes exactly what's currently rendered so it
+    // stays accurate as the succinct/mobile filters collapse and expand.
+    el.setAttribute('aria-label', agencyAria(rollups));
     // The container height is dynamic (grows with agency count). The SVG
     // renderer needs an explicit resize to match the new height, not just the
     // ResizeObserver — otherwise the chart draws compressed on first paint.
     chart.resize();
 
-    // Toggle: only meaningful on mobile when there's more than the cap to show.
-    const hasOverflow = isMobile && allRollups.length > MOBILE_CAP;
-    showAllBtn.style.display = hasOverflow ? '' : 'none';
-    if (hasOverflow) {
+    // The toggle is meaningful whenever something is hidden: either single-scan
+    // agencies (succinct default) or agencies beyond the mobile cap. Show it
+    // when collapsed hides rows, or when expanded so the user can collapse back.
+    const collapsedCount = isMobile
+      ? Math.min(collapsedBase.length, MOBILE_CAP)
+      : collapsedBase.length;
+    const hasHidden = allRollups.length > collapsedCount;
+    showAllBtn.style.display = hasHidden ? '' : 'none';
+    if (hasHidden) {
       showAllBtn.setAttribute(
         'label',
         expanded ? 'Show fewer agencies' : `Show all ${allRollups.length} agencies`,

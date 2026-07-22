@@ -2,23 +2,31 @@
  * Pure status-derivation logic. No DOM, no data loading — trivially testable
  * and the single source of truth for how a score becomes a color.
  *
- * Rules (PRD §5):
- *  - Base rubric maps an automated score to red/yellow/green (§5.1).
- *  - `blocked = true` forces Red regardless of any numeric score (§5.3).
- *  - Phase 1 does NOT blend the three signals into one number (§5.2); the
- *    Auditor (manual) score is displayed side-by-side but does NOT drive the
- *    status chip.
+ * THE OFFICIAL SCORE (the canonical number for the whole dashboard):
+ * a single value resolved from a priority chain, first non-null wins:
+ *   1. teamScore       (manual team review / override) — highest authority
+ *   2. auditorScore    (Axe Auditor manual score)
+ *   3. axeMonitorScore (axe Monitor automated)
+ *   4. siteImproveScore (SiteImprove automated)
+ *   5. else null       → "Not scored / unscanned"
  *
- * DESIGN DECISION: the status for a site is driven by the AUTHORITATIVE axe
- * Monitor score when present. When a site is scanned by both tools (a conflict),
- * the axe Monitor score is the one that counts (PRD §4.1 — axe Monitor is
- * authoritative). SiteImprove is used only when axe Monitor has no score.
- * Applied uniformly so the agency chart, statewide summary, and site-table
- * status chip all agree.
+ * The rubric (`meta.rubric`) maps that official value to red/yellow/green.
+ * `blocked` no longer forces red — a scoreless site (blocked or not) is simply
+ * "Not scored". The official score drives the summary pie, the agency rollups,
+ * and every site-table status chip, so they ALL agree.
  */
 
 import type { DashboardData, Rubric, Site, Status } from './types';
 import { UNATTRIBUTED } from './types';
+
+/** Which source in the priority chain supplied the official score. */
+export type ScoreSource = 'team' | 'auditor' | 'monitor' | 'siteimprove' | null;
+
+/** The resolved official score plus which source it came from. */
+export interface OfficialScore {
+  value: number | null;
+  source: ScoreSource;
+}
 
 /** Map a 0–100 score to a status via inclusive rubric ranges. */
 export function scoreToStatus(score: number, rubric: Rubric): Status {
@@ -28,26 +36,37 @@ export function scoreToStatus(score: number, rubric: Rubric): Status {
 }
 
 /**
- * The automated score that drives a site's status: the AUTHORITATIVE axe Monitor
- * score when present (including when both tools scanned the site — a conflict).
- * Falls back to the SiteImprove score only when axe Monitor has none. Null if
- * the site has no automated score at all.
+ * Resolve a site's OFFICIAL score via the priority chain (first non-null wins):
+ * teamScore → auditorScore → axeMonitorScore → siteImproveScore → null.
+ * Returns both the value and the source that supplied it (so the UI can pick
+ * the right annotation: team note vs. auditor report vs. monitor link).
  */
-export function siteAutomatedScore(site: Site): number | null {
-  return site.axeMonitorScore ?? site.siteImproveScore;
+export function officialScore(site: Site): OfficialScore {
+  if (site.teamScore !== null) return { value: site.teamScore, source: 'team' };
+  if (site.auditorScore !== null) return { value: site.auditorScore, source: 'auditor' };
+  if (site.axeMonitorScore !== null) return { value: site.axeMonitorScore, source: 'monitor' };
+  if (site.siteImproveScore !== null) return { value: site.siteImproveScore, source: 'siteimprove' };
+  return { value: null, source: null };
 }
 
 /**
- * Resolve a site's displayed status.
- *  - blocked always wins → red (PRD §5.3)
- *  - otherwise map the authoritative automated score (axe Monitor first)
- *  - if there is no automated score, it is unknown (rendered as a neutral chip)
+ * Resolve a site's displayed status from its official score.
+ *  - map the official score through the rubric
+ *  - no official score → 'unknown' (rendered as a neutral "Not scored" chip)
+ * `blocked` no longer affects color.
+ */
+export function officialStatus(site: Site, rubric: Rubric): Status | 'unknown' {
+  const { value } = officialScore(site);
+  if (value === null) return 'unknown';
+  return scoreToStatus(value, rubric);
+}
+
+/**
+ * Resolve a site's displayed status. Delegates to {@link officialStatus} so the
+ * summary, agency rollups, and site table all agree on the official score.
  */
 export function siteStatus(site: Site, rubric: Rubric): Status | 'unknown' {
-  if (site.blocked) return 'red';
-  const auto = siteAutomatedScore(site);
-  if (auto === null) return 'unknown';
-  return scoreToStatus(auto, rubric);
+  return officialStatus(site, rubric);
 }
 
 export interface StatusCounts {

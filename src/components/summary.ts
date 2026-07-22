@@ -1,5 +1,5 @@
 import * as echarts from 'echarts';
-import type { DashboardData } from '../types';
+import type { DashboardData, Status } from '../types';
 import { statewideSummary } from '../status';
 import { statusColor } from '../tokens';
 import { statusLabel } from '../format';
@@ -22,7 +22,7 @@ export function renderSummary(root: HTMLElement, data: DashboardData): void {
         ${kpi('Yellow', `${s.counts.yellow}`, 'yellow', pctSub(s.percentages.yellow, 'needs review'))}
         ${kpi('Green', `${s.counts.green}`, 'green', pctSub(s.percentages.green, 'no automated blockers'))}
         ${kpi('Total sites scanned', String(s.total), 'neutral', `across ${countAgencies(data)} agencies`)}
-        ${kpi('Blocked', `${s.blocked}`, 'red', 'known barrier automation missed — forced Red')}
+        ${kpi('Blocked', `${s.blocked}`, 'neutral', 'could not be scanned — counted as Not scored')}
         ${kpi('Unattributed', `${s.unattributed}`, 'neutral', 'agency not yet resolved')}
       </div>
 
@@ -82,18 +82,34 @@ function renderDonut(s: ReturnType<typeof statewideSummary>): void {
   if (!el) return;
   const chart = echarts.init(el, undefined, { renderer: 'svg' });
 
-  const series = [
-    { name: statusLabel('red'), value: s.counts.red, color: statusColor('red') },
-    { name: statusLabel('yellow'), value: s.counts.yellow, color: statusColor('yellow') },
-    { name: statusLabel('green'), value: s.counts.green, color: statusColor('green') },
+  // Only the four rubric statuses; the "not scored" slice appears only when
+  // some sites are actually unscored.
+  const slices: { key: Status | 'unknown'; value: number; pct: number }[] = [
+    { key: 'red', value: s.counts.red, pct: s.percentages.red },
+    { key: 'yellow', value: s.counts.yellow, pct: s.percentages.yellow },
+    { key: 'green', value: s.counts.green, pct: s.percentages.green },
   ];
   if (s.counts.unknown) {
-    series.push({
-      name: statusLabel('unknown'),
-      value: s.counts.unknown,
-      color: statusColor('unknown'),
-    });
+    slices.push({ key: 'unknown', value: s.counts.unknown, pct: s.percentages.unknown });
   }
+
+  const series = slices.map((d) => ({
+    name: statusLabel(d.key),
+    value: d.value,
+    itemStyle: { color: statusColor(d.key) },
+  }));
+
+  // The readout ("Label — N (P%)") lives in the legend so the slices themselves
+  // carry no outside labels — those were the ones running off the container and
+  // truncating. Percentages come from the statewide summary (whole numbers,
+  // consistent with the KPI cards) instead of ECharts' own decimal recompute.
+  const readout = new Map(
+    slices.map((d) => [statusLabel(d.key), `${statusLabel(d.key)} — ${d.value} (${d.pct}%)`]),
+  );
+
+  // A vertical legend of up to four longish rows needs vertical room; give the
+  // container enough height so neither the donut nor the legend is clipped.
+  el.style.height = `${300 + slices.length * 12}px`;
 
   chart.setOption({
     aria: { enabled: true },
@@ -102,20 +118,25 @@ function renderDonut(s: ReturnType<typeof statewideSummary>): void {
       formatter: (p: { name: string; value: number; percent: number }) =>
         `${p.name}<br/>${p.value} sites (${p.percent}%)`,
     },
-    legend: { bottom: 0, left: 'center' },
+    legend: {
+      orient: 'vertical',
+      bottom: 8,
+      left: 'center',
+      itemGap: 10,
+      textStyle: { fontSize: 12 },
+      formatter: (name: string) => readout.get(name) ?? name,
+    },
     series: [
       {
         type: 'pie',
-        radius: ['52%', '78%'],
-        center: ['50%', '42%'],
+        radius: ['40%', '58%'],
+        center: ['50%', '33%'],
         avoidLabelOverlap: true,
         itemStyle: { borderColor: '#fff', borderWidth: 2 },
-        label: { show: true, formatter: '{d}%', fontSize: 12 },
-        data: series.map((d) => ({
-          name: d.name,
-          value: d.value,
-          itemStyle: { color: d.color },
-        })),
+        // Slices carry no outside labels — the legend is the readout.
+        label: { show: false },
+        labelLine: { show: false },
+        data: series,
       },
     ],
   });

@@ -561,8 +561,19 @@ function normalizeSiScore(value) {
 
 /**
  * Read + parse the hand-maintained manual layer (PRD §4.2).
- * Keyed by bare domain. The leading `_comment` key is skipped.
- * IMPORTANT: `blocked_note` is internal-only and MUST NOT be copied into output.
+ *
+ * File shape (a list the team keeps editing):
+ *   { "manual": [ { "domain", "url", "flag_rating", "team_score",
+ *                   "override_justification", "auditor_score",
+ *                   "auditor_report_url", "auditor_deck_url",
+ *                   "blocked", "blocked_note" }, … ] }
+ *
+ * Returns a plain object keyed by bare domain. Defensive by design: a missing
+ * `manual` array, non-object rows, or entries without a `domain` are skipped
+ * rather than throwing (the team edits this file by hand).
+ *
+ * IMPORTANT: `flag_rating` and `blocked_note` are internal-only and MUST NOT be
+ * copied into the output — that stripping happens in `buildSites`.
  */
 function loadManualData() {
   if (!existsSync(MANUAL_DATA_PATH)) {
@@ -570,9 +581,15 @@ function loadManualData() {
     return {};
   }
   const parsed = JSON.parse(readFileSync(MANUAL_DATA_PATH, 'utf8'));
-  // Drop the documentation-only `_comment` key.
-  const { _comment, ...entries } = parsed;
-  return entries;
+  const rows = Array.isArray(parsed?.manual) ? parsed.manual : [];
+  const byDomain = {};
+  for (const row of rows) {
+    if (!row || typeof row !== 'object') continue;
+    const domain = typeof row.domain === 'string' ? row.domain.trim() : '';
+    if (!domain) continue;
+    byDomain[domain] = row; // last entry wins on duplicate domains
+  }
+  return byDomain;
 }
 
 /**
@@ -608,9 +625,12 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
         siteImproveScore: null,
         axeMonitorPagesTested: null,
         siteImprovePagesIndexed: null,
+        teamScore: null,
+        overrideJustification: null,
         auditorScore: null,
         auditorReportUrl: null,
         auditorDeckUrl: null,
+        monitorReportUrl: null,
         blocked: false,
         conflict: false,
         _inAxe: false, // internal — stripped before output
@@ -630,6 +650,12 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
     site.axeMonitorScore = rec.score;
     site.axeMonitorPagesTested = rec.pagesTested ?? null;
     site.agency = agencyByDomain.get(rec.domain) ?? UNATTRIBUTED;
+    // monitorReportUrl: the axe Monitor Public API exposes no public per-site
+    // report URL — scans/runs/pages responses carry only ids, scores, and the
+    // (auth-gated) domain host, no permalink/report/public link. So we leave it
+    // null rather than fabricate an unverifiable URL pattern; the UI degrades
+    // gracefully (no monitor link rendered).
+    site.monitorReportUrl = null;
     site._inAxe = true;
   }
 
@@ -650,14 +676,18 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
   }
 
   // --- Merge manual layer by domain (PRD §4.2) ---
+  // Defensive: any missing key → null/false (the team hand-edits this file).
   for (const site of sites.values()) {
     const manual = manualData[site.domain];
     if (!manual) continue;
+    site.teamScore = manual.team_score ?? null;
+    site.overrideJustification = manual.override_justification ?? null;
     site.auditorScore = manual.auditor_score ?? null;
     site.auditorReportUrl = manual.auditor_report_url ?? null;
     site.auditorDeckUrl = manual.auditor_deck_url ?? null;
-    site.blocked = manual.blocked ?? false;
-    // NOTE: `blocked_note` is intentionally NOT copied — internal only (PRD §4.2).
+    site.blocked = !!manual.blocked;
+    // NOTE: `flag_rating` and `blocked_note` are intentionally NOT copied —
+    // internal only, never surfaced to the client (PRD §4.2).
   }
 
   // Strip internal bookkeeping fields → final Site shape (matches src/types.ts).

@@ -48,6 +48,17 @@ body {
 .skip-link:focus {
   top: var(--nys-space-200);
 }
+/* NYSDS's `a:link`/`a:visited` rules out-specify `.skip-link`, which left the
+   link text link-blue on the dark chip (fails contrast). Match their specificity
+   and force white ink for every link state → white-on-#1b1b1b ≈ 16:1 (AA/AAA).
+   The focus outline sits 2px outside the chip (outline-offset), never over text. */
+a.skip-link,
+a.skip-link:link,
+a.skip-link:visited,
+a.skip-link:hover,
+a.skip-link:focus {
+  color: var(--nys-color-ink-reverse, #fff);
+}
 
 :focus-visible {
   outline: 3px solid var(--nys-color-focus, #004dd1);
@@ -350,6 +361,99 @@ a {
   flex: none;
   width: 0.9em;
   height: 0.9em;
+}
+
+/* --- View toggle (succinct ⇄ full) --- */
+/* Sits just above the site-table heading; deliberately quiet. */
+.view-toggle {
+  margin: 0 0 var(--nys-space-300);
+  font-size: var(--nys-font-size-body-sm);
+}
+.view-toggle__link {
+  font-weight: var(--nys-font-weight-semibold);
+  text-decoration: none;
+}
+.view-toggle__link:hover {
+  text-decoration: underline;
+}
+
+/* --- Succinct score cell --- */
+/* number + strong status badge + inline icon controls, all baseline-aligned. */
+.score-cell__main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--nys-space-200);
+}
+.score-cell__value {
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--nys-font-weight-semibold);
+  white-space: nowrap;
+}
+
+/* Icon-only affordance (external report/deck links). Square, centered, with a
+   comfortable hit target; inherits link color so it reads as interactive. */
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--nys-space-500);
+  height: var(--nys-space-500);
+  border-radius: var(--nys-radius-sm);
+  color: var(--nys-color-link);
+}
+.icon-link:hover {
+  background: var(--nys-color-base-weak, #e4e4e2);
+}
+.icon-link .external-icon {
+  width: 1em;
+  height: 1em;
+}
+
+/* Team-score note: a native <details> disclosure. The <summary> is the note
+   icon button; the revealed text wraps to its own line under the score row. */
+.note-disclosure {
+  display: inline-block;
+}
+.note-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--nys-space-500);
+  height: var(--nys-space-500);
+  border-radius: var(--nys-radius-sm);
+  color: var(--nys-color-text-weak);
+  cursor: pointer;
+  list-style: none;
+}
+/* Strip the native disclosure triangle across engines. */
+.note-toggle::-webkit-details-marker {
+  display: none;
+}
+.note-toggle::marker {
+  content: '';
+}
+.note-toggle:hover {
+  background: var(--nys-color-base-weak, #e4e4e2);
+  color: var(--nys-color-text);
+}
+.note-disclosure[open] .note-toggle {
+  color: var(--nys-color-text);
+}
+.note-icon {
+  flex: none;
+  width: 1em;
+  height: 1em;
+}
+.note-body {
+  margin-top: var(--nys-space-150);
+  padding: var(--nys-space-200) var(--nys-space-300);
+  background: var(--nys-color-surface-raised);
+  border-left: var(--nys-space-50) solid var(--nys-color-base);
+  border-radius: var(--nys-radius-sm);
+  font-size: var(--nys-font-size-body-sm);
+  color: var(--nys-color-text);
+  max-width: 40ch;
 }
 
 /* --- Footer --- */
