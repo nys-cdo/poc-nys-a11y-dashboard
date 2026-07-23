@@ -10,6 +10,9 @@
   --status-yellow: var(--nys-color-warning);
   --status-green: var(--nys-color-success);
   --status-neutral: var(--nys-color-base);
+  /* Content column width — matches the NYSDS globalheader/footer chrome so the
+     banner and main column line up with it. Keep header banner and main in sync. */
+  --app-content-max-width: 83rem;
 }
 
 body {
@@ -71,7 +74,7 @@ a {
 }
 .app-header__banner {
   display: block;
-  max-width: 83rem;
+  max-width: var(--app-content-max-width);
   margin: var(--nys-space-400) auto var(--nys-space-200);
   padding: 0 var(--nys-space-400);
 }
@@ -88,7 +91,7 @@ a {
 
 /* --- Main layout --- */
 .app-main {
-  max-width: 83rem;
+  max-width: var(--app-content-max-width);
   margin: 0 auto;
   padding: var(--nys-space-600) var(--nys-space-400) var(--nys-space-800);
   display: flex;
@@ -261,6 +264,15 @@ a {
   color: var(--nys-color-text-weak);
   font-size: var(--nys-font-size-body-sm);
 }
+/* Push the CSV download to the end of the filters row. */
+.table-download {
+  margin-left: auto;
+  margin-bottom: 4px;
+  align-self: center;
+  font-size: var(--nys-font-size-body-sm);
+  font-weight: var(--nys-font-weight-semibold);
+  white-space: nowrap;
+}
 .th-note {
   display: block;
   font-weight: var(--nys-font-weight-regular);
@@ -285,7 +297,14 @@ a {
   align-items: center;
 }
 .link-cell a { white-space: nowrap; }
-.muted { color: var(--nys-color-text-weaker, #8a8a8a); }
+/* text-weak (not text-weaker) — text-weaker (#797c7f) is only ~4.2:1 on white
+   and fails 4.5:1 for this normal-size cell text; text-weak clears it at ~8.5:1. */
+.muted { color: var(--nys-color-text-weak); }
+.table-empty {
+  text-align: center;
+  padding: var(--nys-space-400);
+  color: var(--nys-color-text-weak);
+}
 
 /* External links with a trailing "opens in new tab" glyph. inline-flex +
    align-items:center vertically centers the icon against the text without any

@@ -106,8 +106,14 @@ function renderDonut(s: ReturnType<typeof statewideSummary>): void {
   // container enough height so neither the donut nor the legend is clipped.
   el.style.height = `${300 + slices.length * 12}px`;
 
+  // Respect the OS "reduce motion" setting: skip the load/resize animation.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   chart.setOption({
-    aria: { enabled: true },
+    // decal patterns give each slice a texture, so status is distinguishable
+    // without relying on color alone (WCAG 1.4.1).
+    aria: { enabled: true, decal: { show: true } },
+    animation: !reduceMotion,
     tooltip: {
       trigger: 'item',
       formatter: (p: { name: string; value: number; percent: number }) =>

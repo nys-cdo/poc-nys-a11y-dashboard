@@ -1,6 +1,15 @@
 import type { DashboardData, Site, Status } from '../types';
 import { officialScore, officialStatus, type ScoreSource } from '../status';
-import { statusIntent, statusShort, formatScore, formatCount, esc, safeHref } from '../format';
+import { buildSitesCsv } from '../csv';
+import {
+  statusIntent,
+  statusShort,
+  statusLabel,
+  formatScore,
+  formatCount,
+  esc,
+  safeHref,
+} from '../format';
 
 /**
  * Site-level table (PRD §6.4). Two modes:
@@ -50,6 +59,15 @@ export function renderSiteTable(
     a.localeCompare(b),
   );
 
+  // A downloadable CSV of the WHOLE dataset (every site, every column) — a
+  // structured, screen-reader- and analysis-friendly alternative to the charts.
+  // A real <a download> (href built once) so it works with keyboard and
+  // right-click "Save link as" without a click handler.
+  const csvUrl = URL.createObjectURL(
+    // Lead with a UTF-8 BOM so Excel opens accented agency names correctly.
+    new Blob(['\uFEFF' + buildSitesCsv(data)], { type: 'text/csv;charset=utf-8' }),
+  );
+
   // Status options: succinct drops blocked/conflict (they aren't scores); full
   // keeps them because it surfaces the flag badges alongside the number.
   const statusOptions =
@@ -87,6 +105,9 @@ export function renderSiteTable(
         prefixIcon="refresh"
       ></nys-button>
       <p id="table-count" class="table-count" aria-live="polite"></p>
+      <a class="table-download" href="${csvUrl}" download="nys-accessibility-dashboard.csv">
+        Download full data set (CSV)
+      </a>
     </div>
 
     ${caveatLine(mode, data.meta.automatedCoveragePct)}
@@ -127,9 +148,13 @@ export function renderSiteTable(
 
   const rowHtml = mode === 'full' ? fullRowHtml : succinctRowHtml;
 
+  const columnCount = mode === 'full' ? 11 : 5;
+
   function draw(): void {
     const visible = rows.filter((r) => matches(r.site, r.status));
-    tbody.innerHTML = visible.map((r, i) => rowHtml(r.site, r.status, i)).join('');
+    tbody.innerHTML = visible.length
+      ? visible.map((r, i) => rowHtml(r.site, r.status, i)).join('')
+      : `<tr><td colspan="${columnCount}" class="table-empty">No sites match these filters.</td></tr>`;
     countEl.textContent = `Showing ${visible.length} of ${rows.length} sites`;
   }
 
@@ -177,6 +202,24 @@ export function renderSiteTable(
 /* -------------------------------------------------------------------------- */
 /* Shared shell helpers                                                        */
 /* -------------------------------------------------------------------------- */
+
+/**
+ * The status badge shared by BOTH table modes, so the succinct and `?full`
+ * views always render the official status identically. Strong fill (the updated
+ * badge design) + an intent icon (a shape cue beyond color — WCAG 1.4.1) +
+ * the visible color label, with the meaning ("Needs urgent attention") appended
+ * for screen readers via srText.
+ */
+function statusBadge(status: Status | 'unknown'): string {
+  return `<nys-badge
+      size="sm"
+      variant="strong"
+      intent="${statusIntent(status)}"
+      label="${statusShort(status)}"
+      prefixIcon
+      srText="${esc(statusLabel(status))}"
+    ></nys-badge>`;
+}
 
 function caption(mode: TableMode): string {
   return mode === 'full'
@@ -298,7 +341,7 @@ function succinctRowHtml(site: Site, status: Status | 'unknown', index: number):
   const { value, source } = officialScore(site);
   // The color badge lives in its own (last) column; the Score column carries
   // just the number; the Notes column carries the source affordances.
-  const badge = `<nys-badge size="sm" variant="strong" intent="${statusIntent(status)}" label="${statusShort(status)}"></nys-badge>`;
+  const badge = statusBadge(status);
   const valueHtml = value === null ? '<span class="muted">—</span>' : formatScore(value);
   const notes = notesCell(site, source, index);
 
@@ -318,8 +361,6 @@ function succinctRowHtml(site: Site, status: Status | 'unknown', index: number):
 /* -------------------------------------------------------------------------- */
 
 function fullRowHtml(site: Site, status: Status | 'unknown', _index: number): string {
-  const statusBadge = `<nys-badge size="sm" intent="${statusIntent(status)}" label="${statusShort(status)}" prefixIcon></nys-badge>`;
-
   const flags: string[] = [];
   if (site.blocked) {
     flags.push(
@@ -350,7 +391,7 @@ function fullRowHtml(site: Site, status: Status | 'unknown', _index: number): st
       <td class="num num--team" style="text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums">${formatScore(site.teamScore)}</td>
       <td class="num" style="text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums">${formatCount(site.axeMonitorPagesTested)}</td>
       <td class="num" style="text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums">${formatCount(site.siteImprovePagesIndexed)}</td>
-      <td>${statusBadge}</td>
+      <td>${statusBadge(status)}</td>
       <td><div class="flag-cell">${flags.join(' ') || '<span class="muted">—</span>'}</div></td>
       <td><div class="link-cell">${links.join(' ') || '<span class="muted">—</span>'}</div></td>
     </tr>

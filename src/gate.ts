@@ -44,10 +44,15 @@ async function sha256Hex(text: string): Promise<string> {
  * resolves immediately; otherwise renders a password overlay and resolves when
  * the correct password is entered.
  */
-export function requireGate(): Promise<void> {
-  if (sessionStorage.getItem(SESSION_KEY) === '1') return Promise.resolve();
+/**
+ * Resolves `true` once the visitor unlocks a freshly-shown gate, or `false`
+ * immediately when already unlocked this session (so the caller can decide
+ * whether to move focus into the app afterward).
+ */
+export function requireGate(): Promise<boolean> {
+  if (sessionStorage.getItem(SESSION_KEY) === '1') return Promise.resolve(false);
 
-  return new Promise<void>((resolve) => {
+  return new Promise<boolean>((resolve) => {
     const overlay = document.createElement('div');
     overlay.className = 'gate';
     overlay.setAttribute('role', 'dialog');
@@ -68,33 +73,54 @@ export function requireGate(): Promise<void> {
         ></nys-textinput>
         <nys-button
           id="gate-submit"
-          class="gate__submit"
           type="button"
           label="View dashboard"
           fullWidth
         ></nys-button>
+        <p id="gate-live" class="visually-hidden" role="alert" aria-live="assertive"></p>
       </div>
     `;
+
+    // Snapshot the existing body children (before appending the overlay) and
+    // mark them inert while the gate is up: focus and assistive tech stay inside
+    // the gate, honoring aria-modal without a hand-rolled focus trap.
+    const behind = [...document.body.children];
     document.body.appendChild(overlay);
     document.body.style.overflow = 'hidden';
+    for (const el of behind) el.setAttribute('inert', '');
 
     const input = overlay.querySelector('#gate-input') as NysTextinput;
     const submit = overlay.querySelector('#gate-submit')!;
+    const live = overlay.querySelector('#gate-live') as HTMLParagraphElement;
 
-    // Focus the field once the custom element has upgraded.
-    void customElements.whenDefined('nys-textinput').then(() => input.focus());
+    // Once the component upgrades: focus the field and set password-field hints
+    // on its inner input. nys-textinput exposes no autocomplete pass-through, so
+    // set them directly — password managers and paste (WCAG 3.3.8 Accessible
+    // Authentication) rely on autocomplete="current-password".
+    void customElements.whenDefined('nys-textinput').then(() => {
+      const native = input.shadowRoot?.querySelector('input');
+      native?.setAttribute('autocomplete', 'current-password');
+      native?.setAttribute('autocapitalize', 'off');
+      native?.setAttribute('spellcheck', 'false');
+      input.focus();
+    });
 
     const fail = (msg: string): void => {
       input.errorMessage = msg;
       input.showError = true;
       input.value = '';
+      // The field is already focused on the Enter path, so its aria-describedby
+      // error won't be re-announced; mirror the message into a live region.
+      live.textContent = msg;
       input.focus();
     };
 
+    // Guards the in-flight hash: ignore repeat submits until the async
+    // comparison settles.
     let pending = false;
     const attemptUnlock = (): void => {
-      if (pending) return; // guards against Enter firing twice
-      const value = input.value ?? '';
+      if (pending) return;
+      const value = input.value;
       if (!value) {
         fail('Enter the password to continue.');
         return;
@@ -106,7 +132,8 @@ export function requireGate(): Promise<void> {
           sessionStorage.setItem(SESSION_KEY, '1');
           overlay.remove();
           document.body.style.overflow = '';
-          resolve();
+          for (const el of behind) el.removeAttribute('inert');
+          resolve(true);
         } else {
           fail('That password is not correct. Try again.');
         }
@@ -117,9 +144,12 @@ export function requireGate(): Promise<void> {
     // Clear the error as soon as the visitor edits the field again.
     input.addEventListener('nys-input', () => {
       if (input.showError) input.showError = false;
+      if (live.textContent) live.textContent = '';
     });
-    // Enter anywhere in the gate submits.
-    overlay.addEventListener('keydown', (e) => {
+    // Enter in the field submits (nys-textinput emits no submit event). Listener
+    // is on the field only — button-Enter goes through nys-click, so no double
+    // fire.
+    input.addEventListener('keydown', (e) => {
       if ((e as KeyboardEvent).key === 'Enter') {
         e.preventDefault();
         attemptUnlock();

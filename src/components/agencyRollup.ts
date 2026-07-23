@@ -2,7 +2,7 @@ import * as echarts from 'echarts';
 import type { DashboardData, Status } from '../types';
 import { agencyRollups, sortAgencyRollups, type AgencySort } from '../status';
 import { statusColor } from '../tokens';
-import { statusLabel } from '../format';
+import { statusLabel, esc } from '../format';
 
 /** Called when a user clicks an agency's colored segment. */
 export type SegmentClickHandler = (
@@ -58,7 +58,8 @@ export function renderAgencyRollup(
     </div>
     <p class="section-sub">
       Each bar shows the share of an agency’s sites at each status.
-      <strong>Select a colored segment</strong> to see those sites below.
+      <strong>Select a colored segment</strong>, or use the agency and status
+      filters on the site table below, to see those sites.
       <span class="caveat-inline"><span aria-hidden="true">⚠</span> automated testing only</span>
     </p>
     <div id="agency-chart" class="agency-chart" role="img" aria-label="Loading agency chart"></div>
@@ -71,6 +72,9 @@ export function renderAgencyRollup(
         suffixIcon="chevron_down"
       ></nys-button>
     </div>
+    <p id="agency-live" class="visually-hidden" role="status" aria-live="polite"></p>
+    <!-- Structured, screen-reader alternative to the chart image; rebuilt in
+         draw() to match what's currently rendered. -->
     <div id="agency-table-fallback" class="visually-hidden"></div>
   `;
 
@@ -81,10 +85,13 @@ export function renderAgencyRollup(
   // Below this breakpoint we render only the first N of the current sort (which
   // defaults to most-at-risk-first) and offer a toggle to reveal the rest.
   const mobileMq = window.matchMedia('(max-width: 560px)');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const MOBILE_CAP = 10;
   let expanded = false;
   let currentSort: AgencySort = 'worst';
   const showAllBtn = document.getElementById('agency-show-all')!;
+  const liveEl = document.getElementById('agency-live')!;
+  const fallbackEl = document.getElementById('agency-table-fallback')!;
 
   // Clicking a colored segment → filter + jump to the site table.
   chart.on('click', (params) => {
@@ -94,7 +101,7 @@ export function renderAgencyRollup(
     if (status) onSegmentClick?.(agency, status);
   });
 
-  const draw = (sort: AgencySort) => {
+  const draw = (sort: AgencySort, announce = false) => {
     currentSort = sort;
     const isMobile = mobileMq.matches;
     const allRollups = sortAgencyRollups(agencyRollups(data), sort);
@@ -144,7 +151,10 @@ export function renderAgencyRollup(
     el.style.height = `${Math.max(240, agencies.length * 40 + topPad + 40)}px`;
     chart.setOption(
       {
-        aria: { enabled: true },
+        // decal patterns per status so segments are distinguishable without
+        // relying on color alone (WCAG 1.4.1).
+        aria: { enabled: true, decal: { show: true } },
+        animation: !reduceMotion,
         grid: { left: 8, right: 24, top: topPad, bottom: 8, containLabel: true },
         legend: { top: 8, left: 'center' },
         tooltip: {
@@ -174,9 +184,11 @@ export function renderAgencyRollup(
       },
       { notMerge: true },
     );
-    // Screen-reader label describes exactly what's currently rendered so it
-    // stays accurate as the succinct/mobile filters collapse and expand.
-    el.setAttribute('aria-label', agencyAria(rollups));
+    // The chart is an image with a SHORT summary label; the full per-agency
+    // breakdown lives in the adjacent visually-hidden data table (rebuilt to
+    // match what's currently rendered), which a screen reader can navigate.
+    el.setAttribute('aria-label', agencyAria(rollups.length, allRollups.length));
+    fallbackEl.innerHTML = agencyFallbackTable(rollups);
     // The container height is dynamic (grows with agency count). The SVG
     // renderer needs an explicit resize to match the new height, not just the
     // ResizeObserver — otherwise the chart draws compressed on first paint.
@@ -198,6 +210,12 @@ export function renderAgencyRollup(
       // Chevron points down to expand, up to collapse.
       showAllBtn.setAttribute('suffixIcon', expanded ? 'chevron_up' : 'chevron_down');
     }
+
+    // Announce sort/expand changes (not the initial paint) so screen-reader
+    // users know the chart updated.
+    if (announce) {
+      liveEl.textContent = `Showing ${rollups.length} of ${allRollups.length} agencies, sorted by ${sortDescription(sort)}.`;
+    }
   };
 
   draw('worst');
@@ -208,12 +226,12 @@ export function renderAgencyRollup(
       const value = (e as CustomEvent<{ value: string }>).detail?.value as AgencySort;
       // Re-collapse when the sort changes so the cap always shows the new top N.
       expanded = false;
-      draw(value ?? 'worst');
+      draw(value ?? 'worst', true);
     });
 
   showAllBtn.addEventListener('nys-click', () => {
     expanded = !expanded;
-    draw(currentSort);
+    draw(currentSort, true);
   });
 
   // Redraw when crossing the mobile breakpoint (cap appears/disappears).
@@ -226,12 +244,59 @@ export function renderAgencyRollup(
   ro.observe(el);
 }
 
-function agencyAria(rollups: ReturnType<typeof agencyRollups>): string {
-  const parts = rollups.map(
-    (r) =>
-      `${r.agency}: ${r.siteCount} sites (${r.counts.red} red, ${r.counts.yellow} yellow, ${r.counts.green} green` +
-      (r.blocked ? `, ${r.blocked} blocked` : '') +
-      ')',
+/** Short summary label for the chart image. The full breakdown is in the
+ *  adjacent data table (agencyFallbackTable), so this stays concise. */
+function agencyAria(shown: number, total: number): string {
+  const scope =
+    shown >= total
+      ? `all ${total} agencies`
+      : `the top ${shown} of ${total} agencies`;
+  return (
+    `Bar chart: share of each agency’s sites by accessibility status ` +
+    `(red, yellow, green), automated testing only, for ${scope}. ` +
+    `The full agency breakdown follows in the data table below.`
   );
-  return `Sites by agency and status, automated testing only. ${parts.join('. ')}.`;
+}
+
+/** Human description of a sort mode, for the live-region announcement. */
+function sortDescription(sort: AgencySort): string {
+  switch (sort) {
+    case 'name':
+      return 'agency name';
+    case 'sites':
+      return 'number of sites';
+    case 'worst':
+    default:
+      return 'most at-risk first';
+  }
+}
+
+/** Visually-hidden data table mirroring the currently-rendered rollups — the
+ *  structured, navigable alternative to the chart image. */
+function agencyFallbackTable(rollups: ReturnType<typeof agencyRollups>): string {
+  const hasUnknown = rollups.some((r) => r.counts.unknown > 0);
+  const hasBlocked = rollups.some((r) => r.blocked > 0);
+
+  const heads = ['Agency', 'Red', 'Yellow', 'Green'];
+  if (hasUnknown) heads.push('Not scored');
+  if (hasBlocked) heads.push('Blocked');
+  heads.push('Total sites');
+  const thead = heads.map((h) => `<th scope="col">${h}</th>`).join('');
+
+  const body = rollups
+    .map((r) => {
+      const cells = [`<th scope="row">${esc(r.agency)}</th>`];
+      const nums = [r.counts.red, r.counts.yellow, r.counts.green];
+      if (hasUnknown) nums.push(r.counts.unknown);
+      if (hasBlocked) nums.push(r.blocked);
+      nums.push(r.siteCount);
+      cells.push(...nums.map((n) => `<td>${n}</td>`));
+      return `<tr>${cells.join('')}</tr>`;
+    })
+    .join('');
+
+  return (
+    `<table><caption>Sites by agency and accessibility status (automated testing only)</caption>` +
+    `<thead><tr>${thead}</tr></thead><tbody>${body}</tbody></table>`
+  );
 }

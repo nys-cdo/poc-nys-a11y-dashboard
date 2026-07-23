@@ -20,6 +20,11 @@
     <header id="app-header" class="app-header"></header>
 
     <main id="main-content" class="nys-grid-container app-main" tabindex="-1">
+      <!-- Document h1. The nys-globalheader appName is chrome, not the page
+           heading, so the section h2s need an h1 above them. Visually hidden to
+           avoid duplicating the visible title in the header bar. -->
+      <h1 class="visually-hidden">Statewide Accessibility Dashboard</h1>
+
       <!-- Statewide summary hero (PRD §6.2) -->
       <section id="statewide-summary" aria-labelledby="statewide-summary-heading"></section>
 
