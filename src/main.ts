@@ -72,9 +72,11 @@ async function boot(): Promise<void> {
       <nys-unavfooter></nys-unavfooter>
     `;
   } catch (err) {
+    // The document <h1> is the visually-hidden one in index.html's <main>; keep
+    // this header title a non-heading so the error state still has a single h1.
     header.innerHTML = `
       <div class="app-header__bar">
-        <h1 class="app-header__title">Statewide Accessibility Dashboard</h1>
+        <p class="app-header__title">Statewide Accessibility Dashboard</p>
       </div>`;
     summary.innerHTML = `
       <nys-alert type="danger" heading="Could not load dashboard data">
@@ -84,5 +86,11 @@ async function boot(): Promise<void> {
   }
 }
 
-// Gate the page behind the shared password before doing anything else.
-void requireGate().then(boot);
+// Gate the page behind the shared password before doing anything else. When the
+// gate was actually shown, move focus into the app once booted — otherwise the
+// removed overlay drops focus to <body> and keyboard/SR users lose their place.
+void requireGate().then((shown) =>
+  boot().then(() => {
+    if (shown) document.getElementById('main-content')?.focus();
+  }),
+);

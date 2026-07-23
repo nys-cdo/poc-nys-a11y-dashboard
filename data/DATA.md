@@ -40,3 +40,7 @@ is still fetchable by URL. Change the password by running
 `DEFAULT_HASH` in `src/gate.ts` (or setting it as the `VITE_GATE_HASH` build env
 var / GitHub Actions secret). The current default password is `nys-a11y-2026` —
 change it before sharing the link.
+
+Once entered, the unlock is remembered in a cookie for 30 days (across tabs and
+browser restarts). The cookie stores the password hash, so rotating the password
+automatically re-prompts everyone.
