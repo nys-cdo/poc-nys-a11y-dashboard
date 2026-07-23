@@ -17,7 +17,7 @@ import { statusIntent, statusShort, formatScore, formatCount, esc, safeHref } fr
  * single number every mode agrees on.
  */
 export type TableMode = 'succinct' | 'full';
-export type StatusFilter = 'all' | Status | 'unknown' | 'blocked' | 'conflict';
+export type StatusFilter = 'all' | Status | 'unknown' | 'blocked';
 
 /**
  * "Opens in new tab" affordance appended to external links. The icon itself
@@ -27,13 +27,6 @@ export type StatusFilter = 'all' | Status | 'unknown' | 'blocked' | 'conflict';
  */
 const EXTERNAL_ICON =
   '<svg class="external-icon" viewBox="0 0 24 24" width="16" height="16" role="img" aria-label="opens in new tab" focusable="false"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" fill="currentColor"/></svg>';
-
-/**
- * Note glyph for the score-rationale disclosure. Purely decorative — the
- * <summary> carries a visually-hidden accessible name — so it is aria-hidden.
- */
-const NOTE_ICON =
-  '<svg class="note-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" fill="currentColor"/></svg>';
 
 /** Controller returned by renderSiteTable, for driving the filters externally. */
 export interface SiteTableController {
@@ -66,7 +59,6 @@ export function renderSiteTable(
         <option value="yellow" label="Yellow"></option>
         <option value="green" label="Green"></option>
         <option value="blocked" label="Blocked"></option>
-        <option value="conflict" label="Conflict"></option>
         <option value="unknown" label="Not scored"></option>`
       : `
         <option value="red" label="Red"></option>
@@ -92,7 +84,7 @@ export function renderSiteTable(
         label="Reset filters"
         variant="ghost"
         size="sm"
-        prefixIcon="restart_alt"
+        prefixIcon="refresh"
       ></nys-button>
       <p id="table-count" class="table-count" aria-live="polite"></p>
     </div>
@@ -100,7 +92,7 @@ export function renderSiteTable(
     ${caveatLine(mode, data.meta.automatedCoveragePct)}
 
     <div class="table-scroll">
-    <nys-table id="sites-nys-table" sortable striped>
+    <nys-table id="sites-nys-table" data-mode="${mode}" sortable striped>
       <table>
         <caption class="visually-hidden">${caption(mode)}</caption>
         <thead>
@@ -128,8 +120,6 @@ export function renderSiteTable(
         return true;
       case 'blocked':
         return site.blocked;
-      case 'conflict':
-        return site.conflict;
       default:
         return status === statusFilter;
     }
@@ -139,7 +129,7 @@ export function renderSiteTable(
 
   function draw(): void {
     const visible = rows.filter((r) => matches(r.site, r.status));
-    tbody.innerHTML = visible.map((r) => rowHtml(r.site, r.status)).join('');
+    tbody.innerHTML = visible.map((r, i) => rowHtml(r.site, r.status, i)).join('');
     countEl.textContent = `Showing ${visible.length} of ${rows.length} sites`;
   }
 
@@ -202,15 +192,15 @@ function caveatLine(mode: TableMode, coveragePct: number): string {
       axe Monitor and SiteImprove columns are <strong>automated scores</strong> (~${coveragePct}%
       of issues). Auditor and Team are <strong>manual scores</strong> where one exists. Status color
       follows the <strong>official score</strong> (team → auditor → axe Monitor → SiteImprove); a
-      <strong>blocked</strong> flag marks a barrier automation missed but no longer changes the score.
+      <strong>blocked</strong> flag marks a site that could not be scanned or scored (counted as Not scored).
     </p>`;
   }
   return `
     <p class="caveat-line caveat-line--table">
       <span aria-hidden="true">⚠</span>
       Score is the <strong>official value</strong> — a team or auditor manual score where one exists,
-      otherwise the automated (~${coveragePct}% of issues) score. Open the note or report icon in a
-      score cell for the source detail.
+      otherwise the automated (~${coveragePct}% of issues) score. The <strong>Notes</strong> column
+      holds the source detail: a rationale tooltip or a report link.
     </p>`;
 }
 
@@ -232,45 +222,71 @@ function headerCells(mode: TableMode): string {
   return `
       <th scope="col">Domain</th>
       <th scope="col">Agency</th>
-      <th scope="col">Score</th>`;
+      <th scope="col" style="text-align:right">Score</th>
+      <th scope="col">Notes</th>
+      <th scope="col">Status</th>`;
 }
 
 /* -------------------------------------------------------------------------- */
 /* Succinct mode                                                              */
 /* -------------------------------------------------------------------------- */
 
-/** Icon-only external link. The visually-hidden label + the icon's own
- *  "opens in new tab" announcement form the link's accessible name. */
-function iconLink(url: string, label: string, domain: string): string {
-  return `<a class="icon-link" href="${esc(safeHref(url))}" target="_blank" rel="noopener"><span class="visually-hidden">${esc(label)} for ${esc(domain)}</span>${EXTERNAL_ICON}</a>`;
+/** Icon-only external link, rendered as a compact circular nys-button that
+ *  navigates (href → <a>). `label` becomes the button's accessible name in
+ *  circle mode; we fold "opens in new tab" into it. */
+function iconLinkButton(url: string, icon: string, label: string, domain: string): string {
+  return `<nys-button
+      href="${esc(safeHref(url))}"
+      target="_blank"
+      circle
+      size="sm"
+      variant="ghost"
+      icon="${icon}"
+      label="${esc(label)} for ${esc(domain)} (opens in new tab)"
+    ></nys-button>`;
 }
 
-/** Native disclosure revealing the team's override justification. Rendered
- *  only when justification text exists. */
-function noteDisclosure(site: Site): string {
+/** Score-rationale affordance: a compact circular nys-button that triggers an
+ *  nys-tooltip (for → id) revealing the team's override justification on
+ *  hover/focus. Rendered only when justification text exists. `index` gives the
+ *  trigger a unique id per row.
+ *
+ *  NOTE: this depends on the nys-table slotting fix (post-1.19.3). Before it,
+ *  nys-table deep-cloned its slotted table into its shadow root, so the
+ *  tooltip's `for=id` (resolved via document.getElementById) hit the hidden
+ *  light-DOM original instead of the visible shadow clone and never fired. */
+function rationaleTooltip(site: Site, index: number): string {
   const text = (site.overrideJustification ?? '').trim();
   if (!text) return '';
-  return `<details class="note-disclosure">
-      <summary class="note-toggle"><span class="visually-hidden">Score rationale for ${esc(site.domain)}</span>${NOTE_ICON}</summary>
-      <div class="note-body">${esc(text)}</div>
-    </details>`;
+  const id = `rationale-${index}`;
+  return `<nys-button
+      id="${id}"
+      circle
+      size="sm"
+      variant="ghost"
+      icon="info"
+      label="Score rationale for ${esc(site.domain)}"
+    ></nys-button>` +
+    `<nys-tooltip for="${id}" text="${esc(text)}"></nys-tooltip>`;
 }
 
-/** Source-driven annotation controls for the succinct score cell. */
-function succinctAnnotation(site: Site, source: ScoreSource): string {
+/** Contents of the succinct Notes column, chosen by the official score's source:
+ *  team → rationale tooltip; auditor → report/deck link icons; monitor → report
+ *  link icon; siteimprove/none → nothing. */
+function notesCell(site: Site, source: ScoreSource, index: number): string {
   switch (source) {
     case 'team':
-      return noteDisclosure(site);
+      return rationaleTooltip(site, index);
     case 'auditor': {
       const parts: string[] = [];
-      if (site.auditorReportUrl) parts.push(iconLink(site.auditorReportUrl, 'Auditor report', site.domain));
-      if (site.auditorDeckUrl) parts.push(iconLink(site.auditorDeckUrl, 'Auditor deck', site.domain));
+      if (site.auditorReportUrl) parts.push(iconLinkButton(site.auditorReportUrl, 'link', 'Auditor report', site.domain));
+      if (site.auditorDeckUrl) parts.push(iconLinkButton(site.auditorDeckUrl, 'open_in_new', 'Auditor deck', site.domain));
       return parts.join('');
     }
     case 'monitor':
       // monitorReportUrl is currently always null → renders nothing. Graceful.
       return site.monitorReportUrl
-        ? iconLink(site.monitorReportUrl, 'axe Monitor report', site.domain)
+        ? iconLinkButton(site.monitorReportUrl, 'open_in_new', 'axe Monitor report', site.domain)
         : '';
     default:
       // 'siteimprove' or null → no annotation.
@@ -278,20 +294,21 @@ function succinctAnnotation(site: Site, source: ScoreSource): string {
   }
 }
 
-function succinctRowHtml(site: Site, status: Status | 'unknown'): string {
+function succinctRowHtml(site: Site, status: Status | 'unknown', index: number): string {
   const { value, source } = officialScore(site);
+  // The color badge lives in its own (last) column; the Score column carries
+  // just the number; the Notes column carries the source affordances.
   const badge = `<nys-badge size="sm" variant="strong" intent="${statusIntent(status)}" label="${statusShort(status)}"></nys-badge>`;
-  const valueHtml =
-    value === null ? '' : `<span class="score-cell__value">${formatScore(value)}</span>`;
-  const annotation = succinctAnnotation(site, source);
+  const valueHtml = value === null ? '<span class="muted">—</span>' : formatScore(value);
+  const notes = notesCell(site, source, index);
 
   return `
     <tr>
       <td><a class="external-link" href="${esc(safeHref(site.url))}" target="_blank" rel="noopener">${esc(site.domain)}${EXTERNAL_ICON}</a></td>
       <td>${esc(site.agency)}</td>
-      <td class="score-cell">
-        <div class="score-cell__main">${valueHtml}${badge}${annotation}</div>
-      </td>
+      <td class="num score-num">${valueHtml}</td>
+      <td><div class="notes-cell">${notes}</div></td>
+      <td>${badge}</td>
     </tr>
   `;
 }
@@ -300,18 +317,13 @@ function succinctRowHtml(site: Site, status: Status | 'unknown'): string {
 /* Full mode                                                                  */
 /* -------------------------------------------------------------------------- */
 
-function fullRowHtml(site: Site, status: Status | 'unknown'): string {
+function fullRowHtml(site: Site, status: Status | 'unknown', _index: number): string {
   const statusBadge = `<nys-badge size="sm" intent="${statusIntent(status)}" label="${statusShort(status)}" prefixIcon></nys-badge>`;
 
   const flags: string[] = [];
   if (site.blocked) {
     flags.push(
-      `<nys-badge size="sm" variant="strong" intent="error" label="Blocked" prefixIcon srText="known blocking barrier automation missed"></nys-badge>`,
-    );
-  }
-  if (site.conflict) {
-    flags.push(
-      `<nys-badge size="sm" intent="warning" label="Conflict" prefixIcon srText="URL appears in both scanning tools; needs manual resolution"></nys-badge>`,
+      `<nys-badge size="sm" variant="strong" intent="error" label="Blocked" prefixIcon srText="could not be scanned or scored"></nys-badge>`,
     );
   }
 

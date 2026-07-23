@@ -18,48 +18,51 @@ function buildDialog(): HTMLDialogElement {
         <button type="button" class="methodology-dialog__close" aria-label="Close methodology">✕</button>
       </div>
       <div class="methodology-dialog__body">
-        <h3>Automated testing catches ~30% of issues</h3>
-        <p>
-          Every score on this dashboard comes from <strong>automated scanning</strong>
-          (axe Monitor and SiteImprove). Automated tools reliably detect only about
-          <strong>30%</strong> of accessibility barriers. The remaining ~70% — keyboard
-          traps, meaningful reading order, whether alt text is <em>correct</em>, screen-reader
-          usability of complex widgets — require <strong>manual review by a person</strong>.
-        </p>
-        <p class="methodology-dialog__callout">
-          A green score means <strong>“no automated blockers detected,”</strong> not
-          “this site is accessible.” Do not treat any number here as a compliance determination.
-        </p>
-
-        <h3>Three signals, shown side by side</h3>
-        <p>Each site can carry up to three scores. We deliberately do not blend them into one number:</p>
-        <ul>
-          <li><strong>axe Monitor</strong> — automated scan (Deque). Also our authoritative source for grouping sites by agency.</li>
-          <li><strong>SiteImprove</strong> — automated scan, second source of coverage.</li>
-          <li><strong>Axe Auditor</strong> — score from a comprehensive <em>manual</em> test, when one has been done. Expect this to be lower than the automated scores; that gap is informative, not an error.</li>
-        </ul>
-
         <h3>The traffic-light rubric</h3>
-        <p>Status color is driven by the automated score — the authoritative axe Monitor score when present (including when both tools scanned a site), otherwise SiteImprove:</p>
+        <p>The red / yellow / green color is this rubric applied to the official score (below):</p>
         <ul class="methodology-dialog__rubric">
           <li><span class="dot dot--red"></span> <strong>Red</strong> — 0–40%</li>
           <li><span class="dot dot--yellow"></span> <strong>Yellow</strong> — 41–79%</li>
           <li><span class="dot dot--green"></span> <strong>Green</strong> — 80–100%</li>
         </ul>
 
-        <h3>The “blocked” flag overrides everything</h3>
+        <h3>The official score</h3>
         <p>
-          When the team knows a site has a serious blocking barrier that automation missed,
-          it is flagged <strong>blocked</strong> and renders <strong>Red regardless of its
-          score</strong>. The original automated number still shows, so the gap between
-          “scored 85%” and “flagged blocked” is visible.
+          Each site shows a single <strong>official score</strong>. When more than one source
+          has a number, the most authoritative one wins, in this order:
+        </p>
+        <ol class="methodology-dialog__chain">
+          <li><strong>Team score</strong> — a manual score set by the accessibility team, with a written justification. Overrides everything.</li>
+          <li><strong>Auditor score</strong> — from a comprehensive <em>manual</em> Axe Auditor test, when one has been done.</li>
+          <li><strong>axe Monitor</strong> — automated scan (Deque). Also our source for grouping sites by agency.</li>
+          <li><strong>SiteImprove</strong> — automated scan, our second source of coverage.</li>
+          <li>If none of the above exists, the site is <strong>Not scored</strong>.</li>
+        </ol>
+        <p>
+          The <strong>?full</strong> view shows every underlying source side by side; the default
+          view shows only the official score and, in the <strong>Notes</strong> column, where it
+          came from — a rationale tooltip for a team override, or a link to an auditor report.
         </p>
 
-        <h3>Conflict badge</h3>
+        <h3>Automated testing catches ~30% of issues</h3>
         <p>
-          A site’s URL should appear in only one scanning tool. When the same URL shows up in
-          <em>both</em> axe Monitor and SiteImprove, we flag it as a <strong>conflict</strong>
-          rather than averaging the scores. The team resolves these by hand.
+          The axe Monitor and SiteImprove scores are <strong>automated</strong>. Automated tools
+          reliably detect only about <strong>30%</strong> of accessibility barriers. The remaining
+          ~70% — keyboard traps, meaningful reading order, whether alt text is <em>correct</em>,
+          screen-reader usability of complex widgets — require <strong>manual review by a person</strong>.
+          The team and auditor scores come from exactly that kind of manual review.
+        </p>
+        <p class="methodology-dialog__callout">
+          A green automated score means <strong>“no automated blockers detected,”</strong> not
+          “this site is accessible.” Do not treat any number here as a compliance determination.
+        </p>
+
+        <h3>The “blocked” flag</h3>
+        <p>
+          A site is <strong>blocked</strong> when it could not be scanned or scored at all (for
+          example, it sits behind authentication). Blocked no longer forces a Red color — a site
+          with no score is simply counted as <strong>Not scored</strong>. The reason a site was
+          blocked is kept as an internal note and is not shown here.
         </p>
 
         <h3>Unattributed</h3>

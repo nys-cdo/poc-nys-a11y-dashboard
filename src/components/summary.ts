@@ -30,11 +30,6 @@ export function renderSummary(root: HTMLElement, data: DashboardData): void {
         <h3 class="summary__chart-title">Status distribution</h3>
         <div id="summary-donut" class="summary__donut" role="img"
              aria-label="${donutAria(s)}"></div>
-        <p class="caveat-line">
-          <span aria-hidden="true">⚠</span>
-          Based on automated testing only (~${data.meta.automatedCoveragePct}% of issues).
-          Green = no automated blockers detected, not “accessible.”
-        </p>
       </div>
     </div>
   `;
@@ -129,8 +124,9 @@ function renderDonut(s: ReturnType<typeof statewideSummary>): void {
     series: [
       {
         type: 'pie',
-        radius: ['40%', '58%'],
-        center: ['50%', '33%'],
+        // A solid pie (no inner radius) rather than a ring.
+        radius: '62%',
+        center: ['50%', '36%'],
         avoidLabelOverlap: true,
         itemStyle: { borderColor: '#fff', borderWidth: 2 },
         // Slices carry no outside labels — the legend is the readout.

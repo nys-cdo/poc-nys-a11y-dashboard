@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-07-22T16:43:33.454Z",
+    "generatedAt": "2026-07-23T13:00:38.332Z",
     "automatedCoveragePct": 30,
     "rubric": {
       "red": [
@@ -332,7 +332,7 @@
     {
       "domain": "farmdirectory.agriculture.ny.gov",
       "url": "https://farmdirectory.agriculture.ny.gov",
-      "agency": "👐 Non-auth Domains",
+      "agency": "Unattributed",
       "axeMonitorScore": 7,
       "siteImproveScore": null,
       "axeMonitorPagesTested": 27,
@@ -604,7 +604,7 @@
     {
       "domain": "dfs.ny.gov",
       "url": "https://dfs.ny.gov",
-      "agency": "👐 Non-auth Domains",
+      "agency": "Unattributed",
       "axeMonitorScore": 51,
       "siteImproveScore": 91,
       "axeMonitorPagesTested": 999,
@@ -1981,7 +1981,7 @@
     {
       "domain": "plus.efc.ny.gov",
       "url": "https://plus.efc.ny.gov",
-      "agency": "👐 Non-auth Domains",
+      "agency": "Unattributed",
       "axeMonitorScore": 16,
       "siteImproveScore": null,
       "axeMonitorPagesTested": 5,
@@ -1998,7 +1998,7 @@
     {
       "domain": "portal.efc.ny.gov",
       "url": "https://portal.efc.ny.gov",
-      "agency": "👐 Non-auth Domains",
+      "agency": "Unattributed",
       "axeMonitorScore": 16,
       "siteImproveScore": null,
       "axeMonitorPagesTested": 5,
@@ -2015,7 +2015,7 @@
     {
       "domain": "hcsauth.health.ny.gov",
       "url": "https://hcsauth.health.ny.gov",
-      "agency": "🔐 Auth-CUSTOM",
+      "agency": "Unattributed",
       "axeMonitorScore": null,
       "siteImproveScore": null,
       "axeMonitorPagesTested": null,
@@ -2406,7 +2406,7 @@
     {
       "domain": "fcb.ny.gov",
       "url": "https://fcb.ny.gov",
-      "agency": "👐 Non-auth Domains",
+      "agency": "Unattributed",
       "axeMonitorScore": 34,
       "siteImproveScore": 93,
       "axeMonitorPagesTested": 35,
@@ -3205,7 +3205,7 @@
     {
       "domain": "ovs.ny.gov",
       "url": "https://ovs.ny.gov",
-      "agency": "👐 Non-auth Domains",
+      "agency": "Unattributed",
       "axeMonitorScore": 48,
       "siteImproveScore": 92,
       "axeMonitorPagesTested": 69,
@@ -3800,7 +3800,7 @@
     {
       "domain": "assembly.ny.gov",
       "url": "https://assembly.ny.gov",
-      "agency": "👐 Non-auth Domains",
+      "agency": "Unattributed",
       "axeMonitorScore": 77,
       "siteImproveScore": null,
       "axeMonitorPagesTested": 1001,
@@ -4123,7 +4123,7 @@
     {
       "domain": "efc.ny.gov",
       "url": "https://efc.ny.gov",
-      "agency": "👐 Non-auth Domains",
+      "agency": "Unattributed",
       "axeMonitorScore": 64,
       "siteImproveScore": 92,
       "axeMonitorPagesTested": 150,
@@ -4157,7 +4157,7 @@
     {
       "domain": "hudsongreenway.ny.gov",
       "url": "https://hudsongreenway.ny.gov",
-      "agency": "👐 Non-auth Domains",
+      "agency": "Unattributed",
       "axeMonitorScore": 66,
       "siteImproveScore": 94,
       "axeMonitorPagesTested": 50,
@@ -4174,7 +4174,7 @@
     {
       "domain": "hrbrrd.ny.gov",
       "url": "https://hrbrrd.ny.gov",
-      "agency": "👐 Non-auth Domains",
+      "agency": "Unattributed",
       "axeMonitorScore": 40,
       "siteImproveScore": null,
       "axeMonitorPagesTested": 135,
@@ -4514,7 +4514,7 @@
     {
       "domain": "omhjobs.omh.ny.gov",
       "url": "https://omhjobs.omh.ny.gov",
-      "agency": "🤖 Scripted",
+      "agency": "Unattributed",
       "axeMonitorScore": 63,
       "siteImproveScore": null,
       "axeMonitorPagesTested": 8,

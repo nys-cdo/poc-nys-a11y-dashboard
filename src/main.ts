@@ -55,14 +55,20 @@ async function boot(): Promise<void> {
       : '<a class="view-toggle__link" href="?full">View full data &rarr;</a>';
     table.insertAdjacentElement('afterbegin', toggle);
 
+    // NYSDS footers: agency (nys-globalfooter) above the universal NYS footer.
     footer.innerHTML = `
-      <div class="nys-grid-container">
+      <nys-globalfooter
+        agencyName="Office of Information Technology Services"
+        agencySubheading="Statewide Accessibility Dashboard"
+        homepageLink="https://its.ny.gov/"
+      >
         <p>
           Internal working tool · Phase 1 snapshot · Sources:
           ${data.meta.sources.map((s) => `<strong>${s}</strong>`).join(', ')}.
           Automated testing detects ~${data.meta.automatedCoveragePct}% of accessibility issues.
         </p>
-      </div>
+      </nys-globalfooter>
+      <nys-unavfooter></nys-unavfooter>
     `;
   } catch (err) {
     header.innerHTML = `

@@ -182,20 +182,36 @@ function loadEnv() {
 const AXE_PER_PAGE = 100;
 
 /**
+ * axe Scan Group names that are functional/categorization tags, NOT agencies
+ * (they describe HOW a site was crawled). A scan may carry one of these ALONGSIDE
+ * a real agency group, in which case the agency wins; a scan whose ONLY group is
+ * one of these has no agency grouping → Unattributed.
+ */
+const NON_AGENCY_GROUPS = new Set([
+  '👐 Non-auth Domains',
+  '🤖 Scripted',
+  '🔐 Auth-CUSTOM',
+]);
+
+function isNonAgencyGroup(name) {
+  // Known non-agency tags, plus the general shape (emoji/symbol-prefixed rather
+  // than an alphanumeric agency name like "ITS"). Refine the explicit set as the
+  // team confirms which Scan Groups are agencies.
+  return NON_AGENCY_GROUPS.has(name.trim()) || !/^[A-Za-z0-9]/.test(name.trim());
+}
+
+/**
  * Pick the owning agency for a scan from its Scan Groups.
- * A scan can belong to multiple groups; we take the first group's name as the
- * agency (log-worthy if a scan is multi-group). No groups → Unattributed.
+ * A scan can belong to multiple groups; non-agency tags (see above) are set
+ * aside. If a real agency group remains we use it (preferring the first);
+ * otherwise the scan has no agency grouping → Unattributed.
  */
 function agencyFromScan(scan) {
   const groups = Array.isArray(scan?.groups) ? scan.groups : [];
   const named = groups.map((g) => g?.name).filter(Boolean);
-  if (!named.length) return UNATTRIBUTED;
-  // axe Scan Groups mix real agency names ("ITS") with functional tags
-  // ("👐 Non-auth Domains"). Prefer a name that starts alphanumerically (an
-  // agency) over an emoji/symbol-prefixed tag. Refine with a real group→agency
-  // map once the team confirms which groups are agencies.
-  const agencyLike = named.find((n) => /^[A-Za-z0-9]/.test(n.trim()));
-  return agencyLike ?? named[0];
+  const agencies = named.filter((n) => !isNonAgencyGroup(n));
+  // Only functional tags (or no groups at all) → no resolvable agency.
+  return agencies[0] ?? UNATTRIBUTED;
 }
 
 /** Pick the most recent COMPLETED run (fallback: most recent run of any status). */
@@ -290,7 +306,8 @@ async function fetchAxeMonitor(env) {
   if (multiGroup > 0) {
     console.warn(
       `[axe Monitor] ${multiGroup} scan(s) belong to multiple Scan Groups; used the ` +
-        `first group as the agency. Review if agency attribution looks off.`
+        `first non-tag agency group (functional tags like “👐 Non-auth Domains” are ` +
+        `ignored, and a scan with only tags is Unattributed). Review if attribution looks off.`
     );
   }
 

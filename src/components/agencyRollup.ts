@@ -65,9 +65,10 @@ export function renderAgencyRollup(
     <div class="agency-chart__actions">
       <nys-button
         id="agency-show-all"
-        variant="ghost"
+        variant="outline"
         size="sm"
         label="Show all agencies"
+        suffixIcon="chevron_down"
       ></nys-button>
     </div>
     <div id="agency-table-fallback" class="visually-hidden"></div>
@@ -194,6 +195,8 @@ export function renderAgencyRollup(
         'label',
         expanded ? 'Show fewer agencies' : `Show all ${allRollups.length} agencies`,
       );
+      // Chevron points down to expand, up to collapse.
+      showAllBtn.setAttribute('suffixIcon', expanded ? 'chevron_up' : 'chevron_down');
     }
   };
 

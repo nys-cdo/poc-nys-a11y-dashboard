@@ -11,9 +11,11 @@
     />
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <!-- Skip link (NYSDS): first focusable element, targets #main-content. -->
+    <nys-skipnav></nys-skipnav>
 
-    <!-- Header, persistent 30%-caveat banner, last-refreshed, methodology link.
+    <!-- nys-globalheader (NYS logo enabled, no unav-header), persistent
+         30%-caveat banner, last-refreshed, methodology button.
          Rendered by src/components/header.ts -->
     <header id="app-header" class="app-header"></header>
 
@@ -28,6 +30,7 @@
       <section id="site-table" aria-labelledby="site-table-heading"></section>
     </main>
 
+    <!-- nys-globalfooter + nys-unavfooter. Rendered by src/main.ts. -->
     <footer id="app-footer" class="app-footer"></footer>
 
     <!-- Methodology dialog content lives here, opened from the header -->
