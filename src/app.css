@@ -495,49 +495,8 @@ a {
   color: var(--nys-color-text-weak);
   font-size: var(--nys-font-size-body-sm);
 }
-.gate__label {
-  display: block;
-  margin-bottom: var(--nys-space-100);
-  font-weight: var(--nys-font-weight-semibold);
-  font-size: var(--nys-font-size-ui-sm);
-}
+/* nys-textinput / nys-button style themselves; we just space them. */
 .gate__input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: var(--nys-space-200) var(--nys-space-300);
-  border: var(--nys-border-width-md, 2px) solid var(--nys-color-base);
-  border-radius: var(--nys-radius-md);
-  font-size: var(--nys-font-size-body-md);
-}
-.gate__input:focus-visible {
-  outline: 3px solid var(--nys-color-focus, #004dd1);
-  outline-offset: 1px;
-}
-.gate__input[aria-invalid='true'] {
-  border-color: var(--nys-color-danger);
-}
-.gate__error {
-  margin: var(--nys-space-200) 0 0;
-  color: var(--nys-color-danger-strong, #b91c1c);
-  font-size: var(--nys-font-size-body-sm);
-}
-.gate__submit {
-  margin-top: var(--nys-space-400);
-  width: 100%;
-  padding: var(--nys-space-200) var(--nys-space-400);
-  border: none;
-  border-radius: var(--nys-radius-round);
-  background: var(--nys-color-theme, #154973);
-  color: var(--nys-color-ink-reverse, #fff);
-  font-family: var(--nys-font-family-ui);
-  font-size: var(--nys-font-size-ui-md);
-  font-weight: var(--nys-font-weight-semibold);
-  cursor: pointer;
-}
-.gate__submit:hover {
-  background: var(--nys-color-theme-strong, #0f3555);
-}
-.gate__submit:focus-visible {
-  outline: 3px solid var(--nys-color-focus, #004dd1);
-  outline-offset: 2px;
+  display: block;
+  margin-bottom: var(--nys-space-400);
 }
