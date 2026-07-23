@@ -71,7 +71,7 @@ a {
 }
 .app-header__banner {
   display: block;
-  max-width: 1200px;
+  max-width: 83rem;
   margin: var(--nys-space-400) auto var(--nys-space-200);
   padding: 0 var(--nys-space-400);
 }
@@ -88,7 +88,7 @@ a {
 
 /* --- Main layout --- */
 .app-main {
-  max-width: 1200px;
+  max-width: 83rem;
   margin: 0 auto;
   padding: var(--nys-space-600) var(--nys-space-400) var(--nys-space-800);
   display: flex;
