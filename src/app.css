@@ -34,21 +34,6 @@ body {
   border: 0;
 }
 
-.skip-link {
-  position: absolute;
-  left: var(--nys-space-200);
-  top: calc(-1 * var(--nys-space-1200));
-  background: var(--nys-color-text);
-  color: var(--nys-color-ink-reverse, #fff);
-  padding: var(--nys-space-200) var(--nys-space-400);
-  border-radius: var(--nys-radius-md);
-  z-index: 100;
-  transition: top 0.15s ease;
-}
-.skip-link:focus {
-  top: var(--nys-space-200);
-}
-
 :focus-visible {
   outline: 3px solid var(--nys-color-focus, #004dd1);
   outline-offset: 2px;
@@ -59,46 +44,24 @@ a {
 }
 
 /* --- Header --- */
-.app-header {
-  border-bottom: var(--nys-border-width-sm) solid var(--nys-color-base-weak, #d0d0ce);
-}
-.app-header__bar {
+/* The title bar is now nys-globalheader (with the NYS brand mark). We only
+   style the slotted user-actions cluster and the persistent caveat banner. */
+.app-header__actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--nys-space-400);
-  align-items: flex-end;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--nys-space-500) var(--nys-space-400) var(--nys-space-400);
-}
-.app-header__eyebrow {
-  margin: 0 0 var(--nys-space-100);
-  font-size: var(--nys-font-size-ui-sm);
-  color: var(--nys-color-text-weak);
-  text-transform: uppercase;
-  letter-spacing: var(--nys-font-letterspacing-ui-md, 0.02em);
-}
-.app-header__title {
-  margin: 0;
-  font-family: var(--nys-font-family-heading);
-  font-size: var(--nys-font-size-h1);
-  line-height: var(--nys-font-lineheight-h1);
-}
-.app-header__meta {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--nys-space-150);
+  align-items: center;
+  gap: var(--nys-space-300);
 }
 .app-header__refreshed {
   margin: 0;
-  text-align: right;
   font-size: var(--nys-font-size-body-sm);
+  white-space: nowrap;
+  /* Sits on the dark globalheader bar → reverse ink for contrast. */
+  color: var(--nys-color-text-reverse, #fff);
 }
 .app-header__refreshed-label {
-  display: block;
-  color: var(--nys-color-text-weak);
+  /* Muted, but the reverse-weak variant stays legible on the dark bar
+     (the plain weak token rendered as inaccessible gray). */
+  color: var(--nys-color-text-reverse-weak, #d0d0ce);
   font-size: var(--nys-font-size-ui-xs);
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -106,23 +69,10 @@ a {
 .app-header__refreshed-date {
   font-weight: var(--nys-font-weight-semibold);
 }
-.app-header__method-btn {
-  background: var(--nys-color-surface-raised);
-  border: var(--nys-border-width-sm) solid var(--nys-color-base);
-  border-radius: var(--nys-radius-round);
-  padding: var(--nys-space-150) var(--nys-space-400);
-  font-family: var(--nys-font-family-ui);
-  font-size: var(--nys-font-size-ui-sm);
-  color: var(--nys-color-text);
-  cursor: pointer;
-}
-.app-header__method-btn:hover {
-  background: var(--nys-color-base-weak, #eee);
-}
 .app-header__banner {
   display: block;
   max-width: 1200px;
-  margin: 0 auto var(--nys-space-200);
+  margin: var(--nys-space-400) auto var(--nys-space-200);
   padding: 0 var(--nys-space-400);
 }
 .app-header__banner-link {
@@ -273,7 +223,22 @@ a {
   padding: var(--nys-space-300);
 }
 
+/* Toggle under the agency chart (only shown on mobile, from JS). */
+.agency-chart__actions {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--nys-space-200);
+}
+
 /* --- Site table --- */
+/* Confine the table's horizontal overflow to this container so the wide table
+   scrolls sideways on its own — the page never gets a horizontal scrollbar. A
+   scroll container's automatic min-width is 0, which stops the wide table from
+   forcing the flex column (and the page) wider than the viewport. */
+.table-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+}
 .table-filters {
   display: flex;
   flex-wrap: wrap;
@@ -322,44 +287,120 @@ a {
 .link-cell a { white-space: nowrap; }
 .muted { color: var(--nys-color-text-weaker, #8a8a8a); }
 
-/* --- Footer --- */
-.app-footer {
-  border-top: var(--nys-border-width-sm) solid var(--nys-color-base-weak, #d0d0ce);
-  padding: var(--nys-space-500) var(--nys-space-400);
-  color: var(--nys-color-text-weak);
+/* External links with a trailing "opens in new tab" glyph. inline-flex +
+   align-items:center vertically centers the icon against the text without any
+   baseline math — robust across caps- and lowercase-heavy labels alike. The
+   gap replaces per-icon margin; text-decoration underlines the label only. */
+.external-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--nys-space-50);
+}
+.external-icon {
+  flex: none;
+  width: 0.9em;
+  height: 0.9em;
+}
+
+/* --- View toggle (succinct ⇄ full) --- */
+/* Sits just above the site-table heading; deliberately quiet. */
+.view-toggle {
+  margin: 0 0 var(--nys-space-300);
   font-size: var(--nys-font-size-body-sm);
 }
-.app-footer .nys-grid-container {
-  max-width: 1200px;
-  margin: 0 auto;
+.view-toggle__link {
+  font-weight: var(--nys-font-weight-semibold);
+  text-decoration: none;
+}
+.view-toggle__link:hover {
+  text-decoration: underline;
+}
+
+/* --- Succinct Score / Notes / Status columns --- */
+/* Score is a plain right-aligned number; the Notes column holds compact
+   icon-button affordances (report/deck links, rationale tooltip); the color
+   badge is the last column on its own. */
+.score-num {
+  font-weight: var(--nys-font-weight-semibold);
+}
+.notes-cell {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--nys-space-50);
+}
+
+/* Keep the three trailing columns (Score, Notes, Status) snug so Domain and
+   Agency absorb the free width — otherwise the Notes column stretches and the
+   status badge gets squeezed into a wrapped blob. The 1%/nowrap pairing tells
+   the auto-layout table to shrink these columns to their content. */
+#sites-nys-table[data-mode='succinct'] th:nth-child(n + 3),
+#sites-nys-table[data-mode='succinct'] td:nth-child(n + 3) {
+  width: 1%;
+  white-space: nowrap;
+}
+
+/* --- Footer --- */
+/* nys-globalfooter + nys-unavfooter are full-bleed and style themselves, so the
+   wrapper stays out of the way. The slotted note inherits a quiet body size. */
+.app-footer nys-globalfooter p {
+  font-size: var(--nys-font-size-body-sm);
 }
 
 /* --- Methodology dialog --- */
+/* The dialog is a flex column with a fixed header and a scrolling body, so the
+   title never overlaps the content as it scrolls (a transparent sticky header
+   was letting text show through). overflow:hidden keeps the rounded corners and
+   confines scrolling to the body. */
 .methodology-dialog {
   max-width: 720px;
   width: calc(100% - var(--nys-space-700));
+  max-height: min(90vh, 760px);
   border: none;
   border-radius: var(--nys-radius-lg);
   padding: 0;
+  overflow: hidden;
   box-shadow: var(--nys-shadow-overlay);
+}
+.methodology-dialog[open] {
+  display: flex;
+  flex-direction: column;
 }
 .methodology-dialog::backdrop {
   background: rgba(0, 0, 0, 0.5);
 }
 .methodology-dialog__inner {
-  padding: var(--nys-space-500) var(--nys-space-600) var(--nys-space-600);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1 1 auto;
 }
 .methodology-dialog__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--nys-space-400);
-  position: sticky;
-  top: 0;
+  flex: none;
+  padding: var(--nys-space-500) var(--nys-space-600);
+  background: var(--nys-color-surface-raised, #fff);
+  border-bottom: var(--nys-border-width-sm) solid var(--nys-color-base-weak, #e4e4e2);
 }
 .methodology-dialog__header h2 {
   margin: 0;
   font-size: var(--nys-font-size-h3);
+}
+.methodology-dialog__body {
+  overflow-y: auto;
+  padding: var(--nys-space-200) var(--nys-space-600) var(--nys-space-600);
+}
+/* The NYSDS reset sets list-style:none on all lists, so restore markers here. */
+.methodology-dialog__chain {
+  list-style: decimal;
+  padding-left: var(--nys-space-500);
+  margin-bottom: var(--nys-space-150);
+}
+.methodology-dialog__chain li {
+  margin-bottom: var(--nys-space-100);
 }
 .methodology-dialog__close {
   background: none;
@@ -413,7 +454,90 @@ a {
   .summary__grid {
     grid-template-columns: 1fr;
   }
-  .app-header__meta {
-    align-items: flex-start;
-  }
+}
+
+/* --- Access gate (password overlay) --- */
+/* Full-screen cover shown before the app renders (src/gate.ts). Not strong
+   security — just a shared-password curtain for the public Pages URL. */
+.gate {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--nys-space-400);
+  background: var(--nys-color-ink, #1b1b1b);
+}
+.gate__card {
+  width: 100%;
+  max-width: 26rem;
+  background: var(--nys-color-surface, #fff);
+  border-radius: var(--nys-radius-lg);
+  box-shadow: var(--nys-shadow-overlay);
+  padding: var(--nys-space-600);
+}
+.gate__eyebrow {
+  margin: 0 0 var(--nys-space-100);
+  font-size: var(--nys-font-size-ui-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--nys-color-text-weak);
+}
+.gate__title {
+  margin: 0 0 var(--nys-space-200);
+  font-family: var(--nys-font-family-heading);
+  font-size: var(--nys-font-size-h4);
+  line-height: var(--nys-font-lineheight-h4);
+}
+.gate__desc {
+  margin: 0 0 var(--nys-space-400);
+  color: var(--nys-color-text-weak);
+  font-size: var(--nys-font-size-body-sm);
+}
+.gate__label {
+  display: block;
+  margin-bottom: var(--nys-space-100);
+  font-weight: var(--nys-font-weight-semibold);
+  font-size: var(--nys-font-size-ui-sm);
+}
+.gate__input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--nys-space-200) var(--nys-space-300);
+  border: var(--nys-border-width-md, 2px) solid var(--nys-color-base);
+  border-radius: var(--nys-radius-md);
+  font-size: var(--nys-font-size-body-md);
+}
+.gate__input:focus-visible {
+  outline: 3px solid var(--nys-color-focus, #004dd1);
+  outline-offset: 1px;
+}
+.gate__input[aria-invalid='true'] {
+  border-color: var(--nys-color-danger);
+}
+.gate__error {
+  margin: var(--nys-space-200) 0 0;
+  color: var(--nys-color-danger-strong, #b91c1c);
+  font-size: var(--nys-font-size-body-sm);
+}
+.gate__submit {
+  margin-top: var(--nys-space-400);
+  width: 100%;
+  padding: var(--nys-space-200) var(--nys-space-400);
+  border: none;
+  border-radius: var(--nys-radius-round);
+  background: var(--nys-color-theme, #154973);
+  color: var(--nys-color-ink-reverse, #fff);
+  font-family: var(--nys-font-family-ui);
+  font-size: var(--nys-font-size-ui-md);
+  font-weight: var(--nys-font-weight-semibold);
+  cursor: pointer;
+}
+.gate__submit:hover {
+  background: var(--nys-color-theme-strong, #0f3555);
+}
+.gate__submit:focus-visible {
+  outline: 3px solid var(--nys-color-focus, #004dd1);
+  outline-offset: 2px;
 }

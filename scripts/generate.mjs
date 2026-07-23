@@ -40,6 +40,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 const ENV_PATH = join(ROOT, '.env');
 const MANUAL_DATA_PATH = join(ROOT, 'data', 'manual-data.json');
+const EXCLUDE_LIST_PATH = join(ROOT, 'data', 'exclude_list.json');
 const OUTPUT_DIR = join(ROOT, 'public');
 const OUTPUT_PATH = join(OUTPUT_DIR, 'dashboard-data.json');
 const CACHE_DIR = join(ROOT, 'scripts', '.cache');
@@ -182,20 +183,36 @@ function loadEnv() {
 const AXE_PER_PAGE = 100;
 
 /**
+ * axe Scan Group names that are functional/categorization tags, NOT agencies
+ * (they describe HOW a site was crawled). A scan may carry one of these ALONGSIDE
+ * a real agency group, in which case the agency wins; a scan whose ONLY group is
+ * one of these has no agency grouping → Unattributed.
+ */
+const NON_AGENCY_GROUPS = new Set([
+  '👐 Non-auth Domains',
+  '🤖 Scripted',
+  '🔐 Auth-CUSTOM',
+]);
+
+function isNonAgencyGroup(name) {
+  // Known non-agency tags, plus the general shape (emoji/symbol-prefixed rather
+  // than an alphanumeric agency name like "ITS"). Refine the explicit set as the
+  // team confirms which Scan Groups are agencies.
+  return NON_AGENCY_GROUPS.has(name.trim()) || !/^[A-Za-z0-9]/.test(name.trim());
+}
+
+/**
  * Pick the owning agency for a scan from its Scan Groups.
- * A scan can belong to multiple groups; we take the first group's name as the
- * agency (log-worthy if a scan is multi-group). No groups → Unattributed.
+ * A scan can belong to multiple groups; non-agency tags (see above) are set
+ * aside. If a real agency group remains we use it (preferring the first);
+ * otherwise the scan has no agency grouping → Unattributed.
  */
 function agencyFromScan(scan) {
   const groups = Array.isArray(scan?.groups) ? scan.groups : [];
   const named = groups.map((g) => g?.name).filter(Boolean);
-  if (!named.length) return UNATTRIBUTED;
-  // axe Scan Groups mix real agency names ("ITS") with functional tags
-  // ("👐 Non-auth Domains"). Prefer a name that starts alphanumerically (an
-  // agency) over an emoji/symbol-prefixed tag. Refine with a real group→agency
-  // map once the team confirms which groups are agencies.
-  const agencyLike = named.find((n) => /^[A-Za-z0-9]/.test(n.trim()));
-  return agencyLike ?? named[0];
+  const agencies = named.filter((n) => !isNonAgencyGroup(n));
+  // Only functional tags (or no groups at all) → no resolvable agency.
+  return agencies[0] ?? UNATTRIBUTED;
 }
 
 /** Pick the most recent COMPLETED run (fallback: most recent run of any status). */
@@ -258,6 +275,11 @@ async function fetchAxeMonitor(env) {
     if (!latest) return null;
 
     const score = normalizeAxeScore(latest.score);
+    // Pages actually crawled + scored in this run (`pages.completed`). Some runs
+    // (errored/in-progress) omit the object entirely → null.
+    const pagesTested = Number.isFinite(latest.pages?.completed)
+      ? latest.pages.completed
+      : null;
 
     // Domain — read a single page from the chosen run to get its host.
     let domainUrl = '';
@@ -279,13 +301,14 @@ async function fetchAxeMonitor(env) {
     // Fall back to the scan name only if the API gave us no page URL at all.
     const domain = domainFromUrl(domainUrl || pageUrl || scan.name || '');
     if (!domain) return null;
-    return { domain, url: httpUrl(pageUrl || domainUrl, domain), agency, score };
+    return { domain, url: httpUrl(pageUrl || domainUrl, domain), agency, score, pagesTested };
   });
 
   if (multiGroup > 0) {
     console.warn(
       `[axe Monitor] ${multiGroup} scan(s) belong to multiple Scan Groups; used the ` +
-        `first group as the agency. Review if agency attribution looks off.`
+        `first non-tag agency group (functional tags like “👐 Non-auth Domains” are ` +
+        `ignored, and a scan with only tags is Unattributed). Review if attribution looks off.`
     );
   }
 
@@ -368,7 +391,10 @@ async function fetchSiteImprove(env) {
     } catch (err) {
       console.warn(`[SiteImprove] site ${site.id} (${domain}): no DCI score — ${err.message}`);
     }
-    return { domain, url: httpUrl(site.url, domain), score };
+    // Pages in SiteImprove's monitored index for this site (`pages` on the list
+    // item). Distinct from axe's "tested" count — this is index size, not scanned.
+    const pagesIndexed = Number.isFinite(site.pages) ? site.pages : null;
+    return { domain, url: httpUrl(site.url, domain), score, pagesIndexed };
   });
 
   return records.filter(Boolean);
@@ -553,8 +579,19 @@ function normalizeSiScore(value) {
 
 /**
  * Read + parse the hand-maintained manual layer (PRD §4.2).
- * Keyed by bare domain. The leading `_comment` key is skipped.
- * IMPORTANT: `blocked_note` is internal-only and MUST NOT be copied into output.
+ *
+ * File shape (a list the team keeps editing):
+ *   { "manual": [ { "domain", "url", "flag_rating", "team_score",
+ *                   "override_justification", "auditor_score",
+ *                   "auditor_report_url", "auditor_deck_url",
+ *                   "blocked", "blocked_note" }, … ] }
+ *
+ * Returns a plain object keyed by bare domain. Defensive by design: a missing
+ * `manual` array, non-object rows, or entries without a `domain` are skipped
+ * rather than throwing (the team edits this file by hand).
+ *
+ * IMPORTANT: `flag_rating` and `blocked_note` are internal-only and MUST NOT be
+ * copied into the output — that stripping happens in `buildSites`.
  */
 function loadManualData() {
   if (!existsSync(MANUAL_DATA_PATH)) {
@@ -562,9 +599,61 @@ function loadManualData() {
     return {};
   }
   const parsed = JSON.parse(readFileSync(MANUAL_DATA_PATH, 'utf8'));
-  // Drop the documentation-only `_comment` key.
-  const { _comment, ...entries } = parsed;
-  return entries;
+  const rows = Array.isArray(parsed?.manual) ? parsed.manual : [];
+  const byDomain = {};
+  for (const row of rows) {
+    if (!row || typeof row !== 'object') continue;
+    const domain = typeof row.domain === 'string' ? row.domain.trim() : '';
+    if (!domain) continue;
+    byDomain[domain] = row; // last entry wins on duplicate domains
+  }
+  return byDomain;
+}
+
+/**
+ * Load the team-maintained exclusion list (`data/exclude_list.json`) and return
+ * a matcher. These are sites (typically dev/QA/demo hosts pulled in from
+ * SiteImprove) to drop ENTIRELY from the dashboard and all counts.
+ *
+ * File shape (any entry may be a bare string or an object with a `reason`):
+ *   { "exclude": [
+ *       "dev.example.ny.gov",
+ *       "*.acquia-sites.com",
+ *       { "url": "https://qa.example.ny.gov", "reason": "QA copy" }
+ *   ] }
+ *
+ * Matching is host-based and includes subdomains: an entry `acquia-sites.com`
+ * (or `*.acquia-sites.com`) drops that host and everything under it. A full URL
+ * is reduced to its host. Blank/`#`-commented entries are ignored.
+ */
+function loadExcludeList() {
+  if (!existsSync(EXCLUDE_LIST_PATH)) {
+    return { patterns: [], isExcluded: () => false };
+  }
+  let parsed;
+  try {
+    parsed = JSON.parse(readFileSync(EXCLUDE_LIST_PATH, 'utf8'));
+  } catch (err) {
+    console.warn(`[exclude] could not parse exclude_list.json — ignoring it (${err.message}).`);
+    return { patterns: [], isExcluded: () => false };
+  }
+  const rows = Array.isArray(parsed?.exclude) ? parsed.exclude : [];
+  const patterns = [];
+  for (const row of rows) {
+    const raw = typeof row === 'string' ? row : row && typeof row === 'object' ? row.url : '';
+    let entry = typeof raw === 'string' ? raw.trim() : '';
+    if (!entry || entry.startsWith('#')) continue; // allow "#"-prefixed comment lines
+    entry = entry.replace(/^\*\./, ''); // "*.acquia-sites.com" → "acquia-sites.com"
+    // A URL (has a scheme or a slash) → reduce to host; otherwise it's a bare host.
+    const host = /:\/\/|\//.test(entry) ? domainFromUrl(entry) : entry.toLowerCase();
+    if (host) patterns.push(host);
+  }
+  const isExcluded = (domain) => {
+    if (!domain) return false;
+    const d = domain.toLowerCase();
+    return patterns.some((p) => d === p || d.endsWith(`.${p}`));
+  };
+  return { patterns, isExcluded };
 }
 
 /**
@@ -598,9 +687,14 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
         agency: agencyByDomain.get(domain) ?? UNATTRIBUTED,
         axeMonitorScore: null,
         siteImproveScore: null,
+        axeMonitorPagesTested: null,
+        siteImprovePagesIndexed: null,
+        teamScore: null,
+        overrideJustification: null,
         auditorScore: null,
         auditorReportUrl: null,
         auditorDeckUrl: null,
+        monitorReportUrl: null,
         blocked: false,
         conflict: false,
         _inAxe: false, // internal — stripped before output
@@ -618,7 +712,14 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
     if (!rec.domain) continue;
     const site = getSite(rec.domain, rec.url);
     site.axeMonitorScore = rec.score;
+    site.axeMonitorPagesTested = rec.pagesTested ?? null;
     site.agency = agencyByDomain.get(rec.domain) ?? UNATTRIBUTED;
+    // monitorReportUrl: the axe Monitor Public API exposes no public per-site
+    // report URL — scans/runs/pages responses carry only ids, scores, and the
+    // (auth-gated) domain host, no permalink/report/public link. So we leave it
+    // null rather than fabricate an unverifiable URL pattern; the UI degrades
+    // gracefully (no monitor link rendered).
+    site.monitorReportUrl = null;
     site._inAxe = true;
   }
 
@@ -627,6 +728,7 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
     if (!rec.domain) continue;
     const site = getSite(rec.domain, rec.url);
     site.siteImproveScore = rec.score;
+    site.siteImprovePagesIndexed = rec.pagesIndexed ?? null;
     // Agency comes from axe Monitor taxonomy; unresolved stays Unattributed.
     site.agency = agencyByDomain.get(rec.domain) ?? site.agency ?? UNATTRIBUTED;
     site._inSiteImprove = true;
@@ -638,14 +740,18 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
   }
 
   // --- Merge manual layer by domain (PRD §4.2) ---
+  // Defensive: any missing key → null/false (the team hand-edits this file).
   for (const site of sites.values()) {
     const manual = manualData[site.domain];
     if (!manual) continue;
+    site.teamScore = manual.team_score ?? null;
+    site.overrideJustification = manual.override_justification ?? null;
     site.auditorScore = manual.auditor_score ?? null;
     site.auditorReportUrl = manual.auditor_report_url ?? null;
     site.auditorDeckUrl = manual.auditor_deck_url ?? null;
-    site.blocked = manual.blocked ?? false;
-    // NOTE: `blocked_note` is intentionally NOT copied — internal only (PRD §4.2).
+    site.blocked = !!manual.blocked;
+    // NOTE: `flag_rating` and `blocked_note` are intentionally NOT copied —
+    // internal only, never surfaced to the client (PRD §4.2).
   }
 
   // Strip internal bookkeeping fields → final Site shape (matches src/types.ts).
@@ -720,7 +826,19 @@ async function main() {
   }
 
   const manualData = loadManualData();
-  const sites = buildSites(axeRecords, siteImproveRecords, manualData);
+  const allSites = buildSites(axeRecords, siteImproveRecords, manualData);
+
+  // Drop team-excluded sites (dev/QA/demo hosts) entirely — from the data and
+  // therefore from every count/chart downstream.
+  const { patterns: excludePatterns, isExcluded } = loadExcludeList();
+  const sites = allSites.filter((s) => !isExcluded(s.domain));
+  const excludedCount = allSites.length - sites.length;
+  if (excludePatterns.length) {
+    console.log(
+      `[exclude] ${excludedCount} site(s) removed via ${excludePatterns.length} ` +
+        `exclude_list.json pattern(s).`,
+    );
+  }
 
   // Assemble the final DashboardData (matches src/types.ts exactly).
   const data = {

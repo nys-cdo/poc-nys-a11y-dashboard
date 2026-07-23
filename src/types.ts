@@ -30,17 +30,49 @@ export interface Site {
   /** SiteImprove automated composite score. */
   siteImproveScore: number | null;
 
+  // --- Coverage (pages), pulled from the same calls as the scores above ---
+  /**
+   * axe Monitor: pages actually crawled AND scored in the latest run
+   * (`pages.completed`). "Pages tested." Not comparable to SiteImprove's count.
+   */
+  axeMonitorPagesTested: number | null;
+  /**
+   * SiteImprove: pages in the site's monitored index (`pages`). "Pages indexed"
+   * — the set its DCI is computed across, not a per-run scanned count.
+   */
+  siteImprovePagesIndexed: number | null;
+
   // --- Manual layer (from manual-data.json, merged at build time) ---
+  /**
+   * Team review / override score (0–100). The HIGHEST-priority signal in the
+   * official-score chain — a human-set number that wins over every automated
+   * source when present. `null` when the team hasn't scored the site.
+   */
+  teamScore: number | null;
+  /**
+   * Short human rationale for the team's `teamScore` (why they overrode the
+   * automated numbers). Surfaced via a note disclosure in the succinct view.
+   * `null` when there is no justification text. Distinct from `blocked_note`,
+   * which is internal-only and never reaches the client.
+   */
+  overrideJustification: string | null;
   /** Axe Auditor comprehensive manual-test score. PRD §4.2. */
   auditorScore: number | null;
   /** Link to the full manual report, if one exists. */
   auditorReportUrl: string | null;
   /** Link to the user-impact / priority-fixes deck, if one exists. */
   auditorDeckUrl: string | null;
+  /**
+   * Public axe Monitor report link for the site, or `null` when none is
+   * available. The axe Monitor Public API exposes no per-site public report
+   * URL, so this is currently always null (the UI degrades gracefully).
+   */
+  monitorReportUrl: string | null;
 
   /**
-   * Team-set: high automated score but a known blocking issue automation
-   * missed. Forces status Red regardless of score. PRD §5.3.
+   * Team-set: a known blocking issue automation missed. Surfaced as a "blocked"
+   * flag badge, but no longer forces status Red — the official score (see
+   * status.ts) drives color. A scoreless blocked site reads as "Not scored".
    */
   blocked: boolean;
 
@@ -75,14 +107,35 @@ export interface DashboardData {
   sites: Site[];
 }
 
-/** A single manual-data.json entry (keyed by domain in the file). PRD §4.2. */
+/**
+ * A single `manual-data.json` entry (raw file shape). PRD §4.2.
+ *
+ * The file is a hand-maintained list under a top-level `manual` key; the team
+ * keeps editing it, so every field is optional and may be null. `flag_rating`
+ * and `blocked_note` are read from the file but intentionally NOT propagated to
+ * the client `Site` (they are internal-only).
+ */
 export interface ManualEntry {
+  /** Bare domain — the join key against the automated sources. */
+  domain?: string;
+  /** Full URL (informational only; the merge keys on `domain`). */
+  url?: string;
+  /** Legacy human flag ("Red"/"Yellow"/…). Ignored by the pipeline. */
+  flag_rating?: string | null;
+  /** Team review / override score (0–100). */
+  team_score?: number | null;
+  /** Short rationale for the team's score/override. */
+  override_justification?: string | null;
   auditor_score?: number | null;
   auditor_report_url?: string | null;
   auditor_deck_url?: string | null;
-  blocked?: boolean;
+  /** `true` when the team flagged a blocker; `null`/absent otherwise. */
+  blocked?: boolean | null;
   /** Internal rationale — stored but intentionally NOT surfaced in the UI. */
   blocked_note?: string | null;
 }
 
-export type ManualData = Record<string, ManualEntry>;
+/** Raw `manual-data.json` document: a `manual` array of entries. */
+export interface ManualData {
+  manual: ManualEntry[];
+}
