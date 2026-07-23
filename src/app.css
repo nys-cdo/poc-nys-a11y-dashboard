@@ -455,3 +455,89 @@ a {
     grid-template-columns: 1fr;
   }
 }
+
+/* --- Access gate (password overlay) --- */
+/* Full-screen cover shown before the app renders (src/gate.ts). Not strong
+   security — just a shared-password curtain for the public Pages URL. */
+.gate {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--nys-space-400);
+  background: var(--nys-color-ink, #1b1b1b);
+}
+.gate__card {
+  width: 100%;
+  max-width: 26rem;
+  background: var(--nys-color-surface, #fff);
+  border-radius: var(--nys-radius-lg);
+  box-shadow: var(--nys-shadow-overlay);
+  padding: var(--nys-space-600);
+}
+.gate__eyebrow {
+  margin: 0 0 var(--nys-space-100);
+  font-size: var(--nys-font-size-ui-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--nys-color-text-weak);
+}
+.gate__title {
+  margin: 0 0 var(--nys-space-200);
+  font-family: var(--nys-font-family-heading);
+  font-size: var(--nys-font-size-h4);
+  line-height: var(--nys-font-lineheight-h4);
+}
+.gate__desc {
+  margin: 0 0 var(--nys-space-400);
+  color: var(--nys-color-text-weak);
+  font-size: var(--nys-font-size-body-sm);
+}
+.gate__label {
+  display: block;
+  margin-bottom: var(--nys-space-100);
+  font-weight: var(--nys-font-weight-semibold);
+  font-size: var(--nys-font-size-ui-sm);
+}
+.gate__input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--nys-space-200) var(--nys-space-300);
+  border: var(--nys-border-width-md, 2px) solid var(--nys-color-base);
+  border-radius: var(--nys-radius-md);
+  font-size: var(--nys-font-size-body-md);
+}
+.gate__input:focus-visible {
+  outline: 3px solid var(--nys-color-focus, #004dd1);
+  outline-offset: 1px;
+}
+.gate__input[aria-invalid='true'] {
+  border-color: var(--nys-color-danger);
+}
+.gate__error {
+  margin: var(--nys-space-200) 0 0;
+  color: var(--nys-color-danger-strong, #b91c1c);
+  font-size: var(--nys-font-size-body-sm);
+}
+.gate__submit {
+  margin-top: var(--nys-space-400);
+  width: 100%;
+  padding: var(--nys-space-200) var(--nys-space-400);
+  border: none;
+  border-radius: var(--nys-radius-round);
+  background: var(--nys-color-theme, #154973);
+  color: var(--nys-color-ink-reverse, #fff);
+  font-family: var(--nys-font-family-ui);
+  font-size: var(--nys-font-size-ui-md);
+  font-weight: var(--nys-font-weight-semibold);
+  cursor: pointer;
+}
+.gate__submit:hover {
+  background: var(--nys-color-theme-strong, #0f3555);
+}
+.gate__submit:focus-visible {
+  outline: 3px solid var(--nys-color-focus, #004dd1);
+  outline-offset: 2px;
+}

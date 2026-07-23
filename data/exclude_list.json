@@ -1,0 +1,7 @@
+{
+  "exclude": [
+    { "url": "*.acquia-sites.com", "reason": "Acquia dev/staging hosting — not production" },
+    { "url": "*.acsitefactory.com", "reason": "Acquia Site Factory dev/QA/UAT hosts" },
+    { "url": "unav24-stage.pages.dev", "reason": "Staging preview host" }
+  ]
+}

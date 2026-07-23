@@ -7,6 +7,7 @@ import '../assets/fonts/nysds-fonts.css';
 // App styles (tokens-only, no ad-hoc values).
 import './app.css';
 
+import { requireGate } from './gate';
 import { loadDashboardData } from './data';
 import { renderHeader } from './components/header';
 import { renderSummary } from './components/summary';
@@ -83,4 +84,5 @@ async function boot(): Promise<void> {
   }
 }
 
-boot();
+// Gate the page behind the shared password before doing anything else.
+void requireGate().then(boot);

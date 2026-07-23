@@ -40,6 +40,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 const ENV_PATH = join(ROOT, '.env');
 const MANUAL_DATA_PATH = join(ROOT, 'data', 'manual-data.json');
+const EXCLUDE_LIST_PATH = join(ROOT, 'data', 'exclude_list.json');
 const OUTPUT_DIR = join(ROOT, 'public');
 const OUTPUT_PATH = join(OUTPUT_DIR, 'dashboard-data.json');
 const CACHE_DIR = join(ROOT, 'scripts', '.cache');
@@ -610,6 +611,52 @@ function loadManualData() {
 }
 
 /**
+ * Load the team-maintained exclusion list (`data/exclude_list.json`) and return
+ * a matcher. These are sites (typically dev/QA/demo hosts pulled in from
+ * SiteImprove) to drop ENTIRELY from the dashboard and all counts.
+ *
+ * File shape (any entry may be a bare string or an object with a `reason`):
+ *   { "exclude": [
+ *       "dev.example.ny.gov",
+ *       "*.acquia-sites.com",
+ *       { "url": "https://qa.example.ny.gov", "reason": "QA copy" }
+ *   ] }
+ *
+ * Matching is host-based and includes subdomains: an entry `acquia-sites.com`
+ * (or `*.acquia-sites.com`) drops that host and everything under it. A full URL
+ * is reduced to its host. Blank/`#`-commented entries are ignored.
+ */
+function loadExcludeList() {
+  if (!existsSync(EXCLUDE_LIST_PATH)) {
+    return { patterns: [], isExcluded: () => false };
+  }
+  let parsed;
+  try {
+    parsed = JSON.parse(readFileSync(EXCLUDE_LIST_PATH, 'utf8'));
+  } catch (err) {
+    console.warn(`[exclude] could not parse exclude_list.json — ignoring it (${err.message}).`);
+    return { patterns: [], isExcluded: () => false };
+  }
+  const rows = Array.isArray(parsed?.exclude) ? parsed.exclude : [];
+  const patterns = [];
+  for (const row of rows) {
+    const raw = typeof row === 'string' ? row : row && typeof row === 'object' ? row.url : '';
+    let entry = typeof raw === 'string' ? raw.trim() : '';
+    if (!entry || entry.startsWith('#')) continue; // allow "#"-prefixed comment lines
+    entry = entry.replace(/^\*\./, ''); // "*.acquia-sites.com" → "acquia-sites.com"
+    // A URL (has a scheme or a slash) → reduce to host; otherwise it's a bare host.
+    const host = /:\/\/|\//.test(entry) ? domainFromUrl(entry) : entry.toLowerCase();
+    if (host) patterns.push(host);
+  }
+  const isExcluded = (domain) => {
+    if (!domain) return false;
+    const d = domain.toLowerCase();
+    return patterns.some((p) => d === p || d.endsWith(`.${p}`));
+  };
+  return { patterns, isExcluded };
+}
+
+/**
  * Build the merged `Site[]` array from the two normalized sources + manual data.
  *
  * PRD §4.1:
@@ -779,7 +826,19 @@ async function main() {
   }
 
   const manualData = loadManualData();
-  const sites = buildSites(axeRecords, siteImproveRecords, manualData);
+  const allSites = buildSites(axeRecords, siteImproveRecords, manualData);
+
+  // Drop team-excluded sites (dev/QA/demo hosts) entirely — from the data and
+  // therefore from every count/chart downstream.
+  const { patterns: excludePatterns, isExcluded } = loadExcludeList();
+  const sites = allSites.filter((s) => !isExcluded(s.domain));
+  const excludedCount = allSites.length - sites.length;
+  if (excludePatterns.length) {
+    console.log(
+      `[exclude] ${excludedCount} site(s) removed via ${excludePatterns.length} ` +
+        `exclude_list.json pattern(s).`,
+    );
+  }
 
   // Assemble the final DashboardData (matches src/types.ts exactly).
   const data = {
