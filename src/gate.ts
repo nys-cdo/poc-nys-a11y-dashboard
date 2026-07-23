@@ -23,9 +23,25 @@ const DEFAULT_HASH = 'f319719f15b23a569d088ba7a329fb6c106da12506b05deddd1ec455d1
 
 const EXPECTED_HASH = (import.meta.env.VITE_GATE_HASH ?? DEFAULT_HASH).trim().toLowerCase();
 
-// Per-tab: unlocking survives reloads within the session but re-prompts in a new
-// browsing session.
-const SESSION_KEY = 'nys-a11y-gate';
+// Unlocking is remembered in a long-lived cookie so a visitor stays in across
+// tabs and browser restarts. The cookie VALUE is the expected hash, so rotating
+// the password (a new hash) invalidates every existing unlock automatically.
+const COOKIE_NAME = 'nys-a11y-gate';
+const GATE_MAX_AGE_DAYS = 30;
+
+function readGateCookie(): string | null {
+  const row = document.cookie
+    .split('; ')
+    .find((c) => c.startsWith(`${COOKIE_NAME}=`));
+  return row ? decodeURIComponent(row.slice(COOKIE_NAME.length + 1)) : null;
+}
+
+function writeGateCookie(value: string): void {
+  const maxAge = GATE_MAX_AGE_DAYS * 24 * 60 * 60;
+  // Secure only over HTTPS so local http://localhost previews still persist.
+  const secure = location.protocol === 'https:' ? '; Secure' : '';
+  document.cookie = `${COOKIE_NAME}=${encodeURIComponent(value)}; Max-Age=${maxAge}; Path=/; SameSite=Lax${secure}`;
+}
 
 /** The bits of nys-textinput we drive imperatively. */
 interface NysTextinput extends HTMLElement {
@@ -40,17 +56,12 @@ async function sha256Hex(text: string): Promise<string> {
 }
 
 /**
- * Resolve once the visitor is allowed through. If already unlocked this session,
- * resolves immediately; otherwise renders a password overlay and resolves when
- * the correct password is entered.
- */
-/**
  * Resolves `true` once the visitor unlocks a freshly-shown gate, or `false`
- * immediately when already unlocked this session (so the caller can decide
- * whether to move focus into the app afterward).
+ * immediately when a valid unlock cookie is already present (so the caller can
+ * decide whether to move focus into the app afterward).
  */
 export function requireGate(): Promise<boolean> {
-  if (sessionStorage.getItem(SESSION_KEY) === '1') return Promise.resolve(false);
+  if (readGateCookie() === EXPECTED_HASH) return Promise.resolve(false);
 
   return new Promise<boolean>((resolve) => {
     const overlay = document.createElement('div');
@@ -129,7 +140,7 @@ export function requireGate(): Promise<boolean> {
       void sha256Hex(value).then((hash) => {
         pending = false;
         if (hash === EXPECTED_HASH) {
-          sessionStorage.setItem(SESSION_KEY, '1');
+          writeGateCookie(EXPECTED_HASH);
           overlay.remove();
           document.body.style.overflow = '';
           for (const el of behind) el.removeAttribute('inert');
