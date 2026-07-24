@@ -3,7 +3,7 @@
   "overrides": [
     { "domain": "ag.ny.gov", "agency": "Department of Law" },
     { "domain": "assembly.ny.gov", "agency": "NYS Assembly" },
-    { "domain": "bsc.ogs.ny.gov", "agency": "OGS	Office of General Services" },
+    { "domain": "bsc.ogs.ny.gov", "agency": "Office of General Services" },
     { "domain": "dfs.ny.gov", "agency": "Department of Financial Services" },
     { "domain": "dhses.ny.gov", "agency": "Division of Homeland Security" },
     { "domain": "efc.ny.gov", "agency": "Environmental Facilities Corporation" },
