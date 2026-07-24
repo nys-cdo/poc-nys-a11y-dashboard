@@ -1,4 +1,21 @@
 {
   "_comment": "Hand-maintained agency attribution overrides (see data/DATA.md). Each entry is { \"domain\": \"host or full URL\", \"agency\": \"Exact agency name\" }. An explicit entry WINS over the automated (axe Monitor) attribution: it fills a site that is currently Unattributed and can correct a mis-attributed one. The agency string must match an existing agency name EXACTLY, or the site forms its own rollup bucket — the generator logs any name it doesn't recognize. Re-run `npm run generate:offline` after editing.",
-  "overrides": []
+  "overrides": [
+    { "domain": "ag.ny.gov", "agency": "Department of Law" },
+    { "domain": "assembly.ny.gov", "agency": "NYS Assembly" },
+    { "domain": "bsc.ogs.ny.gov", "agency": "OGS	Office of General Services" },
+    { "domain": "dfs.ny.gov", "agency": "Department of Financial Services" },
+    { "domain": "dhses.ny.gov", "agency": "Division of Homeland Security" },
+    { "domain": "efc.ny.gov", "agency": "Environmental Facilities Corporation" },
+    { "domain": "environmentalbondact.ny.gov", "agency": "Department of State" },
+    { "domain": "farmdirectory.agriculture.ny.gov", "agency": "Department of Agriculture and Markets" },
+    { "domain": "fcb.ny.gov", "agency": "New York State Financial Control Board" },
+    { "domain": "hrbrrd.ny.gov", "agency": "Hudson River-Black River Regulating District" },
+    { "domain": "hudsongreenway.ny.gov", "agency": "Hudson River Valley Greenway" },
+    { "domain": "nifa.ny.gov", "agency": "Nassau County Interim Finance Authority" },
+    { "domain": "nyess.ny.gov", "agency": "Department of Labor" },
+    { "domain": "omhjobs.omh.ny.gov", "agency": "Office of Mental Health" },
+    { "domain": "ovs.ny.gov", "agency": "Office of Victim Services" },
+    { "domain": "search.its.ny.gov", "agency": "Information Technology Services" }
+  ]
 }

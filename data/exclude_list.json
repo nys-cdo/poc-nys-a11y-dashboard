@@ -2,6 +2,17 @@
   "exclude": [
     { "url": "*.acquia-sites.com", "reason": "Acquia dev/staging hosting — not production" },
     { "url": "*.acsitefactory.com", "reason": "Acquia Site Factory dev/QA/UAT hosts" },
-    { "url": "unav24-stage.pages.dev", "reason": "Staging preview host" }
+    { "url": "unav24-stage.pages.dev", "reason": "Staging preview host" },
+    { "url": "hcsauth.health.ny.gov", "reason": "403 Forbidden" },
+    { "url": "nodeprod.nylottery.ny.gov", "reason": "Staging preview host" },
+    { "url": "nodestg.nylottery.ny.gov", "reason": "Staging preview host" },
+    { "url": "nys-environmental-bond-act-hub-nysdec.hub.arcgis.com", "reason": "Duplicate" },
+    { "url": "plus.efc.ny.gov", "reason": "Requires authentication" },
+    { "url": "portal.efc.ny.gov", "reason": "Requires authentication" },
+    { "url": "static-assets.ny.gov", "reason": "Not a website per se" },
+    { "url": "statistics.labor.ny.gov", "reason": "No longer a site" },
+    { "url": "webnycore.ny.gov", "reason": "Not public-facing" },
+    { "url": "webnydecstage.ny.gov", "reason": "Not public-facing" },
+    { "url": "webnymon.ny.gov", "reason": "Not public-facing" }
   ]
 }
