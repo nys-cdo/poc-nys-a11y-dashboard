@@ -30,7 +30,7 @@
       "flag_rating": "Red",
       "team_score": null,
       "override_justification": "Existing Auditor results",
-      "auditor_score": null,
+      "auditor_score": 0,
       "auditor_report_url": "https://nysits-axeauditor.dequecloud.com/test-run/b3154520-5b79-11f1-84cc-1f70fc4e7ef1",
       "auditor_deck_url": "https://nysemail.sharepoint.com/:p:/t/its.grp.UX-Design-Team/IQCCHvWUpUoQTIHuMW9JpGWqAZ4NRse7lXqMedo8FNwVyc0?e=uPFyYF",
       "blocked": null,
@@ -277,7 +277,7 @@
       "blocked_note": null
     },
     {
-      "domain": "https://omig.ny.gov",
+      "domain": "omig.ny.gov",
       "url": "https://apps.omig.ny.gov",
       "flag_rating": "Green",
       "team_score": 90,
@@ -306,7 +306,7 @@
       "flag_rating": "Red",
       "team_score": null,
       "override_justification": "Existing Auditor results",
-      "auditor_score": null,
+      "auditor_score": 0,
       "auditor_report_url": "https://nysits-axeauditor.dequecloud.com/test-run/c6e6c026-c946-11f0-bb16-dfd92a49bd94",
       "auditor_deck_url": "https://nysemail.sharepoint.com/:p:/t/its.grp.UX-Design-Team/IQA6_lsx_SCYQJ6_NGDRRDFcAffrDIz2bD9s0u6ZZFsy7Sk?e=rVrVaZ",
       "blocked": null,

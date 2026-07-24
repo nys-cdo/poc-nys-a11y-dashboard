@@ -740,10 +740,18 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
   }
 
   // --- Merge manual layer by domain (PRD §4.2) ---
-  // Defensive: any missing key → null/false (the team hand-edits this file).
-  for (const site of sites.values()) {
-    const manual = manualData[site.domain];
-    if (!manual) continue;
+  // The manual layer AUGMENTS matching automated sites and also CONTRIBUTES
+  // hand-reviewed domains that appear in neither tool (team/auditor scores for
+  // sites axe Monitor and SiteImprove never crawled). Iterate the manual rows —
+  // not the existing sites — so those manual-only domains become sites too;
+  // `getSite` creates one on first sight (all automated scores null, agency
+  // Unattributed, since the agency taxonomy only comes from axe Monitor).
+  // Defensive: the team hand-edits this file, so normalize the domain key (a
+  // stray scheme like "https://omig.ny.gov" must not leak into output or miss a
+  // match) and treat any missing field as null/false.
+  for (const [rawDomain, manual] of Object.entries(manualData)) {
+    const domain = domainFromUrl(rawDomain) || rawDomain;
+    const site = getSite(domain, manual.url);
     site.teamScore = manual.team_score ?? null;
     site.overrideJustification = manual.override_justification ?? null;
     site.auditorScore = manual.auditor_score ?? null;
