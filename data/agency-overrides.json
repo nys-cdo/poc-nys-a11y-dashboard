@@ -1,0 +1,4 @@
+{
+  "_comment": "Hand-maintained agency attribution overrides (see data/DATA.md). Each entry is { \"domain\": \"host or full URL\", \"agency\": \"Exact agency name\" }. An explicit entry WINS over the automated (axe Monitor) attribution: it fills a site that is currently Unattributed and can correct a mis-attributed one. The agency string must match an existing agency name EXACTLY, or the site forms its own rollup bucket — the generator logs any name it doesn't recognize. Re-run `npm run generate:offline` after editing.",
+  "overrides": []
+}

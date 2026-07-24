@@ -31,6 +31,34 @@ everything under it. A full URL is reduced to its host. A `*.` prefix is optiona
 Add or remove entries, then re-run `npm run generate` (or `npm run generate:offline`)
 to regenerate `public/dashboard-data.json`. The run logs how many sites were removed.
 
+## agency-overrides.json
+
+Hand-maintained agency attribution. axe Monitor's Scan Groups are the only
+automated source of agency, and they mix real agencies with functional tags —
+so many sites land in **Unattributed** (and a few under the wrong name). This
+file corrects that.
+
+Each entry maps a domain to an agency. An explicit entry **wins** over the
+automated attribution: it fills an Unattributed site and can correct a
+mis-attributed one. A full URL is reduced to its host, matching how sites are
+keyed.
+
+```json
+{
+  "overrides": [
+    { "domain": "apps.labor.ny.gov", "agency": "Department of Labor" },
+    { "domain": "https://budget.ny.gov/", "agency": "Division of the Budget" }
+  ]
+}
+```
+
+The agency string must match an existing agency name **exactly**, or the site
+forms its own rollup bucket instead of joining the intended one. The generator
+logs any override whose agency name it doesn't recognize, any whose domain
+matches no site, and any that replaced an already-named agency — so nothing is
+silent. Add or edit entries, then re-run `npm run generate` (or
+`npm run generate:offline`).
+
 ## Page access password (gate)
 
 The published page is behind a shared password (see `src/gate.ts`). It's a light

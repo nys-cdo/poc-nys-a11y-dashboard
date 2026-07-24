@@ -41,6 +41,7 @@ const ROOT = resolve(__dirname, '..');
 const ENV_PATH = join(ROOT, '.env');
 const MANUAL_DATA_PATH = join(ROOT, 'data', 'manual-data.json');
 const EXCLUDE_LIST_PATH = join(ROOT, 'data', 'exclude_list.json');
+const AGENCY_OVERRIDES_PATH = join(ROOT, 'data', 'agency-overrides.json');
 const OUTPUT_DIR = join(ROOT, 'public');
 const OUTPUT_PATH = join(OUTPUT_DIR, 'dashboard-data.json');
 const CACHE_DIR = join(ROOT, 'scripts', '.cache');
@@ -657,6 +658,99 @@ function loadExcludeList() {
 }
 
 /**
+ * Load the team-maintained agency attribution overrides
+ * (`data/agency-overrides.json`) and return a `domain → agency` Map.
+ *
+ * axe Monitor's Scan Groups are the only automated source of agency, and they
+ * mix real agencies with functional tags — so many sites land in "Unattributed"
+ * or (rarely) under the wrong name. This is the hand-maintained corrections
+ * layer for that: an EXPLICIT entry here WINS over the automated attribution
+ * (it can fill an Unattributed site AND correct a mis-attributed one).
+ *
+ * File shape (any row may be a bare `"domain"` string paired with an agency, or
+ * an object; a full URL is reduced to its host, matching how sites are keyed):
+ *   { "overrides": [
+ *       { "domain": "apps.labor.ny.gov", "agency": "Department of Labor" },
+ *       { "domain": "https://budget.ny.gov/", "agency": "Division of the Budget", "note": "…" }
+ *   ] }
+ *
+ * Defensive by design (hand-edited): a missing file, unparseable JSON, or rows
+ * without both a domain and a non-empty agency are skipped rather than throwing.
+ */
+function loadAgencyOverrides() {
+  if (!existsSync(AGENCY_OVERRIDES_PATH)) return new Map();
+  let parsed;
+  try {
+    parsed = JSON.parse(readFileSync(AGENCY_OVERRIDES_PATH, 'utf8'));
+  } catch (err) {
+    console.warn(`[agency] could not parse agency-overrides.json — ignoring it (${err.message}).`);
+    return new Map();
+  }
+  const rows = Array.isArray(parsed?.overrides) ? parsed.overrides : [];
+  const map = new Map();
+  for (const row of rows) {
+    if (!row || typeof row !== 'object') continue;
+    const domain = domainFromUrl(typeof row.domain === 'string' ? row.domain.trim() : '');
+    const agency = typeof row.agency === 'string' ? row.agency.trim() : '';
+    if (!domain || !agency) continue;
+    map.set(domain, agency); // last entry wins on duplicate domains
+  }
+  return map;
+}
+
+/**
+ * Apply the agency overrides to the built sites (mutates in place). Explicit
+ * entries win over the automated attribution. Logs what happened so nothing is
+ * silent: how many were applied, any override that CHANGED an already-named
+ * agency, overrides whose domain matched no site, and agency names that don't
+ * match any name already in the dataset (a likely typo → a stray rollup bucket).
+ */
+function applyAgencyOverrides(sites, overrides) {
+  if (overrides.size === 0) return;
+  const knownAgencies = new Set(
+    sites.map((s) => s.agency).filter((a) => a && a !== UNATTRIBUTED),
+  );
+  const byDomain = new Map(sites.map((s) => [s.domain, s]));
+  let applied = 0;
+  const changed = []; // overrode an already-attributed agency
+  const unmatched = []; // override domain not present in the dataset
+  const unknownAgency = new Set(); // agency name not seen anywhere else
+
+  for (const [domain, agency] of overrides) {
+    const site = byDomain.get(domain);
+    if (!site) {
+      unmatched.push(domain);
+      continue;
+    }
+    if (site.agency !== agency) {
+      if (site.agency !== UNATTRIBUTED) changed.push(`${domain}: "${site.agency}" → "${agency}"`);
+      site.agency = agency;
+      applied += 1;
+    }
+    if (!knownAgencies.has(agency)) unknownAgency.add(agency);
+  }
+
+  console.log(`[agency] ${applied} override(s) applied from agency-overrides.json.`);
+  if (changed.length) {
+    console.warn(`[agency] ${changed.length} override(s) REPLACED an existing agency:`);
+    for (const c of changed) console.warn(`           ${c}`);
+  }
+  if (unmatched.length) {
+    console.warn(
+      `[agency] ${unmatched.length} override(s) matched no site (domain not in the dataset): ` +
+        unmatched.join(', '),
+    );
+  }
+  if (unknownAgency.size) {
+    console.warn(
+      `[agency] ${unknownAgency.size} override agency name(s) don't match any other site — ` +
+        `check for typos or they'll form their own rollup bucket: ` +
+        [...unknownAgency].map((a) => `"${a}"`).join(', '),
+    );
+  }
+}
+
+/**
  * Build the merged `Site[]` array from the two normalized sources + manual data.
  *
  * PRD §4.1:
@@ -740,10 +834,18 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
   }
 
   // --- Merge manual layer by domain (PRD §4.2) ---
-  // Defensive: any missing key → null/false (the team hand-edits this file).
-  for (const site of sites.values()) {
-    const manual = manualData[site.domain];
-    if (!manual) continue;
+  // The manual layer AUGMENTS matching automated sites and also CONTRIBUTES
+  // hand-reviewed domains that appear in neither tool (team/auditor scores for
+  // sites axe Monitor and SiteImprove never crawled). Iterate the manual rows —
+  // not the existing sites — so those manual-only domains become sites too;
+  // `getSite` creates one on first sight (all automated scores null, agency
+  // Unattributed, since the agency taxonomy only comes from axe Monitor).
+  // Defensive: the team hand-edits this file, so normalize the domain key (a
+  // stray scheme like "https://omig.ny.gov" must not leak into output or miss a
+  // match) and treat any missing field as null/false.
+  for (const [rawDomain, manual] of Object.entries(manualData)) {
+    const domain = domainFromUrl(rawDomain) || rawDomain;
+    const site = getSite(domain, manual.url);
     site.teamScore = manual.team_score ?? null;
     site.overrideJustification = manual.override_justification ?? null;
     site.auditorScore = manual.auditor_score ?? null;
@@ -827,6 +929,11 @@ async function main() {
 
   const manualData = loadManualData();
   const allSites = buildSites(axeRecords, siteImproveRecords, manualData);
+
+  // Apply team agency attribution overrides. axe Monitor is the only automated
+  // source of agency and it leaves many sites Unattributed (or, rarely, wrong);
+  // this hand-maintained layer fills/corrects them. Explicit entries win.
+  applyAgencyOverrides(allSites, loadAgencyOverrides());
 
   // Drop team-excluded sites (dev/QA/demo hosts) entirely — from the data and
   // therefore from every count/chart downstream.
