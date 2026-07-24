@@ -3,7 +3,6 @@
     {
       "domain": "lobbyingtraining.ethics.ny.gov",
       "url": "https://lobbyingtraining.ethics.ny.gov/",
-      "flag_rating": "Red",
       "team_score": 20,
       "override_justification": "Carousels with keyboard",
       "auditor_score": null,
@@ -15,7 +14,6 @@
     {
       "domain": "nourish.ny.gov",
       "url": "https://nourish.ny.gov/",
-      "flag_rating": "Red",
       "team_score": 20,
       "override_justification": "Search with keyboard",
       "auditor_score": null,
@@ -27,7 +25,6 @@
     {
       "domain": "nysfair.ny.gov",
       "url": "https://nysfair.ny.gov/",
-      "flag_rating": "Red",
       "team_score": null,
       "override_justification": "Existing Auditor results",
       "auditor_score": 0,
@@ -39,10 +36,9 @@
     {
       "domain": "nysfairgrounds.ny.gov",
       "url": "https://nysfairgrounds.ny.gov/",
-      "flag_rating": "Red",
-      "team_score": 40,
+      "team_score": null,
       "override_justification": "Existing Auditor results",
-      "auditor_score": 47.5,
+      "auditor_score": 48,
       "auditor_report_url": "https://nysits-axeauditor.dequecloud.com/test-run/32ee1856-5dc5-11f1-bdfe-9bf6f814a0be",
       "auditor_deck_url": "https://nysemail.sharepoint.com/:p:/t/its.grp.UX-Design-Team/IQCCHvWUpUoQTIHuMW9JpGWqAZ4NRse7lXqMedo8FNwVyc0?e=uPFyYF",
       "blocked": null,
@@ -51,8 +47,7 @@
     {
       "domain": "careermobilityoffice.cs.ny.gov",
       "url": "https://careermobilityoffice.cs.ny.gov/",
-      "flag_rating": "Yellow",
-      "team_score": 70,
+      "team_score": null,
       "override_justification": "Existing Auditor results",
       "auditor_score": 60,
       "auditor_report_url": "https://nysits-axeauditor.dequecloud.com/test-run/0622b778-6e24-11f0-8db1-8742b77fc673",
@@ -63,7 +58,6 @@
     {
       "domain": "nysdoccslookup.doccs.ny.gov",
       "url": "https://nysdoccslookup.doccs.ny.gov/",
-      "flag_rating": "Green",
       "team_score": 90,
       "override_justification": "Focus outline and movement",
       "auditor_score": null,
@@ -75,8 +69,7 @@
     {
       "domain": "leadsafeny.health.ny.gov",
       "url": "https://leadsafeny.health.ny.gov/",
-      "flag_rating": "Red",
-      "team_score": 31,
+      "team_score": null,
       "override_justification": "Existing Auditor results",
       "auditor_score": 31,
       "auditor_report_url": "https://nysits-axeauditor.dequecloud.com/test-run/22b16974-64fb-11f1-8a38-cf397a8768da",
@@ -87,7 +80,6 @@
     {
       "domain": "abscessus.wadsworth.org",
       "url": "https://abscessus.wadsworth.org/",
-      "flag_rating": "Red",
       "team_score": 20,
       "override_justification": "Datavis has no text alternative and critical info is mouse-only",
       "auditor_score": null,
@@ -99,7 +91,6 @@
     {
       "domain": "healthdata.ny.gov",
       "url": "https://healthdata.ny.gov/",
-      "flag_rating": "Red",
       "team_score": 20,
       "override_justification": "Severe issues with menus, focus affordance, datavis",
       "auditor_score": null,
@@ -111,7 +102,6 @@
     {
       "domain": "apps.labor.ny.gov",
       "url": "https://apps.labor.ny.gov/",
-      "flag_rating": "Red",
       "team_score": 35,
       "override_justification": "Manual check",
       "auditor_score": null,
@@ -123,7 +113,6 @@
     {
       "domain": "mapmybroadband.dps.ny.gov",
       "url": "https://mapmybroadband.dps.ny.gov/",
-      "flag_rating": "Red",
       "team_score": 20,
       "override_justification": "Videos without captions, use of color, and no keyboard access on maps",
       "auditor_score": null,
@@ -135,7 +124,6 @@
     {
       "domain": "filing.dos.ny.gov",
       "url": "https://filing.dos.ny.gov/",
-      "flag_rating": "Red",
       "team_score": 20,
       "override_justification": "Manual check",
       "auditor_score": null,
@@ -147,7 +135,6 @@
     {
       "domain": "ejustice.ny.gov",
       "url": "https://ejustice.ny.gov/",
-      "flag_rating": "Yellow",
       "team_score": 60,
       "override_justification": "No landmarks, no main, focus contrast",
       "auditor_score": null,
@@ -159,10 +146,9 @@
     {
       "domain": "businessexpress.ny.gov",
       "url": "https://businessexpress.ny.gov/",
-      "flag_rating": "Red",
-      "team_score": 23,
+      "team_score": null,
       "override_justification": "Existing Auditor results",
-      "auditor_score": 22.5,
+      "auditor_score": 23,
       "auditor_report_url": "https://nysits-axeauditor.dequecloud.com/test-run/208b6dd6-c70b-11f0-b313-eb329b8655f1",
       "auditor_deck_url": "https://nysemail.sharepoint.com/:p:/t/its.grp.UX-Design-Team/IQBXXEpAyE7aTLo_9eYwJqHvAWKuqX6xBgLkNo2v32PWnTk?e=C25lge",
       "blocked": null,
@@ -171,8 +157,7 @@
     {
       "domain": "able.dot.ny.gov",
       "url": "https://able.dot.ny.gov",
-      "flag_rating": "Red",
-      "team_score": 34,
+      "team_score": null,
       "override_justification": "Existing Auditor results",
       "auditor_score": 34,
       "auditor_report_url": "https://nysits-axeauditor.dequecloud.com/test-run/203f738a-7e91-11f0-9d22-c790480fb979",
@@ -183,7 +168,6 @@
     {
       "domain": "housingsearch.hcr.ny.gov",
       "url": "https://housingsearch.hcr.ny.gov/",
-      "flag_rating": "Red",
       "team_score": 20,
       "override_justification": "Global focus; non-functional accordions with keyboard",
       "auditor_score": null,
@@ -195,8 +179,7 @@
     {
       "domain": "webapps.dhr.ny.gov",
       "url": "https://webapps.dhr.ny.gov/discrimination-report",
-      "flag_rating": "Red",
-      "team_score": 20,
+      "team_score": null,
       "override_justification": "Existing Auditor results",
       "auditor_score": 46,
       "auditor_report_url": "https://nysits-axeauditor.dequecloud.com/test-run/ad22ebd2-af4d-11f0-8444-c72dbb600e66",
@@ -207,7 +190,6 @@
     {
       "domain": "budget.ny.gov",
       "url": "https://budget.ny.gov/",
-      "flag_rating": "Red",
       "team_score": 8,
       "override_justification": "Manual check",
       "auditor_score": null,
@@ -219,7 +201,6 @@
     {
       "domain": "memorials.veterans.ny.gov",
       "url": "https://memorials.veterans.ny.gov/",
-      "flag_rating": "Red",
       "team_score": null,
       "override_justification": "Existing Auditor results",
       "auditor_score": 10,
@@ -231,7 +212,6 @@
     {
       "domain": "search.ny.gov",
       "url": "https://search.ny.gov/",
-      "flag_rating": "Yellow",
       "team_score": 60,
       "override_justification": "Many search UX issues, multiple ATs affected",
       "auditor_score": null,
@@ -243,7 +223,6 @@
     {
       "domain": "upload.ny.gov",
       "url": "https://upload.ny.gov/",
-      "flag_rating": "Yellow",
       "team_score": 60,
       "override_justification": "SPA doesn't announce page titles",
       "auditor_score": null,
@@ -255,7 +234,6 @@
     {
       "domain": "cybertraining.ny.gov",
       "url": "https://cybertraining.ny.gov/",
-      "flag_rating": "Yellow",
       "team_score": 60,
       "override_justification": "Manual check",
       "auditor_score": null,
@@ -267,8 +245,7 @@
     {
       "domain": "antidiscrimination.oer.ny.gov",
       "url": "https://antidiscrimination.oer.ny.gov/",
-      "flag_rating": "Yellow",
-      "team_score": 60,
+      "team_score": null,
       "override_justification": "Existing Auditor results",
       "auditor_score": 38,
       "auditor_report_url": "https://nysits-axeauditor.dequecloud.com/test-run/82c0b666-7222-11f0-841c-5f61817926c8",
@@ -277,10 +254,9 @@
       "blocked_note": null
     },
     {
-      "domain": "omig.ny.gov",
+      "domain": "apps.omig.ny.gov",
       "url": "https://apps.omig.ny.gov",
-      "flag_rating": "Green",
-      "team_score": 90,
+      "team_score": null,
       "override_justification": "Existing Auditor results",
       "auditor_score": 35,
       "auditor_report_url": "https://nysits-axeauditor.dequecloud.com/test-run/eca6a938-a51b-11f0-a817-f76aaeba0a53",
@@ -291,8 +267,7 @@
     {
       "domain": "ovs.ny.gov",
       "url": "https://ovs.ny.gov/",
-      "flag_rating": "Red",
-      "team_score": null,
+      "team_score": 20,
       "override_justification": "Manual check",
       "auditor_score": null,
       "auditor_report_url": null,
@@ -303,7 +278,6 @@
     {
       "domain": "ovscompass.ovs.ny.gov",
       "url": "https://ovscompass.ovs.ny.gov/",
-      "flag_rating": "Red",
       "team_score": null,
       "override_justification": "Existing Auditor results",
       "auditor_score": 0,
@@ -315,7 +289,6 @@
     {
       "domain": "elections.ny.gov",
       "url": "https://elections.ny.gov/",
-      "flag_rating": "Red",
       "team_score": 20,
       "override_justification": "CLI scan results uploaded",
       "auditor_score": null,
@@ -327,7 +300,6 @@
     {
       "domain": "nyenr.elections.ny.gov",
       "url": "https://nyenr.elections.ny.gov/",
-      "flag_rating": "Green",
       "team_score": 100,
       "override_justification": "CLI scan results uploaded",
       "auditor_score": null,
@@ -339,7 +311,6 @@
     {
       "domain": "nyovr.elections.ny.gov",
       "url": "https://nyovr.elections.ny.gov/",
-      "flag_rating": "Red",
       "team_score": null,
       "override_justification": "CLI scan results uploaded",
       "auditor_score": null,
@@ -351,7 +322,6 @@
     {
       "domain": "publicreporting.elections.ny.gov",
       "url": "https://publicreporting.elections.ny.gov/",
-      "flag_rating": "Red",
       "team_score": 40,
       "override_justification": "CLI scan results uploaded",
       "auditor_score": null,
@@ -363,7 +333,6 @@
     {
       "domain": "results.elections.ny.gov",
       "url": "https://results.elections.ny.gov/",
-      "flag_rating": "Red",
       "team_score": 40,
       "override_justification": "CLI scan results uploaded",
       "auditor_score": null,
@@ -375,7 +344,6 @@
     {
       "domain": "voterlookup.elections.ny.gov",
       "url": "https://voterlookup.elections.ny.gov/",
-      "flag_rating": "Green",
       "team_score": 100,
       "override_justification": "CLI scan results uploaded",
       "auditor_score": null,
@@ -387,7 +355,6 @@
     {
       "domain": "lamp.sla.ny.gov",
       "url": "https://lamp.sla.ny.gov/",
-      "flag_rating": "Red",
       "team_score": 20,
       "override_justification": "Color contrast, tabindex, nested interactive, ARIA misuse, screen reader key hijack",
       "auditor_score": null,
@@ -399,10 +366,9 @@
     {
       "domain": "sla.ny.gov",
       "url": "https://sla.ny.gov/",
-      "flag_rating": "Red",
-      "team_score": 20,
+      "team_score": null,
       "override_justification": "Existing Auditor results",
-      "auditor_score": 14.78,
+      "auditor_score": 15,
       "auditor_report_url": "https://nysits-axeauditor.dequecloud.com/test-run/edecfd4a-c0bb-11f0-81d4-6b23580d8045",
       "auditor_deck_url": "https://nysemail.sharepoint.com/:p:/t/its.grp.UX-Design-Team/IQDylcMXl_yHR5LnC_7l08qVAUwZP39keFprIA0hrgdDCbk?e=Y4bO5C",
       "blocked": null,
@@ -411,7 +377,6 @@
     {
       "domain": "nyconnects.ny.gov",
       "url": "https://nyconnects.ny.gov/",
-      "flag_rating": "Yellow",
       "team_score": 60,
       "override_justification": "Usability of modal dialogs",
       "auditor_score": null,
