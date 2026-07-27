@@ -135,6 +135,7 @@ export function renderAgencyRollup(
         formatter: (p: { value: number }) => (p.value > 0 ? String(p.value) : ''),
         color: status === 'yellow' ? '#1b1b1b' : '#fff',
         fontSize: 11,
+        fontWeight: 'bold',
       },
       data: ordered.map((r) => r.counts[key]),
     });
