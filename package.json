@@ -16,8 +16,8 @@
     "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
-    "@nysds/components": "^1.19.3",
-    "@nysds/styles": "^1.19.3",
+    "@nysds/components": "^1.19.4",
+    "@nysds/styles": "^1.19.4",
     "echarts": "^5.5.1"
   },
   "devDependencies": {
