@@ -101,6 +101,29 @@ scanned site are kept and attach when sites appear; the log lists them too.
 Chart labels still come from the page's own tokens, so a portfolio filled in
 here keeps its short label.
 
+## auditor-runs.json and auditor-case-map.json
+
+Axe Auditor has no API for its test runs, so `auditor-runs.json` is a captured
+export of every run in https://nysits-axeauditor.dequecloud.com/test-run: the
+run id, its test case and folder, status, the dates it was created and
+completed, the accessibility score from the run overview, and the hosts its
+test pages point at. Refresh it by hand when new runs complete (the run's
+report URL is `https://nysits-axeauditor.dequecloud.com/test-run/<id>`).
+
+Audits usually run against a dev, QA, or staging host, so `auditor-case-map.json`
+says which **production** domain each test case stands for, following the
+team's convention (an audit of `abledev.dot.ny.gov` is recorded as
+`able.dot.ny.gov`). A test case with a `null` domain is kept in the runs file
+but does not reach the dashboard until someone fills the domain in; the
+generator lists those cases on every run.
+
+At generation time every completed, mapped run becomes an entry in the site's
+`auditorRuns` (oldest first), and the trend chart plots one manual-audit point
+per run. `manual-data.json` stays the team's curated layer: its
+`auditor_score`, `auditor_report_url`, and `auditor_date` win when set, and the
+latest run fills them when they are empty. A domain that exists only in the
+run history still becomes a site so its audits show.
+
 ## history/
 
 One file per month, `history/<YYYY-MM>.json`, is the snapshot of record for
@@ -119,8 +142,10 @@ the trend chart; the generator compiles them into the `history` block of
 - Agency and DCT for the trend come from the current data when a site still
   exists, so grouping stays consistent across the series. Excluded sites are
   dropped from history too.
-- An auditor score plots in the first month a snapshot carried it, or in
-  `auditor_date` from `manual-data.json` when the team records one.
+- A site with Axe Auditor run history plots one manual-audit point per
+  completed run. Without run history, an auditor score plots in the first
+  month a snapshot carried it, or in `auditor_date` from `manual-data.json`
+  when the team records one.
 
 The monthly workflow (`.github/workflows/monthly-snapshot.yml`) produces these
 files on the first of each month and opens a pull request with the result.

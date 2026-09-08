@@ -73,7 +73,9 @@ scores). Those committed files are the only input to the **Monthly trend**
 chart: the generator compiles them into a `history` block inside
 `dashboard-data.json`, so the page never calls an API. Months before the first
 snapshot are backfilled from axe Monitor's per-run history (automated scores
-only). A dashboard snapshot always wins over a backfilled month, and the
+only). Manual audits come from `data/auditor-runs.json`, a captured export of
+every Axe Auditor test run, mapped to production domains through
+`data/auditor-case-map.json`; the chart plots one point per completed run. A dashboard snapshot always wins over a backfilled month, and the
 generator refuses to write a snapshot when either source returned nothing, so
 an outage can't become a month's record. See `data/DATA.md`.
 

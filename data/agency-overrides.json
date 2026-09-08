@@ -16,6 +16,23 @@
     { "domain": "nyess.ny.gov", "agency": "DOL" },
     { "domain": "omhjobs.omh.ny.gov", "agency": "OMH" },
     { "domain": "ovs.ny.gov", "agency": "Office of Victim Services" },
-    { "domain": "search.its.ny.gov", "agency": "ITS" }
+    { "domain": "search.its.ny.gov", "agency": "ITS" },
+    { "domain": "able.dot.ny.gov", "agency": "DOT" },
+    { "domain": "antidiscrimination.oer.ny.gov", "agency": "OER" },
+    { "domain": "apps.hcr.ny.gov", "agency": "DHCR" },
+    { "domain": "apps.health.ny.gov", "agency": "DOH" },
+    { "domain": "apps.labor.ny.gov", "agency": "DOL" },
+    { "domain": "apps.omig.ny.gov", "agency": "OMIG" },
+    { "domain": "budget.ny.gov", "agency": "DOB" },
+    { "domain": "designsystem.ny.gov", "agency": "ITS" },
+    { "domain": "filings.dos.ny.gov", "agency": "DOS" },
+    { "domain": "leadsafeny.health.ny.gov", "agency": "DOH" },
+    { "domain": "mypublicdashboard.ny.gov", "agency": "OGS" },
+    { "domain": "ovscompass.ovs.ny.gov", "agency": "Office of Victim Services" },
+    { "domain": "tap.hesc.ny.gov", "agency": "HESC" },
+    { "domain": "vpcr.justicecenter.ny.gov", "agency": "CJN" },
+    { "domain": "wcb.ny.gov", "agency": "WCB" },
+    { "domain": "webapps.dhr.ny.gov", "agency": "DHR" },
+    { "domain": "webapps.hesc.ny.gov", "agency": "HESC" }
   ]
 }

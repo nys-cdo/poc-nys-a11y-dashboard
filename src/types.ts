@@ -26,6 +26,20 @@ export interface DctGroup {
   agencies: string[];
 }
 
+/** One completed Axe Auditor test run. */
+export interface AuditorRun {
+  /** Completion date, `YYYY-MM-DD`. */
+  date: string;
+  /** Accessibility score from the run overview, 0–100 (rounded). */
+  score: number;
+  /** The run's overview page in Axe Auditor. */
+  reportUrl: string;
+  /** The Auditor test case the run belongs to. */
+  testCase: string;
+  /** "Desktop Web", "Mobile Web", … as recorded on the run. */
+  assetType: string | null;
+}
+
 /** One scored site/domain. Scores are 0–100 composites, or null if absent. */
 export interface Site {
   /** Bare domain, e.g. "health.ny.gov". Used as the join key across sources. */
@@ -78,8 +92,16 @@ export interface Site {
   overrideJustification: string | null;
   /** Axe Auditor comprehensive manual-test score. PRD §4.2. */
   auditorScore: number | null;
+  /** When the current auditor score's audit completed (`YYYY-MM-DD` or `YYYY-MM`). */
+  auditorDate: string | null;
   /** Link to the full manual report, if one exists. */
   auditorReportUrl: string | null;
+  /**
+   * Every completed Axe Auditor run for this site, oldest first, from
+   * `data/auditor-runs.json` mapped through `data/auditor-case-map.json`.
+   * Empty when the site has never been audited (or its test case is unmapped).
+   */
+  auditorRuns: AuditorRun[];
   /** Link to the user-impact / priority-fixes deck, if one exists. */
   auditorDeckUrl: string | null;
   /**

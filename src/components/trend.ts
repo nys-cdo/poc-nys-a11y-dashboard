@@ -40,9 +40,37 @@ const MAX_IDENTIFIED = SERIES_PALETTE.length;
  *  reserved for audits. */
 const LINE_SYMBOLS = ['circle', 'rect', 'triangle', 'roundRect', 'pin', 'arrow', 'circle', 'rect'];
 
+/** Every calendar month from `from` to `to` inclusive, as `YYYY-MM`. */
+function monthRange(from: string, to: string): string[] {
+  const out: string[] = [];
+  let [y, m] = from.split('-').map(Number);
+  const [ty, tm] = to.split('-').map(Number);
+  while (y < ty || (y === ty && m <= tm)) {
+    out.push(`${y}-${String(m).padStart(2, '0')}`);
+    m += 1;
+    if (m > 12) {
+      m = 1;
+      y += 1;
+    }
+    if (out.length > 240) break; // safety valve
+  }
+  return out;
+}
+
 export function renderTrend(root: HTMLElement, data: DashboardData): void {
   const { history } = data;
-  const months = history.snapshots.map((s) => s.month);
+  // The axis is a contiguous run of months spanning both the snapshots and
+  // every manual audit, so audits that predate the first snapshot sit in
+  // their own month rather than piling onto the first one.
+  const snapshotMonths = history.snapshots.map((s) => s.month);
+  const auditMonths = history.sites.flatMap((s) => s.audits.map((a) => a.month));
+  const allMonths = [...snapshotMonths, ...auditMonths].sort();
+  const months = allMonths.length ? monthRange(allMonths[0], allMonths[allMonths.length - 1]) : [];
+  // Snapshot index per axis month (null = no snapshot that month).
+  const snapshotAt = months.map((m) => {
+    const i = snapshotMonths.indexOf(m);
+    return i === -1 ? null : i;
+  });
 
   // DCTs present in the history, in page order, plus the no-DCT bucket.
   const presentDcts = new Set(history.sites.map((s) => s.dct ?? NO_DCT));
@@ -100,10 +128,17 @@ export function renderTrend(root: HTMLElement, data: DashboardData): void {
 
   const chart = echarts.init(el, undefined, { renderer: 'svg' });
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const monthLabels = months.map((m, i) =>
-    formatMonth(m) + (history.snapshots[i].source === 'dashboard' ? '' : '*'),
-  );
+  const monthLabels = months.map((m, i) => {
+    const si = snapshotAt[i];
+    const backfill = si !== null && history.snapshots[si].source !== 'dashboard';
+    return formatMonth(m) + (backfill ? '*' : '');
+  });
   const backfilled = history.snapshots.some((s) => s.source !== 'dashboard');
+  // Re-index each site's automated series onto the axis months.
+  const sitesOnAxis: HistorySite[] = history.sites.map((s) => ({
+    ...s,
+    automated: snapshotAt.map((si) => (si === null ? null : (s.automated[si] ?? null))),
+  }));
 
   let scope: Scope = 'all';
   let pickDct = dctOptions[0] ?? NO_DCT;
@@ -115,10 +150,10 @@ export function renderTrend(root: HTMLElement, data: DashboardData): void {
 
     const sites =
       scope === 'all'
-        ? history.sites
+        ? sitesOnAxis
         : scope === 'dct'
-          ? history.sites.filter((s) => (s.dct ?? NO_DCT) === pickDct)
-          : history.sites.filter((s) => s.agency === pickAgency);
+          ? sitesOnAxis.filter((s) => (s.dct ?? NO_DCT) === pickDct)
+          : sitesOnAxis.filter((s) => s.agency === pickAgency);
 
     const lines: Line[] =
       scope === 'all'
@@ -134,8 +169,7 @@ export function renderTrend(root: HTMLElement, data: DashboardData): void {
     for (const s of sites) {
       for (const a of s.audits) {
         const i = months.indexOf(a.month);
-        // An audit dated before the first snapshot pins to the first month.
-        audits.push({ monthIndex: i === -1 ? 0 : i, score: a.score, domain: s.domain });
+        if (i !== -1) audits.push({ monthIndex: i, score: a.score, domain: s.domain });
       }
     }
 
@@ -155,8 +189,10 @@ export function renderTrend(root: HTMLElement, data: DashboardData): void {
         symbolSize: isIdentified ? 9 : 6,
         lineStyle: { width: isIdentified ? 2 : 1.5 },
         emphasis: { focus: 'series' as const },
-        // Only what's counted per point: lines drop nulls rather than bridging.
-        connectNulls: false,
+        // Months without a snapshot are gaps on the axis; bridge them so a
+        // sparse series still reads as a line, and let the tooltip say which
+        // months actually carry a snapshot.
+        connectNulls: true,
         z: isIdentified ? 3 : 2,
       };
     });

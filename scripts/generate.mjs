@@ -45,6 +45,9 @@ const AGENCY_OVERRIDES_PATH = join(ROOT, 'data', 'agency-overrides.json');
 const DCTS_PATH = join(ROOT, 'data', 'dcts.json');
 const DCT_ALIASES_PATH = join(ROOT, 'data', 'dct-aliases.json');
 const DCT_ADDITIONS_PATH = join(ROOT, 'data', 'dct-portfolio-additions.json');
+const AUDITOR_RUNS_PATH = join(ROOT, 'data', 'auditor-runs.json');
+const AUDITOR_CASE_MAP_PATH = join(ROOT, 'data', 'auditor-case-map.json');
+const AUDITOR_RUN_URL = 'https://nysits-axeauditor.dequecloud.com/test-run/';
 const HISTORY_DIR = join(ROOT, 'data', 'history');
 const OUTPUT_DIR = join(ROOT, 'public');
 const OUTPUT_PATH = join(OUTPUT_DIR, 'dashboard-data.json');
@@ -782,7 +785,7 @@ function applyAgencyOverrides(sites, overrides) {
  * PRD §4.2:
  *   - manual layer supplies auditorScore / report / deck / blocked by domain.
  */
-function buildSites(axeRecords, siteImproveRecords, manualData) {
+function buildSites(axeRecords, siteImproveRecords, manualData, auditorRuns = new Map()) {
   // Canonical domain → agency map, sourced ONLY from axe Monitor (PRD §4.1).
   const agencyByDomain = new Map();
   for (const rec of axeRecords) {
@@ -808,8 +811,10 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
         teamScore: null,
         overrideJustification: null,
         auditorScore: null,
+        auditorDate: null,
         auditorReportUrl: null,
         auditorDeckUrl: null,
+        auditorRuns: [],
         monitorReportUrl: null,
         blocked: false,
         conflict: false,
@@ -871,6 +876,10 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
     site.teamScore = manual.team_score ?? null;
     site.overrideJustification = manual.override_justification ?? null;
     site.auditorScore = manual.auditor_score ?? null;
+    // Accept "YYYY-MM-DD" or "YYYY-MM"; anything else is treated as unset.
+    site.auditorDate = /^\d{4}-\d{2}(-\d{2})?$/.test(String(manual.auditor_date ?? ''))
+      ? manual.auditor_date
+      : null;
     site.auditorReportUrl = manual.auditor_report_url ?? null;
     site.auditorDeckUrl = manual.auditor_deck_url ?? null;
     site.blocked = !!manual.blocked;
@@ -878,8 +887,114 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
     // internal only, never surfaced to the client (PRD §4.2).
   }
 
+  // --- Axe Auditor run history (dated audits; fills auditor gaps) ---
+  applyAuditorRuns(sites, auditorRuns, getSite);
+
   // Strip internal bookkeeping fields → final Site shape (matches src/types.ts).
   return [...sites.values()].map(({ _inAxe, _inSiteImprove, ...site }) => site);
+}
+
+// ------------------------------------------------------------------------
+// 4a. Axe Auditor run history (manual audits over time)
+//     Axe Auditor has no API for its runs, so data/auditor-runs.json is a
+//     hand-captured export of every test run (id, test case, dates, score).
+//     data/auditor-case-map.json says which dashboard domain each test case
+//     stands for (audits usually run against a dev/QA host). Together they
+//     give every site its full list of dated audits for the trend chart.
+//     manual-data.json stays the team's curated layer: its auditor_score /
+//     auditor_report_url / auditor_date win when set; runs fill the gaps.
+// ------------------------------------------------------------------------
+
+/** "MM/DD/YY" → "YYYY-MM-DD". Returns null for anything else. */
+function isoFromMdy(mdy) {
+  const m = String(mdy ?? '').match(/^(\d{2})\/(\d{2})\/(\d{2})$/);
+  return m ? `20${m[3]}-${m[1]}-${m[2]}` : null;
+}
+
+/**
+ * `domain → [{ date, score, reportUrl, testCase, assetType }]`, oldest first,
+ * for every COMPLETED run whose test case maps to a domain. Logs test cases
+ * with no domain (their runs stay out of the dashboard until mapped) and
+ * mapped test cases that no run references (a renamed case, probably).
+ */
+function loadAuditorRuns() {
+  if (!existsSync(AUDITOR_RUNS_PATH)) return new Map();
+  let runs = [];
+  let cases = {};
+  try {
+    runs = JSON.parse(readFileSync(AUDITOR_RUNS_PATH, 'utf8'))?.runs ?? [];
+    cases = existsSync(AUDITOR_CASE_MAP_PATH)
+      ? JSON.parse(readFileSync(AUDITOR_CASE_MAP_PATH, 'utf8'))?.cases ?? {}
+      : {};
+  } catch (err) {
+    console.warn(`[auditor] could not parse auditor-runs/case-map — ignoring (${err.message}).`);
+    return new Map();
+  }
+  const byDomain = new Map();
+  const unmapped = new Set();
+  const seenCases = new Set();
+  let completed = 0;
+  for (const run of Array.isArray(runs) ? runs : []) {
+    if (!run?.id || run.status !== 'complete' || typeof run.score !== 'number') continue;
+    completed += 1;
+    seenCases.add(run.testCase);
+    const domain = domainFromUrl(cases[run.testCase]?.domain ?? '');
+    if (!domain) {
+      unmapped.add(run.testCase);
+      continue;
+    }
+    const date = isoFromMdy(run.completed);
+    if (!date) continue;
+    const list = byDomain.get(domain) ?? [];
+    list.push({
+      date,
+      score: coerceScore(run.score),
+      reportUrl: `${AUDITOR_RUN_URL}${run.id}`,
+      testCase: run.testCase,
+      assetType: run.assetType ?? null,
+    });
+    byDomain.set(domain, list);
+  }
+  for (const list of byDomain.values()) list.sort((a, b) => a.date.localeCompare(b.date));
+  const mapped = [...byDomain.values()].reduce((n, l) => n + l.length, 0);
+  console.log(
+    `[auditor] ${completed} completed run(s) in auditor-runs.json; ${mapped} mapped onto ` +
+      `${byDomain.size} domain(s) via auditor-case-map.json.`,
+  );
+  if (unmapped.size) {
+    console.log(
+      `[auditor] ${unmapped.size} test case(s) have no production domain yet (fill in ` +
+        `auditor-case-map.json): ${[...unmapped].sort().join('; ')}`,
+    );
+  }
+  const stale = Object.keys(cases).filter((c) => !seenCases.has(c) && cases[c]?.domain);
+  if (stale.length) {
+    console.warn(`[auditor] mapped test case(s) with no completed run: ${stale.join('; ')}`);
+  }
+  return byDomain;
+}
+
+/**
+ * Attach each site's audit history and fill auditor fields the team hasn't
+ * set. A site that only exists in the run history (no automated scan, no
+ * manual row) is created so its audits still reach the dashboard.
+ */
+function applyAuditorRuns(sites, runsByDomain, getSite) {
+  let attached = 0;
+  let filled = 0;
+  for (const [domain, runs] of runsByDomain) {
+    const site = getSite(domain, `https://${domain}/`);
+    site.auditorRuns = runs;
+    attached += 1;
+    const latest = runs.at(-1);
+    if (site.auditorScore === null) {
+      site.auditorScore = latest.score;
+      filled += 1;
+    }
+    if (!site.auditorReportUrl) site.auditorReportUrl = latest.reportUrl;
+    if (!site.auditorDate) site.auditorDate = latest.date;
+  }
+  console.log(`[auditor] run history attached to ${attached} site(s); auditor score filled for ${filled} from runs.`);
 }
 
 // ------------------------------------------------------------------------
@@ -1206,11 +1321,12 @@ function backfillHistoryFromAxeRuns(axeRecords, overrides, isExcluded) {
  * Compile every `data/history/*.json` into the compact `history` block the
  * client renders: one row per site with its automated score per snapshot
  * (axe Monitor, else SiteImprove — the same fallback the official score uses)
- * and the list of manual audits (a point whenever an auditor score first
- * appears or changes; `auditor_date` in manual-data.json pins the month when
- * the team records one). Agency/DCT come from the CURRENT data when the site
- * still exists so grouping is consistent across the whole series; excluded
- * sites are dropped from history too.
+ * and the list of manual audits. Audits come from the site's Axe Auditor run
+ * history when it has one (every completed run, dated); otherwise from the
+ * snapshots (a point whenever an auditor score first appears or changes,
+ * pinned to `auditor_date` when the team recorded one). Agency/DCT come from
+ * the CURRENT data when the site still exists so grouping is consistent
+ * across the whole series; excluded sites are dropped from history too.
  */
 function compileHistory(currentSites, dctIndex, manualData, isExcluded) {
   if (!existsSync(HISTORY_DIR)) return { snapshots: [], sites: [] };
@@ -1240,13 +1356,24 @@ function compileHistory(currentSites, dctIndex, manualData, isExcluded) {
     }
   });
 
+  // Sites with audits but no automated history (manual-only, never scanned)
+  // still belong in the trend, so seed a row for each.
+  for (const site of currentSites) {
+    if (!rows.has(site.domain) && site.auditorRuns?.length && !isExcluded(site.domain)) {
+      rows.set(site.domain, { domain: site.domain, agency: site.agency, dct: null, automated: new Array(snapshots.length).fill(null), audits: [], _lastAudit: null });
+    }
+  }
+
   const sites = [...rows.values()].map(({ _lastAudit, ...row }) => {
     const live = current.get(row.domain);
     const agency = live?.agency ?? row.agency;
     const manual = manualData[row.domain];
     const pinned = typeof manual?.auditor_date === 'string' && /^\d{4}-\d{2}/.test(manual.auditor_date);
     let audits = row.audits;
-    if (pinned && live?.auditorScore !== null && live?.auditorScore !== undefined) {
+    if (live?.auditorRuns?.length) {
+      // The run history is the complete, dated record: one point per run.
+      audits = live.auditorRuns.map((r) => ({ month: r.date.slice(0, 7), score: r.score }));
+    } else if (pinned && live?.auditorScore !== null && live?.auditorScore !== undefined) {
       // The team dated the current audit: place it in that month and drop the
       // first-seen point for the same score.
       audits = [
@@ -1356,7 +1483,7 @@ async function main() {
   }
 
   const manualData = loadManualData();
-  const allSites = buildSites(axeRecords, siteImproveRecords, manualData);
+  const allSites = buildSites(axeRecords, siteImproveRecords, manualData, loadAuditorRuns());
 
   // Apply team agency attribution overrides. axe Monitor is the only automated
   // source of agency and it leaves many sites Unattributed (or, rarely, wrong);
