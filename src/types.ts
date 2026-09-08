@@ -12,6 +12,20 @@ export type Status = 'red' | 'yellow' | 'green';
 
 export const UNATTRIBUTED = 'Unattributed';
 
+/** Display label for sites whose agency sits in no DCT portfolio (`dct: null`). */
+export const NO_DCT = 'No DCT assigned';
+
+/**
+ * A Deputy Commissioner for Technology and the agencies in their portfolio,
+ * scraped from https://its.ny.gov/dcts at generation time. `agencies` are the
+ * page's own tokens ("DOL", "Ag & Markets", …) and double as the group's
+ * chart label — the portfolio is what's compared, not the person.
+ */
+export interface DctGroup {
+  name: string;
+  agencies: string[];
+}
+
 /** One scored site/domain. Scores are 0–100 composites, or null if absent. */
 export interface Site {
   /** Bare domain, e.g. "health.ny.gov". Used as the join key across sources. */
@@ -23,6 +37,12 @@ export interface Site {
    * agency use the literal `UNATTRIBUTED` bucket. See PRD §4.1.
    */
   agency: string;
+  /**
+   * Name of the DCT whose portfolio covers this site's agency, resolved at
+   * generation time (see `data/dct-aliases.json`), or `null` when no DCT
+   * covers it (rendered as `NO_DCT`).
+   */
+  dct: string | null;
 
   // --- Automated scans (0–100 composite, or null if the tool has no record) ---
   /** axe Monitor (Deque) automated composite score. */
@@ -100,11 +120,53 @@ export interface DashboardMeta {
   rubric: Rubric;
   /** Human-readable source labels, for the methodology note. */
   sources: string[];
+  /** Every DCT on its.ny.gov/dcts, in page order, with their agency tokens. */
+  dcts: DctGroup[];
+}
+
+/** One monthly capture in the history series. */
+export interface HistorySnapshot {
+  /** Calendar month, `YYYY-MM`. One snapshot per month. */
+  month: string;
+  /** ISO timestamp of the capture (or of the last axe run for a backfill). */
+  capturedAt: string;
+  /**
+   * `dashboard` — a real generator run (all sources, the snapshot of record).
+   * `axe-monitor-run-history` — backfilled from axe Monitor's per-run history
+   * for a month with no dashboard snapshot (automated axe score only).
+   */
+  source: 'dashboard' | 'axe-monitor-run-history';
+}
+
+/** One site's series across every snapshot. */
+export interface HistorySite {
+  domain: string;
+  /** Current agency/DCT (so grouping is consistent across the whole series). */
+  agency: string;
+  dct: string | null;
+  /**
+   * Automated score per snapshot, aligned to `History.snapshots` (axe Monitor,
+   * else SiteImprove — the same fallback the official score uses); null when
+   * the site had no automated score that month.
+   */
+  automated: (number | null)[];
+  /** Manual Axe Auditor audits: one point per new or changed auditor score. */
+  audits: { month: string; score: number }[];
+}
+
+/**
+ * The monthly trend series, compiled at generation time from the committed
+ * `data/history/*.json` snapshots. The client never calls an API for this.
+ */
+export interface History {
+  snapshots: HistorySnapshot[];
+  sites: HistorySite[];
 }
 
 export interface DashboardData {
   meta: DashboardMeta;
   sites: Site[];
+  history: History;
 }
 
 /**
@@ -127,6 +189,12 @@ export interface ManualEntry {
   /** Short rationale for the team's score/override. */
   override_justification?: string | null;
   auditor_score?: number | null;
+  /**
+   * When the Axe Auditor audit was done (`YYYY-MM` or a full date). Pins the
+   * audit's point on the trend chart to that month; without it the point lands
+   * on the first monthly snapshot that carried the score.
+   */
+  auditor_date?: string | null;
   auditor_report_url?: string | null;
   auditor_deck_url?: string | null;
   /** `true` when the team flagged a blocker; `null`/absent otherwise. */

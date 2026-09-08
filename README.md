@@ -46,8 +46,34 @@ wired. Regenerate real data with `npm run generate` (see below).
 
 - **Keys never reach the client.** `.env` is read only by `generate.mjs`. Only
   the derived, secret-free JSON is published. `.env` is gitignored.
-- Manual regeneration for Phase 1; the script is the seed of a future scheduled
-  monthly pull.
+- **Monthly by automation.** The `Monthly data snapshot` workflow
+  (`.github/workflows/monthly-snapshot.yml`) runs on the first of each month,
+  pulls both sources, writes that month's snapshot to `data/history/`, and opens
+  a pull request. Merging it publishes the refresh. You can also run it by hand
+  from the Actions tab, or run `npm run generate` locally with keys in `.env`.
+
+### DCT portfolios
+
+Every agency is served by a Deputy Commissioner for Technology (DCT). The
+generator reads the public list at https://its.ny.gov/dcts on each run (cached
+to `data/dcts.json`), maps each portfolio's agency tokens to the dashboard's
+agency names through `data/dct-aliases.json`, and stamps every site with its
+`dct`. The rollup chart groups by DCT portfolio by default, labeling each bar
+with the portfolio's agencies rather than the DCT's name. Agencies outside every
+portfolio show as **No DCT assigned**. Refresh the list alone with
+`npm run generate:dcts`.
+
+### Monthly history and the trend chart
+
+Each successful generator run writes `data/history/<YYYY-MM>.json`, the
+snapshot of record for that month (every site's automated, auditor, and team
+scores). Those committed files are the only input to the **Monthly trend**
+chart: the generator compiles them into a `history` block inside
+`dashboard-data.json`, so the page never calls an API. Months before the first
+snapshot are backfilled from axe Monitor's per-run history (automated scores
+only). A dashboard snapshot always wins over a backfilled month, and the
+generator refuses to write a snapshot when either source returned nothing, so
+an outage can't become a month's record. See `data/DATA.md`.
 
 ### Live data (wired)
 
@@ -77,9 +103,10 @@ Check what's set (booleans only, never values): `npm run generate:check-env`.
 **Run it:**
 
 ```bash
-npm run generate            # pull live data → public/dashboard-data.json
+npm run generate            # pull live data → public/dashboard-data.json + data/history/<month>.json
 npm run generate:refresh    # ignore cache, force a fresh pull
-npm run generate:offline    # rebuild from cache only, no network
+npm run generate:offline    # rebuild from cache only, no network (never writes a snapshot)
+npm run generate:dcts       # refresh only the DCT list from its.ny.gov
 ```
 
 If a source's credentials are missing the script warns, skips that source, and
@@ -113,9 +140,11 @@ cache only.
 ### `data/manual-data.json`
 
 Hand-edited by the team, keyed by bare domain. Fields per entry:
-`auditor_score`, `auditor_report_url`, `auditor_deck_url`, `blocked`,
-`blocked_note`. **`blocked_note` is internal-only and is never surfaced in the
-UI** (stored for team rationale, stripped at generation time).
+`team_score`, `override_justification`, `auditor_score`, `auditor_date`,
+`auditor_report_url`, `auditor_deck_url`, `blocked`, `blocked_note`.
+**`blocked_note` is internal-only and is never surfaced in the UI** (stored for
+team rationale, stripped at generation time). `auditor_date` (`YYYY-MM` or a
+full date) places the audit on the trend chart in the month it was done.
 
 ---
 
@@ -163,12 +192,12 @@ Or deploy manually: `npm run deploy` (uses `gh-pages` to push `dist/`).
 
 ---
 
-## ⚠️ Fonts licensing
+## Fonts licensing
 
 `assets/fonts/` contains the official NYSDS web fonts (Proxima Nova, D Sari),
-which are **licensed for New York State use only and must not be committed to a
-public/open-source repo.** Keep this repository **private**. If it is ever made
-public, remove the font files and load them another approved way.
+which are licensed for New York State use. They are served here the same way
+every ny.gov site serves them. Don't reuse them outside a New York State
+project.
 
 ---
 

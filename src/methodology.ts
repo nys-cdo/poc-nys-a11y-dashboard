@@ -71,11 +71,29 @@ function buildDialog(): HTMLDialogElement {
           <strong>Unattributed</strong>. This bucket will shrink over time as attribution improves.
         </p>
 
+        <h3>DCT portfolios</h3>
+        <p>
+          Each agency is served by a <strong>Deputy Commissioner for Technology (DCT)</strong>.
+          The rollup chart groups sites by DCT portfolio by default, labeling each bar with the
+          portfolio's agencies as listed on
+          <a href="https://its.ny.gov/dcts" target="_blank" rel="noopener">its.ny.gov/dcts</a>,
+          which is re-read on every refresh. Agencies outside any portfolio (authorities, the
+          courts, the Legislature, and similar) appear as <strong>No DCT assigned</strong>.
+        </p>
+
+        <h3>Monthly trend</h3>
+        <p>
+          Every monthly refresh is kept as a snapshot. The trend chart plots the
+          <strong>average automated score</strong> per month (axe Monitor, or SiteImprove where
+          that is the only automated source) and marks each <strong>manual Axe Auditor audit</strong>
+          in the month it was recorded. Months before the first snapshot are backfilled from
+          axe Monitor's run history, so they hold automated scores only and may cover fewer sites.
+        </p>
+
         <h3>Scope</h3>
         <p>
-          This is a <strong>point-in-time snapshot</strong>, refreshed manually. It shows
-          site/domain-level results only — no page-level detail, no historical trend, and no
-          PDF accessibility data (all out of scope for this phase).
+          This is a <strong>monthly snapshot</strong>. It shows site/domain-level results only —
+          no page-level detail and no PDF accessibility data (both out of scope for this phase).
         </p>
       </div>
     </div>

@@ -17,7 +17,7 @@
  */
 
 import type { DashboardData, Rubric, Site, Status } from './types';
-import { UNATTRIBUTED } from './types';
+import { NO_DCT, UNATTRIBUTED } from './types';
 
 /** Which source in the priority chain supplied the official score. */
 export type ScoreSource = 'team' | 'auditor' | 'monitor' | 'siteimprove' | null;
@@ -119,8 +119,20 @@ export function statewideSummary(data: DashboardData): StatewideSummary {
   };
 }
 
+/**
+ * How sites are grouped for the rollup chart: by DCT portfolio (the default —
+ * the accountability unit at DCT Council) or by individual agency.
+ */
+export type Grouping = 'dct' | 'agency';
+
 export interface AgencyRollup {
+  /**
+   * The group key: an agency name, or (for `dct` grouping) the DCT name /
+   * `NO_DCT`. Filters and the fallback table key on this.
+   */
   agency: string;
+  /** What the chart prints for the group: the agency list for a DCT, else the key. */
+  label: string;
   siteCount: number;
   counts: StatusCounts;
   blocked: number;
@@ -136,17 +148,34 @@ const STATUS_SEVERITY: Record<Status | 'unknown', number> = {
   unknown: 0,
 };
 
-export function agencyRollups(data: DashboardData): AgencyRollup[] {
+/** A site's DCT key: the DCT name, or the literal `NO_DCT` bucket. */
+export function dctKey(site: Pick<Site, 'dct'>): string {
+  return site.dct ?? NO_DCT;
+}
+
+/**
+ * The chart label for a DCT group: the portfolio's agency list, comma-joined
+ * ("Gaming, DHR, OMIG, …"). The portfolio is what's being compared, so the
+ * bars name the agencies rather than the person.
+ */
+export function dctLabel(dctName: string, data: DashboardData): string {
+  if (dctName === NO_DCT) return NO_DCT;
+  const group = data.meta.dcts.find((d) => d.name === dctName);
+  return group?.agencies.join(', ') || dctName;
+}
+
+export function agencyRollups(data: DashboardData, grouping: Grouping = 'agency'): AgencyRollup[] {
   const { rubric } = data.meta;
-  const byAgency = new Map<string, Site[]>();
+  const byKey = new Map<string, Site[]>();
   for (const site of data.sites) {
-    const list = byAgency.get(site.agency) ?? [];
+    const key = grouping === 'dct' ? dctKey(site) : site.agency;
+    const list = byKey.get(key) ?? [];
     list.push(site);
-    byAgency.set(site.agency, list);
+    byKey.set(key, list);
   }
 
   const rollups: AgencyRollup[] = [];
-  for (const [agency, sites] of byAgency) {
+  for (const [key, sites] of byKey) {
     const counts = tally(sites, rubric);
     let worst: Status | 'unknown' = 'unknown';
     for (const s of sites) {
@@ -154,7 +183,8 @@ export function agencyRollups(data: DashboardData): AgencyRollup[] {
       if (STATUS_SEVERITY[st] > STATUS_SEVERITY[worst]) worst = st;
     }
     rollups.push({
-      agency,
+      agency: key,
+      label: grouping === 'dct' ? dctLabel(key, data) : key,
       siteCount: sites.length,
       counts,
       blocked: sites.filter((s) => s.blocked).length,
@@ -172,16 +202,21 @@ export function sortAgencyRollups(
   rollups: AgencyRollup[],
   sort: AgencySort,
 ): AgencyRollup[] {
-  const copy = [...rollups];
+  // The no-DCT catch-all is not a portfolio, so it never competes for the top
+  // of the league table: it is pinned to the end under every sort.
+  const pinned = rollups.filter((r) => r.agency === NO_DCT);
+  const copy = rollups.filter((r) => r.agency !== NO_DCT);
   switch (sort) {
     case 'name':
-      return copy.sort((a, b) => a.agency.localeCompare(b.agency));
+      copy.sort((a, b) => a.label.localeCompare(b.label));
+      break;
     case 'sites':
-      return copy.sort((a, b) => b.siteCount - a.siteCount);
+      copy.sort((a, b) => b.siteCount - a.siteCount);
+      break;
     case 'worst':
     default:
       // Most red sites first, then yellow, then by size. The accountability view.
-      return copy.sort(
+      copy.sort(
         (a, b) =>
           b.counts.red - a.counts.red ||
           b.counts.yellow - a.counts.yellow ||
@@ -189,4 +224,5 @@ export function sortAgencyRollups(
           a.agency.localeCompare(b.agency),
       );
   }
+  return [...copy, ...pinned];
 }

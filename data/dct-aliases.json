@@ -1,0 +1,21 @@
+{
+  "_comment": "Maps the agency tokens on https://its.ny.gov/dcts to the agency names used in this dashboard (axe Monitor Scan Group names plus any override names). A token also matches an agency of the same name, case-insensitively, without an entry here, so an entry only has to list the EXTRA names a token should cover. Re-run `npm run generate` (or `generate:offline`) after editing.",
+  "aliases": {
+    "Aging": ["SOFA"],
+    "Justice Center": ["CJN"],
+    "DCS": ["CS"],
+    "HCR": ["DHCR"],
+    "Arts": ["NYSCA"],
+    "CCF": ["CC&F"],
+    "COELIG": ["Ethics", "JCOPE"],
+    "FCB": ["New York State Financial Control Board"],
+    "NYSP": ["DSP", "Division of State Police"],
+    "Ag & Markets": ["Ag&Markets"],
+    "Gaming": ["Lottery"],
+    "Chamber": ["Governor"],
+    "Public Safety": ["DOCS"],
+    "OVS": ["Office of Victim Services"],
+    "Hudson River Greenway": ["Hudson River Valley Greenway"],
+    "EFC": ["Environmental Facilities Corporation"]
+  }
+}

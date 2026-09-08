@@ -52,12 +52,55 @@ keyed.
 }
 ```
 
-The agency string must match an existing agency name **exactly**, or the site
-forms its own rollup bucket instead of joining the intended one. The generator
+The agency string must match an existing agency name **exactly** (use the
+abbreviation axe Monitor already uses, such as `DOL` rather than
+`Department of Labor`), or the site forms its own rollup bucket instead of
+joining the intended one. The generator
 logs any override whose agency name it doesn't recognize, any whose domain
 matches no site, and any that replaced an already-named agency — so nothing is
 silent. Add or edit entries, then re-run `npm run generate` (or
 `npm run generate:offline`).
+
+## dcts.json and dct-aliases.json
+
+`dcts.json` is the cached copy of the public DCT list at
+https://its.ny.gov/dcts: each Deputy Commissioner for Technology and the agency
+tokens in their portfolio, exactly as the page lists them. The generator
+re-scrapes the page on every run and rewrites this file; if the page is
+unreachable or its markup changes, the last cached copy is used with a warning.
+Refresh it alone with `npm run generate:dcts`. Don't hand-edit it.
+
+`dct-aliases.json` is hand-maintained. It maps a page token to the agency names
+this dashboard uses when they differ (`"HCR": ["DHCR"]`, `"NYSP": ["DSP",
+"Division of State Police"]`). A token already matches an agency of the same
+name, case-insensitively, so an entry only lists the extra names. The generator
+logs every token that matches no scanned site so a missing alias is visible.
+Sites whose agency sits in no portfolio get `dct: null` and show as
+**No DCT assigned**.
+
+## history/
+
+One file per month, `history/<YYYY-MM>.json`, is the snapshot of record for
+that month: every site's automated (axe Monitor, SiteImprove), auditor, and team
+scores as captured by a full generator run. These files are the only input to
+the trend chart; the generator compiles them into the `history` block of
+`public/dashboard-data.json`. Rules:
+
+- A live run writes (or overwrites) the current month's file. An `--offline`
+  run never writes one, and neither does a run in which either source returned
+  no records, so an outage can't become the month's record.
+- Months with no file are backfilled from axe Monitor's per-run history
+  (`"source": "axe-monitor-run-history"`, automated scores only). A backfilled
+  file is rewritten on every run and is replaced the first time a real snapshot
+  exists for that month.
+- Agency and DCT for the trend come from the current data when a site still
+  exists, so grouping stays consistent across the series. Excluded sites are
+  dropped from history too.
+- An auditor score plots in the first month a snapshot carried it, or in
+  `auditor_date` from `manual-data.json` when the team records one.
+
+The monthly workflow (`.github/workflows/monthly-snapshot.yml`) produces these
+files on the first of each month and opens a pull request with the result.
 
 ## Page access password (gate)
 

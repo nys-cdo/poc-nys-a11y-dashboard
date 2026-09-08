@@ -1,0 +1,383 @@
+import * as echarts from 'echarts';
+import { NO_DCT, type DashboardData, type HistorySite } from '../types';
+import { dctLabel } from '../status';
+import { AUDIT_COLOR, AUTOMATED_COLOR, SERIES_OTHER, SERIES_PALETTE } from '../tokens';
+import { esc } from '../format';
+
+/**
+ * Monthly trend: the automated score over time (one line) with manual Axe
+ * Auditor audits marked as diamonds in the month they happened. Reads ONLY the
+ * compiled `history` block in dashboard-data.json — every point is one of our
+ * committed monthly snapshots (or an axe-run backfill for months before the
+ * first one); the page never calls an API.
+ *
+ * Three scopes:
+ *   - statewide (default): the average across every site, one line;
+ *   - one DCT portfolio: a line per agency in it (each an average);
+ *   - one agency: a line per site.
+ * Up to eight lines carry a fixed identity color + marker shape and appear in
+ * the legend; any beyond that are drawn in neutral gray and identified in the
+ * tooltip and the data table, so hues are never cycled.
+ */
+type Scope = 'all' | 'dct' | 'agency';
+
+interface Line {
+  name: string;
+  /** Score per snapshot (aligned to history.snapshots); null = no data. */
+  values: (number | null)[];
+  /** Sites contributing per snapshot (for "average of N sites" tooltips). */
+  counts: number[];
+}
+
+interface Audit {
+  monthIndex: number;
+  score: number;
+  domain: string;
+}
+
+const MAX_IDENTIFIED = SERIES_PALETTE.length;
+/** Marker shapes for identified lines — a second cue beyond hue. Diamond is
+ *  reserved for audits. */
+const LINE_SYMBOLS = ['circle', 'rect', 'triangle', 'roundRect', 'pin', 'arrow', 'circle', 'rect'];
+
+export function renderTrend(root: HTMLElement, data: DashboardData): void {
+  const { history } = data;
+  const months = history.snapshots.map((s) => s.month);
+
+  // DCTs present in the history, in page order, plus the no-DCT bucket.
+  const presentDcts = new Set(history.sites.map((s) => s.dct ?? NO_DCT));
+  const dctOptions = data.meta.dcts.map((d) => d.name).filter((n) => presentDcts.has(n));
+  if (presentDcts.has(NO_DCT)) dctOptions.push(NO_DCT);
+  const agencyOptions = [...new Set(history.sites.map((s) => s.agency))].sort((a, b) =>
+    a.localeCompare(b),
+  );
+
+  root.innerHTML = `
+    <div class="section-heading-row">
+      <h2 id="trend-heading" class="section-heading">Monthly trend</h2>
+      <div class="section-controls">
+        <nys-select id="trend-scope" label="Show" width="lg" value="all">
+          <option value="all" label="All sites (statewide average)"></option>
+          <option value="dct" label="One DCT portfolio (a line per agency)"></option>
+          <option value="agency" label="One agency (a line per site)"></option>
+        </nys-select>
+        <div id="trend-pick-dct-wrap" hidden>
+          <nys-select id="trend-pick-dct" label="DCT portfolio" width="lg" value="${esc(dctOptions[0] ?? '')}">
+            ${dctOptions.map((d) => `<option value="${esc(d)}" label="${esc(d === NO_DCT ? d : dctLabel(d, data))}"></option>`).join('')}
+          </nys-select>
+        </div>
+        <div id="trend-pick-agency-wrap" hidden>
+          <nys-select id="trend-pick-agency" label="Agency" width="lg" value="${esc(agencyOptions[0] ?? '')}">
+            ${agencyOptions.map((a) => `<option value="${esc(a)}" label="${esc(a)}"></option>`).join('')}
+          </nys-select>
+        </div>
+      </div>
+    </div>
+    <p class="section-sub">
+      Average <strong>automated</strong> score per monthly snapshot, with each
+      <strong>manual Axe Auditor audit</strong> marked in the month it was recorded.
+      <span class="caveat-inline"><span aria-hidden="true">⚠</span> automated testing only</span>
+    </p>
+    <div id="trend-chart" class="trend-chart" role="img" aria-label="Loading trend chart"></div>
+    <p id="trend-note" class="trend-note"></p>
+    <p id="trend-live" class="visually-hidden" role="status" aria-live="polite"></p>
+    <!-- Structured, screen-reader alternative to the chart image. -->
+    <div id="trend-table-fallback" class="visually-hidden"></div>
+  `;
+
+  const el = root.querySelector<HTMLElement>('#trend-chart')!;
+  const noteEl = root.querySelector<HTMLElement>('#trend-note')!;
+  const liveEl = root.querySelector<HTMLElement>('#trend-live')!;
+  const fallbackEl = root.querySelector<HTMLElement>('#trend-table-fallback')!;
+  const dctWrap = root.querySelector<HTMLElement>('#trend-pick-dct-wrap')!;
+  const agencyWrap = root.querySelector<HTMLElement>('#trend-pick-agency-wrap')!;
+
+  if (months.length === 0) {
+    el.textContent = 'No monthly snapshots yet. The trend appears after the first monthly refresh.';
+    el.setAttribute('aria-label', 'Trend chart: no monthly snapshots yet.');
+    return;
+  }
+
+  const chart = echarts.init(el, undefined, { renderer: 'svg' });
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const monthLabels = months.map((m, i) =>
+    formatMonth(m) + (history.snapshots[i].source === 'dashboard' ? '' : '*'),
+  );
+  const backfilled = history.snapshots.some((s) => s.source !== 'dashboard');
+
+  let scope: Scope = 'all';
+  let pickDct = dctOptions[0] ?? NO_DCT;
+  let pickAgency = agencyOptions[0] ?? '';
+
+  const draw = (announce = false) => {
+    dctWrap.hidden = scope !== 'dct';
+    agencyWrap.hidden = scope !== 'agency';
+
+    const sites =
+      scope === 'all'
+        ? history.sites
+        : scope === 'dct'
+          ? history.sites.filter((s) => (s.dct ?? NO_DCT) === pickDct)
+          : history.sites.filter((s) => s.agency === pickAgency);
+
+    const lines: Line[] =
+      scope === 'all'
+        ? [averageLine('Automated score (all sites, monthly average)', sites, months.length)]
+        : scope === 'dct'
+          ? groupBy(sites, (s) => s.agency).map(([name, group]) =>
+              averageLine(name, group, months.length),
+            )
+          : sites.map((s) => siteLine(s));
+    lines.sort((a, b) => a.name.localeCompare(b.name));
+
+    const audits: Audit[] = [];
+    for (const s of sites) {
+      for (const a of s.audits) {
+        const i = months.indexOf(a.month);
+        // An audit dated before the first snapshot pins to the first month.
+        audits.push({ monthIndex: i === -1 ? 0 : i, score: a.score, domain: s.domain });
+      }
+    }
+
+    const identified = lines.slice(0, MAX_IDENTIFIED);
+    const rest = lines.slice(MAX_IDENTIFIED);
+    const single = lines.length === 1;
+
+    const lineSeries = lines.map((line, i) => {
+      const isIdentified = i < MAX_IDENTIFIED;
+      const color = single ? AUTOMATED_COLOR : isIdentified ? SERIES_PALETTE[i] : SERIES_OTHER;
+      return {
+        name: line.name,
+        type: 'line' as const,
+        data: line.values,
+        color,
+        symbol: single ? 'circle' : isIdentified ? LINE_SYMBOLS[i] : 'circle',
+        symbolSize: isIdentified ? 9 : 6,
+        lineStyle: { width: isIdentified ? 2 : 1.5 },
+        emphasis: { focus: 'series' as const },
+        // Only what's counted per point: lines drop nulls rather than bridging.
+        connectNulls: false,
+        z: isIdentified ? 3 : 2,
+      };
+    });
+
+    const auditSeries = {
+      name: 'Axe Auditor (manual audit)',
+      type: 'scatter' as const,
+      data: audits.map((a) => ({ value: [a.monthIndex, a.score], name: a.domain })),
+      color: AUDIT_COLOR,
+      symbol: 'diamond',
+      symbolSize: 16,
+      itemStyle: { borderColor: '#fff', borderWidth: 2 },
+      z: 4,
+    };
+
+    const legendNames = [...identified.map((l) => l.name), auditSeries.name];
+
+    chart.setOption(
+      {
+        // The container carries its own summary aria-label and a data table;
+        // ECharts' generated description would overwrite that label.
+        aria: { enabled: false },
+        animation: !reduceMotion,
+        grid: { left: 8, right: 24, top: single ? 48 : 72, bottom: 8, containLabel: true },
+        legend: { top: 8, left: 'center', data: legendNames, type: 'scroll' },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: { type: 'line' },
+          formatter: (params: TooltipParam[]) => tooltipHtml(params, lines, audits, monthLabels),
+        },
+        xAxis: {
+          type: 'category',
+          data: monthLabels,
+          boundaryGap: true,
+          axisLabel: { color: '#62666a' },
+          axisTick: { alignWithLabel: true },
+        },
+        yAxis: {
+          type: 'value',
+          name: 'Score',
+          min: 0,
+          max: 100,
+          interval: 20,
+          axisLabel: { color: '#62666a' },
+          splitLine: { lineStyle: { color: '#e4e4e2' } },
+        },
+        series: [...lineSeries, auditSeries],
+      },
+      { notMerge: true },
+    );
+
+    const notes: string[] = [];
+    if (rest.length) {
+      notes.push(
+        `${rest.length} more ${scope === 'agency' ? 'sites' : 'agencies'} are drawn in gray without a legend entry; hover a line or use the data table for names.`,
+      );
+    }
+    if (backfilled) {
+      notes.push(
+        '* Backfilled from axe Monitor run history: automated scores only, and possibly fewer sites than a full snapshot.',
+      );
+    }
+    noteEl.textContent = notes.join(' ');
+
+    const scopeText =
+      scope === 'all'
+        ? 'all sites'
+        : scope === 'dct'
+          ? `the ${pickDct === NO_DCT ? NO_DCT : dctLabel(pickDct, data)} portfolio`
+          : `${pickAgency}`;
+    el.setAttribute(
+      'aria-label',
+      `Line chart: average automated accessibility score per month for ${scopeText}, ` +
+        `${lines.length} line${lines.length === 1 ? '' : 's'} across ${months.length} month${months.length === 1 ? '' : 's'}, ` +
+        `with ${audits.length} manual audit${audits.length === 1 ? '' : 's'} marked. ` +
+        'The full series follows in the data table below.',
+    );
+    fallbackEl.innerHTML = fallbackTable(lines, audits, monthLabels);
+    if (announce) {
+      liveEl.textContent = `Trend updated: ${lines.length} line${lines.length === 1 ? '' : 's'} for ${scopeText}.`;
+    }
+  };
+
+  draw();
+
+  root.querySelector('#trend-scope')?.addEventListener('nys-change', (e: Event) => {
+    const v = (e as CustomEvent<{ value: string }>).detail?.value;
+    scope = v === 'dct' || v === 'agency' ? v : 'all';
+    draw(true);
+  });
+  root.querySelector('#trend-pick-dct')?.addEventListener('nys-change', (e: Event) => {
+    pickDct = (e as CustomEvent<{ value: string }>).detail?.value ?? pickDct;
+    draw(true);
+  });
+  root.querySelector('#trend-pick-agency')?.addEventListener('nys-change', (e: Event) => {
+    pickAgency = (e as CustomEvent<{ value: string }>).detail?.value ?? pickAgency;
+    draw(true);
+  });
+
+  const ro = new ResizeObserver(() => chart.resize());
+  ro.observe(el);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Series building                                                             */
+/* -------------------------------------------------------------------------- */
+
+/** Mean automated score per snapshot across `sites` (null when none scored). */
+function averageLine(name: string, sites: HistorySite[], length: number): Line {
+  const values: (number | null)[] = [];
+  const counts: number[] = [];
+  for (let i = 0; i < length; i++) {
+    let sum = 0;
+    let n = 0;
+    for (const s of sites) {
+      const v = s.automated[i];
+      if (v !== null && v !== undefined) {
+        sum += v;
+        n += 1;
+      }
+    }
+    values.push(n ? Math.round(sum / n) : null);
+    counts.push(n);
+  }
+  return { name, values, counts };
+}
+
+function siteLine(site: HistorySite): Line {
+  return {
+    name: site.domain,
+    values: site.automated.map((v) => v ?? null),
+    counts: site.automated.map((v) => (v === null || v === undefined ? 0 : 1)),
+  };
+}
+
+function groupBy<T>(items: T[], key: (item: T) => string): [string, T[]][] {
+  const map = new Map<string, T[]>();
+  for (const item of items) {
+    const k = key(item);
+    const list = map.get(k) ?? [];
+    list.push(item);
+    map.set(k, list);
+  }
+  return [...map.entries()];
+}
+
+/** "Jul 2026" from "2026-07". */
+function formatMonth(month: string): string {
+  const [y, m] = month.split('-').map(Number);
+  return new Date(Date.UTC(y, (m || 1) - 1, 1)).toLocaleDateString('en-US', {
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+}
+
+/* -------------------------------------------------------------------------- */
+/* Tooltip + fallback table                                                    */
+/* -------------------------------------------------------------------------- */
+
+interface TooltipParam {
+  seriesType: string;
+  seriesName: string;
+  seriesIndex: number;
+  dataIndex: number;
+  marker: string;
+  value: number | null | [number, number];
+  name: string;
+  data: { name?: string } | number | null;
+}
+
+function tooltipHtml(
+  params: TooltipParam[],
+  lines: Line[],
+  audits: Audit[],
+  monthLabels: string[],
+): string {
+  if (!params.length) return '';
+  const monthIndex = params[0].dataIndex;
+  const rows: string[] = [`<strong>${esc(monthLabels[monthIndex] ?? '')}</strong>`];
+  for (const p of params) {
+    if (p.seriesType !== 'line') continue;
+    const line = lines[p.seriesIndex];
+    const v = line?.values[monthIndex];
+    if (v === null || v === undefined) continue;
+    const n = line.counts[monthIndex];
+    const basis = n > 1 ? ` <span style="color:#62666a">(average of ${n} sites)</span>` : '';
+    rows.push(`${p.marker} ${esc(p.seriesName)}: <strong>${v}%</strong>${basis}`);
+  }
+  const monthAudits = audits.filter((a) => a.monthIndex === monthIndex);
+  if (monthAudits.length) {
+    rows.push(
+      `<span style="color:${AUDIT_COLOR}">◆</span> Manual audit${monthAudits.length === 1 ? '' : 's'}: ` +
+        monthAudits.map((a) => `${esc(a.domain)} <strong>${a.score}%</strong>`).join(', '),
+    );
+  }
+  return rows.join('<br/>');
+}
+
+/** Visually-hidden data table mirroring the rendered lines and audits. */
+function fallbackTable(lines: Line[], audits: Audit[], monthLabels: string[]): string {
+  const thead =
+    `<th scope="col">Series</th>` + monthLabels.map((m) => `<th scope="col">${esc(m)}</th>`).join('');
+  const body = lines
+    .map(
+      (l) =>
+        `<tr><th scope="row">${esc(l.name)}</th>` +
+        l.values.map((v) => `<td>${v === null ? '—' : `${v}%`}</td>`).join('') +
+        '</tr>',
+    )
+    .join('');
+  const auditRows = audits.length
+    ? `<h3>Manual audits</h3><ul>` +
+      audits
+        .map((a) => `<li>${esc(monthLabels[a.monthIndex] ?? '')}: ${esc(a.domain)} — ${a.score}%</li>`)
+        .join('') +
+      '</ul>'
+    : '';
+  return (
+    `<table><caption>Automated score per monthly snapshot</caption>` +
+    `<thead><tr>${thead}</tr></thead><tbody>${body}</tbody></table>` +
+    auditRows
+  );
+}

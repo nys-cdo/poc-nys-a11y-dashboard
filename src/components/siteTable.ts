@@ -1,5 +1,5 @@
-import type { DashboardData, Site, Status } from '../types';
-import { officialScore, officialStatus, type ScoreSource } from '../status';
+import { NO_DCT, type DashboardData, type Site, type Status } from '../types';
+import { dctKey, officialScore, officialStatus, type ScoreSource } from '../status';
 import { buildSitesCsv } from '../csv';
 import {
   statusIntent,
@@ -14,19 +14,28 @@ import {
 /**
  * Site-level table (PRD §6.4). Two modes:
  *
- *  - 'succinct' (default): Domain | Agency | Score. The Score cell shows the
- *    OFFICIAL value + a strong status badge, with a source-driven annotation
+ *  - 'succinct' (default): Domain | Agency | DCT | Score | Notes | Status. The
+ *    Score cell shows the OFFICIAL value, with a source-driven Notes annotation
  *    (team note disclosure, auditor report/deck links, or axe Monitor link).
  *  - 'full' (the `?full` advanced view): every automated + manual signal side
  *    by side, plus a Team score column, status chip, flags, and report links.
  *    Never renders notes (overrideJustification / blocked_note).
  *
  * Built on nys-table (native <table> in its slot) for NYSDS styling + built-in
- * column sorting. Filterable by agency and status; the "official score" is the
- * single number every mode agrees on.
+ * column sorting. Filterable by DCT, agency, and status; the "official score"
+ * is the single number every mode agrees on.
  */
 export type TableMode = 'succinct' | 'full';
 export type StatusFilter = 'all' | Status | 'unknown' | 'blocked';
+
+/** The three table filters. `'all'` clears a dimension. */
+export interface SiteFilters {
+  /** A DCT name, `NO_DCT`, or `'all'`. */
+  dct: string;
+  /** An agency name or `'all'`. */
+  agency: string;
+  status: StatusFilter;
+}
 
 /**
  * "Opens in new tab" affordance appended to external links. The icon itself
@@ -39,8 +48,8 @@ const EXTERNAL_ICON =
 
 /** Controller returned by renderSiteTable, for driving the filters externally. */
 export interface SiteTableController {
-  /** Set both filters programmatically (e.g. from an agency-chart click). */
-  applyFilters(agency: string, status: StatusFilter): void;
+  /** Set the filters programmatically (e.g. from a rollup-chart click). */
+  applyFilters(filters: SiteFilters): void;
 }
 
 export interface SiteTableOptions {
@@ -58,6 +67,11 @@ export function renderSiteTable(
   const agencies = [...new Set(data.sites.map((s) => s.agency))].sort((a, b) =>
     a.localeCompare(b),
   );
+  // DCTs in page order (its.ny.gov lists them by surname), then the no-DCT
+  // bucket last — only DCTs that actually cover a site are offered.
+  const presentDcts = new Set(data.sites.map(dctKey));
+  const dcts = data.meta.dcts.map((d) => d.name).filter((n) => presentDcts.has(n));
+  if (presentDcts.has(NO_DCT)) dcts.push(NO_DCT);
 
   // A downloadable CSV of the WHOLE dataset (every site, every column) — a
   // structured, screen-reader- and analysis-friendly alternative to the charts.
@@ -88,6 +102,10 @@ export function renderSiteTable(
     <h2 id="site-table-heading" class="section-heading">All sites</h2>
 
     <div class="table-filters">
+      <nys-select id="filter-dct" label="Filter by DCT" width="lg" value="all">
+        <option value="all" label="All DCTs"></option>
+        ${dcts.map((d) => `<option value="${esc(d)}" label="${esc(d)}"></option>`).join('')}
+      </nys-select>
       <nys-select id="filter-agency" label="Filter by agency" width="lg" value="all">
         <option value="all" label="All agencies"></option>
         ${agencies.map((a) => `<option value="${esc(a)}" label="${esc(a)}"></option>`).join('')}
@@ -127,6 +145,7 @@ export function renderSiteTable(
 
   const tbody = root.querySelector<HTMLTableSectionElement>('#sites-tbody')!;
   const countEl = root.querySelector<HTMLParagraphElement>('#table-count')!;
+  let dctFilter = 'all';
   let agencyFilter = 'all';
   let statusFilter: StatusFilter = 'all';
 
@@ -135,6 +154,7 @@ export function renderSiteTable(
     .sort((a, b) => a.site.domain.localeCompare(b.site.domain));
 
   function matches(site: Site, status: Status | 'unknown'): boolean {
+    if (dctFilter !== 'all' && dctKey(site) !== dctFilter) return false;
     if (agencyFilter !== 'all' && site.agency !== agencyFilter) return false;
     switch (statusFilter) {
       case 'all':
@@ -148,7 +168,7 @@ export function renderSiteTable(
 
   const rowHtml = mode === 'full' ? fullRowHtml : succinctRowHtml;
 
-  const columnCount = mode === 'full' ? 11 : 5;
+  const columnCount = mode === 'full' ? 12 : 6;
 
   function draw(): void {
     const visible = rows.filter((r) => matches(r.site, r.status));
@@ -160,6 +180,12 @@ export function renderSiteTable(
 
   draw();
 
+  root
+    .querySelector('#filter-dct')
+    ?.addEventListener('nys-change', (e: Event) => {
+      dctFilter = (e as CustomEvent<{ value: string }>).detail?.value ?? 'all';
+      draw();
+    });
   root
     .querySelector('#filter-agency')
     ?.addEventListener('nys-change', (e: Event) => {
@@ -174,10 +200,12 @@ export function renderSiteTable(
       draw();
     });
 
-  // Reset button → clear both filters back to "all".
+  // Reset button → clear every filter back to "all".
   root
     .querySelector('#filter-reset')
-    ?.addEventListener('nys-click', () => applyFilters('all', 'all'));
+    ?.addEventListener('nys-click', () =>
+      applyFilters({ dct: 'all', agency: 'all', status: 'all' }),
+    );
 
   // Keep an nys-select's displayed value in sync when we set filters in code.
   function syncSelect(id: string, value: string): void {
@@ -188,9 +216,11 @@ export function renderSiteTable(
   }
 
   // Hoisted so the reset listener above can call it. Also the public API.
-  function applyFilters(agency: string, status: StatusFilter): void {
+  function applyFilters({ dct, agency, status }: SiteFilters): void {
+    dctFilter = dct;
     agencyFilter = agency;
     statusFilter = status;
+    syncSelect('#filter-dct', dct);
     syncSelect('#filter-agency', agency);
     syncSelect('#filter-status', status);
     draw();
@@ -221,10 +251,15 @@ function statusBadge(status: Status | 'unknown'): string {
     ></nys-badge>`;
 }
 
+/** DCT name, or a muted placeholder when no DCT portfolio covers the agency. */
+function dctCell(site: Site): string {
+  return site.dct ? esc(site.dct) : `<span class="muted">${NO_DCT}</span>`;
+}
+
 function caption(mode: TableMode): string {
   return mode === 'full'
-    ? 'All scanned sites with agency, automated and manual scores, status, and flags. Scores reflect automated testing only unless a manual score exists.'
-    : 'All sites with agency and the official accessibility score.';
+    ? 'All scanned sites with agency, DCT, automated and manual scores, status, and flags. Scores reflect automated testing only unless a manual score exists.'
+    : 'All sites with agency, DCT, and the official accessibility score.';
 }
 
 function caveatLine(mode: TableMode, coveragePct: number): string {
@@ -252,6 +287,7 @@ function headerCells(mode: TableMode): string {
     return `
       <th scope="col">Domain</th>
       <th scope="col">Agency</th>
+      <th scope="col">DCT</th>
       <th scope="col" style="text-align:right">axe Monitor (automated)</th>
       <th scope="col" style="text-align:right">SiteImprove (automated)</th>
       <th scope="col" style="text-align:right">Auditor (manual)</th>
@@ -265,6 +301,7 @@ function headerCells(mode: TableMode): string {
   return `
       <th scope="col">Domain</th>
       <th scope="col">Agency</th>
+      <th scope="col">DCT</th>
       <th scope="col" style="text-align:right">Score</th>
       <th scope="col">Notes</th>
       <th scope="col">Status</th>`;
@@ -349,6 +386,7 @@ function succinctRowHtml(site: Site, status: Status | 'unknown', index: number):
     <tr>
       <td><a class="external-link" href="${esc(safeHref(site.url))}" target="_blank" rel="noopener">${esc(site.domain)}${EXTERNAL_ICON}</a></td>
       <td>${esc(site.agency)}</td>
+      <td>${dctCell(site)}</td>
       <td class="num score-num">${valueHtml}</td>
       <td><div class="notes-cell">${notes}</div></td>
       <td>${badge}</td>
@@ -385,6 +423,7 @@ function fullRowHtml(site: Site, status: Status | 'unknown', _index: number): st
     <tr>
       <td><a class="external-link" href="${esc(safeHref(site.url))}" target="_blank" rel="noopener">${esc(site.domain)}${EXTERNAL_ICON}</a></td>
       <td>${esc(site.agency)}</td>
+      <td>${dctCell(site)}</td>
       <td class="num" style="text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums">${formatScore(site.axeMonitorScore)}</td>
       <td class="num" style="text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums">${formatScore(site.siteImproveScore)}</td>
       <td class="num num--auditor" style="text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--nys-color-text-weak)">${formatScore(site.auditorScore)}</td>

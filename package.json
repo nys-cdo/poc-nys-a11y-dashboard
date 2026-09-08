@@ -12,6 +12,7 @@
     "generate:refresh": "node scripts/generate.mjs --refresh",
     "generate:offline": "node scripts/generate.mjs --offline",
     "generate:check-env": "node scripts/generate.mjs --check-env",
+    "generate:dcts": "node scripts/generate.mjs --dcts-only",
     "typecheck": "tsc --noEmit",
     "deploy": "npm run build && gh-pages -d dist"
   },
