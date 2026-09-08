@@ -1,0 +1,37 @@
+{
+  "_comment": "Hand-maintained portfolio agencies that https://its.ny.gov/dcts does not list (see data/DATA.md). Keyed by the DCT's name exactly as the page shows it. Use the agency names this dashboard uses (the same names as in the Agency column). The public page always wins: an agency the page lists under one DCT stays there even if it appears here under another, and the run logs the conflict. Names that match no scanned site are kept and attach when sites appear. Re-run `npm run generate` (or `generate:offline`) after editing.",
+  "additions": {
+    "Kathryn Shelton": [
+      "Elections",
+      "OSC",
+      "Department of Financial Services",
+      "BFSA",
+      "Nassau County Interim Finance Authority",
+      "NYSIF",
+      "NYCOURTS",
+      "CJC",
+      "ECFSA",
+      "MVFCU",
+      "LIAFCU",
+      "ILS",
+      "OIG",
+      "SFS",
+      "NYSED",
+      "Hudson River-Black River Regulating District",
+      "NHT",
+      "MTABC",
+      "MTAPD",
+      "IOLA",
+      "MTA",
+      "NYSERDA",
+      "LGPC",
+      "NYSTA",
+      "PANYNJ",
+      "HRPT",
+      "LIR",
+      "NYPA",
+      "NYSCA",
+      "RIOC"
+    ]
+  }
+}

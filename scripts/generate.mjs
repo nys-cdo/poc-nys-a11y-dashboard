@@ -44,6 +44,7 @@ const EXCLUDE_LIST_PATH = join(ROOT, 'data', 'exclude_list.json');
 const AGENCY_OVERRIDES_PATH = join(ROOT, 'data', 'agency-overrides.json');
 const DCTS_PATH = join(ROOT, 'data', 'dcts.json');
 const DCT_ALIASES_PATH = join(ROOT, 'data', 'dct-aliases.json');
+const DCT_ADDITIONS_PATH = join(ROOT, 'data', 'dct-portfolio-additions.json');
 const HISTORY_DIR = join(ROOT, 'data', 'history');
 const OUTPUT_DIR = join(ROOT, 'public');
 const OUTPUT_PATH = join(OUTPUT_DIR, 'dashboard-data.json');
@@ -984,17 +985,41 @@ function loadDctAliases() {
 }
 
 /**
- * Build `agency name (lowercased) → DCT name` from the scraped list. A page
- * token matches a dashboard agency of the same name (case-insensitive) plus
- * every extra name listed for it in dct-aliases.json. Logs tokens that match
- * no site (portfolio agencies with nothing scanned yet) and any agency two
- * DCTs both claim (first DCT on the page wins).
+ * `{ DCT name → [dashboard agency names] }` from data/dct-portfolio-additions.json:
+ * portfolio members the public page doesn't list, gathered from the DCTs.
  */
-function buildDctIndex(dcts, aliases, knownAgencies) {
+function loadDctAdditions() {
+  if (!existsSync(DCT_ADDITIONS_PATH)) return {};
+  try {
+    const parsed = JSON.parse(readFileSync(DCT_ADDITIONS_PATH, 'utf8'));
+    return parsed?.additions && typeof parsed.additions === 'object' ? parsed.additions : {};
+  } catch (err) {
+    console.warn(`[dct] could not parse dct-portfolio-additions.json — ignoring it (${err.message}).`);
+    return {};
+  }
+}
+
+/**
+ * Build `agency name (lowercased) → DCT name` in two passes.
+ *
+ *  1. The public page. A page token matches a dashboard agency of the same
+ *     name (case-insensitive) plus every extra name listed for it in
+ *     dct-aliases.json. Logs tokens that match no site (portfolio agencies
+ *     with nothing scanned yet) and any agency two DCTs both claim (first DCT
+ *     on the page wins).
+ *  2. Our additions (dct-portfolio-additions.json) fill in agencies the page
+ *     left out. The page always wins: an agency it already assigned is never
+ *     moved, and the conflict is logged so the two lists can be reconciled.
+ *     An additions entry for a DCT no longer on the page is logged and
+ *     ignored rather than inventing a portfolio.
+ */
+function buildDctIndex(dcts, aliases, additions, knownAgencies) {
   const known = new Map([...knownAgencies].map((a) => [a.toLowerCase(), a]));
   const index = new Map(); // agency lower → dct name
   const unmatchedTokens = [];
   const contested = [];
+
+  // Pass 1 — the public page.
   for (const dct of dcts) {
     for (const token of dct.agencies) {
       const names = [token, ...(Array.isArray(aliases[token]) ? aliases[token] : [])];
@@ -1020,7 +1045,43 @@ function buildDctIndex(dcts, aliases, knownAgencies) {
     );
   }
   if (contested.length) {
-    console.warn(`[dct] agency claimed by two DCTs (first wins): ${contested.join('; ')}`);
+    console.warn(`[dct] agency claimed by two DCTs on the page (first wins): ${contested.join('; ')}`);
+  }
+
+  // Pass 2 — our additions, page wins on any overlap.
+  const pageDcts = new Set(dcts.map((d) => d.name));
+  const overridden = [];
+  const noSites = [];
+  let added = 0;
+  for (const [dctName, agencies] of Object.entries(additions)) {
+    if (!pageDcts.has(dctName)) {
+      console.warn(
+        `[dct] additions for "${dctName}" ignored — no DCT of that name on ${DCT_URL} ` +
+          '(update the key in data/dct-portfolio-additions.json).',
+      );
+      continue;
+    }
+    for (const name of Array.isArray(agencies) ? agencies : []) {
+      const key = String(name).toLowerCase();
+      if (!known.has(key)) {
+        noSites.push(String(name));
+        continue;
+      }
+      const existing = index.get(key);
+      if (existing && existing !== dctName) {
+        overridden.push(`${known.get(key)}: page says ${existing}, additions say ${dctName}`);
+        continue;
+      }
+      if (!existing) added += 1;
+      index.set(key, dctName);
+    }
+  }
+  if (added) console.log(`[dct] ${added} agency(ies) assigned from data/dct-portfolio-additions.json.`);
+  if (noSites.length) {
+    console.log(`[dct] ${noSites.length} addition(s) match no scanned site yet: ${noSites.join(', ')}`);
+  }
+  if (overridden.length) {
+    console.warn(`[dct] additions contradict the page (page wins): ${overridden.join('; ')}`);
   }
   return index;
 }
@@ -1316,7 +1377,12 @@ async function main() {
   }
 
   // Group by DCT: map each site's agency to the DCT whose portfolio covers it.
-  const dctIndex = buildDctIndex(dcts, loadDctAliases(), new Set(sites.map((s) => s.agency)));
+  const dctIndex = buildDctIndex(
+    dcts,
+    loadDctAliases(),
+    loadDctAdditions(),
+    new Set(sites.map((s) => s.agency)),
+  );
   applyDcts(sites, dctIndex);
 
   // An --offline run re-serves cached responses, so its data is no fresher

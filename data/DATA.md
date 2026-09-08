@@ -78,6 +78,29 @@ logs every token that matches no scanned site so a missing alias is visible.
 Sites whose agency sits in no portfolio get `dct: null` and show as
 **No DCT assigned**.
 
+## dct-portfolio-additions.json
+
+The public page doesn't list every agency a DCT serves. This hand-maintained
+file fills the gaps, keyed by the DCT's name exactly as the page shows it, with
+the agency names this dashboard uses:
+
+```json
+{
+  "additions": {
+    "Kathryn Shelton": ["Elections", "OSC", "NYSERDA", "NYSTA"]
+  }
+}
+```
+
+Resolution runs in two passes. The public page assigns first, then the
+additions fill in agencies the page left out. **The page always wins:** an
+agency the page lists under one DCT stays there even if this file names
+another, and the run logs the conflict so the two lists can be reconciled. A
+key that matches no DCT on the page is logged and ignored. Names that match no
+scanned site are kept and attach when sites appear; the log lists them too.
+Chart labels still come from the page's own tokens, so a portfolio filled in
+here keeps its short label.
+
 ## history/
 
 One file per month, `history/<YYYY-MM>.json`, is the snapshot of record for

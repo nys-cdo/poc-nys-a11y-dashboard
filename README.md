@@ -58,8 +58,10 @@ Every agency is served by a Deputy Commissioner for Technology (DCT). The
 generator reads the public list at https://its.ny.gov/dcts on each run (cached
 to `data/dcts.json`), maps each portfolio's agency tokens to the dashboard's
 agency names through `data/dct-aliases.json`, and stamps every site with its
-`dct`. The rollup chart groups by DCT portfolio by default, labeling each bar
-with the portfolio's agencies rather than the DCT's name. Agencies outside every
+`dct`. Agencies the page doesn't list are filled in from the hand-maintained
+`data/dct-portfolio-additions.json`; the page always wins on any overlap. The
+rollup chart groups by DCT portfolio by default, labeling each bar with the
+portfolio's agencies rather than the DCT's name. Agencies outside every
 portfolio show as **No DCT assigned**. Refresh the list alone with
 `npm run generate:dcts`.
 
