@@ -102,18 +102,19 @@ export function renderSiteTable(
 
   // Status options: succinct drops blocked/conflict (they aren't scores); full
   // keeps them because it surfaces the flag badges alongside the number.
+  // The color dots make an active status filter stand out in the select.
   const statusOptions =
     mode === 'full'
       ? `
-        <option value="red" label="Red"></option>
-        <option value="yellow" label="Yellow"></option>
-        <option value="green" label="Green"></option>
+        <option value="red" label="Red 🔴"></option>
+        <option value="yellow" label="Yellow 🟡"></option>
+        <option value="green" label="Green 🟢"></option>
         <option value="blocked" label="Blocked"></option>
         <option value="unknown" label="Not scored"></option>`
       : `
-        <option value="red" label="Red"></option>
-        <option value="yellow" label="Yellow"></option>
-        <option value="green" label="Green"></option>
+        <option value="red" label="Red 🔴"></option>
+        <option value="yellow" label="Yellow 🟡"></option>
+        <option value="green" label="Green 🟢"></option>
         <option value="unknown" label="Not scored"></option>`;
 
   const initial = opts.initialFilters ?? { dct: 'all', agency: 'all', status: 'all' };
