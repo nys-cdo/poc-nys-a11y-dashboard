@@ -1,12 +1,12 @@
-import { REQUEST_TEST_URL, REQUEST_TEST_CONFIGURED } from '../config';
+import { REQUEST_TEST_URL } from '../config';
 import { esc } from '../format';
 
 /**
  * "Request an accessibility test" — the dashboard's one call to action. A
  * native <dialog> that says what a test covers and what to send, then hands
- * off to the configured intake destination (see src/config.ts). Optional
- * context (a domain, a portfolio) is folded into the hand-off so a DCT can
- * ask for a specific site from its row.
+ * off to the ITS intake form (see src/config.ts). Optional context (a domain,
+ * a portfolio) is shown in the dialog so a DCT asking from a site's row sees
+ * which site the request is about.
  */
 let dialog: HTMLDialogElement | null = null;
 
@@ -14,18 +14,6 @@ export interface RequestContext {
   domain?: string;
   agency?: string;
   dct?: string;
-}
-
-function destination(ctx: RequestContext): string {
-  if (!REQUEST_TEST_URL.startsWith('mailto:')) return REQUEST_TEST_URL;
-  // Pre-fill the email body with whatever the caller already knows.
-  const url = new URL(REQUEST_TEST_URL);
-  let body = url.searchParams.get('body') ?? '';
-  if (ctx.domain) body = body.replace('Site URL:', `Site URL: https://${ctx.domain}/`);
-  if (ctx.agency) body = body.replace('Agency:', `Agency: ${ctx.agency}`);
-  if (ctx.dct) body = body.replace('DCT portfolio:', `DCT portfolio: ${ctx.dct}`);
-  url.searchParams.set('body', body);
-  return url.toString();
 }
 
 function buildDialog(): HTMLDialogElement {
@@ -55,19 +43,11 @@ function buildDialog(): HTMLDialogElement {
           <li>A target date or the planning cycle the results feed.</li>
           <li>Anything already known: a recent redesign, complaints, prior audits.</li>
         </ul>
-        ${
-          REQUEST_TEST_CONFIGURED
-            ? ''
-            : `<p class="methodology-dialog__callout">
-                No intake destination is configured yet, so the button opens a pre-filled email
-                with no recipient. Set <code>VITE_REQUEST_TEST_URL</code> at build time to point
-                it at the intake form or the team mailbox.
-              </p>`
-        }
         <p class="request-dialog__actions">
           <a id="request-go" class="request-dialog__button" href="${esc(REQUEST_TEST_URL)}" target="_blank" rel="noopener">
             Start a request
           </a>
+          <span class="muted">Opens the ITS request form in a new tab.</span>
         </p>
       </div>
     </div>
@@ -93,6 +73,5 @@ export function openRequestTest(ctx: RequestContext = {}): void {
   if (ctx.dct) parts.push(`${esc(ctx.dct)} portfolio`);
   context.hidden = parts.length === 0;
   context.innerHTML = parts.length ? `For: ${parts.join(' · ')}` : '';
-  dialog.querySelector<HTMLAnchorElement>('#request-go')!.href = destination(ctx);
   dialog.showModal();
 }

@@ -95,10 +95,10 @@ a request-a-test action). The portfolio strip aggregates the same data.
 ### Request an accessibility test
 
 The portfolio strip, every issue profile, and a line under the statewide
-snapshot carry a "Request an accessibility test" action. It opens a short dialog (what a manual test covers,
-what to include in the request) and hands off to `VITE_REQUEST_TEST_URL`, an
-intake form URL or `mailto:` set at build time. Until that variable is set, the
-hand-off opens a pre-filled email with no recipient.
+snapshot carry a "Request an accessibility test" action. It opens a short
+dialog (what a manual test covers, what to include in the request) and hands
+off to the ITS request form, https://on.ny.gov/a11ytest (a constant in
+`src/config.ts`).
 
 ### Monthly history and the trend chart
 
