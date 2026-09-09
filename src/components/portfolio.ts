@@ -19,7 +19,7 @@ export function renderPortfolio(root: HTMLElement, data: DashboardData, dct: str
     return;
   }
   const p = portfolioSummary(data, dct);
-  const heading = dct === NO_DCT ? NO_DCT : `${dct}'s portfolio`;
+  const heading = dct === NO_DCT ? NO_DCT : `${dct}’s portfolio`;
   const agencies = dct === NO_DCT ? 'Agencies outside every DCT portfolio' : p.agencies.join(', ');
 
   root.hidden = false;
@@ -75,7 +75,7 @@ export function renderPortfolio(root: HTMLElement, data: DashboardData, dct: str
           )
           .join('')}
       </ol>
-      <p class="muted portfolio__rules-note">Ranked from each site's ten most frequent rules; open a site's issue profile in the table for its full breakdown.</p>
+      <p class="muted portfolio__rules-note">Ranked from each site’s ten most frequent rules; open a site’s issue profile in the table for its full breakdown.</p>
     </div>`
         : ''
     }

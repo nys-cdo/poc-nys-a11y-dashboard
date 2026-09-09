@@ -357,7 +357,7 @@ function caveatLine(mode: TableMode, coveragePct: number): string {
       Score is the <strong>official value</strong> — a team or auditor manual score where one exists,
       otherwise the automated (~${coveragePct}% of issues) score; <strong>Source</strong> says which.
       <strong>Coverage</strong> is the pages behind an automated score. <strong>Issues</strong> is the
-      open axe Monitor count (select it for the site's profile). <strong>Notes</strong> holds a
+      open axe Monitor count (select it for the site’s profile). <strong>Notes</strong> holds a
       rationale tooltip or a report link.
     </p>`;
 }

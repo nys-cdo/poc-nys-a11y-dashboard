@@ -41,7 +41,7 @@ function buildDialog(): HTMLDialogElement {
         <p>
           The <strong>Source</strong> column names which of these supplied the score, and
           <strong>Coverage</strong> is the number of pages an automated score rests on (pages
-          axe Monitor tested in its latest run, or pages in SiteImprove's index — the two are not
+          axe Monitor tested in its latest run, or pages in SiteImprove’s index — the two are not
           comparable). The <strong>?full</strong> view shows every underlying source side by side;
           the <strong>Notes</strong> column holds a rationale tooltip for a team override, or a link
           to an auditor report.
@@ -49,12 +49,12 @@ function buildDialog(): HTMLDialogElement {
 
         <h3>Open issues and severity</h3>
         <p>
-          <strong>Issues</strong> is the number of open problems axe Monitor found in a site's
+          <strong>Issues</strong> is the number of open problems axe Monitor found in a site’s
           latest run, with the <strong>critical + serious</strong> share called out as the
-          fix-first load. Selecting the number opens the site's <strong>issue profile</strong>:
+          fix-first load. Selecting the number opens the site’s <strong>issue profile</strong>:
           the count by severity (critical, serious, moderate, minor), issues per page tested, the
-          most frequent failing rules with a link to each rule's fix guidance, and the manual audit
-          history. Rule rankings come from the run's issue list; for very large sites the
+          most frequent failing rules with a link to each rule’s fix guidance, and the manual audit
+          history. Rule rankings come from the run’s issue list; for very large sites the
           generator reads the first 10,000 issues and says so. These counts are automated
           findings only — they size the work a scanner can see, not everything a manual test
           will find.
@@ -99,7 +99,7 @@ function buildDialog(): HTMLDialogElement {
         <p>
           Each agency is served by a <strong>Deputy Commissioner for Technology (DCT)</strong>.
           The rollup chart groups sites by DCT portfolio by default, labeling each bar with the
-          portfolio's agencies as listed on
+          portfolio’s agencies as listed on
           <a href="https://its.ny.gov/dcts" target="_blank" rel="noopener">its.ny.gov/dcts</a>,
           which is re-read on every refresh. Agencies outside any portfolio (authorities, the
           courts, the Legislature, and similar) appear as <strong>No DCT assigned</strong>.
@@ -111,7 +111,7 @@ function buildDialog(): HTMLDialogElement {
           <strong>average automated score</strong> per month (axe Monitor, or SiteImprove where
           that is the only automated source) and marks each <strong>manual Axe Auditor audit</strong>
           in the month it was recorded. Months before the first snapshot are backfilled from
-          axe Monitor's run history, so they hold automated scores only and may cover fewer sites.
+          axe Monitor’s run history, so they hold automated scores only and may cover fewer sites.
         </p>
 
         <h3>Scope</h3>

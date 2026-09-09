@@ -39,7 +39,7 @@ function buildDialog(): HTMLDialogElement {
         <ul class="request-dialog__list">
           <li>The site URL, and whether it is production, staging, or behind a login.</li>
           <li>The agency and DCT portfolio.</li>
-          <li>A contact on the site's team who can grant access and answer questions.</li>
+          <li>A contact on the site’s team who can grant access and answer questions.</li>
           <li>A target date or the planning cycle the results feed.</li>
           <li>Anything already known: a recent redesign, complaints, prior audits.</li>
         </ul>

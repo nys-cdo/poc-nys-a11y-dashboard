@@ -179,7 +179,7 @@ export function renderAgencyRollup(
     const allRollups = sortAgencyRollups(scoped, sort);
     keyByLabel = new Map(allRollups.map((r) => [r.label, r.agency]));
 
-    const focusName = focusDct === NO_DCT ? NO_DCT : focusDct ? `${focusDct}'s portfolio` : '';
+    const focusName = focusDct === NO_DCT ? NO_DCT : focusDct ? `${focusDct}’s portfolio` : '';
     headingEl.textContent = isDct
       ? focusDct ? focusName : 'By DCT portfolio'
       : focusDct ? `By agency, ${focusName}` : 'By agency';

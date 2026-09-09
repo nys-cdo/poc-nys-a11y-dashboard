@@ -19,14 +19,11 @@
   "dependencies": {
     "@nysds/components": "^1.21.0",
     "@nysds/styles": "^1.21.0",
-    "echarts": "^5.5.1"
+    "echarts": "^6.1.0"
   },
   "devDependencies": {
     "gh-pages": "^6.1.1",
     "typescript": "^5.5.4",
-    "vite": "^5.4.2"
-  },
-  "allowScripts": {
-    "esbuild@0.21.5": true
+    "vite": "^8.2.2"
   }
 }
