@@ -1,0 +1,78 @@
+name: Monthly data snapshot
+
+# Pulls fresh axe Monitor + SiteImprove data on the first of every month,
+# writes that month's snapshot of record to data/history/, regenerates
+# public/dashboard-data.json, and opens a pull request with the result.
+# Merging the PR publishes it (deploy.yml runs on push to main).
+#
+# Credentials come from repository secrets (Settings → Secrets and variables →
+# Actions) with the same names as in .env.example. They never reach the output.
+#
+# The generator refuses to write a monthly snapshot if either source returned
+# nothing (an outage or a bad key), so a partial month never becomes the
+# record — re-run this workflow by hand (Actions → Monthly data snapshot →
+# Run workflow) once the source is back.
+
+on:
+  schedule:
+    # 12:00 UTC on the 1st = 08:00 Eastern (07:00 during daylight time).
+    - cron: '0 12 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: monthly-snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+
+      - name: Pull sources and generate the snapshot
+        env:
+          AXE_MONITOR_API_KEY: ${{ secrets.AXE_MONITOR_API_KEY }}
+          AXE_MONITOR_API_URL: ${{ secrets.AXE_MONITOR_API_URL }}
+          SITEIMPROVE_API_KEY: ${{ secrets.SITEIMPROVE_API_KEY }}
+          SITEIMPROVE_API_USER: ${{ secrets.SITEIMPROVE_API_USER }}
+          SITEIMPROVE_API_URL: ${{ secrets.SITEIMPROVE_API_URL }}
+        run: npm run generate:refresh
+
+      - name: Confirm the month's snapshot was written
+        id: check
+        run: |
+          MONTH="$(date -u +%Y-%m)"
+          echo "month=$MONTH" >> "$GITHUB_OUTPUT"
+          if ! git diff --quiet -- "data/history/$MONTH.json" || [ -n "$(git ls-files --others --exclude-standard "data/history/$MONTH.json")" ]; then
+            echo "snapshot=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::error::No snapshot of record was written for $MONTH — a source returned no records. Check the log above and re-run once it responds."
+            exit 1
+          fi
+
+      - name: Open a pull request with the new snapshot
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: chore/data-snapshot-${{ steps.check.outputs.month }}
+          delete-branch: true
+          commit-message: 'chore(data): monthly snapshot ${{ steps.check.outputs.month }}'
+          title: 'chore(data): monthly snapshot ${{ steps.check.outputs.month }}'
+          body: |
+            Automated monthly refresh from axe Monitor and SiteImprove.
+
+            - Adds `data/history/${{ steps.check.outputs.month }}.json` (this month's snapshot of record)
+            - Regenerates `public/dashboard-data.json`, including the compiled trend history
+            - Re-reads the DCT list from https://its.ny.gov/dcts
+
+            Review the generator log in the workflow run for attribution or DCT warnings, then merge to publish.
+          labels: data

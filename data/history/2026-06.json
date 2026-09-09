@@ -1,0 +1,61 @@
+{
+  "capturedAt": "2026-06-30T20:14:06Z",
+  "month": "2026-06",
+  "source": "axe-monitor-run-history",
+  "sites": [
+    {
+      "domain": "cpp.dos.ny.gov",
+      "agency": "DOS",
+      "axeMonitorScore": 60,
+      "siteImproveScore": null,
+      "auditorScore": null,
+      "teamScore": null,
+      "blocked": false
+    },
+    {
+      "domain": "cris.parks.ny.gov",
+      "agency": "Parks",
+      "axeMonitorScore": 10,
+      "siteImproveScore": null,
+      "auditorScore": null,
+      "teamScore": null,
+      "blocked": false
+    },
+    {
+      "domain": "lobbyingtraining.ethics.ny.gov",
+      "agency": "Ethics",
+      "axeMonitorScore": 90,
+      "siteImproveScore": null,
+      "auditorScore": null,
+      "teamScore": null,
+      "blocked": false
+    },
+    {
+      "domain": "my.ny.gov",
+      "agency": "ITS",
+      "axeMonitorScore": 0,
+      "siteImproveScore": null,
+      "auditorScore": null,
+      "teamScore": null,
+      "blocked": false
+    },
+    {
+      "domain": "publicapps.troopers.ny.gov",
+      "agency": "Division of State Police",
+      "axeMonitorScore": 51,
+      "siteImproveScore": null,
+      "auditorScore": null,
+      "teamScore": null,
+      "blocked": false
+    },
+    {
+      "domain": "water.ny.gov",
+      "agency": "DEC",
+      "axeMonitorScore": 20,
+      "siteImproveScore": null,
+      "auditorScore": null,
+      "teamScore": null,
+      "blocked": false
+    }
+  ]
+}

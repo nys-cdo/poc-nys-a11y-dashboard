@@ -111,8 +111,9 @@ function renderDonut(s: ReturnType<typeof statewideSummary>): void {
 
   chart.setOption({
     // decal patterns give each slice a texture, so status is distinguishable
-    // without relying on color alone (WCAG 1.4.1).
-    aria: { enabled: true, decal: { show: true } },
+    // without relying on color alone (WCAG 1.4.1). The generated description
+    // is off so it cannot overwrite the container's summary aria-label.
+    aria: { enabled: true, decal: { show: true }, label: { enabled: false } },
     animation: !reduceMotion,
     tooltip: {
       trigger: 'item',

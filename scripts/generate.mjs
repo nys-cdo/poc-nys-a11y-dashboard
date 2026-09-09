@@ -30,7 +30,7 @@
  * Run with:  npm run generate   (i.e. `node scripts/generate.mjs`)
  */
 
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
@@ -42,9 +42,20 @@ const ENV_PATH = join(ROOT, '.env');
 const MANUAL_DATA_PATH = join(ROOT, 'data', 'manual-data.json');
 const EXCLUDE_LIST_PATH = join(ROOT, 'data', 'exclude_list.json');
 const AGENCY_OVERRIDES_PATH = join(ROOT, 'data', 'agency-overrides.json');
+const DCTS_PATH = join(ROOT, 'data', 'dcts.json');
+const DCT_ALIASES_PATH = join(ROOT, 'data', 'dct-aliases.json');
+const DCT_ADDITIONS_PATH = join(ROOT, 'data', 'dct-portfolio-additions.json');
+const AUDITOR_RUNS_PATH = join(ROOT, 'data', 'auditor-runs.json');
+const AUDITOR_CASE_MAP_PATH = join(ROOT, 'data', 'auditor-case-map.json');
+const AUDITOR_RUN_URL = 'https://nysits-axeauditor.dequecloud.com/test-run/';
+const HISTORY_DIR = join(ROOT, 'data', 'history');
 const OUTPUT_DIR = join(ROOT, 'public');
 const OUTPUT_PATH = join(OUTPUT_DIR, 'dashboard-data.json');
 const CACHE_DIR = join(ROOT, 'scripts', '.cache');
+
+/** Public ITS page listing every Deputy Commissioner for Technology (DCT) and
+ *  the agencies in their portfolio. Scraped on each run; see fetchDcts(). */
+const DCT_URL = 'https://its.ny.gov/dcts';
 
 // ------------------------------------------------------------------------
 // Local response cache (so re-runs don't hammer the rate-limited APIs).
@@ -64,6 +75,30 @@ const CLI = new Set(process.argv.slice(2));
 const CACHE_REFRESH = CLI.has('--refresh') || CLI.has('--no-cache');
 const CACHE_OFFLINE = CLI.has('--offline');
 const CACHE_STATS = { hits: 0, misses: 0, writes: 0 };
+
+/**
+ * `--snapshot-month=YYYY-MM` records this run as THAT month's snapshot,
+ * stamped at noon UTC on the month's last day, instead of the current month.
+ * For a capture taken a few days into a month that is really the previous
+ * month's numbers (the sources ran monthly, nobody generated until the 8th).
+ * The snapshot file notes the real capture time so nothing is hidden.
+ */
+const SNAPSHOT_MONTH = (() => {
+  const arg = process.argv.find((a) => a.startsWith('--snapshot-month='));
+  const value = arg ? arg.slice('--snapshot-month='.length) : null;
+  if (value && !/^\d{4}-(0[1-9]|1[0-2])$/.test(value)) {
+    console.error(`[history] --snapshot-month must be YYYY-MM (got "${value}").`);
+    process.exit(1);
+  }
+  return value;
+})();
+
+/** Noon UTC on the last day of `YYYY-MM`, as an ISO timestamp. */
+function endOfMonthIso(month) {
+  const [y, m] = month.split('-').map(Number);
+  const lastDay = new Date(Date.UTC(y, m, 0)).getUTCDate();
+  return `${month}-${String(lastDay).padStart(2, '0')}T12:00:00.000Z`;
+}
 
 /** Cache key: URL + pagination headers only (auth headers deliberately excluded). */
 function cacheKey(url, init) {
@@ -265,8 +300,9 @@ async function fetchAxeMonitor(env) {
 
     // Runs — one page of up to AXE_PER_PAGE is plenty to find the latest run.
     let latest = null;
+    let runsBody = null;
     try {
-      const runsBody = await fetchJson(joinUrl(apiBase, `/scans/${scanId}/runs`), {
+      runsBody = await fetchJson(joinUrl(apiBase, `/scans/${scanId}/runs`), {
         headers: { ...headers, 'X-Pagination-Per-Page': String(AXE_PER_PAGE) },
       });
       latest = pickLatestRun(runsBody.scanRuns ?? []);
@@ -281,6 +317,12 @@ async function fetchAxeMonitor(env) {
     const pagesTested = Number.isFinite(latest.pages?.completed)
       ? latest.pages.completed
       : null;
+    // Every COMPLETED run with a date, for backfilling months that have no
+    // dashboard snapshot of their own (see backfillHistoryFromAxeRuns).
+    const runHistory = (runsBody?.scanRuns ?? [])
+      .filter((r) => String(r.status).toLowerCase() === 'completed' && r.completedAt)
+      .map((r) => ({ completedAt: r.completedAt, score: normalizeAxeScore(r.score) }))
+      .filter((r) => r.score !== null);
 
     // Domain — read a single page from the chosen run to get its host.
     let domainUrl = '';
@@ -302,7 +344,14 @@ async function fetchAxeMonitor(env) {
     // Fall back to the scan name only if the API gave us no page URL at all.
     const domain = domainFromUrl(domainUrl || pageUrl || scan.name || '');
     if (!domain) return null;
-    return { domain, url: httpUrl(pageUrl || domainUrl, domain), agency, score, pagesTested };
+    return {
+      domain,
+      url: httpUrl(pageUrl || domainUrl, domain),
+      agency,
+      score,
+      pagesTested,
+      runHistory,
+    };
   });
 
   if (multiGroup > 0) {
@@ -435,7 +484,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
  * rate-limit (429) and transient (502/503/504) responses. Honors a numeric
  * `Retry-After` header when present, else exponential backoff.
  */
-async function fetchJson(url, init = {}, { retries = 5 } = {}) {
+async function fetchJson(url, init = {}, { retries = 8 } = {}) {
   const key = cacheKey(url, init);
 
   // 1) Serve from cache when possible.
@@ -464,12 +513,12 @@ async function fetchJson(url, init = {}, { retries = 5 } = {}) {
       return body;
     }
 
-    const retryable = res.status === 429 || (res.status >= 502 && res.status <= 504);
+    const retryable = res.status === 429 || (res.status >= 500 && res.status <= 504);
     if (retryable && attempt < retries) {
       const retryAfter = Number(res.headers.get('retry-after'));
       const waitMs = Number.isFinite(retryAfter) && retryAfter > 0
         ? retryAfter * 1000
-        : Math.min(1000 * 2 ** attempt, 15000);
+        : Math.min(1000 * 2 ** attempt, 30000);
       await sleep(waitMs);
       continue;
     }
@@ -760,7 +809,7 @@ function applyAgencyOverrides(sites, overrides) {
  * PRD §4.2:
  *   - manual layer supplies auditorScore / report / deck / blocked by domain.
  */
-function buildSites(axeRecords, siteImproveRecords, manualData) {
+function buildSites(axeRecords, siteImproveRecords, manualData, auditorRuns = new Map()) {
   // Canonical domain → agency map, sourced ONLY from axe Monitor (PRD §4.1).
   const agencyByDomain = new Map();
   for (const rec of axeRecords) {
@@ -786,8 +835,10 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
         teamScore: null,
         overrideJustification: null,
         auditorScore: null,
+        auditorDate: null,
         auditorReportUrl: null,
         auditorDeckUrl: null,
+        auditorRuns: [],
         monitorReportUrl: null,
         blocked: false,
         conflict: false,
@@ -849,6 +900,10 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
     site.teamScore = manual.team_score ?? null;
     site.overrideJustification = manual.override_justification ?? null;
     site.auditorScore = manual.auditor_score ?? null;
+    // Accept "YYYY-MM-DD" or "YYYY-MM"; anything else is treated as unset.
+    site.auditorDate = /^\d{4}-\d{2}(-\d{2})?$/.test(String(manual.auditor_date ?? ''))
+      ? manual.auditor_date
+      : null;
     site.auditorReportUrl = manual.auditor_report_url ?? null;
     site.auditorDeckUrl = manual.auditor_deck_url ?? null;
     site.blocked = !!manual.blocked;
@@ -856,8 +911,521 @@ function buildSites(axeRecords, siteImproveRecords, manualData) {
     // internal only, never surfaced to the client (PRD §4.2).
   }
 
+  // --- Axe Auditor run history (dated audits; fills auditor gaps) ---
+  applyAuditorRuns(sites, auditorRuns, getSite);
+
   // Strip internal bookkeeping fields → final Site shape (matches src/types.ts).
   return [...sites.values()].map(({ _inAxe, _inSiteImprove, ...site }) => site);
+}
+
+// ------------------------------------------------------------------------
+// 4a. Axe Auditor run history (manual audits over time)
+//     Axe Auditor has no API for its runs, so data/auditor-runs.json is a
+//     hand-captured export of every test run (id, test case, dates, score).
+//     data/auditor-case-map.json says which dashboard domain each test case
+//     stands for (audits usually run against a dev/QA host). Together they
+//     give every site its full list of dated audits for the trend chart.
+//     manual-data.json stays the team's curated layer: its auditor_score /
+//     auditor_report_url / auditor_date win when set; runs fill the gaps.
+// ------------------------------------------------------------------------
+
+/** "MM/DD/YY" → "YYYY-MM-DD". Returns null for anything else. */
+function isoFromMdy(mdy) {
+  const m = String(mdy ?? '').match(/^(\d{2})\/(\d{2})\/(\d{2})$/);
+  return m ? `20${m[3]}-${m[1]}-${m[2]}` : null;
+}
+
+/**
+ * `domain → [{ date, score, reportUrl, testCase, assetType }]`, oldest first,
+ * for every COMPLETED run whose test case maps to a domain. Logs test cases
+ * with no domain (their runs stay out of the dashboard until mapped) and
+ * mapped test cases that no run references (a renamed case, probably).
+ */
+function loadAuditorRuns() {
+  if (!existsSync(AUDITOR_RUNS_PATH)) return new Map();
+  let runs = [];
+  let cases = {};
+  try {
+    runs = JSON.parse(readFileSync(AUDITOR_RUNS_PATH, 'utf8'))?.runs ?? [];
+    cases = existsSync(AUDITOR_CASE_MAP_PATH)
+      ? JSON.parse(readFileSync(AUDITOR_CASE_MAP_PATH, 'utf8'))?.cases ?? {}
+      : {};
+  } catch (err) {
+    console.warn(`[auditor] could not parse auditor-runs/case-map — ignoring (${err.message}).`);
+    return new Map();
+  }
+  const byDomain = new Map();
+  const unmapped = new Set();
+  const seenCases = new Set();
+  let completed = 0;
+  for (const run of Array.isArray(runs) ? runs : []) {
+    if (!run?.id || run.status !== 'complete' || typeof run.score !== 'number') continue;
+    completed += 1;
+    seenCases.add(run.testCase);
+    const domain = domainFromUrl(cases[run.testCase]?.domain ?? '');
+    if (!domain) {
+      unmapped.add(run.testCase);
+      continue;
+    }
+    const date = isoFromMdy(run.completed);
+    if (!date) continue;
+    const list = byDomain.get(domain) ?? [];
+    list.push({
+      date,
+      score: coerceScore(run.score),
+      reportUrl: `${AUDITOR_RUN_URL}${run.id}`,
+      testCase: run.testCase,
+      assetType: run.assetType ?? null,
+    });
+    byDomain.set(domain, list);
+  }
+  for (const list of byDomain.values()) list.sort((a, b) => a.date.localeCompare(b.date));
+  const mapped = [...byDomain.values()].reduce((n, l) => n + l.length, 0);
+  console.log(
+    `[auditor] ${completed} completed run(s) in auditor-runs.json; ${mapped} mapped onto ` +
+      `${byDomain.size} domain(s) via auditor-case-map.json.`,
+  );
+  if (unmapped.size) {
+    console.log(
+      `[auditor] ${unmapped.size} test case(s) have no production domain yet (fill in ` +
+        `auditor-case-map.json): ${[...unmapped].sort().join('; ')}`,
+    );
+  }
+  const stale = Object.keys(cases).filter((c) => !seenCases.has(c) && cases[c]?.domain);
+  if (stale.length) {
+    console.warn(`[auditor] mapped test case(s) with no completed run: ${stale.join('; ')}`);
+  }
+  return byDomain;
+}
+
+/**
+ * Attach each site's audit history and fill auditor fields the team hasn't
+ * set. A site that only exists in the run history (no automated scan, no
+ * manual row) is created so its audits still reach the dashboard.
+ */
+function applyAuditorRuns(sites, runsByDomain, getSite) {
+  let attached = 0;
+  let filled = 0;
+  for (const [domain, runs] of runsByDomain) {
+    const site = getSite(domain, `https://${domain}/`);
+    site.auditorRuns = runs;
+    attached += 1;
+    const latest = runs.at(-1);
+    if (site.auditorScore === null) {
+      site.auditorScore = latest.score;
+      filled += 1;
+    }
+    if (!site.auditorReportUrl) site.auditorReportUrl = latest.reportUrl;
+    if (!site.auditorDate) site.auditorDate = latest.date;
+  }
+  console.log(`[auditor] run history attached to ${attached} site(s); auditor score filled for ${filled} from runs.`);
+}
+
+// ------------------------------------------------------------------------
+// 4b. Deputy Commissioners for Technology (DCTs)
+//     Each DCT owns a portfolio of agencies. The dashboard groups sites by
+//     DCT (default chart view, table column + filter). The list is PUBLIC on
+//     its.ny.gov and is scraped on each run so it never drifts from the page.
+// ------------------------------------------------------------------------
+
+/** Decode the handful of HTML entities the DCT page uses, then strip tags. */
+function htmlToText(fragment) {
+  return String(fragment)
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&#39;|&rsquo;|&#8217;/g, "'")
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&quot;/g, '"')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
+ * Parse the "Name | Agencies Supported" table on the DCT page into
+ * `[{ name, agencies: [token, …] }]`. Titles ("DCT:", "Acting DCT:") are
+ * stripped from names; two DCTs sharing one row ("A | DCT: B") become
+ * "A & B". Agency tokens are the page's own comma-separated abbreviations,
+ * kept verbatim — they are the chart labels.
+ */
+function parseDctTable(html) {
+  const tables = String(html).match(/<table[\s\S]*?<\/table>/gi) ?? [];
+  const table = tables.find((t) => /Agencies\s+Supported/i.test(t));
+  if (!table) return [];
+  const out = [];
+  for (const row of table.match(/<tr[\s\S]*?<\/tr>/gi) ?? []) {
+    const cells = (row.match(/<td[\s\S]*?<\/td>/gi) ?? []).map(htmlToText);
+    if (cells.length < 2) continue; // header row (th) or malformed
+    const name = cells[0]
+      .split('|')
+      .map((part) => part.replace(/\b(acting\s+)?dct\s*:?/gi, '').trim())
+      .filter(Boolean)
+      .join(' & ');
+    const agencies = cells[1]
+      .split(',')
+      .map((a) => a.trim())
+      .filter(Boolean);
+    if (name && agencies.length) out.push({ name, agencies });
+  }
+  return out;
+}
+
+/**
+ * Fetch the DCT list from its.ny.gov and cache it to `data/dcts.json` (which
+ * is committed, so `--offline` runs and the trend backfill work without the
+ * page). Falls back to that file when the page is unreachable or its markup
+ * no longer parses, with a warning — the last good list is better than none.
+ */
+async function fetchDcts() {
+  let dcts = [];
+  if (!CACHE_OFFLINE) {
+    try {
+      const res = await fetch(DCT_URL, {
+        headers: { Accept: 'text/html', 'User-Agent': 'nys-a11y-dashboard-generator' },
+      });
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      dcts = parseDctTable(await res.text());
+      if (dcts.length === 0) throw new Error('no DCT table found in the page markup');
+      mkdirSync(dirname(DCTS_PATH), { recursive: true });
+      writeFileSync(
+        DCTS_PATH,
+        JSON.stringify({ sourceUrl: DCT_URL, fetchedAt: new Date().toISOString(), dcts }, null, 2) + '\n',
+        'utf8',
+      );
+      console.log(`[dct] ${dcts.length} DCTs scraped from ${DCT_URL} → data/dcts.json`);
+      return dcts;
+    } catch (err) {
+      console.warn(`[dct] could not scrape ${DCT_URL} (${err.message}); using data/dcts.json`);
+    }
+  }
+  if (existsSync(DCTS_PATH)) {
+    try {
+      const parsed = JSON.parse(readFileSync(DCTS_PATH, 'utf8'));
+      dcts = Array.isArray(parsed?.dcts) ? parsed.dcts : [];
+      console.log(`[dct] ${dcts.length} DCTs loaded from data/dcts.json (fetched ${parsed.fetchedAt ?? 'unknown'})`);
+    } catch (err) {
+      console.warn(`[dct] could not parse data/dcts.json — no DCT grouping (${err.message}).`);
+    }
+  } else {
+    console.warn('[dct] data/dcts.json not found — no DCT grouping this run.');
+  }
+  return dcts;
+}
+
+/** `{ token → [extra dashboard agency names] }` from data/dct-aliases.json. */
+function loadDctAliases() {
+  if (!existsSync(DCT_ALIASES_PATH)) return {};
+  try {
+    const parsed = JSON.parse(readFileSync(DCT_ALIASES_PATH, 'utf8'));
+    return parsed?.aliases && typeof parsed.aliases === 'object' ? parsed.aliases : {};
+  } catch (err) {
+    console.warn(`[dct] could not parse dct-aliases.json — ignoring it (${err.message}).`);
+    return {};
+  }
+}
+
+/**
+ * `{ DCT name → [dashboard agency names] }` from data/dct-portfolio-additions.json:
+ * portfolio members the public page doesn't list, gathered from the DCTs.
+ */
+function loadDctAdditions() {
+  if (!existsSync(DCT_ADDITIONS_PATH)) return {};
+  try {
+    const parsed = JSON.parse(readFileSync(DCT_ADDITIONS_PATH, 'utf8'));
+    return parsed?.additions && typeof parsed.additions === 'object' ? parsed.additions : {};
+  } catch (err) {
+    console.warn(`[dct] could not parse dct-portfolio-additions.json — ignoring it (${err.message}).`);
+    return {};
+  }
+}
+
+/**
+ * Build `agency name (lowercased) → DCT name` in two passes.
+ *
+ *  1. The public page. A page token matches a dashboard agency of the same
+ *     name (case-insensitive) plus every extra name listed for it in
+ *     dct-aliases.json. Logs tokens that match no site (portfolio agencies
+ *     with nothing scanned yet) and any agency two DCTs both claim (first DCT
+ *     on the page wins).
+ *  2. Our additions (dct-portfolio-additions.json) fill in agencies the page
+ *     left out. The page always wins: an agency it already assigned is never
+ *     moved, and the conflict is logged so the two lists can be reconciled.
+ *     An additions entry for a DCT no longer on the page is logged and
+ *     ignored rather than inventing a portfolio.
+ */
+function buildDctIndex(dcts, aliases, additions, knownAgencies) {
+  const known = new Map([...knownAgencies].map((a) => [a.toLowerCase(), a]));
+  const index = new Map(); // agency lower → dct name
+  const unmatchedTokens = [];
+  const contested = [];
+
+  // Pass 1 — the public page.
+  for (const dct of dcts) {
+    for (const token of dct.agencies) {
+      const names = [token, ...(Array.isArray(aliases[token]) ? aliases[token] : [])];
+      let hit = false;
+      for (const name of names) {
+        const key = String(name).toLowerCase();
+        if (!known.has(key)) continue;
+        hit = true;
+        const existing = index.get(key);
+        if (existing && existing !== dct.name) {
+          contested.push(`${known.get(key)}: ${existing} vs ${dct.name}`);
+          continue;
+        }
+        index.set(key, dct.name);
+      }
+      if (!hit) unmatchedTokens.push(`${token} (${dct.name})`);
+    }
+  }
+  if (unmatchedTokens.length) {
+    console.log(
+      `[dct] ${unmatchedTokens.length} portfolio agency token(s) match no scanned site ` +
+        `(add an alias in data/dct-aliases.json if the name differs): ${unmatchedTokens.join(', ')}`,
+    );
+  }
+  if (contested.length) {
+    console.warn(`[dct] agency claimed by two DCTs on the page (first wins): ${contested.join('; ')}`);
+  }
+
+  // Pass 2 — our additions, page wins on any overlap.
+  const pageDcts = new Set(dcts.map((d) => d.name));
+  const overridden = [];
+  const noSites = [];
+  let added = 0;
+  for (const [dctName, agencies] of Object.entries(additions)) {
+    if (!pageDcts.has(dctName)) {
+      console.warn(
+        `[dct] additions for "${dctName}" ignored — no DCT of that name on ${DCT_URL} ` +
+          '(update the key in data/dct-portfolio-additions.json).',
+      );
+      continue;
+    }
+    for (const name of Array.isArray(agencies) ? agencies : []) {
+      const key = String(name).toLowerCase();
+      if (!known.has(key)) {
+        noSites.push(String(name));
+        continue;
+      }
+      const existing = index.get(key);
+      if (existing && existing !== dctName) {
+        overridden.push(`${known.get(key)}: page says ${existing}, additions say ${dctName}`);
+        continue;
+      }
+      if (!existing) added += 1;
+      index.set(key, dctName);
+    }
+  }
+  if (added) console.log(`[dct] ${added} agency(ies) assigned from data/dct-portfolio-additions.json.`);
+  if (noSites.length) {
+    console.log(`[dct] ${noSites.length} addition(s) match no scanned site yet: ${noSites.join(', ')}`);
+  }
+  if (overridden.length) {
+    console.warn(`[dct] additions contradict the page (page wins): ${overridden.join('; ')}`);
+  }
+  return index;
+}
+
+/** Set `site.dct` on every site (null = no DCT covers its agency). */
+function applyDcts(sites, dctIndex) {
+  let assigned = 0;
+  const uncovered = new Set();
+  for (const site of sites) {
+    const dct = dctIndex.get(String(site.agency).toLowerCase()) ?? null;
+    site.dct = dct;
+    if (dct) assigned += 1;
+    else uncovered.add(site.agency);
+  }
+  console.log(
+    `[dct] ${assigned}/${sites.length} sites assigned to a DCT; ` +
+      `${uncovered.size} agency bucket(s) have no DCT: ${[...uncovered].sort().join(', ')}`,
+  );
+}
+
+// ------------------------------------------------------------------------
+// 4c. History snapshots (monthly trend)
+//     Every run of this script writes `data/history/<YYYY-MM>.json` — the
+//     snapshot of record for that month (all sources, official inputs). Those
+//     files are the ONLY thing the trend chart reads; the dashboard never
+//     calls an API. Months with no snapshot are backfilled from axe Monitor's
+//     run history (automated score only) so the line starts as early as the
+//     data allows. A dashboard snapshot always wins over a backfilled month.
+// ------------------------------------------------------------------------
+
+const SNAPSHOT_SOURCE = 'dashboard';
+const BACKFILL_SOURCE = 'axe-monitor-run-history';
+
+/** The per-site fields a snapshot keeps (deliberately small and stable). */
+function snapshotSite(site) {
+  return {
+    domain: site.domain,
+    agency: site.agency,
+    axeMonitorScore: site.axeMonitorScore ?? null,
+    siteImproveScore: site.siteImproveScore ?? null,
+    auditorScore: site.auditorScore ?? null,
+    teamScore: site.teamScore ?? null,
+    blocked: !!site.blocked,
+  };
+}
+
+function snapshotPath(month) {
+  return join(HISTORY_DIR, `${month}.json`);
+}
+
+function readSnapshot(month) {
+  const file = snapshotPath(month);
+  if (!existsSync(file)) return null;
+  try {
+    return JSON.parse(readFileSync(file, 'utf8'));
+  } catch (err) {
+    console.warn(`[history] could not parse ${file} — skipping it (${err.message}).`);
+    return null;
+  }
+}
+
+function writeSnapshot(snapshot) {
+  mkdirSync(HISTORY_DIR, { recursive: true });
+  writeFileSync(snapshotPath(snapshot.month), JSON.stringify(snapshot, null, 2) + '\n', 'utf8');
+}
+
+/** Write this run's snapshot of record (the current month, or --snapshot-month). */
+function writeDashboardSnapshot(sites, generatedAt, actualCapturedAt) {
+  const month = generatedAt.slice(0, 7);
+  const snapshot = {
+    capturedAt: generatedAt,
+    month,
+    source: SNAPSHOT_SOURCE,
+    sites: sites.map(snapshotSite),
+  };
+  if (SNAPSHOT_MONTH) {
+    snapshot.note = `Captured ${actualCapturedAt}; recorded as ${month}'s snapshot via --snapshot-month.`;
+  }
+  writeSnapshot(snapshot);
+  console.log(
+    `[history] wrote data/history/${month}.json (${sites.length} sites, snapshot of record` +
+      `${SNAPSHOT_MONTH ? `, backdated from a ${actualCapturedAt.slice(0, 10)} capture` : ''}).`,
+  );
+}
+
+/**
+ * Backfill months that have no dashboard snapshot from axe Monitor's run
+ * history: for each site, the latest completed run in each month. Applies the
+ * same agency overrides and exclusions as the live data so grouping matches.
+ * Re-written on every run (the run history is authoritative for them); never
+ * touches a month that has a dashboard snapshot.
+ */
+function backfillHistoryFromAxeRuns(axeRecords, overrides, isExcluded) {
+  const byMonth = new Map(); // month → Map(domain → {completedAt, score})
+  for (const rec of axeRecords) {
+    if (!rec.domain || isExcluded(rec.domain)) continue;
+    for (const run of rec.runHistory ?? []) {
+      const month = String(run.completedAt).slice(0, 7);
+      if (!/^\d{4}-\d{2}$/.test(month)) continue;
+      const sites = byMonth.get(month) ?? new Map();
+      const prev = sites.get(rec.domain);
+      if (!prev || run.completedAt > prev.completedAt) {
+        sites.set(rec.domain, { ...run, agency: overrides.get(rec.domain) ?? rec.agency });
+      }
+      byMonth.set(month, sites);
+    }
+  }
+  const written = [];
+  for (const [month, sites] of [...byMonth].sort()) {
+    const existing = readSnapshot(month);
+    if (existing && existing.source !== BACKFILL_SOURCE) continue; // dashboard snapshot wins
+    const capturedAt = [...sites.values()].map((r) => r.completedAt).sort().at(-1);
+    writeSnapshot({
+      capturedAt,
+      month,
+      source: BACKFILL_SOURCE,
+      sites: [...sites.entries()]
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([domain, r]) =>
+          snapshotSite({ domain, agency: r.agency, axeMonitorScore: r.score }),
+        ),
+    });
+    written.push(`${month} (${sites.size})`);
+  }
+  if (written.length) console.log(`[history] backfilled from axe Monitor runs: ${written.join(', ')}`);
+}
+
+/**
+ * Compile every `data/history/*.json` into the compact `history` block the
+ * client renders: one row per site with its automated score per snapshot
+ * (axe Monitor, else SiteImprove — the same fallback the official score uses)
+ * and the list of manual audits. Audits come from the site's Axe Auditor run
+ * history when it has one (every completed run, dated); otherwise from the
+ * snapshots (a point whenever an auditor score first appears or changes,
+ * pinned to `auditor_date` when the team recorded one). Agency/DCT come from
+ * the CURRENT data when the site still exists so grouping is consistent
+ * across the whole series; excluded sites are dropped from history too.
+ */
+function compileHistory(currentSites, dctIndex, manualData, isExcluded) {
+  if (!existsSync(HISTORY_DIR)) return { snapshots: [], sites: [] };
+  const snapshots = readdirSync(HISTORY_DIR)
+    .filter((f) => /^\d{4}-\d{2}\.json$/.test(f))
+    .sort()
+    .map((f) => readSnapshot(f.replace(/\.json$/, '')))
+    .filter((s) => s && Array.isArray(s.sites));
+
+  const current = new Map(currentSites.map((s) => [s.domain, s]));
+  const rows = new Map(); // domain → row
+  snapshots.forEach((snap, i) => {
+    for (const s of snap.sites) {
+      if (!s?.domain || isExcluded(s.domain)) continue;
+      let row = rows.get(s.domain);
+      if (!row) {
+        row = { domain: s.domain, agency: s.agency ?? UNATTRIBUTED, dct: null, automated: new Array(snapshots.length).fill(null), audits: [], _lastAudit: null };
+        rows.set(s.domain, row);
+      }
+      // Latest snapshot's agency wins unless the site is in the current data.
+      row.agency = s.agency ?? row.agency;
+      row.automated[i] = s.axeMonitorScore ?? s.siteImproveScore ?? null;
+      if (s.auditorScore !== null && s.auditorScore !== undefined && s.auditorScore !== row._lastAudit) {
+        row.audits.push({ month: snap.month, score: s.auditorScore });
+        row._lastAudit = s.auditorScore;
+      }
+    }
+  });
+
+  // Sites with audits but no automated history (manual-only, never scanned)
+  // still belong in the trend, so seed a row for each.
+  for (const site of currentSites) {
+    if (!rows.has(site.domain) && site.auditorRuns?.length && !isExcluded(site.domain)) {
+      rows.set(site.domain, { domain: site.domain, agency: site.agency, dct: null, automated: new Array(snapshots.length).fill(null), audits: [], _lastAudit: null });
+    }
+  }
+
+  const sites = [...rows.values()].map(({ _lastAudit, ...row }) => {
+    const live = current.get(row.domain);
+    const agency = live?.agency ?? row.agency;
+    const manual = manualData[row.domain];
+    const pinned = typeof manual?.auditor_date === 'string' && /^\d{4}-\d{2}/.test(manual.auditor_date);
+    let audits = row.audits;
+    if (live?.auditorRuns?.length) {
+      // The run history is the complete, dated record: one point per run.
+      audits = live.auditorRuns.map((r) => ({ month: r.date.slice(0, 7), score: r.score }));
+    } else if (pinned && live?.auditorScore !== null && live?.auditorScore !== undefined) {
+      // The team dated the current audit: place it in that month and drop the
+      // first-seen point for the same score.
+      audits = [
+        ...audits.filter((a) => a.score !== live.auditorScore),
+        { month: manual.auditor_date.slice(0, 7), score: live.auditorScore },
+      ].sort((a, b) => a.month.localeCompare(b.month));
+    }
+    return {
+      domain: row.domain,
+      agency,
+      dct: dctIndex.get(String(agency).toLowerCase()) ?? null,
+      automated: row.automated,
+      audits,
+    };
+  });
+  sites.sort((a, b) => a.domain.localeCompare(b.domain));
+
+  return {
+    snapshots: snapshots.map((s) => ({ month: s.month, capturedAt: s.capturedAt, source: s.source })),
+    sites,
+  };
 }
 
 // ------------------------------------------------------------------------
@@ -894,6 +1462,17 @@ function checkEnv(env) {
   );
 }
 
+/** `meta.generatedAt` of the current public/dashboard-data.json, if any. */
+function previousGeneratedAt() {
+  if (!existsSync(OUTPUT_PATH)) return null;
+  try {
+    const prev = JSON.parse(readFileSync(OUTPUT_PATH, 'utf8'));
+    return typeof prev?.meta?.generatedAt === 'string' ? prev.meta.generatedAt : null;
+  } catch {
+    return null;
+  }
+}
+
 async function main() {
   const env = loadEnv();
 
@@ -902,11 +1481,18 @@ async function main() {
     return;
   }
 
+  // Refresh only the DCT list (no API pull): `npm run generate:dcts`.
+  if (CLI.has('--dcts-only')) {
+    await fetchDcts();
+    return;
+  }
+
   // Fetch both sources. Each guards its own missing-credential case and
   // returns [] rather than throwing, so dev runs never crash (PRD §9).
-  const [axeRecords, siteImproveRecords] = await Promise.all([
+  const [axeRecords, siteImproveRecords, dcts] = await Promise.all([
     fetchAxeMonitor(env),
     fetchSiteImprove(env),
+    fetchDcts(),
   ]);
 
   // Guard: both sources empty. Don't clobber good sample/committed data with
@@ -928,12 +1514,13 @@ async function main() {
   }
 
   const manualData = loadManualData();
-  const allSites = buildSites(axeRecords, siteImproveRecords, manualData);
+  const allSites = buildSites(axeRecords, siteImproveRecords, manualData, loadAuditorRuns());
 
   // Apply team agency attribution overrides. axe Monitor is the only automated
   // source of agency and it leaves many sites Unattributed (or, rarely, wrong);
   // this hand-maintained layer fills/corrects them. Explicit entries win.
-  applyAgencyOverrides(allSites, loadAgencyOverrides());
+  const agencyOverrides = loadAgencyOverrides();
+  applyAgencyOverrides(allSites, agencyOverrides);
 
   // Drop team-excluded sites (dev/QA/demo hosts) entirely — from the data and
   // therefore from every count/chart downstream.
@@ -947,10 +1534,46 @@ async function main() {
     );
   }
 
+  // Group by DCT: map each site's agency to the DCT whose portfolio covers it.
+  const dctIndex = buildDctIndex(
+    dcts,
+    loadDctAliases(),
+    loadDctAdditions(),
+    new Set(sites.map((s) => s.agency)),
+  );
+  applyDcts(sites, dctIndex);
+
+  // An --offline run re-serves cached responses, so its data is no fresher
+  // than the last real capture: keep the previous output's timestamp rather
+  // than stamping today's date on old numbers. --snapshot-month pins the
+  // capture to the end of the month it represents.
+  const actualCapturedAt = new Date().toISOString();
+  const generatedAt = SNAPSHOT_MONTH
+    ? endOfMonthIso(SNAPSHOT_MONTH)
+    : (CACHE_OFFLINE && previousGeneratedAt()) || actualCapturedAt;
+
+  // History: this run's snapshot of record, then backfill any month with no
+  // snapshot from axe Monitor's run history, then compile the whole series
+  // for the client. The snapshot of record is only written for a COMPLETE
+  // live capture — not for --offline dev runs, and not when a source returned
+  // nothing (an outage or a missing key must not become the month's record).
+  if (CACHE_OFFLINE) {
+    console.log('[history] --offline run: not writing a monthly snapshot (cached data is not a fresh capture).');
+  } else if (axeRecords.length === 0 || siteImproveRecords.length === 0) {
+    console.warn(
+      `[history] NOT writing a monthly snapshot: ${axeRecords.length === 0 ? 'axe Monitor' : 'SiteImprove'} ` +
+        'returned 0 records. Re-run once both sources respond so the month is captured in full.',
+    );
+  } else {
+    writeDashboardSnapshot(sites, generatedAt, actualCapturedAt);
+  }
+  backfillHistoryFromAxeRuns(axeRecords, agencyOverrides, isExcluded);
+  const history = compileHistory(sites, dctIndex, manualData, isExcluded);
+
   // Assemble the final DashboardData (matches src/types.ts exactly).
   const data = {
     meta: {
-      generatedAt: new Date().toISOString(),
+      generatedAt,
       automatedCoveragePct: 30, // PRD §5.4 — the mandatory 30% caveat headline.
       rubric: {
         // Inclusive [min, max] ranges, PRD §5.1.
@@ -959,22 +1582,25 @@ async function main() {
         green: [80, 100],
       },
       sources: ['axe Monitor', 'SiteImprove', 'Axe Auditor (manual)'],
+      dcts: dcts.map((d) => ({ name: d.name, agencies: d.agencies })),
     },
     sites,
+    history,
   };
 
   // Ensure public/ exists, then write pretty-printed JSON (no secrets).
   mkdirSync(OUTPUT_DIR, { recursive: true });
   writeFileSync(OUTPUT_PATH, JSON.stringify(data, null, 2) + '\n', 'utf8');
 
-  printSummary({ axeRecords, siteImproveRecords, sites });
+  printSummary({ axeRecords, siteImproveRecords, sites, dcts, history });
 }
 
 /** Concise stdout summary (PRD §6 statewide-summary style counts). */
-function printSummary({ axeRecords, siteImproveRecords, sites }) {
+function printSummary({ axeRecords, siteImproveRecords, sites, dcts, history }) {
   const conflicts = sites.filter((s) => s.conflict).length;
   const unattributed = sites.filter((s) => s.agency === UNATTRIBUTED).length;
   const blocked = sites.filter((s) => s.blocked).length;
+  const noDct = sites.filter((s) => !s.dct).length;
 
   console.log('\n─── dashboard-data.json generated ───');
   console.log(`  axe Monitor records : ${axeRecords.length}`);
@@ -983,6 +1609,12 @@ function printSummary({ axeRecords, siteImproveRecords, sites }) {
   console.log(`  conflicts flagged   : ${conflicts}`);
   console.log(`  unattributed        : ${unattributed}`);
   console.log(`  blocked             : ${blocked}`);
+  console.log(`  DCTs                : ${dcts.length} (${noDct} sites with no DCT)`);
+  console.log(
+    `  history             : ${history.snapshots.length} month(s) — ` +
+      history.snapshots.map((s) => `${s.month}${s.source === BACKFILL_SOURCE ? '*' : ''}`).join(', ') +
+      (history.snapshots.some((s) => s.source === BACKFILL_SOURCE) ? '  (* backfilled from axe runs)' : ''),
+  );
   console.log(`  output              : ${OUTPUT_PATH}`);
   console.log(
     `  cache               : ${CACHE_STATS.hits} hit / ${CACHE_STATS.misses} fetched` +

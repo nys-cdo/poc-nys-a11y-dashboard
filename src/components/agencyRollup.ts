@@ -1,14 +1,30 @@
 import * as echarts from 'echarts';
 import type { DashboardData, Status } from '../types';
-import { agencyRollups, sortAgencyRollups, type AgencySort } from '../status';
+import {
+  agencyRollups,
+  sortAgencyRollups,
+  type AgencySort,
+  type Grouping,
+} from '../status';
 import { statusColor } from '../tokens';
 import { statusLabel, esc } from '../format';
 
-/** Called when a user clicks an agency's colored segment. */
+/**
+ * Called when a user clicks a group's colored segment. `key` is the group's
+ * filter key — a DCT name (or `NO_DCT`) under `dct` grouping, else an agency.
+ */
 export type SegmentClickHandler = (
-  agency: string,
+  grouping: Grouping,
+  key: string,
   status: Status | 'unknown',
 ) => void;
+
+/** Plural noun for the current grouping, for copy and announcements. */
+function groupNoun(grouping: Grouping, count?: number): string {
+  const one = grouping === 'dct' ? 'DCT portfolio' : 'agency';
+  const many = grouping === 'dct' ? 'DCT portfolios' : 'agencies';
+  return count === 1 ? one : many;
+}
 
 /** Reverse map: ECharts series name (a status label) → status key. */
 const LABEL_TO_STATUS: Record<string, Status | 'unknown'> = {
@@ -19,20 +35,25 @@ const LABEL_TO_STATUS: Record<string, Status | 'unknown'> = {
 };
 
 /**
- * Agency rollup (PRD §6.3): one horizontal stacked bar per agency (red/yellow/
- * green segments) — reads as an instant league table. Sortable. This is the
- * peer-comparison surface that does the accountability work at DCT Council.
+ * Rollup chart (PRD §6.3): one horizontal stacked bar per group (red/yellow/
+ * green segments) — reads as an instant league table. Grouped by DCT
+ * portfolio by default (each bar labeled with the portfolio's agencies, never
+ * the DCT's name) or by agency; sortable. This is the peer-comparison surface
+ * that does the accountability work at DCT Council.
  *
- * Clicking a colored segment invokes `onSegmentClick(agency, status)` so the
- * caller can filter + scroll to the site table.
+ * Clicking a colored segment invokes `onSegmentClick(grouping, key, status)`
+ * so the caller can filter + scroll to the site table.
  */
 /** Render options. */
 export interface AgencyRollupOptions {
   /**
-   * Succinct default: hide agencies with a single scanned site (siteCount < 2)
-   * behind the expand toggle. When false (the `?full` view), show every agency.
+   * Succinct default: under `agency` grouping, hide agencies with a single
+   * scanned site (siteCount < 2) behind the expand toggle. When false (the
+   * `?full` view), show every agency. Never applies to DCT grouping.
    */
   hideSingleScan?: boolean;
+  /** Initial grouping. Defaults to `dct`. */
+  grouping?: Grouping;
 }
 
 export function renderAgencyRollup(
@@ -42,24 +63,36 @@ export function renderAgencyRollup(
   opts?: AgencyRollupOptions,
 ): void {
   const hideSingleScan = opts?.hideSingleScan ?? false;
+  let grouping: Grouping = opts?.grouping ?? 'dct';
   root.innerHTML = `
     <div class="section-heading-row">
-      <h2 id="agency-rollup-heading" class="section-heading">By agency</h2>
-      <nys-select
-        id="agency-sort"
-        label="Sort agencies"
-        width="md"
-        value="worst"
-      >
-        <option value="worst" label="Most at-risk first"></option>
-        <option value="name" label="Agency name (A–Z)"></option>
-        <option value="sites" label="Number of sites"></option>
-      </nys-select>
+      <h2 id="agency-rollup-heading" class="section-heading">By DCT portfolio</h2>
+      <div class="section-controls">
+        <nys-select
+          id="agency-grouping"
+          label="Group by"
+          width="md"
+          value="${grouping}"
+        >
+          <option value="dct" label="DCT portfolio"></option>
+          <option value="agency" label="Agency"></option>
+        </nys-select>
+        <nys-select
+          id="agency-sort"
+          label="Sort"
+          width="md"
+          value="worst"
+        >
+          <option value="worst" label="Most at-risk first"></option>
+          <option value="name" label="Name (A–Z)"></option>
+          <option value="sites" label="Number of sites"></option>
+        </nys-select>
+      </div>
     </div>
     <p class="section-sub">
-      Each bar shows the share of an agency’s sites at each status.
-      <strong>Select a colored segment</strong>, or use the agency and status
-      filters on the site table below, to see those sites.
+      <span id="agency-rollup-sub"></span>
+      <strong>Select a colored segment</strong>, or use the filters on the
+      site table below, to see those sites.
       <span class="caveat-inline"><span aria-hidden="true">⚠</span> automated testing only</span>
     </p>
     <div id="agency-chart" class="agency-chart" role="img" aria-label="Loading agency chart"></div>
@@ -92,27 +125,39 @@ export function renderAgencyRollup(
   const showAllBtn = document.getElementById('agency-show-all')!;
   const liveEl = document.getElementById('agency-live')!;
   const fallbackEl = document.getElementById('agency-table-fallback')!;
+  const headingEl = document.getElementById('agency-rollup-heading')!;
+  const subEl = document.getElementById('agency-rollup-sub')!;
+  // Chart categories are display labels (a DCT bar shows its agency list);
+  // this maps a label back to the group's filter key for the click handler.
+  let keyByLabel = new Map<string, string>();
 
   // Clicking a colored segment → filter + jump to the site table.
   chart.on('click', (params) => {
     if (params.componentType !== 'series') return;
-    const agency = String(params.name);
+    const key = keyByLabel.get(String(params.name)) ?? String(params.name);
     const status = LABEL_TO_STATUS[String(params.seriesName)];
-    if (status) onSegmentClick?.(agency, status);
+    if (status) onSegmentClick?.(grouping, key, status);
   });
 
   const draw = (sort: AgencySort, announce = false) => {
     currentSort = sort;
     const isMobile = mobileMq.matches;
-    const allRollups = sortAgencyRollups(agencyRollups(data), sort);
+    const isDct = grouping === 'dct';
+    const allRollups = sortAgencyRollups(agencyRollups(data, grouping), sort);
+    keyByLabel = new Map(allRollups.map((r) => [r.label, r.agency]));
+
+    headingEl.textContent = isDct ? 'By DCT portfolio' : 'By agency';
+    subEl.textContent = isDct
+      ? 'Each bar is one Deputy Commissioner for Technology’s portfolio, labeled with its agencies, and shows the share of its sites at each status. '
+      : 'Each bar shows the share of an agency’s sites at each status. ';
 
     // Two collapsing dimensions, both released by the single expand toggle:
-    //   1. hideSingleScan (succinct default) — drop 1-site agencies.
+    //   1. hideSingleScan (succinct default, agency grouping only) — drop
+    //      1-site agencies. DCT portfolios are always all shown.
     //   2. mobile cap — only the top N fit legibly on a phone.
     // The collapsed base is what's shown before the mobile cap is applied.
-    const collapsedBase = hideSingleScan
-      ? allRollups.filter((r) => r.siteCount >= 2)
-      : allRollups;
+    const collapsedBase =
+      hideSingleScan && !isDct ? allRollups.filter((r) => r.siteCount >= 2) : allRollups;
     const rollups = expanded
       ? allRollups
       : isMobile
@@ -120,7 +165,11 @@ export function renderAgencyRollup(
         : collapsedBase;
     // ECharts y-axis renders bottom-up; reverse so the first item sits on top.
     const ordered = [...rollups].reverse();
-    const agencies = ordered.map((r) => r.agency);
+    const agencies = ordered.map((r) => r.label);
+    // Portfolio labels list several agencies and wrap to a second line, so
+    // DCT rows get more height and a wider label column than agency rows.
+    const rowHeight = isDct ? 52 : 40;
+    const labelWidth = isMobile ? 110 : isDct ? 300 : 220;
 
     const mk = (key: 'red' | 'yellow' | 'green' | 'unknown', status: 'red' | 'yellow' | 'green' | 'unknown') => ({
       name: statusLabel(status),
@@ -149,12 +198,14 @@ export function renderAgencyRollup(
     // phone) so neither it nor the top bar is clipped, plus the x-axis name at
     // the bottom.
     const topPad = isMobile ? 72 : 48;
-    el.style.height = `${Math.max(240, agencies.length * 40 + topPad + 40)}px`;
+    el.style.height = `${Math.max(240, agencies.length * rowHeight + topPad + 40)}px`;
     chart.setOption(
       {
         // decal patterns per status so segments are distinguishable without
-        // relying on color alone (WCAG 1.4.1).
-        aria: { enabled: true, decal: { show: true } },
+        // relying on color alone (WCAG 1.4.1). The generated description is
+        // off: it would overwrite the summary aria-label set below, and the
+        // fallback data table is the real long description.
+        aria: { enabled: true, decal: { show: true }, label: { enabled: false } },
         animation: !reduceMotion,
         grid: { left: 8, right: 24, top: topPad, bottom: 8, containLabel: true },
         legend: { top: 8, left: 'center' },
@@ -176,8 +227,10 @@ export function renderAgencyRollup(
           // Narrower label column on mobile so the bars aren't squeezed to slivers.
           axisLabel: {
             color: '#1b1b1b',
-            width: isMobile ? 96 : 220,
-            overflow: 'truncate',
+            width: labelWidth,
+            // Portfolio lists wrap onto two lines; agency names truncate.
+            overflow: isDct ? 'break' : 'truncate',
+            lineHeight: 15,
             fontSize: 12,
           },
         },
@@ -185,11 +238,11 @@ export function renderAgencyRollup(
       },
       { notMerge: true },
     );
-    // The chart is an image with a SHORT summary label; the full per-agency
+    // The chart is an image with a SHORT summary label; the full per-group
     // breakdown lives in the adjacent visually-hidden data table (rebuilt to
     // match what's currently rendered), which a screen reader can navigate.
-    el.setAttribute('aria-label', agencyAria(rollups.length, allRollups.length));
-    fallbackEl.innerHTML = agencyFallbackTable(rollups);
+    el.setAttribute('aria-label', agencyAria(grouping, rollups.length, allRollups.length));
+    fallbackEl.innerHTML = agencyFallbackTable(grouping, rollups);
     // The container height is dynamic (grows with agency count). The SVG
     // renderer needs an explicit resize to match the new height, not just the
     // ResizeObserver — otherwise the chart draws compressed on first paint.
@@ -206,16 +259,18 @@ export function renderAgencyRollup(
     if (hasHidden) {
       showAllBtn.setAttribute(
         'label',
-        expanded ? 'Show fewer agencies' : `Show all ${allRollups.length} agencies`,
+        expanded
+          ? `Show fewer ${groupNoun(grouping)}`
+          : `Show all ${allRollups.length} ${groupNoun(grouping)}`,
       );
       // Chevron points down to expand, up to collapse.
       showAllBtn.setAttribute('suffixIcon', expanded ? 'chevron_up' : 'chevron_down');
     }
 
-    // Announce sort/expand changes (not the initial paint) so screen-reader
-    // users know the chart updated.
+    // Announce sort/grouping/expand changes (not the initial paint) so
+    // screen-reader users know the chart updated.
     if (announce) {
-      liveEl.textContent = `Showing ${rollups.length} of ${allRollups.length} agencies, sorted by ${sortDescription(sort)}.`;
+      liveEl.textContent = `Showing ${rollups.length} of ${allRollups.length} ${groupNoun(grouping)}, sorted by ${sortDescription(sort)}.`;
     }
   };
 
@@ -228,6 +283,15 @@ export function renderAgencyRollup(
       // Re-collapse when the sort changes so the cap always shows the new top N.
       expanded = false;
       draw(value ?? 'worst', true);
+    });
+
+  document
+    .getElementById('agency-grouping')
+    ?.addEventListener('nys-change', (e: Event) => {
+      const value = (e as CustomEvent<{ value: string }>).detail?.value;
+      grouping = value === 'agency' ? 'agency' : 'dct';
+      expanded = false;
+      draw(currentSort, true);
     });
 
   showAllBtn.addEventListener('nys-click', () => {
@@ -247,15 +311,14 @@ export function renderAgencyRollup(
 
 /** Short summary label for the chart image. The full breakdown is in the
  *  adjacent data table (agencyFallbackTable), so this stays concise. */
-function agencyAria(shown: number, total: number): string {
-  const scope =
-    shown >= total
-      ? `all ${total} agencies`
-      : `the top ${shown} of ${total} agencies`;
+function agencyAria(grouping: Grouping, shown: number, total: number): string {
+  const noun = groupNoun(grouping);
+  const scope = shown >= total ? `all ${total} ${noun}` : `the top ${shown} of ${total} ${noun}`;
+  const unit = grouping === 'dct' ? 'DCT portfolio’s' : 'agency’s';
   return (
-    `Bar chart: share of each agency’s sites by accessibility status ` +
+    `Bar chart: share of each ${unit} sites by accessibility status ` +
     `(red, yellow, green), automated testing only, for ${scope}. ` +
-    `The full agency breakdown follows in the data table below.`
+    `The full breakdown follows in the data table below.`
   );
 }
 
@@ -263,7 +326,7 @@ function agencyAria(shown: number, total: number): string {
 function sortDescription(sort: AgencySort): string {
   switch (sort) {
     case 'name':
-      return 'agency name';
+      return 'name';
     case 'sites':
       return 'number of sites';
     case 'worst':
@@ -274,11 +337,14 @@ function sortDescription(sort: AgencySort): string {
 
 /** Visually-hidden data table mirroring the currently-rendered rollups — the
  *  structured, navigable alternative to the chart image. */
-function agencyFallbackTable(rollups: ReturnType<typeof agencyRollups>): string {
+function agencyFallbackTable(
+  grouping: Grouping,
+  rollups: ReturnType<typeof agencyRollups>,
+): string {
   const hasUnknown = rollups.some((r) => r.counts.unknown > 0);
   const hasBlocked = rollups.some((r) => r.blocked > 0);
 
-  const heads = ['Agency', 'Red', 'Yellow', 'Green'];
+  const heads = [grouping === 'dct' ? 'DCT portfolio (agencies)' : 'Agency', 'Red', 'Yellow', 'Green'];
   if (hasUnknown) heads.push('Not scored');
   if (hasBlocked) heads.push('Blocked');
   heads.push('Total sites');
@@ -286,7 +352,7 @@ function agencyFallbackTable(rollups: ReturnType<typeof agencyRollups>): string 
 
   const body = rollups
     .map((r) => {
-      const cells = [`<th scope="row">${esc(r.agency)}</th>`];
+      const cells = [`<th scope="row">${esc(r.label)}</th>`];
       const nums = [r.counts.red, r.counts.yellow, r.counts.green];
       if (hasUnknown) nums.push(r.counts.unknown);
       if (hasBlocked) nums.push(r.blocked);
@@ -297,7 +363,7 @@ function agencyFallbackTable(rollups: ReturnType<typeof agencyRollups>): string 
     .join('');
 
   return (
-    `<table><caption>Sites by agency and accessibility status (automated testing only)</caption>` +
+    `<table><caption>Sites by ${groupNoun(grouping, 1)} and accessibility status (automated testing only)</caption>` +
     `<thead><tr>${thead}</tr></thead><tbody>${body}</tbody></table>`
   );
 }

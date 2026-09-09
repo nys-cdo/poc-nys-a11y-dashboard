@@ -4,7 +4,7 @@
  * (offered as a "Download full data set" link). Always the WHOLE dataset, every
  * column, independent of the current view or filters.
  */
-import type { DashboardData } from './types';
+import { NO_DCT, type DashboardData } from './types';
 import { officialScore, officialStatus } from './status';
 import { statusShort } from './format';
 
@@ -21,11 +21,14 @@ export function buildSitesCsv(data: DashboardData): string {
     'Domain',
     'URL',
     'Agency',
+    'DCT',
     'Official score',
     'Status',
     'axe Monitor (automated)',
     'SiteImprove (automated)',
     'Auditor (manual)',
+    'Auditor date',
+    'Auditor runs',
     'Team (manual)',
     'Pages tested (axe Monitor)',
     'Pages indexed (SiteImprove)',
@@ -44,11 +47,14 @@ export function buildSitesCsv(data: DashboardData): string {
         s.domain,
         s.url,
         s.agency,
+        s.dct ?? NO_DCT,
         value,
         statusShort(status),
         s.axeMonitorScore,
         s.siteImproveScore,
         s.auditorScore,
+        s.auditorDate,
+        s.auditorRuns.length,
         s.teamScore,
         s.axeMonitorPagesTested,
         s.siteImprovePagesIndexed,

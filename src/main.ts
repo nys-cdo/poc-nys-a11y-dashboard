@@ -13,12 +13,14 @@ import { renderHeader } from './components/header';
 import { renderSummary } from './components/summary';
 import { renderAgencyRollup } from './components/agencyRollup';
 import { renderSiteTable } from './components/siteTable';
+import { renderTrend } from './components/trend';
 
 async function boot(): Promise<void> {
   const header = document.getElementById('app-header')!;
   const summary = document.getElementById('statewide-summary')!;
   const rollup = document.getElementById('agency-rollup')!;
   const table = document.getElementById('site-table')!;
+  const trend = document.getElementById('trend')!;
   const footer = document.getElementById('app-footer')!;
 
   // Default view is the succinct dashboard; `?full` opens the advanced view
@@ -35,26 +37,39 @@ async function boot(): Promise<void> {
     renderAgencyRollup(
       rollup,
       data,
-      (agency, status) => {
-        // Clicking an agency's colored segment filters and reveals the site table.
-        siteTable.applyFilters(agency, status);
+      (grouping, key, status) => {
+        // Clicking a group's colored segment filters and reveals the site table.
+        siteTable.applyFilters(
+          grouping === 'dct'
+            ? { dct: key, agency: 'all', status }
+            : { dct: 'all', agency: key, status },
+        );
         const heading = document.getElementById('site-table-heading');
         table.scrollIntoView({ behavior: 'smooth', block: 'start' });
         // Move focus to the section heading for screen-reader + keyboard context.
         heading?.setAttribute('tabindex', '-1');
         heading?.focus({ preventScroll: true });
       },
-      { hideSingleScan: !full },
+      { hideSingleScan: !full, grouping: 'dct' },
     );
+    renderTrend(trend, data);
 
-    // Unobtrusive view toggle, placed just above the site-table heading.
-    // Succinct → "View full data →" (?full); full → "← Back to summary" (strip query).
+    // Unobtrusive view toggle, placed just above the site-table heading. Both
+    // directions land back on the site table (#site-table) rather than the top
+    // of the page. Succinct → "View full data →" (?full); full → "← Back to
+    // summary" (strip query).
     const toggle = document.createElement('p');
     toggle.className = 'view-toggle';
     toggle.innerHTML = full
-      ? '<a class="view-toggle__link" href=".">&larr; Back to summary</a>'
-      : '<a class="view-toggle__link" href="?full">View full data &rarr;</a>';
+      ? '<a class="view-toggle__link" href="./#site-table">&larr; Back to summary</a>'
+      : '<a class="view-toggle__link" href="?full#site-table">View full data &rarr;</a>';
     table.insertAdjacentElement('afterbegin', toggle);
+
+    // The sections above the table render after the browser's initial hash
+    // jump, pushing the target down — re-scroll to it once everything is in.
+    if (location.hash === '#site-table') {
+      table.scrollIntoView({ block: 'start' });
+    }
 
     // NYSDS footers: agency (nys-globalfooter) above the universal NYS footer.
     footer.innerHTML = `

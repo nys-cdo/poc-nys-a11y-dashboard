@@ -1,0 +1,204 @@
+{
+  "sourceUrl": "https://its.ny.gov/dcts",
+  "fetchedAt": "2026-09-09T00:43:48.738Z",
+  "dcts": [
+    {
+      "name": "Michael Allen",
+      "agencies": [
+        "DOL"
+      ]
+    },
+    {
+      "name": "Bryan Amedio",
+      "agencies": [
+        "Aging",
+        "Justice Center",
+        "OPWDD",
+        "CDD"
+      ]
+    },
+    {
+      "name": "Brian Balle",
+      "agencies": [
+        "DCS",
+        "OER",
+        "PERB"
+      ]
+    },
+    {
+      "name": "Munish Batra",
+      "agencies": [
+        "SLA"
+      ]
+    },
+    {
+      "name": "Tim Carroll",
+      "agencies": [
+        "HCR"
+      ]
+    },
+    {
+      "name": "Richard Cletus",
+      "agencies": [
+        "DTA",
+        "DTF"
+      ]
+    },
+    {
+      "name": "Thomas Coon",
+      "agencies": [
+        "Arts",
+        "WCB"
+      ]
+    },
+    {
+      "name": "Divya Dileep",
+      "agencies": [
+        "OCFS",
+        "CCF"
+      ]
+    },
+    {
+      "name": "R. Grace Dillon",
+      "agencies": [
+        "Gaming",
+        "DHR",
+        "OMIG",
+        "COELIG",
+        "DVS",
+        "FCB",
+        "CPC"
+      ]
+    },
+    {
+      "name": "Michael Harrigan",
+      "agencies": [
+        "NYSP"
+      ]
+    },
+    {
+      "name": "Michael John",
+      "agencies": [
+        "ABO",
+        "DOS"
+      ]
+    },
+    {
+      "name": "Michele Jones",
+      "agencies": [
+        "Ag & Markets",
+        "ESD",
+        "DPS"
+      ]
+    },
+    {
+      "name": "Moses Kamya",
+      "agencies": [
+        "OGS"
+      ]
+    },
+    {
+      "name": "Mark Kedik",
+      "agencies": [
+        "OTDA",
+        "LDSS"
+      ]
+    },
+    {
+      "name": "Elizabeth Lee",
+      "agencies": [
+        "DOB",
+        "Chamber"
+      ]
+    },
+    {
+      "name": "Arne Louison",
+      "agencies": [
+        "Parks",
+        "APA"
+      ]
+    },
+    {
+      "name": "Manohar Mathan",
+      "agencies": [
+        "ITS"
+      ]
+    },
+    {
+      "name": "Elizabeth Moran",
+      "agencies": [
+        "Public Safety"
+      ]
+    },
+    {
+      "name": "James Myran",
+      "agencies": [
+        "DOT",
+        "NYMTC"
+      ]
+    },
+    {
+      "name": "Amtul Nayeem",
+      "agencies": [
+        "OASAS",
+        "OMH"
+      ]
+    },
+    {
+      "name": "Jeff Nuding",
+      "agencies": [
+        "DCJS",
+        "OPDV",
+        "OVS",
+        "SCOC",
+        "NYWC",
+        "DMNA",
+        "HIDTA"
+      ]
+    },
+    {
+      "name": "Christopher O'Connor",
+      "agencies": [
+        "DHSES"
+      ]
+    },
+    {
+      "name": "Andrea Rohan",
+      "agencies": [
+        "DMV"
+      ]
+    },
+    {
+      "name": "Jon Sacks",
+      "agencies": [
+        "OCM"
+      ]
+    },
+    {
+      "name": "Praveen Setty",
+      "agencies": [
+        "HESC"
+      ]
+    },
+    {
+      "name": "Kathryn Shelton",
+      "agencies": [
+        "Emerging Services"
+      ]
+    },
+    {
+      "name": "Gaurav Upadhyay",
+      "agencies": [
+        "DEC",
+        "EFC",
+        "Hudson River Greenway"
+      ]
+    },
+    {
+      "name": "Ariel Vitello & Venkatesh Nattanmai",
+      "agencies": [
+        "DOH"
+      ]
+    }
+  ]
+}
