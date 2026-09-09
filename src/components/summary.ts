@@ -3,6 +3,7 @@ import type { DashboardData, Status } from '../types';
 import { statewideSummary } from '../status';
 import { statusColor } from '../tokens';
 import { statusLabel } from '../format';
+import { openRequestTest } from './requestTest';
 
 /**
  * Statewide summary — the leadership hero (PRD §6.2): total sites, count & %
@@ -32,9 +33,17 @@ export function renderSummary(root: HTMLElement, data: DashboardData): void {
              aria-label="${donutAria(s)}"></div>
       </div>
     </div>
+
+    <p class="summary__cta">
+      Automated scores size what a scanner can see. For a full picture of a site,
+      <button type="button" id="summary-request-test" class="app-header__banner-link">request an accessibility test</button>.
+    </p>
   `;
 
   renderDonut(s);
+  root
+    .querySelector('#summary-request-test')
+    ?.addEventListener('click', () => openRequestTest());
 }
 
 /** Sub-line with a larger "X% of sites" lead on its own line over the descriptor. */

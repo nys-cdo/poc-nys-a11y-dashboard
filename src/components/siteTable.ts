@@ -1,5 +1,14 @@
 import { NO_DCT, type DashboardData, type Site, type Status } from '../types';
-import { dctKey, officialScore, officialStatus, type ScoreSource } from '../status';
+import {
+  dctKey,
+  highIssues,
+  officialScore,
+  officialStatus,
+  scoreSourceLabel,
+  scoreSourceShort,
+  siteCoverage,
+  type ScoreSource,
+} from '../status';
 import { buildSitesCsv } from '../csv';
 import {
   statusIntent,
@@ -10,16 +19,19 @@ import {
   esc,
   safeHref,
 } from '../format';
+import { openSiteDetail } from './siteDetail';
 
 /**
  * Site-level table (PRD §6.4). Two modes:
  *
- *  - 'succinct' (default): Domain | Agency | DCT | Score | Notes | Status. The
- *    Score cell shows the OFFICIAL value, with a source-driven Notes annotation
- *    (team note disclosure, auditor report/deck links, or axe Monitor link).
+ *  - 'succinct' (default): Domain | Agency | DCT | Score | Source | Coverage |
+ *    Issues | Notes | Status. The Score cell shows the OFFICIAL value; Source
+ *    says which signal supplied it; Coverage is the pages the automated score
+ *    rests on; Issues opens the site's issue profile; Notes carries a
+ *    source-driven annotation (team rationale, auditor report/deck links).
  *  - 'full' (the `?full` advanced view): every automated + manual signal side
- *    by side, plus a Team score column, status chip, flags, and report links.
- *    Never renders notes (overrideJustification / blocked_note).
+ *    by side, plus a Team score column, issue counts, status chip, flags, and
+ *    report links. Never renders notes (overrideJustification / blocked_note).
  *
  * Built on nys-table (native <table> in its slot) for NYSDS styling + built-in
  * column sorting. Filterable by DCT, agency, and status; the "official score"
@@ -50,10 +62,16 @@ const EXTERNAL_ICON =
 export interface SiteTableController {
   /** Set the filters programmatically (e.g. from a rollup-chart click). */
   applyFilters(filters: SiteFilters): void;
+  /** The filters currently applied. */
+  getFilters(): SiteFilters;
 }
 
 export interface SiteTableOptions {
   mode?: TableMode;
+  /** Filters to start with (from the URL). Defaults to everything. */
+  initialFilters?: SiteFilters;
+  /** Called after every filter change, from the selects or `applyFilters`. */
+  onChange?: (filters: SiteFilters) => void;
 }
 
 export function renderSiteTable(
@@ -98,19 +116,21 @@ export function renderSiteTable(
         <option value="green" label="Green"></option>
         <option value="unknown" label="Not scored"></option>`;
 
+  const initial = opts.initialFilters ?? { dct: 'all', agency: 'all', status: 'all' };
+
   root.innerHTML = `
     <h2 id="site-table-heading" class="section-heading">All sites</h2>
 
     <div class="table-filters">
-      <nys-select id="filter-dct" label="Filter by DCT" width="lg" value="all">
+      <nys-select id="filter-dct" label="Filter by DCT" width="lg" value="${esc(initial.dct)}">
         <option value="all" label="All DCTs"></option>
         ${dcts.map((d) => `<option value="${esc(d)}" label="${esc(d)}"></option>`).join('')}
       </nys-select>
-      <nys-select id="filter-agency" label="Filter by agency" width="lg" value="all">
+      <nys-select id="filter-agency" label="Filter by agency" width="lg" value="${esc(initial.agency)}">
         <option value="all" label="All agencies"></option>
         ${agencies.map((a) => `<option value="${esc(a)}" label="${esc(a)}"></option>`).join('')}
       </nys-select>
-      <nys-select id="filter-status" label="Filter by status" width="md" value="all">
+      <nys-select id="filter-status" label="Filter by status" width="md" value="${esc(initial.status)}">
         <option value="all" label="All statuses"></option>
         ${statusOptions}
       </nys-select>
@@ -145,13 +165,22 @@ export function renderSiteTable(
 
   const tbody = root.querySelector<HTMLTableSectionElement>('#sites-tbody')!;
   const countEl = root.querySelector<HTMLParagraphElement>('#table-count')!;
-  let dctFilter = 'all';
-  let agencyFilter = 'all';
-  let statusFilter: StatusFilter = 'all';
+  let dctFilter = initial.dct;
+  let agencyFilter = initial.agency;
+  let statusFilter: StatusFilter = initial.status;
 
   const rows = data.sites
     .map((site) => ({ site, status: officialStatus(site, rubric) }))
     .sort((a, b) => a.site.domain.localeCompare(b.site.domain));
+  const siteByDomain = new Map(data.sites.map((s) => [s.domain, s]));
+
+  // The Issues cell is a button that opens the site's issue profile; one
+  // delegated listener covers every row, including rows drawn later.
+  tbody.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-issues-for]');
+    const site = btn && siteByDomain.get(btn.dataset.issuesFor ?? '');
+    if (site) openSiteDetail(site, data);
+  });
 
   function matches(site: Site, status: Status | 'unknown'): boolean {
     if (dctFilter !== 'all' && dctKey(site) !== dctFilter) return false;
@@ -168,7 +197,7 @@ export function renderSiteTable(
 
   const rowHtml = mode === 'full' ? fullRowHtml : succinctRowHtml;
 
-  const columnCount = mode === 'full' ? 12 : 6;
+  const columnCount = mode === 'full' ? 15 : 9;
 
   function draw(): void {
     const visible = rows.filter((r) => matches(r.site, r.status));
@@ -178,26 +207,44 @@ export function renderSiteTable(
     countEl.textContent = `Showing ${visible.length} of ${rows.length} sites`;
   }
 
+  function getFilters(): SiteFilters {
+    return { dct: dctFilter, agency: agencyFilter, status: statusFilter };
+  }
+
+  function changed(): void {
+    draw();
+    opts.onChange?.(getFilters());
+  }
+
   draw();
+
+  // nys-select reads its `value` attribute before the options are slotted, so
+  // an initial filter from the URL only shows once the property is set on the
+  // upgraded element.
+  void customElements.whenDefined('nys-select').then(() => {
+    syncSelect('#filter-dct', dctFilter);
+    syncSelect('#filter-agency', agencyFilter);
+    syncSelect('#filter-status', statusFilter);
+  });
 
   root
     .querySelector('#filter-dct')
     ?.addEventListener('nys-change', (e: Event) => {
       dctFilter = (e as CustomEvent<{ value: string }>).detail?.value ?? 'all';
-      draw();
+      changed();
     });
   root
     .querySelector('#filter-agency')
     ?.addEventListener('nys-change', (e: Event) => {
       agencyFilter = (e as CustomEvent<{ value: string }>).detail?.value ?? 'all';
-      draw();
+      changed();
     });
   root
     .querySelector('#filter-status')
     ?.addEventListener('nys-change', (e: Event) => {
       statusFilter =
         ((e as CustomEvent<{ value: string }>).detail?.value as StatusFilter) ?? 'all';
-      draw();
+      changed();
     });
 
   // Reset button → clear every filter back to "all".
@@ -223,10 +270,10 @@ export function renderSiteTable(
     syncSelect('#filter-dct', dct);
     syncSelect('#filter-agency', agency);
     syncSelect('#filter-status', status);
-    draw();
+    changed();
   }
 
-  return { applyFilters };
+  return { applyFilters, getFilters };
 }
 
 /* -------------------------------------------------------------------------- */
@@ -258,8 +305,39 @@ function dctCell(site: Site): string {
 
 function caption(mode: TableMode): string {
   return mode === 'full'
-    ? 'All scanned sites with agency, DCT, automated and manual scores, status, and flags. Scores reflect automated testing only unless a manual score exists.'
-    : 'All sites with agency, DCT, and the official accessibility score.';
+    ? 'All scanned sites with agency, DCT, automated and manual scores, open issues, status, and flags. Scores reflect automated testing only unless a manual score exists.'
+    : 'All sites with agency, DCT, the official accessibility score, its source, coverage, and open issues.';
+}
+
+/** Coverage cell: the pages the automated score rests on, with its kind. */
+function coverageCell(site: Site): string {
+  const cov = siteCoverage(site);
+  if (!cov) return '<span class="muted">—</span>';
+  return `${formatCount(cov.pages)} <span class="muted">${cov.kind}</span>`;
+}
+
+/**
+ * Issues cell: total open issues with the critical + serious share, as a
+ * button that opens the site's issue profile. Nothing for sites axe Monitor
+ * has not run.
+ */
+function issuesCell(site: Site): string {
+  const c = site.axeMonitorIssues;
+  if (!c) return '<span class="muted">—</span>';
+  const high = highIssues(c) ?? 0;
+  return `<button
+      type="button"
+      class="issues-btn"
+      data-issues-for="${esc(site.domain)}"
+      aria-label="Issue profile for ${esc(site.domain)}: ${formatCount(c.total)} open issues, ${formatCount(high)} critical or serious"
+    >${formatCount(c.total)}${high ? ` <span class="issues-btn__high">${formatCount(high)} high</span>` : ''}</button>`;
+}
+
+/** Source cell: which signal supplied the official score. */
+function sourceCell(source: ScoreSource): string {
+  if (!source) return '<span class="muted">—</span>';
+  const manual = source === 'team' || source === 'auditor';
+  return `<span class="source source--${manual ? 'manual' : 'automated'}" title="${esc(scoreSourceLabel(source))}">${esc(scoreSourceShort(source))}<span class="visually-hidden"> (${manual ? 'manual' : 'automated'})</span></span>`;
 }
 
 function caveatLine(mode: TableMode, coveragePct: number): string {
@@ -277,8 +355,10 @@ function caveatLine(mode: TableMode, coveragePct: number): string {
     <p class="caveat-line caveat-line--table">
       <span aria-hidden="true">⚠</span>
       Score is the <strong>official value</strong> — a team or auditor manual score where one exists,
-      otherwise the automated (~${coveragePct}% of issues) score. The <strong>Notes</strong> column
-      holds the source detail: a rationale tooltip or a report link.
+      otherwise the automated (~${coveragePct}% of issues) score; <strong>Source</strong> says which.
+      <strong>Coverage</strong> is the pages behind an automated score. <strong>Issues</strong> is the
+      open axe Monitor count (select it for the site's profile). <strong>Notes</strong> holds a
+      rationale tooltip or a report link.
     </p>`;
 }
 
@@ -294,6 +374,9 @@ function headerCells(mode: TableMode): string {
       <th scope="col" style="text-align:right">Team (manual)</th>
       <th scope="col" style="text-align:right">Pages tested<span class="visually-hidden"> (axe Monitor)</span></th>
       <th scope="col" style="text-align:right">Pages indexed<span class="visually-hidden"> (SiteImprove)</span></th>
+      <th scope="col" style="text-align:right">Open issues<span class="visually-hidden"> (axe Monitor)</span></th>
+      <th scope="col" style="text-align:right">Critical + serious</th>
+      <th scope="col">Source</th>
       <th scope="col">Status</th>
       <th scope="col">Flags</th>
       <th scope="col">Reports</th>`;
@@ -303,6 +386,9 @@ function headerCells(mode: TableMode): string {
       <th scope="col">Agency</th>
       <th scope="col">DCT</th>
       <th scope="col" style="text-align:right">Score</th>
+      <th scope="col">Source</th>
+      <th scope="col" style="text-align:right">Coverage<span class="visually-hidden"> (pages)</span></th>
+      <th scope="col" style="text-align:right">Issues</th>
       <th scope="col">Notes</th>
       <th scope="col">Status</th>`;
 }
@@ -377,7 +463,8 @@ function notesCell(site: Site, source: ScoreSource, index: number): string {
 function succinctRowHtml(site: Site, status: Status | 'unknown', index: number): string {
   const { value, source } = officialScore(site);
   // The color badge lives in its own (last) column; the Score column carries
-  // just the number; the Notes column carries the source affordances.
+  // just the number; Source, Coverage, and Issues sit between; the Notes
+  // column carries the source affordances.
   const badge = statusBadge(status);
   const valueHtml = value === null ? '<span class="muted">—</span>' : formatScore(value);
   const notes = notesCell(site, source, index);
@@ -388,6 +475,9 @@ function succinctRowHtml(site: Site, status: Status | 'unknown', index: number):
       <td>${esc(site.agency)}</td>
       <td>${dctCell(site)}</td>
       <td class="num score-num">${valueHtml}</td>
+      <td>${sourceCell(source)}</td>
+      <td class="num">${coverageCell(site)}</td>
+      <td class="num">${issuesCell(site)}</td>
       <td><div class="notes-cell">${notes}</div></td>
       <td>${badge}</td>
     </tr>
@@ -418,6 +508,8 @@ function fullRowHtml(site: Site, status: Status | 'unknown', _index: number): st
     );
   }
 
+  const { source } = officialScore(site);
+
   // Notes (overrideJustification / blocked_note) are intentionally NEVER rendered.
   return `
     <tr>
@@ -430,6 +522,9 @@ function fullRowHtml(site: Site, status: Status | 'unknown', _index: number): st
       <td class="num num--team" style="text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums">${formatScore(site.teamScore)}</td>
       <td class="num" style="text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums">${formatCount(site.axeMonitorPagesTested)}</td>
       <td class="num" style="text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums">${formatCount(site.siteImprovePagesIndexed)}</td>
+      <td class="num">${issuesCell(site)}</td>
+      <td class="num" style="text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums">${formatCount(highIssues(site.axeMonitorIssues))}</td>
+      <td>${sourceCell(source)}</td>
       <td>${statusBadge(status)}</td>
       <td><div class="flag-cell">${flags.join(' ') || '<span class="muted">—</span>'}</div></td>
       <td><div class="link-cell">${links.join(' ') || '<span class="muted">—</span>'}</div></td>

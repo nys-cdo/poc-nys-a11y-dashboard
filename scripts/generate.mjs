@@ -69,11 +69,18 @@ const DCT_URL = 'https://its.ny.gov/dcts';
 // Flags (via `npm run generate -- <flag>`):
 //   --refresh / --no-cache : ignore cached entries; fetch fresh (and re-cache).
 //   --offline              : use ONLY the cache; never hit the network.
+//   --no-snapshot          : live pull, but don't record a monthly snapshot.
 // TTL: entries older than CACHE_TTL_HOURS (default 24) are treated as misses.
 const CACHE_TTL_MS = (Number(process.env.CACHE_TTL_HOURS) || 24) * 3600 * 1000;
 const CLI = new Set(process.argv.slice(2));
 const CACHE_REFRESH = CLI.has('--refresh') || CLI.has('--no-cache');
 const CACHE_OFFLINE = CLI.has('--offline');
+/**
+ * `--no-snapshot`: pull live data and rebuild the dashboard but do NOT record
+ * this run as the month's snapshot of record — for a mid-month refresh (a new
+ * field, a data fix) that must not become "the" monthly capture.
+ */
+const NO_SNAPSHOT = CLI.has('--no-snapshot');
 const CACHE_STATS = { hits: 0, misses: 0, writes: 0 };
 
 /**
@@ -109,14 +116,18 @@ function cacheKey(url, init) {
   return createHash('sha1').update(`${String(url)}||${pagination}`).digest('hex');
 }
 
-/** Return a cached body if present and fresh (unless --refresh). */
-function cacheGet(key) {
+/**
+ * Return a cached body if present and fresh (unless --refresh). `immutable`
+ * entries (aggregates keyed by a completed run, which never changes) ignore
+ * the TTL.
+ */
+function cacheGet(key, { immutable = false } = {}) {
   if (CACHE_REFRESH) return null;
   const file = join(CACHE_DIR, `${key}.json`);
   if (!existsSync(file)) return null;
   try {
     const { savedAt, body } = JSON.parse(readFileSync(file, 'utf8'));
-    if (!CACHE_OFFLINE && Date.now() - savedAt > CACHE_TTL_MS) return null; // stale
+    if (!CACHE_OFFLINE && !immutable && Date.now() - savedAt > CACHE_TTL_MS) return null; // stale
     CACHE_STATS.hits += 1;
     return body;
   } catch {
@@ -207,16 +218,123 @@ function loadEnv() {
 //    Auth : header  X-API-Key: <key>
 //    Traversal for a site's composite score + agency + domain:
 //      GET /scans                               → scans[]{ id, name, groups[]{id,name} }
-//      GET /scans/{scanId}/runs                 → scanRuns[]{ runNumber, status, score, completedAt }
+//      GET /scans/{scanId}/runs                 → scanRuns[]{ runNumber, status, score, completedAt,
+//                                                   issues{total,critical,serious,moderate,minor},
+//                                                   pages{total,completed,critical} }
 //      GET /scans/{scanId}/runs/{run}/pages     → pages[]{ url, domainUrl }
+//      GET /scans/{scanId}/runs/{run}/issues    → issues[]{ ruleId, impact, needsReview, status, tags[], … }
 //    - "agency" = a scan's Scan Group name (groups[]).  Canonical taxonomy.
 //    - score    = latest COMPLETED run's `score`.
 //    - domain   = a page's `domainUrl` (the scanned site's host).
+//    - issues   = the run's severity counts (free with the run) plus a rule
+//                 profile aggregated from the run's issue list (extra calls;
+//                 see fetchAxeRuleProfile).
 //    Pagination is via request headers X-Pagination-Page / X-Pagination-Per-Page;
-//    there is no total-count field, so we page until a short page is returned.
+//    list endpoints return no total-count field, so we page until a short page
+//    is returned (the issues endpoint does return X-Pagination-Total-Pages).
 // ------------------------------------------------------------------------
 
 const AXE_PER_PAGE = 100;
+
+/**
+ * Rule-profile pull sizing. The issues endpoint accepts up to 1,000 per page
+ * (verified 2026-09). A run's `issues.total` counts open, non-needs-review
+ * issues — 1.09M across the tenant's 287 scans, one site alone at 107k — so
+ * the profile reads at most AXE_ISSUE_MAX_PAGES pages per run and records how
+ * many issues it examined; a profile built from fewer issues than the run's
+ * total is marked as sampled. Raw issue pages are never cached (a large site
+ * would be ~100MB); only the small per-run aggregate is, keyed by run, and a
+ * completed run never changes so that aggregate never goes stale.
+ */
+const AXE_ISSUE_PER_PAGE = 1000;
+const AXE_ISSUE_MAX_PAGES = 10;
+const AXE_TOP_RULES = 10;
+
+/** `{ total, critical, serious, moderate, minor }` from a run, or null when absent. */
+function normalizeIssueCounts(issues) {
+  if (!issues || typeof issues !== 'object') return null;
+  const n = (v) => (Number.isFinite(v) ? v : 0);
+  if (!Number.isFinite(issues.total)) return null;
+  return {
+    total: n(issues.total),
+    critical: n(issues.critical),
+    serious: n(issues.serious),
+    moderate: n(issues.moderate),
+    minor: n(issues.minor),
+  };
+}
+
+/** Strip axe's tracking query (`?application=…`) from a Deque University link. */
+function cleanHelpUrl(url) {
+  return typeof url === 'string' ? url.split('?')[0] : null;
+}
+
+/**
+ * Aggregate a run's issue list into its most frequent rules. Only issues that
+ * count toward the run's `issues` totals are tallied (status `open`, not
+ * needs-review — verified to reconcile exactly with `issues.total`). Returns
+ * `{ examined, rules: [{ ruleId, impact, count, description, helpUrl,
+ * bestPractice }] }` (top AXE_TOP_RULES by count), or null when the profile
+ * could not be built (offline with no cached aggregate, or an API error —
+ * the severity counts from the run still stand on their own).
+ */
+async function fetchAxeRuleProfile(apiBase, headers, scanId, runNumber, expectedTotal) {
+  const listUrl = joinUrl(apiBase, `/scans/${scanId}/runs/${runNumber}/issues`);
+  const profileKey = cacheKey(`${listUrl}#rule-profile`, {});
+  const cached = cacheGet(profileKey, { immutable: true });
+  if (cached !== null) return cached;
+  if (CACHE_OFFLINE) return null;
+
+  const rules = new Map();
+  let examined = 0;
+  const maxPages = Math.min(AXE_ISSUE_MAX_PAGES, Math.max(1, Math.ceil(expectedTotal / AXE_ISSUE_PER_PAGE)));
+  try {
+    for (let page = 1; page <= maxPages; page++) {
+      const body = await fetchJson(
+        listUrl,
+        {
+          headers: {
+            ...headers,
+            'X-Pagination-Page': String(page),
+            'X-Pagination-Per-Page': String(AXE_ISSUE_PER_PAGE),
+          },
+        },
+        { cache: false },
+      );
+      const issues = body?.issues ?? [];
+      for (const issue of issues) {
+        if (String(issue?.status).toLowerCase() !== 'open' || issue?.needsReview) continue;
+        examined += 1;
+        const id = issue.ruleId || issue.axeRuleId;
+        if (!id) continue;
+        let rule = rules.get(id);
+        if (!rule) {
+          const tags = Array.isArray(issue.tags) ? issue.tags : [];
+          rule = {
+            ruleId: id,
+            impact: String(issue.impact ?? 'minor').toLowerCase(),
+            count: 0,
+            description: issue.description ?? null,
+            helpUrl: cleanHelpUrl(issue.helpUrl),
+            bestPractice: tags.includes('best-practice') && !tags.some((t) => /^wcag2/.test(t)),
+          };
+          rules.set(id, rule);
+        }
+        rule.count += 1;
+      }
+      if (issues.length < AXE_ISSUE_PER_PAGE) break;
+    }
+  } catch (err) {
+    console.warn(`[axe Monitor] scan ${scanId} run ${runNumber}: rule profile incomplete — ${err.message}`);
+    if (examined === 0) return null;
+  }
+  const profile = {
+    examined,
+    rules: [...rules.values()].sort((a, b) => b.count - a.count || a.ruleId.localeCompare(b.ruleId)).slice(0, AXE_TOP_RULES),
+  };
+  cacheSet(profileKey, `${listUrl}#rule-profile`, profile);
+  return profile;
+}
 
 /**
  * axe Scan Group names that are functional/categorization tags, NOT agencies
@@ -317,6 +435,13 @@ async function fetchAxeMonitor(env) {
     const pagesTested = Number.isFinite(latest.pages?.completed)
       ? latest.pages.completed
       : null;
+    // Severity counts ride along with the run. The rule profile is a separate
+    // (capped, cached-by-run) read of the run's issue list.
+    const issues = normalizeIssueCounts(latest.issues);
+    let ruleProfile = null;
+    if (issues && issues.total > 0) {
+      ruleProfile = await fetchAxeRuleProfile(apiBase, headers, scanId, latest.runNumber, issues.total);
+    }
     // Every COMPLETED run with a date, for backfilling months that have no
     // dashboard snapshot of their own (see backfillHistoryFromAxeRuns).
     const runHistory = (runsBody?.scanRuns ?? [])
@@ -350,9 +475,18 @@ async function fetchAxeMonitor(env) {
       agency,
       score,
       pagesTested,
+      issues,
+      ruleProfile,
       runHistory,
     };
   });
+
+  const profiled = records.filter((r) => r?.ruleProfile).length;
+  const sampled = records.filter((r) => r?.ruleProfile && r.ruleProfile.examined < r.issues.total).length;
+  console.log(
+    `[axe Monitor] issue profiles: ${profiled} scan(s) with a rule profile` +
+      `${sampled ? ` (${sampled} built from the first ${AXE_ISSUE_MAX_PAGES * AXE_ISSUE_PER_PAGE} issues)` : ''}.`,
+  );
 
   if (multiGroup > 0) {
     console.warn(
@@ -484,11 +618,12 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
  * rate-limit (429) and transient (502/503/504) responses. Honors a numeric
  * `Retry-After` header when present, else exponential backoff.
  */
-async function fetchJson(url, init = {}, { retries = 8 } = {}) {
+async function fetchJson(url, init = {}, { retries = 8, cache = true } = {}) {
   const key = cacheKey(url, init);
 
-  // 1) Serve from cache when possible.
-  const cached = cacheGet(key);
+  // 1) Serve from cache when possible. `cache: false` skips both the read and
+  //    the write — for bulk pages whose aggregate is cached separately.
+  const cached = cache ? cacheGet(key) : null;
   if (cached !== null) return cached;
   if (CACHE_OFFLINE) {
     CACHE_STATS.misses += 1;
@@ -508,7 +643,7 @@ async function fetchJson(url, init = {}, { retries = 8 } = {}) {
     }
     if (res.ok) {
       const body = await res.json();
-      cacheSet(key, url, body);
+      if (cache) cacheSet(key, url, body);
       CACHE_STATS.misses += 1;
       return body;
     }
@@ -832,6 +967,9 @@ function buildSites(axeRecords, siteImproveRecords, manualData, auditorRuns = ne
         siteImproveScore: null,
         axeMonitorPagesTested: null,
         siteImprovePagesIndexed: null,
+        axeMonitorIssues: null,
+        axeMonitorTopRules: null,
+        axeMonitorIssuesExamined: null,
         teamScore: null,
         overrideJustification: null,
         auditorScore: null,
@@ -858,6 +996,9 @@ function buildSites(axeRecords, siteImproveRecords, manualData, auditorRuns = ne
     const site = getSite(rec.domain, rec.url);
     site.axeMonitorScore = rec.score;
     site.axeMonitorPagesTested = rec.pagesTested ?? null;
+    site.axeMonitorIssues = rec.issues ?? null;
+    site.axeMonitorTopRules = rec.ruleProfile?.rules ?? null;
+    site.axeMonitorIssuesExamined = rec.ruleProfile?.examined ?? null;
     site.agency = agencyByDomain.get(rec.domain) ?? UNATTRIBUTED;
     // monitorReportUrl: the axe Monitor Public API exposes no public per-site
     // report URL — scans/runs/pages responses carry only ids, scores, and the
@@ -928,6 +1069,11 @@ function buildSites(axeRecords, siteImproveRecords, manualData, auditorRuns = ne
 //     manual-data.json stays the team's curated layer: its auditor_score /
 //     auditor_report_url / auditor_date win when set; runs fill the gaps.
 // ------------------------------------------------------------------------
+
+/** True for Axe Auditor's mobile asset types ("Mobile Web", "iOS", …). */
+function isMobileAssetType(assetType) {
+  return /mobile|ios|android/i.test(String(assetType ?? ''));
+}
 
 /** "MM/DD/YY" → "YYYY-MM-DD". Returns null for anything else. */
 function isoFromMdy(mdy) {
@@ -1010,7 +1156,10 @@ function applyAuditorRuns(sites, runsByDomain, getSite) {
     const site = getSite(domain, `https://${domain}/`);
     site.auditorRuns = runs;
     attached += 1;
-    const latest = runs.at(-1);
+    // The site's score comes from its most recent desktop-web audit; a
+    // mobile-web run audits a different asset and only fills in when no
+    // desktop run exists.
+    const latest = runs.filter((r) => !isMobileAssetType(r.assetType)).at(-1) ?? runs.at(-1);
     if (site.auditorScore === null) {
       site.auditorScore = latest.score;
       filled += 1;
@@ -1264,6 +1413,10 @@ function snapshotSite(site) {
     auditorScore: site.auditorScore ?? null,
     teamScore: site.teamScore ?? null,
     blocked: !!site.blocked,
+    // Open-issue counts by severity (axe Monitor), so later months can show
+    // how the issue load moved, not only the score.
+    axeMonitorIssues: site.axeMonitorIssues ?? null,
+    axeMonitorPagesTested: site.axeMonitorPagesTested ?? null,
   };
 }
 
@@ -1374,12 +1527,13 @@ function compileHistory(currentSites, dctIndex, manualData, isExcluded) {
       if (!s?.domain || isExcluded(s.domain)) continue;
       let row = rows.get(s.domain);
       if (!row) {
-        row = { domain: s.domain, agency: s.agency ?? UNATTRIBUTED, dct: null, automated: new Array(snapshots.length).fill(null), audits: [], _lastAudit: null };
+        row = { domain: s.domain, agency: s.agency ?? UNATTRIBUTED, dct: null, automated: new Array(snapshots.length).fill(null), issues: new Array(snapshots.length).fill(null), audits: [], _lastAudit: null };
         rows.set(s.domain, row);
       }
       // Latest snapshot's agency wins unless the site is in the current data.
       row.agency = s.agency ?? row.agency;
       row.automated[i] = s.axeMonitorScore ?? s.siteImproveScore ?? null;
+      row.issues[i] = Number.isFinite(s.axeMonitorIssues?.total) ? s.axeMonitorIssues.total : null;
       if (s.auditorScore !== null && s.auditorScore !== undefined && s.auditorScore !== row._lastAudit) {
         row.audits.push({ month: snap.month, score: s.auditorScore });
         row._lastAudit = s.auditorScore;
@@ -1391,7 +1545,7 @@ function compileHistory(currentSites, dctIndex, manualData, isExcluded) {
   // still belong in the trend, so seed a row for each.
   for (const site of currentSites) {
     if (!rows.has(site.domain) && site.auditorRuns?.length && !isExcluded(site.domain)) {
-      rows.set(site.domain, { domain: site.domain, agency: site.agency, dct: null, automated: new Array(snapshots.length).fill(null), audits: [], _lastAudit: null });
+      rows.set(site.domain, { domain: site.domain, agency: site.agency, dct: null, automated: new Array(snapshots.length).fill(null), issues: new Array(snapshots.length).fill(null), audits: [], _lastAudit: null });
     }
   }
 
@@ -1400,16 +1554,21 @@ function compileHistory(currentSites, dctIndex, manualData, isExcluded) {
     const agency = live?.agency ?? row.agency;
     const manual = manualData[row.domain];
     const pinned = typeof manual?.auditor_date === 'string' && /^\d{4}-\d{2}/.test(manual.auditor_date);
-    let audits = row.audits;
+    let audits = row.audits.map((a) => ({ ...a, assetType: null }));
     if (live?.auditorRuns?.length) {
-      // The run history is the complete, dated record: one point per run.
-      audits = live.auditorRuns.map((r) => ({ month: r.date.slice(0, 7), score: r.score }));
+      // The run history is the complete, dated record: one point per run,
+      // carrying the asset type so mobile-web audits can be told apart.
+      audits = live.auditorRuns.map((r) => ({
+        month: r.date.slice(0, 7),
+        score: r.score,
+        assetType: r.assetType ?? null,
+      }));
     } else if (pinned && live?.auditorScore !== null && live?.auditorScore !== undefined) {
       // The team dated the current audit: place it in that month and drop the
       // first-seen point for the same score.
       audits = [
         ...audits.filter((a) => a.score !== live.auditorScore),
-        { month: manual.auditor_date.slice(0, 7), score: live.auditorScore },
+        { month: manual.auditor_date.slice(0, 7), score: live.auditorScore, assetType: null },
       ].sort((a, b) => a.month.localeCompare(b.month));
     }
     return {
@@ -1417,6 +1576,7 @@ function compileHistory(currentSites, dctIndex, manualData, isExcluded) {
       agency,
       dct: dctIndex.get(String(agency).toLowerCase()) ?? null,
       automated: row.automated,
+      issues: row.issues,
       audits,
     };
   });
@@ -1559,6 +1719,8 @@ async function main() {
   // nothing (an outage or a missing key must not become the month's record).
   if (CACHE_OFFLINE) {
     console.log('[history] --offline run: not writing a monthly snapshot (cached data is not a fresh capture).');
+  } else if (NO_SNAPSHOT) {
+    console.log('[history] --no-snapshot: not writing a monthly snapshot for this run.');
   } else if (axeRecords.length === 0 || siteImproveRecords.length === 0) {
     console.warn(
       `[history] NOT writing a monthly snapshot: ${axeRecords.length === 0 ? 'axe Monitor' : 'SiteImprove'} ` +

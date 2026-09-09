@@ -10,7 +10,9 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": null,
+      "axeMonitorPagesTested": null
     },
     {
       "domain": "cris.parks.ny.gov",
@@ -19,7 +21,9 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": null,
+      "axeMonitorPagesTested": null
     },
     {
       "domain": "lobbyingtraining.ethics.ny.gov",
@@ -28,7 +32,9 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": null,
+      "axeMonitorPagesTested": null
     },
     {
       "domain": "my.ny.gov",
@@ -37,7 +43,9 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": null,
+      "axeMonitorPagesTested": null
     },
     {
       "domain": "publicapps.troopers.ny.gov",
@@ -46,7 +54,9 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": null,
+      "axeMonitorPagesTested": null
     },
     {
       "domain": "water.ny.gov",
@@ -55,7 +65,9 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": null,
+      "axeMonitorPagesTested": null
     }
   ]
 }

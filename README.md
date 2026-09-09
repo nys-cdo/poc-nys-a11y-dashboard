@@ -65,6 +65,40 @@ portfolio's agencies rather than the DCT's name. Agencies outside every
 portfolio show as **No DCT assigned**. Refresh the list alone with
 `npm run generate:dcts`.
 
+### Portfolio deep links
+
+Add `?dct=Name` to the dashboard address to open straight into one DCT's
+portfolio: a summary strip (sites by status, sites with a manual audit, pages
+tested, open issues, month-over-month change, the portfolio's most frequent
+failing rules), the site table filtered to it, and the trend scoped to it. A
+surname is enough when it is unambiguous (`?dct=shelton`); `?dct=none` opens
+the "No DCT assigned" bucket. The table filters read the address on load and
+write it back as they change (`?dct=…&agency=…&status=…`, plus `?full` for the
+advanced table), so any view can be copied and shared.
+
+### Open issues and the issue profile
+
+axe Monitor's run object carries open-issue counts by severity (critical,
+serious, moderate, minor), and its issues endpoint lists every open issue with
+its rule id. The generator keeps the counts for every site and builds a
+**rule profile** per site (the ten most frequent failing rules) from the run's
+issue list, reading at most the first 10,000 issues of a run and recording how
+many it examined. Raw issue pages are never cached; the per-run aggregate is,
+keyed by run, so a completed run is never re-read.
+
+On the page, the **Issues** column shows the open count with the critical +
+serious share; selecting it opens the site's issue profile (severity breakdown,
+issues per page tested, top rules with fix guidance, manual audit history, and
+a request-a-test action). The portfolio strip aggregates the same data.
+
+### Request an accessibility test
+
+The portfolio strip, every issue profile, and a line under the statewide
+snapshot carry a "Request an accessibility test" action. It opens a short dialog (what a manual test covers,
+what to include in the request) and hands off to `VITE_REQUEST_TEST_URL`, an
+intake form URL or `mailto:` set at build time. Until that variable is set, the
+hand-off opens a pre-filled email with no recipient.
+
 ### Monthly history and the trend chart
 
 Each successful generator run writes `data/history/<YYYY-MM>.json`, the
@@ -86,8 +120,10 @@ an outage can't become a month's record. See `data/DATA.md`.
 
 - **axe Monitor** (authoritative for agency + score). Auth `X-API-Key`. Traversal
   `/scans` (→ Scan Groups = agency) → `/scans/{id}/runs` (→ latest completed
-  run's `score`) → `/scans/{id}/runs/{run}/pages` (→ `domainUrl`). The `score`
-  is a **0–1 ratio** and is scaled ×100.
+  run's `score`, `issues` by severity, `pages.completed`) →
+  `/scans/{id}/runs/{run}/pages` (→ `domainUrl`) →
+  `/scans/{id}/runs/{run}/issues` (→ rule profile). The `score` is a
+  **0–1 ratio** and is scaled ×100.
 - **SiteImprove** (second coverage source). HTTP Basic (email : API key).
   `/sites` → per-site `/sites/{id}/dci/overview`, reading the accessibility DCI
   (`a11y.total`, 0–100).
@@ -112,7 +148,11 @@ npm run generate:refresh    # ignore cache, force a fresh pull
 npm run generate:offline    # rebuild from cache only, no network (never writes a snapshot)
 npm run generate:dcts       # refresh only the DCT list from its.ny.gov
 npm run generate -- --snapshot-month=2026-08   # record this pull as August's snapshot
+npm run generate -- --no-snapshot              # live pull without recording a monthly snapshot
 ```
+
+`--no-snapshot` is for a mid-month refresh (a new field, a data fix) that must
+not become the month's capture of record.
 
 `--snapshot-month` is for a capture taken a few days into a month that really
 holds the previous month's numbers: the snapshot and the dashboard are dated

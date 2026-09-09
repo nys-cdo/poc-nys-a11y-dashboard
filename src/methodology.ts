@@ -39,9 +39,33 @@ function buildDialog(): HTMLDialogElement {
           <li>If none of the above exists, the site is <strong>Not scored</strong>.</li>
         </ol>
         <p>
-          The <strong>?full</strong> view shows every underlying source side by side; the default
-          view shows only the official score and, in the <strong>Notes</strong> column, where it
-          came from — a rationale tooltip for a team override, or a link to an auditor report.
+          The <strong>Source</strong> column names which of these supplied the score, and
+          <strong>Coverage</strong> is the number of pages an automated score rests on (pages
+          axe Monitor tested in its latest run, or pages in SiteImprove's index — the two are not
+          comparable). The <strong>?full</strong> view shows every underlying source side by side;
+          the <strong>Notes</strong> column holds a rationale tooltip for a team override, or a link
+          to an auditor report.
+        </p>
+
+        <h3>Open issues and severity</h3>
+        <p>
+          <strong>Issues</strong> is the number of open problems axe Monitor found in a site's
+          latest run, with the <strong>critical + serious</strong> share called out as the
+          fix-first load. Selecting the number opens the site's <strong>issue profile</strong>:
+          the count by severity (critical, serious, moderate, minor), issues per page tested, the
+          most frequent failing rules with a link to each rule's fix guidance, and the manual audit
+          history. Rule rankings come from the run's issue list; for very large sites the
+          generator reads the first 10,000 issues and says so. These counts are automated
+          findings only — they size the work a scanner can see, not everything a manual test
+          will find.
+        </p>
+
+        <h3>Portfolio links</h3>
+        <p>
+          Add <strong>?dct=Name</strong> to the address (a surname is enough when it is
+          unambiguous) to open straight into one portfolio: its summary strip, the filtered site
+          table, and the trend scoped to it. The table filters keep the address in step, so any
+          view can be copied and shared.
         </p>
 
         <h3>Automated testing catches ~30% of issues</h3>
