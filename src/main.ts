@@ -11,13 +11,16 @@ import { requireGate } from './gate';
 import { loadDashboardData } from './data';
 import { renderHeader } from './components/header';
 import { renderSummary } from './components/summary';
+import { renderPortfolio } from './components/portfolio';
 import { renderAgencyRollup } from './components/agencyRollup';
-import { renderSiteTable } from './components/siteTable';
+import { renderSiteTable, type SiteFilters } from './components/siteTable';
 import { renderTrend } from './components/trend';
+import { readViewState, writeViewState } from './urlState';
 
 async function boot(): Promise<void> {
   const header = document.getElementById('app-header')!;
   const summary = document.getElementById('statewide-summary')!;
+  const portfolio = document.getElementById('portfolio-summary')!;
   const rollup = document.getElementById('agency-rollup')!;
   const table = document.getElementById('site-table')!;
   const trend = document.getElementById('trend')!;
@@ -31,10 +34,36 @@ async function boot(): Promise<void> {
   try {
     const data = await loadDashboardData();
 
+    // The shareable view lives in the URL: `?dct=Name` opens one portfolio
+    // (its summary strip, the filtered table, the trend scoped to it), and
+    // the table filters are read from and written back to the query string.
+    const initial = readViewState(data);
+    const dctOf = (f: SiteFilters) => (f.dct === 'all' ? null : f.dct);
+
     renderHeader(header, data);
     renderSummary(summary, data);
-    const siteTable = renderSiteTable(table, data, { mode: full ? 'full' : 'succinct' });
-    renderAgencyRollup(
+    renderPortfolio(portfolio, data, dctOf(initial.filters));
+
+    let trendCtl: ReturnType<typeof renderTrend> | null = null;
+    let rollupCtl: ReturnType<typeof renderAgencyRollup> | null = null;
+    let lastDct = dctOf(initial.filters);
+    const onFilters = (filters: SiteFilters) => {
+      writeViewState({ full, filters });
+      const dct = dctOf(filters);
+      if (dct !== lastDct) {
+        lastDct = dct;
+        renderPortfolio(portfolio, data, dct);
+        rollupCtl?.setFocus(dct);
+        trendCtl?.setScope(dct ? 'dct' : 'all', dct ?? undefined);
+      }
+    };
+
+    const siteTable = renderSiteTable(table, data, {
+      mode: full ? 'full' : 'succinct',
+      initialFilters: initial.filters,
+      onChange: onFilters,
+    });
+    rollupCtl = renderAgencyRollup(
       rollup,
       data,
       (grouping, key, status) => {
@@ -50,19 +79,43 @@ async function boot(): Promise<void> {
         heading?.setAttribute('tabindex', '-1');
         heading?.focus({ preventScroll: true });
       },
-      { hideSingleScan: !full, grouping: 'dct' },
+      {
+        hideSingleScan: !full,
+        grouping: 'dct',
+        focusDct: lastDct,
+        // "Compare all portfolios" clears the DCT filter (keeps the others),
+        // which flows back through onFilters to the strip, chart, and trend.
+        onClearFocus: () => siteTable.applyFilters({ ...siteTable.getFilters(), dct: 'all' }),
+      },
     );
-    renderTrend(trend, data);
+    trendCtl = renderTrend(trend, data);
+    if (lastDct) trendCtl.setScope('dct', lastDct);
+    // Normalize the address bar (e.g. `?dct=shelton` → the full name).
+    writeViewState({ full, filters: siteTable.getFilters() });
 
     // Unobtrusive view toggle, placed just above the site-table heading. Both
     // directions land back on the site table (#site-table) rather than the top
-    // of the page. Succinct → "View full data →" (?full); full → "← Back to
-    // summary" (strip query).
+    // of the page, and keep the current filters. Succinct → "View full data →"
+    // (?full); full → "← Back to summary".
     const toggle = document.createElement('p');
     toggle.className = 'view-toggle';
+    const toggleHref = () => {
+      const params = new URLSearchParams(location.search);
+      if (full) params.delete('full');
+      else params.set('full', '');
+      const q = params.toString().replace(/(^|&)full=(?=&|$)/, '$1full');
+      return `${q ? `?${q}` : './'}#site-table`;
+    };
     toggle.innerHTML = full
-      ? '<a class="view-toggle__link" href="./#site-table">&larr; Back to summary</a>'
-      : '<a class="view-toggle__link" href="?full#site-table">View full data &rarr;</a>';
+      ? `<a class="view-toggle__link" href="${toggleHref()}">&larr; Back to summary</a>`
+      : `<a class="view-toggle__link" href="${toggleHref()}">View full data &rarr;</a>`;
+    // The filters can change after render; refresh the link right before use.
+    toggle.querySelector('a')?.addEventListener('mousedown', (e) => {
+      (e.currentTarget as HTMLAnchorElement).href = toggleHref();
+    });
+    toggle.querySelector('a')?.addEventListener('focus', (e) => {
+      (e.currentTarget as HTMLAnchorElement).href = toggleHref();
+    });
     table.insertAdjacentElement('afterbegin', toggle);
 
     // The sections above the table render after the browser's initial hash

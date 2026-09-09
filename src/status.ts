@@ -16,7 +16,7 @@
  * and every site-table status chip, so they ALL agree.
  */
 
-import type { DashboardData, Rubric, Site, Status } from './types';
+import type { DashboardData, Impact, IssueCounts, Rubric, Site, Status, TopRule } from './types';
 import { NO_DCT, UNATTRIBUTED } from './types';
 
 /** Which source in the priority chain supplied the official score. */
@@ -47,6 +47,82 @@ export function officialScore(site: Site): OfficialScore {
   if (site.axeMonitorScore !== null) return { value: site.axeMonitorScore, source: 'monitor' };
   if (site.siteImproveScore !== null) return { value: site.siteImproveScore, source: 'siteimprove' };
   return { value: null, source: null };
+}
+
+/** Human label for the source that supplied the official score. */
+export function scoreSourceLabel(source: ScoreSource): string {
+  switch (source) {
+    case 'team':
+      return 'Team review (manual)';
+    case 'auditor':
+      return 'Axe Auditor (manual)';
+    case 'monitor':
+      return 'axe Monitor (automated)';
+    case 'siteimprove':
+      return 'SiteImprove (automated)';
+    default:
+      return 'No score';
+  }
+}
+
+/** Compact source name for table cells. */
+export function scoreSourceShort(source: ScoreSource): string {
+  switch (source) {
+    case 'team':
+      return 'Team';
+    case 'auditor':
+      return 'Auditor';
+    case 'monitor':
+      return 'axe Monitor';
+    case 'siteimprove':
+      return 'SiteImprove';
+    default:
+      return '—';
+  }
+}
+
+/** True when the official score came from a person rather than a scanner. */
+export function isManualSource(source: ScoreSource): boolean {
+  return source === 'team' || source === 'auditor';
+}
+
+/**
+ * How much of a site the automated score is based on: axe Monitor's pages
+ * tested in the latest run, else SiteImprove's indexed page count. The two
+ * are not comparable, so the kind travels with the number.
+ */
+export interface Coverage {
+  pages: number;
+  kind: 'tested' | 'indexed';
+}
+
+export function siteCoverage(site: Site): Coverage | null {
+  if (site.axeMonitorPagesTested !== null) return { pages: site.axeMonitorPagesTested, kind: 'tested' };
+  if (site.siteImprovePagesIndexed !== null) return { pages: site.siteImprovePagesIndexed, kind: 'indexed' };
+  return null;
+}
+
+/** Critical + serious open issues — the "fix first" load. */
+export function highIssues(counts: IssueCounts | null): number | null {
+  return counts ? counts.critical + counts.serious : null;
+}
+
+/** Open issues per page tested (one decimal), when both numbers exist. */
+export function issuesPerPage(site: Site): number | null {
+  const total = site.axeMonitorIssues?.total;
+  const pages = site.axeMonitorPagesTested;
+  if (total === undefined || total === null || !pages) return null;
+  return Math.round((total / pages) * 10) / 10;
+}
+
+/** A site counts as audited when a person has scored it (Auditor run or team score). */
+export function isAudited(site: Site): boolean {
+  return site.auditorScore !== null || site.auditorRuns.length > 0;
+}
+
+/** Axe Auditor's mobile asset types ("Mobile Web", "iOS", …). */
+export function isMobileAudit(assetType: string | null | undefined): boolean {
+  return /mobile|ios|android/i.test(assetType ?? '');
 }
 
 /**
@@ -225,4 +301,154 @@ export function sortAgencyRollups(
       );
   }
   return [...copy, ...pinned];
+}
+
+/* -------------------------------------------------------------------------- */
+/* Portfolio summary (one DCT)                                                */
+/* -------------------------------------------------------------------------- */
+
+/** A failing rule aggregated across a portfolio's sites. */
+export interface PortfolioRule extends TopRule {
+  /** How many of the portfolio's sites list this rule among their top rules. */
+  sites: number;
+}
+
+/** Two-snapshot comparison of a portfolio-wide mean. */
+export interface MonthOverMonth {
+  month: string;
+  prevMonth: string;
+  /** Mean in each month, across the sites that had a value. */
+  now: number;
+  prev: number;
+  /** `now - prev`. */
+  delta: number;
+  sitesNow: number;
+  sitesPrev: number;
+}
+
+export interface PortfolioSummary {
+  dct: string;
+  /** The portfolio's agency list (the chart label). */
+  label: string;
+  agencies: string[];
+  sites: Site[];
+  total: number;
+  counts: StatusCounts;
+  percentages: StatusCounts;
+  /** Sites with a manual audit (Axe Auditor run or team score). */
+  audited: number;
+  /** Sum of axe Monitor pages tested across the portfolio. */
+  pagesTested: number;
+  /** Sum of SiteImprove pages indexed across the portfolio. */
+  pagesIndexed: number;
+  /** Open axe Monitor issues across the portfolio; null when no site has counts. */
+  issues: (IssueCounts & { high: number; sitesCounted: number }) | null;
+  /** The portfolio's most frequent failing rules, from its sites' top rules. */
+  topRules: PortfolioRule[];
+  /** Mean automated score, latest snapshot vs the one before; null with <2 snapshots. */
+  momScore: MonthOverMonth | null;
+  /** Mean open issues per site, latest snapshot vs the one before; null until two snapshots carry counts. */
+  momIssues: MonthOverMonth | null;
+}
+
+const IMPACT_RANK: Record<Impact, number> = { critical: 0, serious: 1, moderate: 2, minor: 3 };
+
+/** Everything the portfolio strip shows for one DCT (or the no-DCT bucket). */
+export function portfolioSummary(data: DashboardData, dctName: string): PortfolioSummary {
+  const { rubric } = data.meta;
+  const sites = data.sites.filter((s) => dctKey(s) === dctName);
+  const counts = tally(sites, rubric);
+  const group = data.meta.dcts.find((d) => d.name === dctName);
+
+  const withCounts = sites.filter((s) => s.axeMonitorIssues);
+  const issues = withCounts.length
+    ? withCounts.reduce(
+        (acc, s) => {
+          const c = s.axeMonitorIssues!;
+          acc.total += c.total;
+          acc.critical += c.critical;
+          acc.serious += c.serious;
+          acc.moderate += c.moderate;
+          acc.minor += c.minor;
+          acc.high += c.critical + c.serious;
+          return acc;
+        },
+        { total: 0, critical: 0, serious: 0, moderate: 0, minor: 0, high: 0, sitesCounted: withCounts.length },
+      )
+    : null;
+
+  const ruleMap = new Map<string, PortfolioRule>();
+  for (const s of sites) {
+    for (const r of s.axeMonitorTopRules ?? []) {
+      const agg = ruleMap.get(r.ruleId);
+      if (agg) {
+        agg.count += r.count;
+        agg.sites += 1;
+        if (IMPACT_RANK[r.impact] < IMPACT_RANK[agg.impact]) agg.impact = r.impact;
+      } else {
+        ruleMap.set(r.ruleId, { ...r, sites: 1 });
+      }
+    }
+  }
+  const topRules = [...ruleMap.values()]
+    .sort((a, b) => b.count - a.count || b.sites - a.sites || a.ruleId.localeCompare(b.ruleId))
+    .slice(0, 5);
+
+  return {
+    dct: dctName,
+    label: dctLabel(dctName, data),
+    agencies: group?.agencies ?? [],
+    sites,
+    total: sites.length,
+    counts,
+    percentages: toPercentages(counts, sites.length),
+    audited: sites.filter(isAudited).length,
+    pagesTested: sites.reduce((n, s) => n + (s.axeMonitorPagesTested ?? 0), 0),
+    pagesIndexed: sites.reduce((n, s) => n + (s.siteImprovePagesIndexed ?? 0), 0),
+    issues,
+    topRules,
+    momScore: monthOverMonth(data, dctName, 'automated'),
+    momIssues: monthOverMonth(data, dctName, 'issues'),
+  };
+}
+
+/**
+ * Compare the last two monthly snapshots for a portfolio: the mean of `field`
+ * across the portfolio's sites that had a value in each month. Null when there
+ * are not two snapshots, or either month has no site with a value.
+ */
+function monthOverMonth(
+  data: DashboardData,
+  dctName: string,
+  field: 'automated' | 'issues',
+): MonthOverMonth | null {
+  const { snapshots, sites } = data.history;
+  if (snapshots.length < 2) return null;
+  const i = snapshots.length - 1;
+  const rows = sites.filter((s) => (s.dct ?? NO_DCT) === dctName);
+  const mean = (idx: number): [number, number] => {
+    let sum = 0;
+    let n = 0;
+    for (const r of rows) {
+      const v = r[field]?.[idx];
+      if (v !== null && v !== undefined) {
+        sum += v;
+        n += 1;
+      }
+    }
+    return [n ? sum / n : NaN, n];
+  };
+  const [now, sitesNow] = mean(i);
+  const [prev, sitesPrev] = mean(i - 1);
+  if (!sitesNow || !sitesPrev) return null;
+  const round = (v: number) => (field === 'issues' ? Math.round(v) : Math.round(v * 10) / 10);
+  return {
+    month: snapshots[i].month,
+    prevMonth: snapshots[i - 1].month,
+    now: round(now),
+    prev: round(prev),
+    delta: round(now - prev),
+    sitesNow,
+    sitesPrev,
+  };
 }

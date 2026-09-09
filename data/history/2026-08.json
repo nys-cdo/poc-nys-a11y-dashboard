@@ -10,7 +10,15 @@
       "siteImproveScore": null,
       "auditorScore": 25,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 204,
+        "critical": 5,
+        "serious": 113,
+        "moderate": 82,
+        "minor": 4
+      },
+      "axeMonitorPagesTested": 14
     },
     {
       "domain": "publicapps.troopers.ny.gov",
@@ -19,7 +27,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 96,
+        "critical": 4,
+        "serious": 50,
+        "moderate": 42,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 7
     },
     {
       "domain": "cris.parks.ny.gov",
@@ -28,7 +44,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 110,
+        "critical": 37,
+        "serious": 18,
+        "moderate": 43,
+        "minor": 12
+      },
+      "axeMonitorPagesTested": 10
     },
     {
       "domain": "water.ny.gov",
@@ -37,7 +61,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 80,
+        "critical": 9,
+        "serious": 47,
+        "moderate": 23,
+        "minor": 1
+      },
+      "axeMonitorPagesTested": 4
     },
     {
       "domain": "cpp.dos.ny.gov",
@@ -46,7 +78,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 29,
+        "critical": 0,
+        "serious": 12,
+        "moderate": 17,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 8
     },
     {
       "domain": "lobbyingtraining.ethics.ny.gov",
@@ -55,7 +95,15 @@
       "siteImproveScore": 87,
       "auditorScore": null,
       "teamScore": 20,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 2,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 2,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 4
     },
     {
       "domain": "apa.ny.gov",
@@ -64,7 +112,15 @@
       "siteImproveScore": 73,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 8705,
+        "critical": 485,
+        "serious": 8220,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 953
     },
     {
       "domain": "abo.ny.gov",
@@ -73,7 +129,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 740,
+        "critical": 2,
+        "serious": 526,
+        "moderate": 207,
+        "minor": 5
+      },
+      "axeMonitorPagesTested": 50
     },
     {
       "domain": "bpca.ny.gov",
@@ -82,7 +146,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 7585,
+        "critical": 166,
+        "serious": 7419,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 377
     },
     {
       "domain": "nysba.ny.gov",
@@ -91,7 +163,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 692,
+        "critical": 4,
+        "serious": 688,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 161
     },
     {
       "domain": "electionenforcement.ny.gov",
@@ -100,7 +180,15 @@
       "siteImproveScore": 91,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 227,
+        "critical": 0,
+        "serious": 171,
+        "moderate": 56,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 15
     },
     {
       "domain": "bfsa.ny.gov",
@@ -109,7 +197,15 @@
       "siteImproveScore": 91,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 184,
+        "critical": 0,
+        "serious": 137,
+        "moderate": 47,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 14
     },
     {
       "domain": "ethics.ny.gov",
@@ -118,7 +214,15 @@
       "siteImproveScore": 89,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 13207,
+        "critical": 22,
+        "serious": 9157,
+        "moderate": 3554,
+        "minor": 474
+      },
+      "axeMonitorPagesTested": 682
     },
     {
       "domain": "cjn.ny.gov",
@@ -127,7 +231,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 70,
+        "critical": 2,
+        "serious": 39,
+        "moderate": 29,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 11
     },
     {
       "domain": "ccf.ny.gov",
@@ -136,7 +248,15 @@
       "siteImproveScore": null,
       "auditorScore": 7,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 602,
+        "critical": 18,
+        "serious": 205,
+        "moderate": 373,
+        "minor": 6
+      },
+      "axeMonitorPagesTested": 54
     },
     {
       "domain": "arts.ny.gov",
@@ -145,7 +265,15 @@
       "siteImproveScore": 89,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 482,
+        "critical": 3,
+        "serious": 205,
+        "moderate": 272,
+        "minor": 2
+      },
+      "axeMonitorPagesTested": 60
     },
     {
       "domain": "deferredcompboard.ny.gov",
@@ -154,7 +282,15 @@
       "siteImproveScore": 93,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 226,
+        "critical": 0,
+        "serious": 171,
+        "moderate": 55,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 16
     },
     {
       "domain": "agriculture.ny.gov",
@@ -163,7 +299,15 @@
       "siteImproveScore": 89,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 18846,
+        "critical": 25,
+        "serious": 6565,
+        "moderate": 12254,
+        "minor": 2
+      },
+      "axeMonitorPagesTested": 783
     },
     {
       "domain": "farmdirectory.agriculture.ny.gov",
@@ -172,7 +316,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 76,
+        "critical": 76,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 27
     },
     {
       "domain": "nourish.ny.gov",
@@ -181,7 +333,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": 20,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 15,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 15,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "nysfairgrounds.ny.gov",
@@ -190,7 +350,15 @@
       "siteImproveScore": 86,
       "auditorScore": 48,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1073,
+        "critical": 0,
+        "serious": 942,
+        "moderate": 124,
+        "minor": 7
+      },
+      "axeMonitorPagesTested": 77
     },
     {
       "domain": "certified.ny.gov",
@@ -199,7 +367,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 439,
+        "critical": 3,
+        "serious": 237,
+        "moderate": 199,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 49
     },
     {
       "domain": "careermobilityoffice.cs.ny.gov",
@@ -208,7 +384,15 @@
       "siteImproveScore": null,
       "auditorScore": 60,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 28213,
+        "critical": 13,
+        "serious": 10390,
+        "moderate": 17810,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 998
     },
     {
       "domain": "cs.ny.gov",
@@ -217,7 +401,15 @@
       "siteImproveScore": 74,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 33330,
+        "critical": 1013,
+        "serious": 1414,
+        "moderate": 30902,
+        "minor": 1
+      },
+      "axeMonitorPagesTested": 984
     },
     {
       "domain": "doccs.ny.gov",
@@ -226,7 +418,15 @@
       "siteImproveScore": 91,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 6021,
+        "critical": 70,
+        "serious": 4251,
+        "moderate": 1697,
+        "minor": 3
+      },
+      "axeMonitorPagesTested": 363
     },
     {
       "domain": "statejobs.ny.gov",
@@ -235,7 +435,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 2197,
+        "critical": 6,
+        "serious": 1088,
+        "moderate": 1103,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 105
     },
     {
       "domain": "info.nystateofhealth.ny.gov",
@@ -244,7 +452,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 15092,
+        "critical": 1594,
+        "serious": 7371,
+        "moderate": 3234,
+        "minor": 2893
+      },
+      "axeMonitorPagesTested": 959
     },
     {
       "domain": "nysdoccslookup.doccs.ny.gov",
@@ -253,7 +469,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": 90,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 0,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "corcraft.ny.gov",
@@ -262,7 +486,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 889,
+        "critical": 4,
+        "serious": 733,
+        "moderate": 152,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 37
     },
     {
       "domain": "climate.ny.gov",
@@ -271,7 +503,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 492,
+        "critical": 160,
+        "serious": 62,
+        "moderate": 229,
+        "minor": 41
+      },
+      "axeMonitorPagesTested": 49
     },
     {
       "domain": "dec.ny.gov",
@@ -280,7 +520,15 @@
       "siteImproveScore": 91,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 13371,
+        "critical": 431,
+        "serious": 8658,
+        "moderate": 3504,
+        "minor": 778
+      },
+      "axeMonitorPagesTested": 755
     },
     {
       "domain": "lgpc.ny.gov",
@@ -289,7 +537,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 753,
+        "critical": 1,
+        "serious": 516,
+        "moderate": 236,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 55
     },
     {
       "domain": "woodproducts.ny.gov",
@@ -298,7 +554,15 @@
       "siteImproveScore": 91,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 2520,
+        "critical": 0,
+        "serious": 1845,
+        "moderate": 675,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 171
     },
     {
       "domain": "dfs.ny.gov",
@@ -307,7 +571,15 @@
       "siteImproveScore": 91,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 10148,
+        "critical": 4525,
+        "serious": 756,
+        "moderate": 4861,
+        "minor": 6
+      },
+      "axeMonitorPagesTested": 999
     },
     {
       "domain": "collegecovidreportcard.health.ny.gov",
@@ -316,7 +588,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 6,
+        "critical": 0,
+        "serious": 1,
+        "moderate": 5,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "coronavirus.health.ny.gov",
@@ -325,7 +605,15 @@
       "siteImproveScore": 88,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1907,
+        "critical": 954,
+        "serious": 685,
+        "moderate": 189,
+        "minor": 79
+      },
+      "axeMonitorPagesTested": 35
     },
     {
       "domain": "dsripdashboards.health.ny.gov",
@@ -334,7 +622,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 67,
+        "critical": 0,
+        "serious": 44,
+        "moderate": 23,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 17
     },
     {
       "domain": "health.ny.gov",
@@ -343,7 +639,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 14182,
+        "critical": 1289,
+        "serious": 5984,
+        "moderate": 6774,
+        "minor": 135
+      },
+      "axeMonitorPagesTested": 968
     },
     {
       "domain": "nyshc.health.ny.gov",
@@ -352,7 +656,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1092,
+        "critical": 231,
+        "serious": 505,
+        "moderate": 349,
+        "minor": 7
+      },
+      "axeMonitorPagesTested": 39
     },
     {
       "domain": "nyspltc.health.ny.gov",
@@ -361,7 +673,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 99,
+        "critical": 1,
+        "serious": 4,
+        "moderate": 93,
+        "minor": 1
+      },
+      "axeMonitorPagesTested": 12
     },
     {
       "domain": "obsaer.health.ny.gov",
@@ -370,7 +690,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 30,
+        "critical": 1,
+        "serious": 27,
+        "moderate": 1,
+        "minor": 1
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "planaheadny.health.ny.gov",
@@ -379,7 +707,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 157,
+        "critical": 0,
+        "serious": 71,
+        "moderate": 85,
+        "minor": 1
+      },
+      "axeMonitorPagesTested": 14
     },
     {
       "domain": "pndslookup.health.ny.gov",
@@ -388,7 +724,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 164,
+        "critical": 1,
+        "serious": 30,
+        "moderate": 133,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 11
     },
     {
       "domain": "profiles.health.ny.gov",
@@ -397,7 +741,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 65915,
+        "critical": 26483,
+        "serious": 11623,
+        "moderate": 27808,
+        "minor": 1
+      },
+      "axeMonitorPagesTested": 998
     },
     {
       "domain": "regs.health.ny.gov",
@@ -406,7 +758,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 9837,
+        "critical": 1001,
+        "serious": 2840,
+        "moderate": 5989,
+        "minor": 7
+      },
+      "axeMonitorPagesTested": 1001
     },
     {
       "domain": "talktoyourpatients.health.ny.gov",
@@ -415,7 +775,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 59,
+        "critical": 0,
+        "serious": 7,
+        "moderate": 52,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 7
     },
     {
       "domain": "wic2go.health.ny.gov",
@@ -424,7 +792,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4,
+        "critical": 0,
+        "serious": 1,
+        "moderate": 3,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "abscessus.wadsworth.org",
@@ -433,7 +809,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": 20,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 9,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 9,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "bac.prod.nyeihub.com",
@@ -442,7 +826,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 269,
+        "critical": 68,
+        "serious": 5,
+        "moderate": 151,
+        "minor": 45
+      },
+      "axeMonitorPagesTested": 22
     },
     {
       "domain": "donatelife.ny.gov",
@@ -451,7 +843,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 255,
+        "critical": 30,
+        "serious": 133,
+        "moderate": 92,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 16
     },
     {
       "domain": "healthdata.ny.gov",
@@ -460,7 +860,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": 20,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 26,
+        "critical": 0,
+        "serious": 13,
+        "moderate": 13,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 9
     },
     {
       "domain": "helenhayeshospital.org",
@@ -469,7 +877,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 6595,
+        "critical": 30,
+        "serious": 5052,
+        "moderate": 1510,
+        "minor": 3
+      },
+      "axeMonitorPagesTested": 634
     },
     {
       "domain": "lgbthealthprogram.org",
@@ -478,7 +894,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 33,
+        "critical": 0,
+        "serious": 20,
+        "moderate": 13,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 15
     },
     {
       "domain": "salmonella.wadsworth.org",
@@ -487,7 +911,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 53,
+        "critical": 26,
+        "serious": 2,
+        "moderate": 25,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "smegmatis.wadsworth.org",
@@ -496,7 +928,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 100,
+        "critical": 37,
+        "serious": 14,
+        "moderate": 49,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "wadsworth.org",
@@ -505,7 +945,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 6787,
+        "critical": 329,
+        "serious": 3061,
+        "moderate": 3247,
+        "minor": 150
+      },
+      "axeMonitorPagesTested": 944
     },
     {
       "domain": "careerzone.labor.ny.gov",
@@ -514,7 +962,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4,
+        "critical": 0,
+        "serious": 2,
+        "moderate": 2,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "dol.ny.gov",
@@ -523,7 +979,15 @@
       "siteImproveScore": 90,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 5793,
+        "critical": 1352,
+        "serious": 1197,
+        "moderate": 3098,
+        "minor": 146
+      },
+      "axeMonitorPagesTested": 987
     },
     {
       "domain": "osos.labor.ny.gov",
@@ -532,7 +996,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 45,
+        "critical": 0,
+        "serious": 11,
+        "moderate": 34,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 2
     },
     {
       "domain": "industrialappeals.ny.gov",
@@ -541,7 +1013,15 @@
       "siteImproveScore": 93,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 294,
+        "critical": 0,
+        "serious": 214,
+        "moderate": 80,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 23
     },
     {
       "domain": "uiappeals.ny.gov",
@@ -550,7 +1030,15 @@
       "siteImproveScore": 90,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 415,
+        "critical": 3,
+        "serious": 259,
+        "moderate": 153,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 53
     },
     {
       "domain": "dmv.ny.gov",
@@ -559,7 +1047,15 @@
       "siteImproveScore": 93,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4422,
+        "critical": 27,
+        "serious": 553,
+        "moderate": 3830,
+        "minor": 12
+      },
+      "axeMonitorPagesTested": 507
     },
     {
       "domain": "dos.ny.gov",
@@ -568,7 +1064,15 @@
       "siteImproveScore": 87,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 7619,
+        "critical": 47,
+        "serious": 4277,
+        "moderate": 3263,
+        "minor": 32
+      },
+      "axeMonitorPagesTested": 910
     },
     {
       "domain": "filing.dos.ny.gov",
@@ -577,7 +1081,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": 20,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 52,
+        "critical": 0,
+        "serious": 14,
+        "moderate": 38,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 4
     },
     {
       "domain": "ejustice.ny.gov",
@@ -586,7 +1098,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": 60,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 4,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "businessexpress.ny.gov",
@@ -595,7 +1115,15 @@
       "siteImproveScore": null,
       "auditorScore": 24,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3214,
+        "critical": 3,
+        "serious": 331,
+        "moderate": 2866,
+        "minor": 14
+      },
+      "axeMonitorPagesTested": 205
     },
     {
       "domain": "eamjrp.dot.ny.gov",
@@ -604,7 +1132,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 62,
+        "critical": 0,
+        "serious": 52,
+        "moderate": 2,
+        "minor": 8
+      },
+      "axeMonitorPagesTested": 2
     },
     {
       "domain": "pic.dot.ny.gov",
@@ -613,7 +1149,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 17,
+        "critical": 10,
+        "serious": 0,
+        "moderate": 7,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "projectdocs.dot.ny.gov",
@@ -622,7 +1166,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 216,
+        "critical": 0,
+        "serious": 123,
+        "moderate": 93,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 18
     },
     {
       "domain": "route17.dot.ny.gov",
@@ -631,7 +1183,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 251,
+        "critical": 59,
+        "serious": 85,
+        "moderate": 107,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 7
     },
     {
       "domain": "webapps.dot.ny.gov",
@@ -640,7 +1200,15 @@
       "siteImproveScore": 89,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 708,
+        "critical": 22,
+        "serious": 318,
+        "moderate": 359,
+        "minor": 9
+      },
+      "axeMonitorPagesTested": 101
     },
     {
       "domain": "dot.ny.gov",
@@ -649,7 +1217,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 33932,
+        "critical": 1028,
+        "serious": 3980,
+        "moderate": 28847,
+        "minor": 77
+      },
+      "axeMonitorPagesTested": 964
     },
     {
       "domain": "nymtc.org",
@@ -658,7 +1234,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 19229,
+        "critical": 1165,
+        "serious": 9866,
+        "moderate": 8012,
+        "minor": 186
+      },
+      "axeMonitorPagesTested": 399
     },
     {
       "domain": "riekersolutions.com",
@@ -667,7 +1251,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 125,
+        "critical": 6,
+        "serious": 48,
+        "moderate": 71,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 7
     },
     {
       "domain": "tig.nymtc.org",
@@ -676,7 +1268,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 12696,
+        "critical": 3196,
+        "serious": 5759,
+        "moderate": 3733,
+        "minor": 8
+      },
+      "axeMonitorPagesTested": 995
     },
     {
       "domain": "apps.criminaljustice.ny.gov",
@@ -685,7 +1285,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 5905,
+        "critical": 205,
+        "serious": 1065,
+        "moderate": 4585,
+        "minor": 50
+      },
+      "axeMonitorPagesTested": 278
     },
     {
       "domain": "nics.ny.gov",
@@ -694,7 +1302,15 @@
       "siteImproveScore": 95,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 34,
+        "critical": 0,
+        "serious": 8,
+        "moderate": 26,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 10
     },
     {
       "domain": "nysnics.ny.gov",
@@ -703,7 +1319,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4,
+        "critical": 0,
+        "serious": 2,
+        "moderate": 2,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "amber.ny.gov",
@@ -712,7 +1336,15 @@
       "siteImproveScore": 94,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 15,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 15,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 7
     },
     {
       "domain": "grants.dhses.ny.gov",
@@ -721,7 +1353,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 9,
+        "critical": 1,
+        "serious": 3,
+        "moderate": 5,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "oopalert.ny.gov",
@@ -730,7 +1370,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 39,
+        "critical": 5,
+        "serious": 10,
+        "moderate": 24,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 4
     },
     {
       "domain": "resilient.ny.gov",
@@ -739,7 +1387,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 44,
+        "critical": 0,
+        "serious": 17,
+        "moderate": 27,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 11
     },
     {
       "domain": "hcr.ny.gov",
@@ -748,7 +1404,15 @@
       "siteImproveScore": 90,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 5788,
+        "critical": 120,
+        "serious": 3187,
+        "moderate": 2458,
+        "minor": 23
+      },
+      "axeMonitorPagesTested": 643
     },
     {
       "domain": "housingsearch.hcr.ny.gov",
@@ -757,7 +1421,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": 20,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 23,
+        "critical": 0,
+        "serious": 11,
+        "moderate": 11,
+        "minor": 1
+      },
+      "axeMonitorPagesTested": 9
     },
     {
       "domain": "rent.hcr.ny.gov",
@@ -766,7 +1438,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 17,
+        "critical": 0,
+        "serious": 7,
+        "moderate": 10,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 4
     },
     {
       "domain": "section8.hcr.ny.gov",
@@ -775,7 +1455,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 7,
+        "critical": 0,
+        "serious": 2,
+        "moderate": 3,
+        "minor": 2
+      },
+      "axeMonitorPagesTested": 5
     },
     {
       "domain": "dhr.ny.gov",
@@ -784,7 +1472,15 @@
       "siteImproveScore": 94,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1168,
+        "critical": 0,
+        "serious": 626,
+        "moderate": 542,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 162
     },
     {
       "domain": "dmna.ny.gov",
@@ -793,7 +1489,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 33285,
+        "critical": 99,
+        "serious": 9712,
+        "moderate": 23377,
+        "minor": 97
+      },
+      "axeMonitorPagesTested": 995
     },
     {
       "domain": "museum.dmna.ny.gov",
@@ -802,7 +1506,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 27434,
+        "critical": 520,
+        "serious": 21559,
+        "moderate": 4363,
+        "minor": 992
+      },
+      "axeMonitorPagesTested": 988
     },
     {
       "domain": "nysmm.inmagic.com",
@@ -811,7 +1523,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 665,
+        "critical": 108,
+        "serious": 243,
+        "moderate": 314,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 26
     },
     {
       "domain": "firearms.troopers.ny.gov",
@@ -820,7 +1540,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 27,
+        "critical": 0,
+        "serious": 8,
+        "moderate": 19,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 2
     },
     {
       "domain": "troopers.ny.gov",
@@ -829,7 +1557,15 @@
       "siteImproveScore": 90,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 9484,
+        "critical": 16,
+        "serious": 6236,
+        "moderate": 3232,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 930
     },
     {
       "domain": "joinstatepolice.ny.gov",
@@ -838,7 +1574,15 @@
       "siteImproveScore": 93,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 2946,
+        "critical": 0,
+        "serious": 2258,
+        "moderate": 687,
+        "minor": 1
+      },
+      "axeMonitorPagesTested": 190
     },
     {
       "domain": "dta.ny.gov",
@@ -847,7 +1591,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 52,
+        "critical": 0,
+        "serious": 22,
+        "moderate": 30,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 56
     },
     {
       "domain": "openbudget.ny.gov",
@@ -856,7 +1608,15 @@
       "siteImproveScore": null,
       "auditorScore": 0,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 126,
+        "critical": 20,
+        "serious": 42,
+        "moderate": 62,
+        "minor": 2
+      },
+      "axeMonitorPagesTested": 31
     },
     {
       "domain": "cpc.ny.gov",
@@ -865,7 +1625,15 @@
       "siteImproveScore": 93,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 216,
+        "critical": 0,
+        "serious": 146,
+        "moderate": 70,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 22
     },
     {
       "domain": "frb.ny.gov",
@@ -874,7 +1642,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 42,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 42,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 22
     },
     {
       "domain": "nylottery.ny.gov",
@@ -883,7 +1659,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1214,
+        "critical": 415,
+        "serious": 63,
+        "moderate": 469,
+        "minor": 267
+      },
+      "axeMonitorPagesTested": 224
     },
     {
       "domain": "memorials.veterans.ny.gov",
@@ -892,7 +1676,15 @@
       "siteImproveScore": null,
       "auditorScore": 10,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 255,
+        "critical": 23,
+        "serious": 23,
+        "moderate": 209,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 23
     },
     {
       "domain": "veterans.ny.gov",
@@ -901,7 +1693,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1094,
+        "critical": 28,
+        "serious": 488,
+        "moderate": 578,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 130
     },
     {
       "domain": "nysveteransadmin.ny.gov",
@@ -910,7 +1710,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 12,
+        "critical": 2,
+        "serious": 3,
+        "moderate": 7,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "digitalcollections.archives.nysed.gov",
@@ -919,7 +1727,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 32685,
+        "critical": 2988,
+        "serious": 20513,
+        "moderate": 9174,
+        "minor": 10
+      },
+      "axeMonitorPagesTested": 994
     },
     {
       "domain": "nysed.gov",
@@ -928,7 +1744,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 20915,
+        "critical": 48,
+        "serious": 2343,
+        "moderate": 18448,
+        "minor": 76
+      },
+      "axeMonitorPagesTested": 987
     },
     {
       "domain": "nysm.nysed.gov",
@@ -937,7 +1761,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 14168,
+        "critical": 187,
+        "serious": 10837,
+        "moderate": 2967,
+        "minor": 177
+      },
+      "axeMonitorPagesTested": 955
     },
     {
       "domain": "p12.nysed.gov",
@@ -946,7 +1778,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 11497,
+        "critical": 12,
+        "serious": 4941,
+        "moderate": 6408,
+        "minor": 136
+      },
+      "axeMonitorPagesTested": 787
     },
     {
       "domain": "stateaid.nysed.gov",
@@ -955,7 +1795,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 2915,
+        "critical": 170,
+        "serious": 1033,
+        "moderate": 1673,
+        "minor": 39
+      },
+      "axeMonitorPagesTested": 273
     },
     {
       "domain": "esd.ny.gov",
@@ -964,7 +1812,15 @@
       "siteImproveScore": 84,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 7400,
+        "critical": 582,
+        "serious": 1249,
+        "moderate": 5255,
+        "minor": 314
+      },
+      "axeMonitorPagesTested": 543
     },
     {
       "domain": "filmtaxcredit.apps.esd.ny.gov",
@@ -973,7 +1829,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 27,
+        "critical": 4,
+        "serious": 6,
+        "moderate": 17,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 3
     },
     {
       "domain": "formrouter.apps.esd.ny.gov",
@@ -982,7 +1846,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 10,
+        "critical": 2,
+        "serious": 1,
+        "moderate": 7,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "nyventuresapply.esd.ny.gov",
@@ -991,7 +1863,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 5,
+        "critical": 1,
+        "serious": 1,
+        "moderate": 3,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "cfaresources.ny.gov",
@@ -1000,7 +1880,15 @@
       "siteImproveScore": 97,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 27,
+        "critical": 0,
+        "serious": 21,
+        "moderate": 6,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 2
     },
     {
       "domain": "iloveny.com",
@@ -1018,7 +1906,15 @@
       "siteImproveScore": 91,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 2674,
+        "critical": 19,
+        "serious": 275,
+        "moderate": 2380,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 498
     },
     {
       "domain": "nysdreamists.hesc.ny.gov",
@@ -1027,7 +1923,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 76,
+        "critical": 2,
+        "serious": 8,
+        "moderate": 66,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 6
     },
     {
       "domain": "billing.its.ny.gov",
@@ -1036,7 +1940,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 41,
+        "critical": 6,
+        "serious": 12,
+        "moderate": 23,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 3
     },
     {
       "domain": "data.ny.gov",
@@ -1045,7 +1957,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3117,
+        "critical": 112,
+        "serious": 2214,
+        "moderate": 781,
+        "minor": 10
+      },
+      "axeMonitorPagesTested": 870
     },
     {
       "domain": "gis.ny.gov",
@@ -1054,7 +1974,15 @@
       "siteImproveScore": 90,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3596,
+        "critical": 9,
+        "serious": 2505,
+        "moderate": 1052,
+        "minor": 30
+      },
+      "axeMonitorPagesTested": 553
     },
     {
       "domain": "health.data.ny.gov",
@@ -1063,7 +1991,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1974,
+        "critical": 0,
+        "serious": 1337,
+        "moderate": 634,
+        "minor": 3
+      },
+      "axeMonitorPagesTested": 654
     },
     {
       "domain": "search.ny.gov",
@@ -1072,7 +2008,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": 60,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 3,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 3
     },
     {
       "domain": "trainingspace.ny.gov",
@@ -1081,7 +2025,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 462,
+        "critical": 5,
+        "serious": 10,
+        "moderate": 439,
+        "minor": 8
+      },
+      "axeMonitorPagesTested": 77
     },
     {
       "domain": "upload.ny.gov",
@@ -1090,7 +2042,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": 60,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 3,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 2
     },
     {
       "domain": "whoswho.gis.ny.gov",
@@ -1099,7 +2059,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 8,
+        "critical": 0,
+        "serious": 1,
+        "moderate": 7,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "lab-my.ny.gov",
@@ -1108,7 +2076,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4,
+        "critical": 0,
+        "serious": 2,
+        "moderate": 2,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "rapps.ny.gov",
@@ -1117,7 +2093,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 12,
+        "critical": 1,
+        "serious": 3,
+        "moderate": 8,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 2
     },
     {
       "domain": "legethics.ny.gov",
@@ -1126,7 +2110,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 428,
+        "critical": 161,
+        "serious": 178,
+        "moderate": 89,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 80
     },
     {
       "domain": "nypa.gov",
@@ -1135,7 +2127,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3802,
+        "critical": 272,
+        "serious": 2454,
+        "moderate": 901,
+        "minor": 175
+      },
+      "axeMonitorPagesTested": 428
     },
     {
       "domain": "services.nypa.gov",
@@ -1144,7 +2144,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 189,
+        "critical": 17,
+        "serious": 113,
+        "moderate": 57,
+        "minor": 2
+      },
+      "axeMonitorPagesTested": 35
     },
     {
       "domain": "capandinvest.ny.gov",
@@ -1153,7 +2161,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 42,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 40,
+        "minor": 2
+      },
+      "axeMonitorPagesTested": 8
     },
     {
       "domain": "der.nyserda.ny.gov",
@@ -1162,7 +2178,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 5676,
+        "critical": 1298,
+        "serious": 1225,
+        "moderate": 1441,
+        "minor": 1712
+      },
+      "axeMonitorPagesTested": 227
     },
     {
       "domain": "forms.nyserda.ny.gov",
@@ -1171,7 +2195,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 43,
+        "critical": 3,
+        "serious": 3,
+        "moderate": 37,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 4
     },
     {
       "domain": "nyserda.ny.gov",
@@ -1180,7 +2212,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 6912,
+        "critical": 212,
+        "serious": 1174,
+        "moderate": 5461,
+        "minor": 65
+      },
+      "axeMonitorPagesTested": 1001
     },
     {
       "domain": "portal.nyserda.ny.gov",
@@ -1189,7 +2229,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 43,
+        "critical": 0,
+        "serious": 7,
+        "moderate": 36,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 3
     },
     {
       "domain": "nygats.ny.gov",
@@ -1198,7 +2246,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 345,
+        "critical": 14,
+        "serious": 61,
+        "moderate": 248,
+        "minor": 22
+      },
+      "axeMonitorPagesTested": 23
     },
     {
       "domain": "fcb.ny.gov",
@@ -1207,7 +2263,15 @@
       "siteImproveScore": 91,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 330,
+        "critical": 17,
+        "serious": 214,
+        "moderate": 99,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 35
     },
     {
       "domain": "cgo.gaming.ny.gov",
@@ -1216,7 +2280,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 79,
+        "critical": 4,
+        "serious": 27,
+        "moderate": 48,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 4
     },
     {
       "domain": "exclusion.gaming.ny.gov",
@@ -1225,7 +2297,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 19,
+        "critical": 0,
+        "serious": 6,
+        "moderate": 13,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "waterfront.ny.gov",
@@ -1234,7 +2314,15 @@
       "siteImproveScore": 89,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 861,
+        "critical": 0,
+        "serious": 470,
+        "moderate": 391,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 160
     },
     {
       "domain": "thruway.ny.gov",
@@ -1243,7 +2331,15 @@
       "siteImproveScore": 86,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 8948,
+        "critical": 4593,
+        "serious": 1804,
+        "moderate": 2551,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 741
     },
     {
       "domain": "mariomcuomobridge.ny.gov",
@@ -1252,7 +2348,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 175,
+        "critical": 4,
+        "serious": 15,
+        "moderate": 156,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 28
     },
     {
       "domain": "cdd.ny.gov",
@@ -1261,7 +2365,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1239,
+        "critical": 40,
+        "serious": 594,
+        "moderate": 605,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 160
     },
     {
       "domain": "directsupportcareers.com",
@@ -1270,7 +2382,15 @@
       "siteImproveScore": 94,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 51,
+        "critical": 0,
+        "serious": 7,
+        "moderate": 44,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 12
     },
     {
       "domain": "opdv.ny.gov",
@@ -1279,7 +2399,15 @@
       "siteImproveScore": 93,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1425,
+        "critical": 11,
+        "serious": 786,
+        "moderate": 628,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 187
     },
     {
       "domain": "apps.oasas.ny.gov",
@@ -1288,7 +2416,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 945,
+        "critical": 26,
+        "serious": 210,
+        "moderate": 709,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 14
     },
     {
       "domain": "credentialing.oasas.ny.gov",
@@ -1297,7 +2433,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 12,
+        "critical": 3,
+        "serious": 6,
+        "moderate": 3,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 6
     },
     {
       "domain": "oasas.ny.gov",
@@ -1306,7 +2450,15 @@
       "siteImproveScore": 89,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 11638,
+        "critical": 258,
+        "serious": 6466,
+        "moderate": 4911,
+        "minor": 3
+      },
+      "axeMonitorPagesTested": 868
     },
     {
       "domain": "cannabis.ny.gov",
@@ -1315,7 +2467,15 @@
       "siteImproveScore": 94,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 5374,
+        "critical": 19,
+        "serious": 1845,
+        "moderate": 3485,
+        "minor": 25
+      },
+      "axeMonitorPagesTested": 184
     },
     {
       "domain": "countyplans.ocfs.ny.gov",
@@ -1324,7 +2484,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 63,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 63,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 6
     },
     {
       "domain": "ocfs.ny.gov",
@@ -1333,7 +2501,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4,
+        "critical": 0,
+        "serious": 2,
+        "moderate": 2,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "dfa.ny.gov",
@@ -1342,7 +2518,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4,
+        "critical": 0,
+        "serious": 2,
+        "moderate": 2,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "helphubforfamilies.ny.gov",
@@ -1351,7 +2535,15 @@
       "siteImproveScore": 91,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 225,
+        "critical": 1,
+        "serious": 32,
+        "moderate": 168,
+        "minor": 24
+      },
+      "axeMonitorPagesTested": 24
     },
     {
       "domain": "educationbenefits.oer.ny.gov",
@@ -1360,7 +2552,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 28,
+        "critical": 0,
+        "serious": 9,
+        "moderate": 19,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 3
     },
     {
       "domain": "cybertraining.ny.gov",
@@ -1369,7 +2569,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": 60,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 0,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "nyscseapartnership.org",
@@ -1378,7 +2586,15 @@
       "siteImproveScore": 83,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 13334,
+        "critical": 620,
+        "serious": 1401,
+        "moderate": 10721,
+        "minor": 592
+      },
+      "axeMonitorPagesTested": 577
     },
     {
       "domain": "ogs.ny.gov",
@@ -1387,7 +2603,15 @@
       "siteImproveScore": 90,
       "auditorScore": 0,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 22031,
+        "critical": 494,
+        "serious": 17605,
+        "moderate": 3926,
+        "minor": 6
+      },
+      "axeMonitorPagesTested": 816
     },
     {
       "domain": "salesreports.ogs.ny.gov",
@@ -1396,7 +2620,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 18,
+        "critical": 2,
+        "serious": 0,
+        "moderate": 10,
+        "minor": 6
+      },
+      "axeMonitorPagesTested": 4
     },
     {
       "domain": "sdves.ogs.ny.gov",
@@ -1405,7 +2637,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 46,
+        "critical": 11,
+        "serious": 15,
+        "moderate": 20,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 4
     },
     {
       "domain": "cams.omh.ny.gov",
@@ -1414,7 +2654,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 2,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 2,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "cnda.omh.ny.gov",
@@ -1423,7 +2671,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 2,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 2,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "pcs.omh.ny.gov",
@@ -1432,7 +2688,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 4,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "psyckesmedicaid-qa-automation.omh.ny.gov",
@@ -1441,7 +2705,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 21,
+        "critical": 4,
+        "serious": 17,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "rtf.omh.ny.gov",
@@ -1450,7 +2722,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3,
+        "critical": 0,
+        "serious": 1,
+        "moderate": 2,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 2
     },
     {
       "domain": "clozapine.practiceinnovations.org",
@@ -1459,7 +2739,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3,
+        "critical": 0,
+        "serious": 1,
+        "moderate": 2,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "ext.opwdd.ny.gov",
@@ -1468,7 +2756,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 98,
+        "critical": 21,
+        "serious": 14,
+        "moderate": 63,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 10
     },
     {
       "domain": "my.opwdd.ny.gov",
@@ -1477,7 +2773,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 101,
+        "critical": 6,
+        "serious": 13,
+        "moderate": 82,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 6
     },
     {
       "domain": "opwdd.ny.gov",
@@ -1486,7 +2790,15 @@
       "siteImproveScore": 90,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 11405,
+        "critical": 110,
+        "serious": 8169,
+        "moderate": 3119,
+        "minor": 7
+      },
+      "axeMonitorPagesTested": 750
     },
     {
       "domain": "providerdirectory.opwdd.ny.gov",
@@ -1495,7 +2807,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4,
+        "critical": 0,
+        "serious": 2,
+        "moderate": 2,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "securemail.opwdd.ny.gov",
@@ -1504,7 +2824,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 54,
+        "critical": 0,
+        "serious": 17,
+        "moderate": 37,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 3
     },
     {
       "domain": "parks.ny.gov",
@@ -1513,7 +2841,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 6884,
+        "critical": 43,
+        "serious": 579,
+        "moderate": 6248,
+        "minor": 14
+      },
+      "axeMonitorPagesTested": 1001
     },
     {
       "domain": "mybenefits.ny.gov",
@@ -1522,7 +2858,15 @@
       "siteImproveScore": null,
       "auditorScore": 79,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 251,
+        "critical": 1,
+        "serious": 20,
+        "moderate": 230,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 18
     },
     {
       "domain": "otda.ny.gov",
@@ -1531,7 +2875,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4,
+        "critical": 0,
+        "serious": 2,
+        "moderate": 2,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "broadband.ny.gov",
@@ -1540,7 +2892,15 @@
       "siteImproveScore": 90,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 307,
+        "critical": 1,
+        "serious": 186,
+        "moderate": 120,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 27
     },
     {
       "domain": "governor.ny.gov",
@@ -1549,7 +2909,15 @@
       "siteImproveScore": 87,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3313,
+        "critical": 91,
+        "serious": 3020,
+        "moderate": 202,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 471
     },
     {
       "domain": "omig.ny.gov",
@@ -1558,7 +2926,15 @@
       "siteImproveScore": 87,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 560,
+        "critical": 3,
+        "serious": 190,
+        "moderate": 361,
+        "minor": 6
+      },
+      "axeMonitorPagesTested": 160
     },
     {
       "domain": "mtaig.ny.gov",
@@ -1567,7 +2943,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 511,
+        "critical": 0,
+        "serious": 165,
+        "moderate": 346,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 27
     },
     {
       "domain": "ecfsa.ny.gov",
@@ -1576,7 +2960,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1362,
+        "critical": 0,
+        "serious": 959,
+        "moderate": 403,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 124
     },
     {
       "domain": "grantsmanagement.ny.gov",
@@ -1585,7 +2977,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 100,
+        "critical": 0,
+        "serious": 40,
+        "moderate": 60,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 19
     },
     {
       "domain": "opengovernment.ny.gov",
@@ -1594,7 +2994,15 @@
       "siteImproveScore": 91,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 798,
+        "critical": 2,
+        "serious": 617,
+        "moderate": 179,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 51
     },
     {
       "domain": "ovs.ny.gov",
@@ -1603,7 +3011,15 @@
       "siteImproveScore": 91,
       "auditorScore": null,
       "teamScore": 20,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1300,
+        "critical": 3,
+        "serious": 973,
+        "moderate": 322,
+        "minor": 2
+      },
+      "axeMonitorPagesTested": 69
     },
     {
       "domain": "pcfb.ny.gov",
@@ -1612,7 +3028,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 808,
+        "critical": 27,
+        "serious": 515,
+        "moderate": 266,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 64
     },
     {
       "domain": "perb.ny.gov",
@@ -1621,7 +3045,15 @@
       "siteImproveScore": 90,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3491,
+        "critical": 1,
+        "serious": 2927,
+        "moderate": 563,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 104
     },
     {
       "domain": "nyenr.elections.ny.gov",
@@ -1630,7 +3062,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": 100,
-      "blocked": true
+      "blocked": true,
+      "axeMonitorIssues": {
+        "total": 0,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 2
     },
     {
       "domain": "nyovr.elections.ny.gov",
@@ -1639,7 +3079,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": true
+      "blocked": true,
+      "axeMonitorIssues": {
+        "total": 2,
+        "critical": 2,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 2
     },
     {
       "domain": "publicreporting.elections.ny.gov",
@@ -1648,7 +3096,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": 40,
-      "blocked": true
+      "blocked": true,
+      "axeMonitorIssues": {
+        "total": 3,
+        "critical": 0,
+        "serious": 3,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 2
     },
     {
       "domain": "results.elections.ny.gov",
@@ -1657,7 +3113,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": 40,
-      "blocked": true
+      "blocked": true,
+      "axeMonitorIssues": {
+        "total": 33,
+        "critical": 0,
+        "serious": 33,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "voterlookup.elections.ny.gov",
@@ -1666,7 +3130,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": 100,
-      "blocked": true
+      "blocked": true,
+      "axeMonitorIssues": {
+        "total": 0,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 2
     },
     {
       "domain": "scoc.ny.gov",
@@ -1675,7 +3147,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 379,
+        "critical": 0,
+        "serious": 320,
+        "moderate": 58,
+        "minor": 1
+      },
+      "axeMonitorPagesTested": 13
     },
     {
       "domain": "lamp.sla.ny.gov",
@@ -1684,7 +3164,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": 20,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 3,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "sla.ny.gov",
@@ -1693,7 +3181,15 @@
       "siteImproveScore": 90,
       "auditorScore": 15,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3653,
+        "critical": 18,
+        "serious": 2866,
+        "moderate": 769,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 182
     },
     {
       "domain": "nyconnects.ny.gov",
@@ -1702,7 +3198,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": 60,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 354,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 354,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 71
     },
     {
       "domain": "planforaging.ny.gov",
@@ -1711,7 +3215,15 @@
       "siteImproveScore": 94,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1841,
+        "critical": 0,
+        "serious": 1215,
+        "moderate": 626,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 161
     },
     {
       "domain": "alert.ny.gov",
@@ -1720,7 +3232,15 @@
       "siteImproveScore": 93,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 156,
+        "critical": 0,
+        "serious": 106,
+        "moderate": 50,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 18
     },
     {
       "domain": "sfs.ny.gov",
@@ -1729,7 +3249,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 77,
+        "critical": 2,
+        "serious": 12,
+        "moderate": 63,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 20
     },
     {
       "domain": "definedcontribution.ny.gov",
@@ -1738,7 +3266,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 3,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "edi.wcb.ny.gov",
@@ -1747,7 +3283,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 171,
+        "critical": 3,
+        "serious": 66,
+        "moderate": 89,
+        "minor": 13
+      },
+      "axeMonitorPagesTested": 13
     },
     {
       "domain": "justicecenter.ny.gov",
@@ -1756,7 +3300,15 @@
       "siteImproveScore": 90,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4067,
+        "critical": 67,
+        "serious": 3378,
+        "moderate": 622,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 194
     },
     {
       "domain": "elections.ny.gov",
@@ -1765,7 +3317,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": 20,
-      "blocked": true
+      "blocked": true,
+      "axeMonitorIssues": {
+        "total": 6,
+        "critical": 2,
+        "serious": 4,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 4
     },
     {
       "domain": "shop.parks.ny.gov",
@@ -1774,7 +3334,15 @@
       "siteImproveScore": null,
       "auditorScore": 0,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 960,
+        "critical": 29,
+        "serious": 577,
+        "moderate": 349,
+        "minor": 5
+      },
+      "axeMonitorPagesTested": 23
     },
     {
       "domain": "nysmokefree.com",
@@ -1783,7 +3351,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1024,
+        "critical": 2,
+        "serious": 212,
+        "moderate": 808,
+        "minor": 2
+      },
+      "axeMonitorPagesTested": 232
     },
     {
       "domain": "perinatalpathways.org",
@@ -1792,7 +3368,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 162,
+        "critical": 28,
+        "serious": 105,
+        "moderate": 28,
+        "minor": 1
+      },
+      "axeMonitorPagesTested": 12
     },
     {
       "domain": "sfold.wadsworth.org",
@@ -1801,7 +3385,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 387,
+        "critical": 95,
+        "serious": 171,
+        "moderate": 121,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 12
     },
     {
       "domain": "seasonalworks.labor.ny.gov",
@@ -1810,7 +3402,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3958,
+        "critical": 0,
+        "serious": 2353,
+        "moderate": 1605,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 181
     },
     {
       "domain": "ag.ny.gov",
@@ -1819,7 +3419,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 7547,
+        "critical": 459,
+        "serious": 1386,
+        "moderate": 5542,
+        "minor": 160
+      },
+      "axeMonitorPagesTested": 996
     },
     {
       "domain": "trafficsafety.ny.gov",
@@ -1828,7 +3436,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 6880,
+        "critical": 12,
+        "serious": 5359,
+        "moderate": 1509,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 379
     },
     {
       "domain": "dps.ny.gov",
@@ -1837,7 +3453,15 @@
       "siteImproveScore": 90,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 21593,
+        "critical": 2996,
+        "serious": 8807,
+        "moderate": 7188,
+        "minor": 2602
+      },
+      "axeMonitorPagesTested": 902
     },
     {
       "domain": "mapmybroadband.dps.ny.gov",
@@ -1846,7 +3470,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": 20,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 6,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 4,
+        "minor": 2
+      },
+      "axeMonitorPagesTested": 2
     },
     {
       "domain": "apps.dos.ny.gov",
@@ -1855,7 +3487,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4,
+        "critical": 0,
+        "serious": 2,
+        "moderate": 2,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "paidfamilyleave.ny.gov",
@@ -1864,7 +3504,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1965,
+        "critical": 22,
+        "serious": 1342,
+        "moderate": 601,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 153
     },
     {
       "domain": "aging.ny.gov",
@@ -1873,7 +3521,15 @@
       "siteImproveScore": 89,
       "auditorScore": 43,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4256,
+        "critical": 22,
+        "serious": 3039,
+        "moderate": 1194,
+        "minor": 1
+      },
+      "axeMonitorPagesTested": 284
     },
     {
       "domain": "newyorkersvolunteer.ny.gov",
@@ -1882,7 +3538,15 @@
       "siteImproveScore": 90,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 822,
+        "critical": 6,
+        "serious": 554,
+        "moderate": 262,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 58
     },
     {
       "domain": "childsupport.ny.gov",
@@ -1891,7 +3555,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4,
+        "critical": 0,
+        "serious": 2,
+        "moderate": 2,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "rwf.otda.ny.gov",
@@ -1900,7 +3572,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4,
+        "critical": 0,
+        "serious": 2,
+        "moderate": 2,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "empiretrail.ny.gov",
@@ -1909,7 +3589,15 @@
       "siteImproveScore": 84,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 555,
+        "critical": 25,
+        "serious": 147,
+        "moderate": 383,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 79
     },
     {
       "domain": "assembly.ny.gov",
@@ -1918,7 +3606,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 7544,
+        "critical": 243,
+        "serious": 794,
+        "moderate": 916,
+        "minor": 5591
+      },
+      "axeMonitorPagesTested": 1001
     },
     {
       "domain": "franchiseoversightboard.ny.gov",
@@ -1927,7 +3623,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 540,
+        "critical": 1,
+        "serious": 337,
+        "moderate": 202,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 72
     },
     {
       "domain": "gaming.ny.gov",
@@ -1936,7 +3640,15 @@
       "siteImproveScore": 91,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3202,
+        "critical": 66,
+        "serious": 2168,
+        "moderate": 968,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 228
     },
     {
       "domain": "queencityforward.dot.ny.gov",
@@ -1945,7 +3657,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 23,
+        "critical": 10,
+        "serious": 10,
+        "moderate": 3,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "knowledgebank.criminaljustice.ny.gov",
@@ -1954,7 +3674,15 @@
       "siteImproveScore": 90,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1059,
+        "critical": 0,
+        "serious": 659,
+        "moderate": 392,
+        "minor": 8
+      },
+      "axeMonitorPagesTested": 106
     },
     {
       "domain": "mtb.wadsworth.org",
@@ -1963,7 +3691,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 61,
+        "critical": 28,
+        "serious": 3,
+        "moderate": 30,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "boards.criminaljustice.ny.gov",
@@ -1972,7 +3708,15 @@
       "siteImproveScore": 93,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 55,
+        "critical": 0,
+        "serious": 18,
+        "moderate": 37,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 11
     },
     {
       "domain": "criminaljustice.ny.gov",
@@ -1981,7 +3725,15 @@
       "siteImproveScore": 89,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 12427,
+        "critical": 418,
+        "serious": 2696,
+        "moderate": 9210,
+        "minor": 103
+      },
+      "axeMonitorPagesTested": 560
     },
     {
       "domain": "gunsafety.ny.gov",
@@ -1990,7 +3742,15 @@
       "siteImproveScore": 93,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 99,
+        "critical": 0,
+        "serious": 48,
+        "moderate": 51,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 15
     },
     {
       "domain": "policereform.ny.gov",
@@ -1999,7 +3759,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3265,
+        "critical": 0,
+        "serious": 2318,
+        "moderate": 947,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 229
     },
     {
       "domain": "cdn.amber.ny.gov",
@@ -2008,7 +3776,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 6335,
+        "critical": 205,
+        "serious": 1344,
+        "moderate": 4735,
+        "minor": 51
+      },
+      "axeMonitorPagesTested": 288
     },
     {
       "domain": "orthos.dhses.ny.gov",
@@ -2017,7 +3793,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 20,
+        "critical": 3,
+        "serious": 11,
+        "moderate": 6,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "bonds.hcr.ny.gov",
@@ -2026,7 +3810,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3176,
+        "critical": 404,
+        "serious": 1490,
+        "moderate": 1274,
+        "minor": 8
+      },
+      "axeMonitorPagesTested": 214
     },
     {
       "domain": "portal.hcr.ny.gov",
@@ -2035,7 +3827,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4,
+        "critical": 0,
+        "serious": 2,
+        "moderate": 2,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "nysl.nysed.gov",
@@ -2044,7 +3844,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 5722,
+        "critical": 0,
+        "serious": 5051,
+        "moderate": 657,
+        "minor": 14
+      },
+      "axeMonitorPagesTested": 631
     },
     {
       "domain": "nyscr.ny.gov",
@@ -2053,7 +3861,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 94,
+        "critical": 0,
+        "serious": 8,
+        "moderate": 85,
+        "minor": 1
+      },
+      "axeMonitorPagesTested": 15
     },
     {
       "domain": "regionalcouncils.ny.gov",
@@ -2062,7 +3878,15 @@
       "siteImproveScore": 87,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 7918,
+        "critical": 15,
+        "serious": 4893,
+        "moderate": 3010,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 681
     },
     {
       "domain": "taste.ny.gov",
@@ -2071,7 +3895,15 @@
       "siteImproveScore": 88,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 359,
+        "critical": 0,
+        "serious": 196,
+        "moderate": 163,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 44
     },
     {
       "domain": "greenbank.ny.gov",
@@ -2080,7 +3912,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 351,
+        "critical": 79,
+        "serious": 112,
+        "moderate": 160,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 85
     },
     {
       "domain": "efc.ny.gov",
@@ -2089,7 +3929,15 @@
       "siteImproveScore": 91,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1753,
+        "critical": 11,
+        "serious": 1210,
+        "moderate": 531,
+        "minor": 1
+      },
+      "axeMonitorPagesTested": 150
     },
     {
       "domain": "nycasinos.ny.gov",
@@ -2098,7 +3946,15 @@
       "siteImproveScore": 92,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 596,
+        "critical": 7,
+        "serious": 327,
+        "moderate": 262,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 100
     },
     {
       "domain": "hudsongreenway.ny.gov",
@@ -2107,7 +3963,15 @@
       "siteImproveScore": 94,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 470,
+        "critical": 0,
+        "serious": 287,
+        "moderate": 182,
+        "minor": 1
+      },
+      "axeMonitorPagesTested": 50
     },
     {
       "domain": "hrbrrd.ny.gov",
@@ -2116,7 +3980,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1020,
+        "critical": 4,
+        "serious": 317,
+        "moderate": 695,
+        "minor": 4
+      },
+      "axeMonitorPagesTested": 135
     },
     {
       "domain": "its.ny.gov",
@@ -2125,7 +3997,15 @@
       "siteImproveScore": 91,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 2406,
+        "critical": 41,
+        "serious": 1394,
+        "moderate": 971,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 252
     },
     {
       "domain": "nki.rfmh.org",
@@ -2134,7 +4014,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3661,
+        "critical": 11,
+        "serious": 1481,
+        "moderate": 1715,
+        "minor": 454
+      },
+      "axeMonitorPagesTested": 454
     },
     {
       "domain": "nyspi.org",
@@ -2143,7 +4031,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 12511,
+        "critical": 1145,
+        "serious": 10953,
+        "moderate": 399,
+        "minor": 14
+      },
+      "axeMonitorPagesTested": 127
     },
     {
       "domain": "ontrackny.org",
@@ -2152,7 +4048,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 2041,
+        "critical": 333,
+        "serious": 1111,
+        "moderate": 553,
+        "minor": 44
+      },
+      "axeMonitorPagesTested": 265
     },
     {
       "domain": "ny.gov",
@@ -2161,7 +4065,15 @@
       "siteImproveScore": 84,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 12256,
+        "critical": 475,
+        "serious": 5980,
+        "moderate": 5616,
+        "minor": 185
+      },
+      "axeMonitorPagesTested": 871
     },
     {
       "domain": "comet.ogs.ny.gov",
@@ -2170,7 +4082,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 161,
+        "critical": 16,
+        "serious": 87,
+        "moderate": 58,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 8
     },
     {
       "domain": "empirestateplaza.ny.gov",
@@ -2179,7 +4099,15 @@
       "siteImproveScore": 91,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 8787,
+        "critical": 28,
+        "serious": 6959,
+        "moderate": 1798,
+        "minor": 2
+      },
+      "axeMonitorPagesTested": 386
     },
     {
       "domain": "ig.ny.gov",
@@ -2188,7 +4116,15 @@
       "siteImproveScore": 90,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 833,
+        "critical": 0,
+        "serious": 653,
+        "moderate": 179,
+        "minor": 1
+      },
+      "axeMonitorPagesTested": 54
     },
     {
       "domain": "projectsunlight.ny.gov",
@@ -2197,7 +4133,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 4,
+        "critical": 0,
+        "serious": 0,
+        "moderate": 4,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 4
     },
     {
       "domain": "canals.ny.gov",
@@ -2206,7 +4150,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 6074,
+        "critical": 998,
+        "serious": 4097,
+        "moderate": 979,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 998
     },
     {
       "domain": "archives.nysed.gov",
@@ -2215,7 +4167,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 30128,
+        "critical": 503,
+        "serious": 17217,
+        "moderate": 11533,
+        "minor": 875
+      },
+      "axeMonitorPagesTested": 995
     },
     {
       "domain": "gamfin.org",
@@ -2224,7 +4184,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 3652,
+        "critical": 0,
+        "serious": 1406,
+        "moderate": 2246,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 215
     },
     {
       "domain": "webapps.oasas.ny.gov",
@@ -2233,7 +4201,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 107785,
+        "critical": 54,
+        "serious": 91876,
+        "moderate": 15714,
+        "minor": 141
+      },
+      "axeMonitorPagesTested": 951
     },
     {
       "domain": "oer.ny.gov",
@@ -2242,7 +4218,15 @@
       "siteImproveScore": 93,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 767,
+        "critical": 1,
+        "serious": 119,
+        "moderate": 647,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 207
     },
     {
       "domain": "missingpersons.omh.ny.gov",
@@ -2251,7 +4235,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 36,
+        "critical": 6,
+        "serious": 5,
+        "moderate": 25,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "omh.ny.gov",
@@ -2260,7 +4252,15 @@
       "siteImproveScore": 80,
       "auditorScore": 50,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 9848,
+        "critical": 202,
+        "serious": 1256,
+        "moderate": 8360,
+        "minor": 30
+      },
+      "axeMonitorPagesTested": 629
     },
     {
       "domain": "bewell.ny.gov",
@@ -2269,7 +4269,15 @@
       "siteImproveScore": 91,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 135,
+        "critical": 8,
+        "serious": 46,
+        "moderate": 79,
+        "minor": 2
+      },
+      "axeMonitorPagesTested": 27
     },
     {
       "domain": "practiceinnovations.org",
@@ -2278,7 +4286,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 11507,
+        "critical": 3841,
+        "serious": 5031,
+        "moderate": 1585,
+        "minor": 1050
+      },
+      "axeMonitorPagesTested": 996
     },
     {
       "domain": "projectteachny.org",
@@ -2287,7 +4303,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 24372,
+        "critical": 3652,
+        "serious": 8903,
+        "moderate": 11658,
+        "minor": 159
+      },
+      "axeMonitorPagesTested": 806
     },
     {
       "domain": "omhjobs.omh.ny.gov",
@@ -2296,7 +4320,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 7,
+        "critical": 0,
+        "serious": 7,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 8
     },
     {
       "domain": "tax.ny.gov",
@@ -2305,7 +4337,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 851,
+        "critical": 3,
+        "serious": 754,
+        "moderate": 69,
+        "minor": 25
+      },
+      "axeMonitorPagesTested": 998
     },
     {
       "domain": "nysafe.omh.ny.gov",
@@ -2314,7 +4354,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 169,
+        "critical": 4,
+        "serious": 84,
+        "moderate": 81,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 1
     },
     {
       "domain": "pbss.thruway.ny.gov",
@@ -2323,7 +4371,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 68,
+        "critical": 0,
+        "serious": 16,
+        "moderate": 52,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 6
     },
     {
       "domain": "dhses.ny.gov",
@@ -2332,7 +4388,15 @@
       "siteImproveScore": 90,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 9,
+        "critical": 2,
+        "serious": 7,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 4
     },
     {
       "domain": "nifa.ny.gov",
@@ -2341,7 +4405,15 @@
       "siteImproveScore": 90,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 2,
+        "critical": 0,
+        "serious": 2,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 4
     },
     {
       "domain": "ww3.nysif.com",
@@ -2350,7 +4422,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 20764,
+        "critical": 1735,
+        "serious": 11106,
+        "moderate": 6284,
+        "minor": 1639
+      },
+      "axeMonitorPagesTested": 561
     },
     {
       "domain": "nycourts.gov",
@@ -2359,7 +4439,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 10,
+        "critical": 10,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 4
     },
     {
       "domain": "cjc.ny.gov",
@@ -2368,7 +4456,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 13,
+        "critical": 5,
+        "serious": 8,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 5
     },
     {
       "domain": "mohawkvalleyfcu.org",
@@ -2377,7 +4473,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 481,
+        "critical": 57,
+        "serious": 195,
+        "moderate": 229,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 10
     },
     {
       "domain": "liafcu.org",
@@ -2386,7 +4490,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1468,
+        "critical": 273,
+        "serious": 1028,
+        "moderate": 163,
+        "minor": 4
+      },
+      "axeMonitorPagesTested": 65
     },
     {
       "domain": "ils.ny.gov",
@@ -2395,7 +4507,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 1920,
+        "critical": 98,
+        "serious": 34,
+        "moderate": 1433,
+        "minor": 355
+      },
+      "axeMonitorPagesTested": 89
     },
     {
       "domain": "naturalheritagetrust.org",
@@ -2404,7 +4524,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 2621,
+        "critical": 1234,
+        "serious": 959,
+        "moderate": 428,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 185
     },
     {
       "domain": "iola.org",
@@ -2413,7 +4541,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 231,
+        "critical": 44,
+        "serious": 86,
+        "moderate": 97,
+        "minor": 4
+      },
+      "axeMonitorPagesTested": 45
     },
     {
       "domain": "mta.info",
@@ -2422,7 +4558,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 10384,
+        "critical": 109,
+        "serious": 9555,
+        "moderate": 662,
+        "minor": 58
+      },
+      "axeMonitorPagesTested": 962
     },
     {
       "domain": "panynj.gov",
@@ -2431,7 +4575,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 18789,
+        "critical": 412,
+        "serious": 4741,
+        "moderate": 12874,
+        "minor": 762
+      },
+      "axeMonitorPagesTested": 810
     },
     {
       "domain": "hudsonriverpark.org",
@@ -2440,7 +4592,15 @@
       "siteImproveScore": null,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 18,
+        "critical": 8,
+        "serious": 10,
+        "moderate": 0,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 3
     },
     {
       "domain": "environmentalbondact.ny.gov",
@@ -2449,7 +4609,15 @@
       "siteImproveScore": 85,
       "auditorScore": null,
       "teamScore": null,
-      "blocked": false
+      "blocked": false,
+      "axeMonitorIssues": {
+        "total": 123,
+        "critical": 1,
+        "serious": 66,
+        "moderate": 56,
+        "minor": 0
+      },
+      "axeMonitorPagesTested": 31
     },
     {
       "domain": "bsc.ogs.ny.gov",
@@ -2641,5 +4809,5 @@
       "blocked": false
     }
   ],
-  "note": "Captured 2026-09-09T00:43:49.349Z; recorded as 2026-08's snapshot via --snapshot-month."
+  "note": "Captured 2026-09-09T00:43:49.349Z; recorded as 2026-08's snapshot via --snapshot-month. Open-issue counts by severity were added on 2026-09-09 from the same axe Monitor runs (identical scores), so issue trends start this month."
 }

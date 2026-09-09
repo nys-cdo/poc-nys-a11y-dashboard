@@ -115,7 +115,17 @@ says which **production** domain each test case stands for, following the
 team's convention (an audit of `abledev.dot.ny.gov` is recorded as
 `able.dot.ny.gov`). A test case with a `null` domain is kept in the runs file
 but does not reach the dashboard until someone fills the domain in; the
-generator lists those cases on every run.
+generator lists those cases on every run. Most mappings were derived from the
+audited host name (`arrsqa.health.ny.gov` → `arrs.health.ny.gov`) after
+checking that the production host resolves; each entry's `note` says so, and
+the agency should confirm any it hasn't. A production domain that no scanner
+covers becomes a manual-only site, so give it an agency in
+`agency-overrides.json` or it lands in Unattributed.
+
+A run's `assetType` ("Desktop Web", "Mobile Web") travels through to the
+dashboard: a site's auditor score comes from its latest **desktop** run, and
+mobile-web runs plot as their own marker on the trend chart rather than as
+extra audits of the site.
 
 At generation time every completed, mapped run becomes an entry in the site's
 `auditorRuns` (oldest first), and the trend chart plots one manual-audit point
@@ -134,7 +144,13 @@ the trend chart; the generator compiles them into the `history` block of
 
 - A live run writes (or overwrites) the current month's file. An `--offline`
   run never writes one, and neither does a run in which either source returned
-  no records, so an outage can't become the month's record.
+  no records, so an outage can't become the month's record. `--no-snapshot`
+  pulls live data without writing one (for a mid-month refresh).
+- Each site row also records `axeMonitorIssues` (open issues by severity from
+  the site's latest axe Monitor run) and `axeMonitorPagesTested`, so the
+  portfolio strip can show how the issue load moved month over month. The
+  August 2026 file gained these on 2026-09-09 from the same runs it was built
+  from; earlier files have none.
 - `--snapshot-month=YYYY-MM` records the run as that month's file instead,
   dated noon UTC on the month's last day, with a `note` giving the real capture
   time. Use it when a capture taken early in a month holds the previous

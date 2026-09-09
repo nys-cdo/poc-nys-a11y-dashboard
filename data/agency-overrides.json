@@ -34,6 +34,20 @@
     { "domain": "vpcr.justicecenter.ny.gov", "agency": "CJN" },
     { "domain": "wcb.ny.gov", "agency": "WCB" },
     { "domain": "webapps.dhr.ny.gov", "agency": "DHR" },
-    { "domain": "webapps.hesc.ny.gov", "agency": "HESC" }
+    { "domain": "webapps.hesc.ny.gov", "agency": "HESC" },
+    { "domain": "online.ogs.ny.gov", "agency": "OGS" },
+    { "domain": "psyckesmedicaid.omh.ny.gov", "agency": "OMH" },
+    { "domain": "gisservices.dec.ny.gov", "agency": "DEC" },
+    { "domain": "arrs.health.ny.gov", "agency": "DOH" },
+    { "domain": "sspselfservice.otda.ny.gov", "agency": "OTDA" },
+    { "domain": "piyn.dot.ny.gov", "agency": "DOT" },
+    { "domain": "eieb.dot.ny.gov", "agency": "DOT" },
+    { "domain": "mpc.criminaljustice.ny.gov", "agency": "DCJS" },
+    { "domain": "sor.criminaljustice.ny.gov", "agency": "DCJS" },
+    { "domain": "hs.ocfs.ny.gov", "agency": "OCFS" },
+    { "domain": "app.budget.ny.gov", "agency": "DOB" },
+    { "domain": "cbc.justicecenter.ny.gov", "agency": "CJN" },
+    { "domain": "scheduling.labor.ny.gov", "agency": "DOL" },
+    { "domain": "ocmlicensing.ny.gov", "agency": "OCM" }
   ]
 }

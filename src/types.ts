@@ -40,6 +40,33 @@ export interface AuditorRun {
   assetType: string | null;
 }
 
+/** Open-issue counts by axe impact level, from a site's latest axe Monitor run. */
+export interface IssueCounts {
+  total: number;
+  critical: number;
+  serious: number;
+  moderate: number;
+  minor: number;
+}
+
+/** axe impact levels, most severe first. */
+export type Impact = 'critical' | 'serious' | 'moderate' | 'minor';
+
+/** One of a site's most frequent failing axe rules. */
+export interface TopRule {
+  /** axe rule id, e.g. "color-contrast". */
+  ruleId: string;
+  impact: Impact;
+  /** Open issues raised by this rule in the run (within the examined sample). */
+  count: number;
+  /** The rule's one-line description from axe. */
+  description: string | null;
+  /** Deque University page for the rule. */
+  helpUrl: string | null;
+  /** True when the rule is an axe best practice rather than a WCAG criterion. */
+  bestPractice: boolean;
+}
+
 /** One scored site/domain. Scores are 0–100 composites, or null if absent. */
 export interface Site {
   /** Bare domain, e.g. "health.ny.gov". Used as the join key across sources. */
@@ -75,6 +102,24 @@ export interface Site {
    * — the set its DCI is computed across, not a per-run scanned count.
    */
   siteImprovePagesIndexed: number | null;
+
+  // --- Issue profile (axe Monitor, latest completed run) ---
+  /**
+   * Open issues by severity in the latest run — the run's own totals (open,
+   * not needs-review). `null` when the site has no axe Monitor run.
+   */
+  axeMonitorIssues: IssueCounts | null;
+  /**
+   * The run's most frequent failing rules (up to ten, by count), built from
+   * the run's issue list. `null` when no profile could be built.
+   */
+  axeMonitorTopRules: TopRule[] | null;
+  /**
+   * How many of the run's open issues the rule profile examined. Less than
+   * `axeMonitorIssues.total` means the profile is a sample (the generator
+   * reads at most the first 10,000 issues of a run).
+   */
+  axeMonitorIssuesExamined: number | null;
 
   // --- Manual layer (from manual-data.json, merged at build time) ---
   /**
@@ -172,8 +217,17 @@ export interface HistorySite {
    * the site had no automated score that month.
    */
   automated: (number | null)[];
-  /** Manual Axe Auditor audits: one point per new or changed auditor score. */
-  audits: { month: string; score: number }[];
+  /**
+   * Open axe Monitor issues per snapshot, aligned to `History.snapshots`;
+   * null for months captured before issue counts were recorded.
+   */
+  issues: (number | null)[];
+  /**
+   * Manual Axe Auditor audits: one point per completed run (or per new or
+   * changed auditor score for sites with no run history). `assetType` is the
+   * run's asset ("Desktop Web", "Mobile Web", …) or null when unknown.
+   */
+  audits: { month: string; score: number; assetType: string | null }[];
 }
 
 /**

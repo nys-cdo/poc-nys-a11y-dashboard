@@ -488,14 +488,286 @@ a {
   .summary {
     grid-template-columns: 1fr;
   }
-  .summary__grid {
+  .summary__grid,
+  .portfolio__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .site-detail__kpis {
+    grid-template-columns: 1fr;
   }
 }
 @media (max-width: 560px) {
-  .summary__grid {
+  .summary__grid,
+  .portfolio__grid {
     grid-template-columns: 1fr;
   }
+  .severity__row {
+    grid-template-columns: 5rem minmax(0, 1fr) 3.5rem;
+  }
+}
+
+/* Quiet request-a-test line under the statewide snapshot (the header stays
+   uncluttered; the strip and each issue profile carry the full button). */
+.summary__cta {
+  margin: var(--nys-space-300) 0 0;
+  color: var(--nys-color-text-weak);
+  font-size: var(--nys-font-size-body-sm);
+}
+.summary__cta .app-header__banner-link {
+  margin-left: 0;
+}
+
+/* --- Portfolio strip (one DCT) --- */
+.portfolio__agencies {
+  margin-bottom: 0;
+}
+.portfolio__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--nys-space-300);
+}
+.portfolio__link {
+  font-size: var(--nys-font-size-body-sm);
+  font-weight: var(--nys-font-weight-semibold);
+  white-space: nowrap;
+}
+.portfolio__grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: var(--nys-space-300);
+}
+.portfolio__rules {
+  margin-top: var(--nys-space-400);
+  background: var(--nys-color-surface-raised);
+  border: var(--nys-border-width-sm) solid var(--nys-color-base-weak, #e4e4e2);
+  border-radius: var(--nys-radius-md);
+  padding: var(--nys-space-400);
+}
+/* The NYSDS reset drops list markers; restore them for the ranked list. */
+.portfolio__rule-list {
+  list-style: decimal;
+  padding-left: var(--nys-space-500);
+  margin: 0;
+}
+.portfolio__rule-list li {
+  margin-bottom: var(--nys-space-150);
+}
+.portfolio__rules-note {
+  margin: var(--nys-space-300) 0 0;
+  font-size: var(--nys-font-size-body-xs);
+}
+
+/* --- Severity / impact chips (shared by the table, strip, and dialog) --- */
+.impact {
+  display: inline-block;
+  padding: 0 var(--nys-space-150);
+  border-radius: var(--nys-radius-round);
+  font-size: var(--nys-font-size-ui-xs);
+  font-weight: var(--nys-font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  border: var(--nys-border-width-sm) solid transparent;
+}
+.impact--critical {
+  background: var(--nys-color-danger-weak);
+  color: var(--nys-color-danger-strong);
+  border-color: var(--nys-color-danger);
+}
+.impact--serious {
+  background: var(--nys-color-warning-weak);
+  color: var(--nys-color-warning-strong);
+  border-color: var(--nys-color-warning);
+}
+.impact--moderate,
+.impact--minor {
+  background: var(--nys-color-base-weak);
+  color: var(--nys-color-text);
+}
+
+/* --- Source + Issues cells --- */
+.source {
+  white-space: nowrap;
+}
+.source--manual {
+  font-weight: var(--nys-font-weight-semibold);
+}
+/* The issues count is a real button (opens the profile dialog), styled as a
+   link so the column still reads as numbers. */
+.issues-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  color: var(--nys-color-link);
+  text-decoration: underline;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.issues-btn:hover {
+  color: var(--nys-color-link-strong, var(--nys-color-link));
+}
+.issues-btn__high {
+  margin-left: var(--nys-space-100);
+  padding: 0 var(--nys-space-100);
+  border-radius: var(--nys-radius-round);
+  background: var(--nys-color-danger-weak);
+  color: var(--nys-color-danger-strong);
+  font-size: var(--nys-font-size-ui-xs);
+  font-weight: var(--nys-font-weight-semibold);
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* --- Site issue-profile + request dialogs (share the methodology shell) --- */
+.site-detail__meta {
+  margin: var(--nys-space-100) 0 0;
+  color: var(--nys-color-text-weak);
+  font-size: var(--nys-font-size-body-sm);
+}
+.site-detail__kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--nys-space-300);
+  margin-top: var(--nys-space-400);
+}
+.site-detail__kpis .kpi__value {
+  font-size: var(--nys-font-size-display-sm, var(--nys-font-size-h2));
+}
+.site-detail__visit {
+  margin-left: var(--nys-space-300);
+  font-size: var(--nys-font-size-body-sm);
+}
+.severity {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--nys-space-150);
+}
+.severity__row {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr) 4rem;
+  align-items: center;
+  gap: var(--nys-space-300);
+  font-size: var(--nys-font-size-body-sm);
+}
+.severity__bar {
+  display: block;
+  height: var(--nys-space-200);
+  background: var(--nys-color-base-weak);
+  border-radius: var(--nys-radius-round);
+  overflow: hidden;
+}
+.severity__bar > span {
+  display: block;
+  height: 100%;
+  background: var(--nys-color-base);
+  border-radius: inherit;
+}
+.severity__row--critical .severity__bar > span { background: var(--nys-color-danger); }
+.severity__row--serious .severity__bar > span { background: var(--nys-color-warning); }
+.severity__count {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--nys-font-weight-semibold);
+}
+.rules-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--nys-font-size-body-sm);
+}
+.rules-table th,
+.rules-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: var(--nys-space-150) var(--nys-space-200);
+  border-bottom: var(--nys-border-width-sm) solid var(--nys-color-base-weak, #e4e4e2);
+}
+.rules-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.rules-table__desc {
+  display: block;
+  color: var(--nys-color-text-weak);
+  font-size: var(--nys-font-size-body-xs);
+}
+.rules-table__note {
+  margin: var(--nys-space-200) 0 0;
+  font-size: var(--nys-font-size-body-xs);
+}
+.audit-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--nys-space-100);
+  font-size: var(--nys-font-size-body-sm);
+}
+.audit-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--nys-space-200);
+}
+.audit-list__date {
+  color: var(--nys-color-text-weak);
+  font-variant-numeric: tabular-nums;
+}
+.audit-list__asset {
+  padding: 0 var(--nys-space-150);
+  border-radius: var(--nys-radius-round);
+  background: var(--nys-color-base-weak);
+  font-size: var(--nys-font-size-ui-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.request-dialog__context {
+  margin: var(--nys-space-300) 0 0;
+  color: var(--nys-color-text-weak);
+}
+.request-dialog__list {
+  list-style: disc;
+  padding-left: var(--nys-space-500);
+}
+.request-dialog__list li {
+  margin-bottom: var(--nys-space-100);
+}
+.request-dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--nys-space-300);
+  margin: var(--nys-space-500) 0 0;
+}
+/* The hand-off is a link (or a button opening the request dialog) styled as
+   the primary NYSDS button, so it works as a real <a href> to a form or mailto. */
+.request-dialog__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0 var(--nys-space-400);
+  border: var(--nys-border-width-md, 2px) solid var(--nys-color-theme, #154973);
+  border-radius: var(--nys-radius-md);
+  background: var(--nys-color-theme, #154973);
+  color: var(--nys-color-text-reverse, #fff);
+  font: inherit;
+  font-weight: var(--nys-font-weight-semibold);
+  text-decoration: none;
+  cursor: pointer;
+}
+.request-dialog__button:hover {
+  background: var(--nys-color-theme-strong, #0e3a5c);
+  border-color: var(--nys-color-theme-strong, #0e3a5c);
+}
+.methodology-dialog__body code {
+  font-family: var(--nys-font-family-code, monospace);
+  font-size: 0.9em;
 }
 
 /* --- Access gate (password overlay) --- */

@@ -28,19 +28,19 @@ export function statusShort(status: Status | 'unknown'): string {
   }
 }
 
-/** Maps our status to a nys-badge `intent`. */
+/** Maps our status to a nys-badge `intent` (`danger` replaced the deprecated `error` in NYSDS 1.21). */
 export function statusIntent(
   status: Status | 'unknown',
-): 'error' | 'warning' | 'success' | 'neutral' {
+): 'danger' | 'warning' | 'success' | 'base' {
   switch (status) {
     case 'red':
-      return 'error';
+      return 'danger';
     case 'yellow':
       return 'warning';
     case 'green':
       return 'success';
     case 'unknown':
-      return 'neutral';
+      return 'base';
   }
 }
 
@@ -63,6 +63,28 @@ export function formatScore(score: number | null): string {
 /** Integer count with thousands separators, or an em dash when absent. */
 export function formatCount(count: number | null): string {
   return count === null ? '—' : count.toLocaleString('en-US');
+}
+
+/** A signed change ("+3.5", "−12", "0") for month-over-month readouts. */
+export function formatDelta(delta: number, unit = ''): string {
+  if (delta === 0) return `0${unit}`;
+  const sign = delta > 0 ? '+' : '−';
+  return `${sign}${Math.abs(delta).toLocaleString('en-US')}${unit}`;
+}
+
+/** "Jul 2026" from "2026-07". */
+export function formatMonth(month: string): string {
+  const [y, m] = month.split('-').map(Number);
+  return new Date(Date.UTC(y, (m || 1) - 1, 1)).toLocaleDateString('en-US', {
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+}
+
+/** Capitalized impact label ("Critical"). */
+export function impactLabel(impact: string): string {
+  return impact.charAt(0).toUpperCase() + impact.slice(1);
 }
 
 /**
