@@ -70,9 +70,10 @@ portfolio show as **No DCT assigned**. Refresh the list alone with
 Add `?dct=Name` to the dashboard address to open straight into one DCT's
 portfolio: a summary strip (sites by status, sites with a manual audit, pages
 tested, open issues, month-over-month change, the portfolio's most frequent
-failing rules), the site table filtered to it, and the trend scoped to it. A
-surname is enough when it is unambiguous (`?dct=shelton`); `?dct=none` opens
-the "No DCT assigned" bucket. The table filters read the address on load and
+failing rules), the rollup chart scoped to it (one bar, or its agencies under
+agency grouping, with a link back to the full comparison), the site table
+filtered to it, and the trend scoped to it. A surname is enough when it is
+unambiguous (`?dct=shelton`); `?dct=none` opens the "No DCT assigned" bucket. The table filters read the address on load and
 write it back as they change (`?dct=…&agency=…&status=…`, plus `?full` for the
 advanced table), so any view can be copied and shared.
 

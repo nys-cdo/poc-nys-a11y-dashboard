@@ -1,7 +1,8 @@
 import * as echarts from 'echarts';
-import type { DashboardData, Status } from '../types';
+import { NO_DCT, type DashboardData, type Status } from '../types';
 import {
   agencyRollups,
+  dctKey,
   sortAgencyRollups,
   type AgencySort,
   type Grouping,
@@ -54,6 +55,19 @@ export interface AgencyRollupOptions {
   hideSingleScan?: boolean;
   /** Initial grouping. Defaults to `dct`. */
   grouping?: Grouping;
+  /**
+   * Show only this portfolio (a DCT name or `NO_DCT`): one bar under DCT
+   * grouping, its agencies under agency grouping. Null = every portfolio.
+   */
+  focusDct?: string | null;
+  /** Called when the user asks to compare all portfolios again. */
+  onClearFocus?: () => void;
+}
+
+/** Controller returned by renderAgencyRollup, so the URL state can scope it. */
+export interface AgencyRollupController {
+  /** Scope the chart to one portfolio, or null for all. */
+  setFocus(dct: string | null): void;
 }
 
 export function renderAgencyRollup(
@@ -61,9 +75,10 @@ export function renderAgencyRollup(
   data: DashboardData,
   onSegmentClick?: SegmentClickHandler,
   opts?: AgencyRollupOptions,
-): void {
+): AgencyRollupController {
   const hideSingleScan = opts?.hideSingleScan ?? false;
   let grouping: Grouping = opts?.grouping ?? 'dct';
+  let focusDct: string | null = opts?.focusDct ?? null;
   root.innerHTML = `
     <div class="section-heading-row">
       <h2 id="agency-rollup-heading" class="section-heading">By DCT portfolio</h2>
@@ -94,6 +109,10 @@ export function renderAgencyRollup(
       <strong>Select a colored segment</strong>, or use the filters on the
       site table below, to see those sites.
       <span class="caveat-inline"><span aria-hidden="true">⚠</span> automated testing only</span>
+      <span id="agency-rollup-focus" hidden>
+        Showing only this portfolio.
+        <button type="button" id="agency-clear-focus" class="app-header__banner-link">Compare all portfolios</button>
+      </span>
     </p>
     <div id="agency-chart" class="agency-chart" role="img" aria-label="Loading agency chart"></div>
     <div class="agency-chart__actions">
@@ -127,6 +146,14 @@ export function renderAgencyRollup(
   const fallbackEl = document.getElementById('agency-table-fallback')!;
   const headingEl = document.getElementById('agency-rollup-heading')!;
   const subEl = document.getElementById('agency-rollup-sub')!;
+  const focusEl = document.getElementById('agency-rollup-focus')!;
+  document
+    .getElementById('agency-clear-focus')
+    ?.addEventListener('click', () => opts?.onClearFocus?.());
+
+  /** Agencies that belong to the focused portfolio (for agency grouping). */
+  const agenciesInFocus = (): Set<string> =>
+    new Set(data.sites.filter((s) => dctKey(s) === focusDct).map((s) => s.agency));
   // Chart categories are display labels (a DCT bar shows its agency list);
   // this maps a label back to the group's filter key for the click handler.
   let keyByLabel = new Map<string, string>();
@@ -143,21 +170,36 @@ export function renderAgencyRollup(
     currentSort = sort;
     const isMobile = mobileMq.matches;
     const isDct = grouping === 'dct';
-    const allRollups = sortAgencyRollups(agencyRollups(data, grouping), sort);
+    // In one portfolio's context the chart shows only that portfolio: its
+    // single bar under DCT grouping, its agencies under agency grouping.
+    const inFocus = focusDct ? agenciesInFocus() : null;
+    const scoped = agencyRollups(data, grouping).filter((r) =>
+      !focusDct ? true : isDct ? r.agency === focusDct : inFocus!.has(r.agency),
+    );
+    const allRollups = sortAgencyRollups(scoped, sort);
     keyByLabel = new Map(allRollups.map((r) => [r.label, r.agency]));
 
-    headingEl.textContent = isDct ? 'By DCT portfolio' : 'By agency';
+    const focusName = focusDct === NO_DCT ? NO_DCT : focusDct ? `${focusDct}'s portfolio` : '';
+    headingEl.textContent = isDct
+      ? focusDct ? focusName : 'By DCT portfolio'
+      : focusDct ? `By agency, ${focusName}` : 'By agency';
     subEl.textContent = isDct
-      ? 'Each bar is one Deputy Commissioner for Technology’s portfolio, labeled with its agencies, and shows the share of its sites at each status. '
-      : 'Each bar shows the share of an agency’s sites at each status. ';
+      ? focusDct
+        ? 'The bar shows the share of this portfolio’s sites at each status. Group by agency to compare the agencies within it. '
+        : 'Each bar is one Deputy Commissioner for Technology’s portfolio, labeled with its agencies, and shows the share of its sites at each status. '
+      : focusDct
+        ? 'Each bar shows the share of an agency’s sites at each status, for the agencies in this portfolio. '
+        : 'Each bar shows the share of an agency’s sites at each status. ';
+    focusEl.hidden = !focusDct;
 
     // Two collapsing dimensions, both released by the single expand toggle:
     //   1. hideSingleScan (succinct default, agency grouping only) — drop
-    //      1-site agencies. DCT portfolios are always all shown.
+    //      1-site agencies. DCT portfolios are always all shown, and so is
+    //      every agency of a focused portfolio.
     //   2. mobile cap — only the top N fit legibly on a phone.
     // The collapsed base is what's shown before the mobile cap is applied.
     const collapsedBase =
-      hideSingleScan && !isDct ? allRollups.filter((r) => r.siteCount >= 2) : allRollups;
+      hideSingleScan && !isDct && !focusDct ? allRollups.filter((r) => r.siteCount >= 2) : allRollups;
     const rollups = expanded
       ? allRollups
       : isMobile
@@ -307,6 +349,15 @@ export function renderAgencyRollup(
 
   const ro = new ResizeObserver(() => chart.resize());
   ro.observe(el);
+
+  return {
+    setFocus(dct) {
+      if (dct === focusDct) return;
+      focusDct = dct;
+      expanded = false;
+      draw(currentSort, true);
+    },
+  };
 }
 
 /** Short summary label for the chart image. The full breakdown is in the

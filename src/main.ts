@@ -45,6 +45,7 @@ async function boot(): Promise<void> {
     renderPortfolio(portfolio, data, dctOf(initial.filters));
 
     let trendCtl: ReturnType<typeof renderTrend> | null = null;
+    let rollupCtl: ReturnType<typeof renderAgencyRollup> | null = null;
     let lastDct = dctOf(initial.filters);
     const onFilters = (filters: SiteFilters) => {
       writeViewState({ full, filters });
@@ -52,6 +53,7 @@ async function boot(): Promise<void> {
       if (dct !== lastDct) {
         lastDct = dct;
         renderPortfolio(portfolio, data, dct);
+        rollupCtl?.setFocus(dct);
         trendCtl?.setScope(dct ? 'dct' : 'all', dct ?? undefined);
       }
     };
@@ -61,7 +63,7 @@ async function boot(): Promise<void> {
       initialFilters: initial.filters,
       onChange: onFilters,
     });
-    renderAgencyRollup(
+    rollupCtl = renderAgencyRollup(
       rollup,
       data,
       (grouping, key, status) => {
@@ -77,7 +79,14 @@ async function boot(): Promise<void> {
         heading?.setAttribute('tabindex', '-1');
         heading?.focus({ preventScroll: true });
       },
-      { hideSingleScan: !full, grouping: 'dct' },
+      {
+        hideSingleScan: !full,
+        grouping: 'dct',
+        focusDct: lastDct,
+        // "Compare all portfolios" clears the DCT filter (keeps the others),
+        // which flows back through onFilters to the strip, chart, and trend.
+        onClearFocus: () => siteTable.applyFilters({ ...siteTable.getFilters(), dct: 'all' }),
+      },
     );
     trendCtl = renderTrend(trend, data);
     if (lastDct) trendCtl.setScope('dct', lastDct);
