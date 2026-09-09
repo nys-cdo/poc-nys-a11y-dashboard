@@ -135,6 +135,10 @@ the trend chart; the generator compiles them into the `history` block of
 - A live run writes (or overwrites) the current month's file. An `--offline`
   run never writes one, and neither does a run in which either source returned
   no records, so an outage can't become the month's record.
+- `--snapshot-month=YYYY-MM` records the run as that month's file instead,
+  dated noon UTC on the month's last day, with a `note` giving the real capture
+  time. Use it when a capture taken early in a month holds the previous
+  month's numbers.
 - Months with no file are backfilled from axe Monitor's per-run history
   (`"source": "axe-monitor-run-history"`, automated scores only). A backfilled
   file is rewritten on every run and is replaced the first time a real snapshot

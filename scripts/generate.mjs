@@ -76,6 +76,30 @@ const CACHE_REFRESH = CLI.has('--refresh') || CLI.has('--no-cache');
 const CACHE_OFFLINE = CLI.has('--offline');
 const CACHE_STATS = { hits: 0, misses: 0, writes: 0 };
 
+/**
+ * `--snapshot-month=YYYY-MM` records this run as THAT month's snapshot,
+ * stamped at noon UTC on the month's last day, instead of the current month.
+ * For a capture taken a few days into a month that is really the previous
+ * month's numbers (the sources ran monthly, nobody generated until the 8th).
+ * The snapshot file notes the real capture time so nothing is hidden.
+ */
+const SNAPSHOT_MONTH = (() => {
+  const arg = process.argv.find((a) => a.startsWith('--snapshot-month='));
+  const value = arg ? arg.slice('--snapshot-month='.length) : null;
+  if (value && !/^\d{4}-(0[1-9]|1[0-2])$/.test(value)) {
+    console.error(`[history] --snapshot-month must be YYYY-MM (got "${value}").`);
+    process.exit(1);
+  }
+  return value;
+})();
+
+/** Noon UTC on the last day of `YYYY-MM`, as an ISO timestamp. */
+function endOfMonthIso(month) {
+  const [y, m] = month.split('-').map(Number);
+  const lastDay = new Date(Date.UTC(y, m, 0)).getUTCDate();
+  return `${month}-${String(lastDay).padStart(2, '0')}T12:00:00.000Z`;
+}
+
 /** Cache key: URL + pagination headers only (auth headers deliberately excluded). */
 function cacheKey(url, init) {
   const h = init?.headers ?? {};
@@ -1263,16 +1287,23 @@ function writeSnapshot(snapshot) {
   writeFileSync(snapshotPath(snapshot.month), JSON.stringify(snapshot, null, 2) + '\n', 'utf8');
 }
 
-/** Write this run's snapshot of record for the current month. */
-function writeDashboardSnapshot(sites, generatedAt) {
+/** Write this run's snapshot of record (the current month, or --snapshot-month). */
+function writeDashboardSnapshot(sites, generatedAt, actualCapturedAt) {
   const month = generatedAt.slice(0, 7);
-  writeSnapshot({
+  const snapshot = {
     capturedAt: generatedAt,
     month,
     source: SNAPSHOT_SOURCE,
     sites: sites.map(snapshotSite),
-  });
-  console.log(`[history] wrote data/history/${month}.json (${sites.length} sites, snapshot of record).`);
+  };
+  if (SNAPSHOT_MONTH) {
+    snapshot.note = `Captured ${actualCapturedAt}; recorded as ${month}'s snapshot via --snapshot-month.`;
+  }
+  writeSnapshot(snapshot);
+  console.log(
+    `[history] wrote data/history/${month}.json (${sites.length} sites, snapshot of record` +
+      `${SNAPSHOT_MONTH ? `, backdated from a ${actualCapturedAt.slice(0, 10)} capture` : ''}).`,
+  );
 }
 
 /**
@@ -1514,8 +1545,12 @@ async function main() {
 
   // An --offline run re-serves cached responses, so its data is no fresher
   // than the last real capture: keep the previous output's timestamp rather
-  // than stamping today's date on old numbers.
-  const generatedAt = (CACHE_OFFLINE && previousGeneratedAt()) || new Date().toISOString();
+  // than stamping today's date on old numbers. --snapshot-month pins the
+  // capture to the end of the month it represents.
+  const actualCapturedAt = new Date().toISOString();
+  const generatedAt = SNAPSHOT_MONTH
+    ? endOfMonthIso(SNAPSHOT_MONTH)
+    : (CACHE_OFFLINE && previousGeneratedAt()) || actualCapturedAt;
 
   // History: this run's snapshot of record, then backfill any month with no
   // snapshot from axe Monitor's run history, then compile the whole series
@@ -1530,7 +1565,7 @@ async function main() {
         'returned 0 records. Re-run once both sources respond so the month is captured in full.',
     );
   } else {
-    writeDashboardSnapshot(sites, generatedAt);
+    writeDashboardSnapshot(sites, generatedAt, actualCapturedAt);
   }
   backfillHistoryFromAxeRuns(axeRecords, agencyOverrides, isExcluded);
   const history = compileHistory(sites, dctIndex, manualData, isExcluded);

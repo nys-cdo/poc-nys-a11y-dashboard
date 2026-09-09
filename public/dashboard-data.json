@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-07-27T17:59:08.066Z",
+    "generatedAt": "2026-08-31T12:00:00.000Z",
     "automatedCoveragePct": 30,
     "rubric": {
       "red": [
@@ -356,9 +356,9 @@
       "url": "https://apa.ny.gov",
       "agency": "APA",
       "axeMonitorScore": 43,
-      "siteImproveScore": 72,
+      "siteImproveScore": 73,
       "axeMonitorPagesTested": 953,
-      "siteImprovePagesIndexed": 1511,
+      "siteImprovePagesIndexed": 1491,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -376,7 +376,7 @@
       "url": "https://abo.ny.gov",
       "agency": "ABO",
       "axeMonitorScore": 52,
-      "siteImproveScore": 93,
+      "siteImproveScore": 92,
       "axeMonitorPagesTested": 50,
       "siteImprovePagesIndexed": 62,
       "teamScore": null,
@@ -456,9 +456,9 @@
       "url": "https://bfsa.ny.gov",
       "agency": "BFSA",
       "axeMonitorScore": 46,
-      "siteImproveScore": 90,
+      "siteImproveScore": 91,
       "axeMonitorPagesTested": 14,
-      "siteImprovePagesIndexed": 246,
+      "siteImprovePagesIndexed": 247,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -476,9 +476,9 @@
       "url": "https://ethics.ny.gov",
       "agency": "Ethics",
       "axeMonitorScore": 53,
-      "siteImproveScore": 90,
+      "siteImproveScore": 89,
       "axeMonitorPagesTested": 682,
-      "siteImprovePagesIndexed": 1606,
+      "siteImprovePagesIndexed": 1627,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -498,7 +498,7 @@
       "axeMonitorScore": 55,
       "siteImproveScore": 92,
       "axeMonitorPagesTested": 11,
-      "siteImprovePagesIndexed": 14,
+      "siteImprovePagesIndexed": 12,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -551,7 +551,7 @@
       "url": "https://arts.ny.gov",
       "agency": "NYSCA",
       "axeMonitorScore": 39,
-      "siteImproveScore": 88,
+      "siteImproveScore": 89,
       "axeMonitorPagesTested": 60,
       "siteImprovePagesIndexed": 71,
       "teamScore": null,
@@ -591,9 +591,9 @@
       "url": "https://agriculture.ny.gov",
       "agency": "Ag&Markets",
       "axeMonitorScore": 53,
-      "siteImproveScore": 90,
+      "siteImproveScore": 89,
       "axeMonitorPagesTested": 783,
-      "siteImprovePagesIndexed": 1959,
+      "siteImprovePagesIndexed": 1936,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -647,41 +647,13 @@
       "dct": "Michele Jones"
     },
     {
-      "domain": "nysfair.ny.gov",
-      "url": "https://nysfair.ny.gov",
-      "agency": "Ag&Markets",
-      "axeMonitorScore": null,
-      "siteImproveScore": 82,
-      "axeMonitorPagesTested": null,
-      "siteImprovePagesIndexed": 249,
-      "teamScore": null,
-      "overrideJustification": "Existing Auditor results",
-      "auditorScore": 0,
-      "auditorDate": "2026-06-26",
-      "auditorReportUrl": "https://nysits-axeauditor.dequecloud.com/test-run/b3154520-5b79-11f1-84cc-1f70fc4e7ef1",
-      "auditorDeckUrl": "https://nysemail.sharepoint.com/:p:/t/its.grp.UX-Design-Team/IQCCHvWUpUoQTIHuMW9JpGWqAZ4NRse7lXqMedo8FNwVyc0?e=uPFyYF",
-      "auditorRuns": [
-        {
-          "date": "2026-06-26",
-          "score": 0,
-          "reportUrl": "https://nysits-axeauditor.dequecloud.com/test-run/b3154520-5b79-11f1-84cc-1f70fc4e7ef1",
-          "testCase": "NYS Fair",
-          "assetType": "Desktop Web"
-        }
-      ],
-      "monitorReportUrl": null,
-      "blocked": false,
-      "conflict": true,
-      "dct": "Michele Jones"
-    },
-    {
       "domain": "nysfairgrounds.ny.gov",
       "url": "https://nysfairgrounds.ny.gov",
       "agency": "Ag&Markets",
       "axeMonitorScore": 40,
       "siteImproveScore": 86,
       "axeMonitorPagesTested": 77,
-      "siteImprovePagesIndexed": 69,
+      "siteImprovePagesIndexed": 89,
       "teamScore": null,
       "overrideJustification": "Existing Auditor results",
       "auditorScore": 48,
@@ -707,7 +679,7 @@
       "url": "https://certified.ny.gov",
       "agency": "Ag&Markets",
       "axeMonitorScore": 59,
-      "siteImproveScore": 93,
+      "siteImproveScore": 92,
       "axeMonitorPagesTested": 49,
       "siteImprovePagesIndexed": 59,
       "teamScore": null,
@@ -757,7 +729,7 @@
       "axeMonitorScore": 12,
       "siteImproveScore": 74,
       "axeMonitorPagesTested": 984,
-      "siteImprovePagesIndexed": 2348,
+      "siteImprovePagesIndexed": 2313,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -775,9 +747,9 @@
       "url": "https://doccs.ny.gov",
       "agency": "DOCS",
       "axeMonitorScore": 59,
-      "siteImproveScore": 90,
+      "siteImproveScore": 91,
       "axeMonitorPagesTested": 363,
-      "siteImprovePagesIndexed": 511,
+      "siteImprovePagesIndexed": 560,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -895,9 +867,9 @@
       "url": "https://dec.ny.gov",
       "agency": "DEC",
       "axeMonitorScore": 54,
-      "siteImproveScore": 92,
+      "siteImproveScore": 91,
       "axeMonitorPagesTested": 755,
-      "siteImprovePagesIndexed": 27820,
+      "siteImprovePagesIndexed": 28768,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -915,9 +887,9 @@
       "url": "https://lgpc.ny.gov",
       "agency": "LGPC",
       "axeMonitorScore": 51,
-      "siteImproveScore": 91,
+      "siteImproveScore": 92,
       "axeMonitorPagesTested": 55,
-      "siteImprovePagesIndexed": 216,
+      "siteImprovePagesIndexed": 218,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -935,7 +907,7 @@
       "url": "https://woodproducts.ny.gov",
       "agency": "DEC",
       "axeMonitorScore": 55,
-      "siteImproveScore": 92,
+      "siteImproveScore": 91,
       "axeMonitorPagesTested": 171,
       "siteImprovePagesIndexed": 630,
       "teamScore": null,
@@ -957,7 +929,7 @@
       "axeMonitorScore": 51,
       "siteImproveScore": 91,
       "axeMonitorPagesTested": 999,
-      "siteImprovePagesIndexed": 7008,
+      "siteImprovePagesIndexed": 7151,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -995,7 +967,7 @@
       "url": "https://coronavirus.health.ny.gov",
       "agency": "DOH",
       "axeMonitorScore": 31,
-      "siteImproveScore": 90,
+      "siteImproveScore": 88,
       "axeMonitorPagesTested": 35,
       "siteImprovePagesIndexed": 177,
       "teamScore": null,
@@ -1411,26 +1383,6 @@
       "dct": "Ariel Vitello & Venkatesh Nattanmai"
     },
     {
-      "domain": "dol.ny.gov",
-      "url": "https://dol.ny.gov",
-      "agency": "DOL",
-      "axeMonitorScore": 70,
-      "siteImproveScore": 90,
-      "axeMonitorPagesTested": 987,
-      "siteImprovePagesIndexed": 2132,
-      "teamScore": null,
-      "overrideJustification": null,
-      "auditorScore": null,
-      "auditorDate": null,
-      "auditorReportUrl": null,
-      "auditorDeckUrl": null,
-      "auditorRuns": [],
-      "monitorReportUrl": null,
-      "blocked": false,
-      "conflict": true,
-      "dct": "Michael Allen"
-    },
-    {
       "domain": "careerzone.labor.ny.gov",
       "url": "https://careerzone.labor.ny.gov",
       "agency": "DOL",
@@ -1448,6 +1400,26 @@
       "monitorReportUrl": null,
       "blocked": false,
       "conflict": false,
+      "dct": "Michael Allen"
+    },
+    {
+      "domain": "dol.ny.gov",
+      "url": "https://dol.ny.gov",
+      "agency": "DOL",
+      "axeMonitorScore": 70,
+      "siteImproveScore": 90,
+      "axeMonitorPagesTested": 987,
+      "siteImprovePagesIndexed": 2141,
+      "teamScore": null,
+      "overrideJustification": null,
+      "auditorScore": null,
+      "auditorDate": null,
+      "auditorReportUrl": null,
+      "auditorDeckUrl": null,
+      "auditorRuns": [],
+      "monitorReportUrl": null,
+      "blocked": false,
+      "conflict": true,
       "dct": "Michael Allen"
     },
     {
@@ -1497,7 +1469,7 @@
       "axeMonitorScore": 61,
       "siteImproveScore": 90,
       "axeMonitorPagesTested": 53,
-      "siteImprovePagesIndexed": 134,
+      "siteImprovePagesIndexed": 132,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -1517,7 +1489,7 @@
       "axeMonitorScore": 76,
       "siteImproveScore": 93,
       "axeMonitorPagesTested": 507,
-      "siteImprovePagesIndexed": 928,
+      "siteImprovePagesIndexed": 1126,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -1537,7 +1509,7 @@
       "axeMonitorScore": 66,
       "siteImproveScore": 87,
       "axeMonitorPagesTested": 910,
-      "siteImprovePagesIndexed": 3652,
+      "siteImprovePagesIndexed": 4614,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -1705,7 +1677,7 @@
       "axeMonitorScore": 57,
       "siteImproveScore": 89,
       "axeMonitorPagesTested": 101,
-      "siteImprovePagesIndexed": 66,
+      "siteImprovePagesIndexed": 64,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -1745,26 +1717,6 @@
       "axeMonitorScore": 14,
       "siteImproveScore": null,
       "axeMonitorPagesTested": 399,
-      "siteImprovePagesIndexed": null,
-      "teamScore": null,
-      "overrideJustification": null,
-      "auditorScore": null,
-      "auditorDate": null,
-      "auditorReportUrl": null,
-      "auditorDeckUrl": null,
-      "auditorRuns": [],
-      "monitorReportUrl": null,
-      "blocked": false,
-      "conflict": false,
-      "dct": "James Myran"
-    },
-    {
-      "domain": "projecttracker.ecointeractive.com",
-      "url": "https://projecttracker.ecointeractive.com",
-      "agency": "DOT",
-      "axeMonitorScore": null,
-      "siteImproveScore": null,
-      "axeMonitorPagesTested": null,
       "siteImprovePagesIndexed": null,
       "teamScore": null,
       "overrideJustification": null,
@@ -1943,7 +1895,7 @@
       "url": "https://resilient.ny.gov",
       "agency": "DHSES",
       "axeMonitorScore": 76,
-      "siteImproveScore": 93,
+      "siteImproveScore": 92,
       "axeMonitorPagesTested": 11,
       "siteImprovePagesIndexed": 27,
       "teamScore": null,
@@ -1965,7 +1917,7 @@
       "axeMonitorScore": 58,
       "siteImproveScore": 90,
       "axeMonitorPagesTested": 643,
-      "siteImprovePagesIndexed": 964,
+      "siteImprovePagesIndexed": 1567,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -2045,7 +1997,7 @@
       "axeMonitorScore": 70,
       "siteImproveScore": 94,
       "axeMonitorPagesTested": 162,
-      "siteImprovePagesIndexed": 243,
+      "siteImprovePagesIndexed": 248,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -2119,26 +2071,6 @@
       "dct": "Jeff Nuding"
     },
     {
-      "domain": "content.troopers.ny.gov",
-      "url": "https://content.troopers.ny.gov",
-      "agency": "DSP",
-      "axeMonitorScore": null,
-      "siteImproveScore": null,
-      "axeMonitorPagesTested": null,
-      "siteImprovePagesIndexed": null,
-      "teamScore": null,
-      "overrideJustification": null,
-      "auditorScore": null,
-      "auditorDate": null,
-      "auditorReportUrl": null,
-      "auditorDeckUrl": null,
-      "auditorRuns": [],
-      "monitorReportUrl": null,
-      "blocked": false,
-      "conflict": false,
-      "dct": "Michael Harrigan"
-    },
-    {
       "domain": "firearms.troopers.ny.gov",
       "url": "https://firearms.troopers.ny.gov",
       "agency": "DSP",
@@ -2165,7 +2097,7 @@
       "axeMonitorScore": 66,
       "siteImproveScore": 90,
       "axeMonitorPagesTested": 930,
-      "siteImprovePagesIndexed": 5775,
+      "siteImprovePagesIndexed": 5933,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -2183,7 +2115,7 @@
       "url": "https://joinstatepolice.ny.gov",
       "agency": "DSP",
       "axeMonitorScore": 40,
-      "siteImproveScore": 91,
+      "siteImproveScore": 93,
       "axeMonitorPagesTested": 190,
       "siteImprovePagesIndexed": 36,
       "teamScore": null,
@@ -2251,9 +2183,9 @@
       "url": "https://cpc.ny.gov",
       "agency": "DOB",
       "axeMonitorScore": 60,
-      "siteImproveScore": 94,
+      "siteImproveScore": 93,
       "axeMonitorPagesTested": 22,
-      "siteImprovePagesIndexed": 24,
+      "siteImprovePagesIndexed": 22,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -2339,7 +2271,7 @@
       "url": "https://veterans.ny.gov",
       "agency": "DVS",
       "axeMonitorScore": 55,
-      "siteImproveScore": 93,
+      "siteImproveScore": 92,
       "axeMonitorPagesTested": 130,
       "siteImprovePagesIndexed": 248,
       "teamScore": null,
@@ -2481,7 +2413,7 @@
       "axeMonitorScore": 38,
       "siteImproveScore": 84,
       "axeMonitorPagesTested": 543,
-      "siteImprovePagesIndexed": 508,
+      "siteImprovePagesIndexed": 529,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -2578,9 +2510,9 @@
       "domain": "iloveny.com",
       "url": "https://iloveny.com",
       "agency": "ESD",
-      "axeMonitorScore": 29,
+      "axeMonitorScore": null,
       "siteImproveScore": null,
-      "axeMonitorPagesTested": 998,
+      "axeMonitorPagesTested": null,
       "siteImprovePagesIndexed": null,
       "teamScore": null,
       "overrideJustification": null,
@@ -2601,7 +2533,7 @@
       "axeMonitorScore": 76,
       "siteImproveScore": 91,
       "axeMonitorPagesTested": 498,
-      "siteImprovePagesIndexed": 886,
+      "siteImprovePagesIndexed": 903,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -2681,7 +2613,7 @@
       "axeMonitorScore": 50,
       "siteImproveScore": 90,
       "axeMonitorPagesTested": 553,
-      "siteImprovePagesIndexed": 124,
+      "siteImprovePagesIndexed": 123,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -2801,26 +2733,6 @@
       "axeMonitorScore": 40,
       "siteImproveScore": null,
       "axeMonitorPagesTested": 1,
-      "siteImprovePagesIndexed": null,
-      "teamScore": null,
-      "overrideJustification": null,
-      "auditorScore": null,
-      "auditorDate": null,
-      "auditorReportUrl": null,
-      "auditorDeckUrl": null,
-      "auditorRuns": [],
-      "monitorReportUrl": null,
-      "blocked": false,
-      "conflict": false,
-      "dct": "Manohar Mathan"
-    },
-    {
-      "domain": "fs.svc.ny.gov",
-      "url": "https://fs.svc.ny.gov",
-      "agency": "ITS",
-      "axeMonitorScore": null,
-      "siteImproveScore": null,
-      "axeMonitorPagesTested": null,
       "siteImprovePagesIndexed": null,
       "teamScore": null,
       "overrideJustification": null,
@@ -3039,9 +2951,9 @@
       "url": "https://fcb.ny.gov",
       "agency": "New York State Financial Control Board",
       "axeMonitorScore": 34,
-      "siteImproveScore": 93,
+      "siteImproveScore": 91,
       "axeMonitorPagesTested": 35,
-      "siteImprovePagesIndexed": 41,
+      "siteImprovePagesIndexed": 42,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -3099,9 +3011,9 @@
       "url": "https://waterfront.ny.gov",
       "agency": "NYWC",
       "axeMonitorScore": 71,
-      "siteImproveScore": 90,
+      "siteImproveScore": 89,
       "axeMonitorPagesTested": 160,
-      "siteImprovePagesIndexed": 579,
+      "siteImprovePagesIndexed": 589,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -3121,7 +3033,7 @@
       "axeMonitorScore": 1,
       "siteImproveScore": 86,
       "axeMonitorPagesTested": 741,
-      "siteImprovePagesIndexed": 227,
+      "siteImprovePagesIndexed": 231,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -3139,7 +3051,7 @@
       "url": "https://mariomcuomobridge.ny.gov",
       "agency": "NYSTA",
       "axeMonitorScore": 56,
-      "siteImproveScore": 91,
+      "siteImproveScore": 92,
       "axeMonitorPagesTested": 28,
       "siteImprovePagesIndexed": 56,
       "teamScore": null,
@@ -3159,7 +3071,7 @@
       "url": "https://cdd.ny.gov",
       "agency": "OPWDD",
       "axeMonitorScore": 60,
-      "siteImproveScore": 91,
+      "siteImproveScore": 92,
       "axeMonitorPagesTested": 160,
       "siteImprovePagesIndexed": 139,
       "teamScore": null,
@@ -3199,9 +3111,9 @@
       "url": "https://opdv.ny.gov",
       "agency": "OPDV",
       "axeMonitorScore": 69,
-      "siteImproveScore": 92,
+      "siteImproveScore": 93,
       "axeMonitorPagesTested": 187,
-      "siteImprovePagesIndexed": 176,
+      "siteImprovePagesIndexed": 186,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -3259,9 +3171,9 @@
       "url": "https://oasas.ny.gov",
       "agency": "OASAS",
       "axeMonitorScore": 51,
-      "siteImproveScore": 90,
+      "siteImproveScore": 89,
       "axeMonitorPagesTested": 868,
-      "siteImprovePagesIndexed": 1378,
+      "siteImprovePagesIndexed": 1361,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -3281,7 +3193,7 @@
       "axeMonitorScore": 65,
       "siteImproveScore": 94,
       "axeMonitorPagesTested": 184,
-      "siteImprovePagesIndexed": 336,
+      "siteImprovePagesIndexed": 368,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -3375,26 +3287,6 @@
       "dct": "Divya Dileep"
     },
     {
-      "domain": "eapstats.oer.ny.gov",
-      "url": "https://eapstats.oer.ny.gov",
-      "agency": "OER",
-      "axeMonitorScore": null,
-      "siteImproveScore": null,
-      "axeMonitorPagesTested": null,
-      "siteImprovePagesIndexed": null,
-      "teamScore": null,
-      "overrideJustification": null,
-      "auditorScore": null,
-      "auditorDate": null,
-      "auditorReportUrl": null,
-      "auditorDeckUrl": null,
-      "auditorRuns": [],
-      "monitorReportUrl": null,
-      "blocked": false,
-      "conflict": false,
-      "dct": "Brian Balle"
-    },
-    {
       "domain": "educationbenefits.oer.ny.gov",
       "url": "https://educationbenefits.oer.ny.gov",
       "agency": "OER",
@@ -3439,9 +3331,9 @@
       "url": "https://nyscseapartnership.org",
       "agency": "OER",
       "axeMonitorScore": 0,
-      "siteImproveScore": 84,
+      "siteImproveScore": 83,
       "axeMonitorPagesTested": 577,
-      "siteImprovePagesIndexed": 631,
+      "siteImprovePagesIndexed": 621,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -3455,33 +3347,13 @@
       "dct": "Brian Balle"
     },
     {
-      "domain": "apps.ogs.ny.gov",
-      "url": "https://apps.ogs.ny.gov",
-      "agency": "OGS",
-      "axeMonitorScore": null,
-      "siteImproveScore": null,
-      "axeMonitorPagesTested": null,
-      "siteImprovePagesIndexed": null,
-      "teamScore": null,
-      "overrideJustification": null,
-      "auditorScore": null,
-      "auditorDate": null,
-      "auditorReportUrl": null,
-      "auditorDeckUrl": null,
-      "auditorRuns": [],
-      "monitorReportUrl": null,
-      "blocked": false,
-      "conflict": false,
-      "dct": "Moses Kamya"
-    },
-    {
       "domain": "ogs.ny.gov",
       "url": "https://ogs.ny.gov",
       "agency": "OGS",
       "axeMonitorScore": 53,
-      "siteImproveScore": 92,
+      "siteImproveScore": 90,
       "axeMonitorPagesTested": 816,
-      "siteImprovePagesIndexed": 2216,
+      "siteImprovePagesIndexed": 2231,
       "teamScore": null,
       "overrideJustification": "Existing Auditor results",
       "auditorScore": 0,
@@ -3550,26 +3422,6 @@
       "dct": "Moses Kamya"
     },
     {
-      "domain": "ars.omh.ny.gov",
-      "url": "https://ars.omh.ny.gov",
-      "agency": "OMH",
-      "axeMonitorScore": null,
-      "siteImproveScore": null,
-      "axeMonitorPagesTested": null,
-      "siteImprovePagesIndexed": null,
-      "teamScore": null,
-      "overrideJustification": null,
-      "auditorScore": null,
-      "auditorDate": null,
-      "auditorReportUrl": null,
-      "auditorDeckUrl": null,
-      "auditorRuns": [],
-      "monitorReportUrl": null,
-      "blocked": false,
-      "conflict": false,
-      "dct": "Amtul Nayeem"
-    },
-    {
       "domain": "cams.omh.ny.gov",
       "url": "https://cams.omh.ny.gov",
       "agency": "OMH",
@@ -3630,12 +3482,12 @@
       "dct": "Amtul Nayeem"
     },
     {
-      "domain": "psyckesmedicaid.omh.ny.gov",
-      "url": "https://psyckesmedicaid.omh.ny.gov",
+      "domain": "psyckesmedicaid-qa-automation.omh.ny.gov",
+      "url": "https://psyckesmedicaid-qa-automation.omh.ny.gov",
       "agency": "OMH",
-      "axeMonitorScore": 70,
+      "axeMonitorScore": 0,
       "siteImproveScore": null,
-      "axeMonitorPagesTested": 2,
+      "axeMonitorPagesTested": 1,
       "siteImprovePagesIndexed": null,
       "teamScore": null,
       "overrideJustification": null,
@@ -3734,9 +3586,9 @@
       "url": "https://opwdd.ny.gov",
       "agency": "OPWDD",
       "axeMonitorScore": 58,
-      "siteImproveScore": 89,
+      "siteImproveScore": 90,
       "axeMonitorPagesTested": 750,
-      "siteImprovePagesIndexed": 1775,
+      "siteImprovePagesIndexed": 1785,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -3796,7 +3648,7 @@
       "axeMonitorScore": 77,
       "siteImproveScore": 92,
       "axeMonitorPagesTested": 1001,
-      "siteImprovePagesIndexed": 1927,
+      "siteImprovePagesIndexed": 1780,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -3931,9 +3783,9 @@
       "url": "https://governor.ny.gov",
       "agency": "Governor",
       "axeMonitorScore": 76,
-      "siteImproveScore": 86,
+      "siteImproveScore": 87,
       "axeMonitorPagesTested": 471,
-      "siteImprovePagesIndexed": 14717,
+      "siteImprovePagesIndexed": 15600,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -3951,9 +3803,9 @@
       "url": "https://omig.ny.gov",
       "agency": "OMIG",
       "axeMonitorScore": 42,
-      "siteImproveScore": 88,
+      "siteImproveScore": 87,
       "axeMonitorPagesTested": 160,
-      "siteImprovePagesIndexed": 2083,
+      "siteImprovePagesIndexed": 2060,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -4011,7 +3863,7 @@
       "url": "https://grantsmanagement.ny.gov",
       "agency": "OSC",
       "axeMonitorScore": 72,
-      "siteImproveScore": 91,
+      "siteImproveScore": 92,
       "axeMonitorPagesTested": 19,
       "siteImprovePagesIndexed": 33,
       "teamScore": null,
@@ -4033,7 +3885,7 @@
       "axeMonitorScore": 38,
       "siteImproveScore": 91,
       "axeMonitorPagesTested": 51,
-      "siteImprovePagesIndexed": 76,
+      "siteImprovePagesIndexed": 77,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -4071,9 +3923,9 @@
       "url": "https://pcfb.ny.gov",
       "agency": "PCFB",
       "axeMonitorScore": 30,
-      "siteImproveScore": 93,
+      "siteImproveScore": 92,
       "axeMonitorPagesTested": 64,
-      "siteImprovePagesIndexed": 82,
+      "siteImprovePagesIndexed": 83,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -4091,9 +3943,9 @@
       "url": "https://perb.ny.gov",
       "agency": "PERB",
       "axeMonitorScore": 44,
-      "siteImproveScore": 89,
+      "siteImproveScore": 90,
       "axeMonitorPagesTested": 104,
-      "siteImprovePagesIndexed": 280,
+      "siteImprovePagesIndexed": 279,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -4211,7 +4063,7 @@
       "url": "https://scoc.ny.gov",
       "agency": "SCOC",
       "axeMonitorScore": 62,
-      "siteImproveScore": 93,
+      "siteImproveScore": 92,
       "axeMonitorPagesTested": 13,
       "siteImprovePagesIndexed": 35,
       "teamScore": null,
@@ -4251,7 +4103,7 @@
       "url": "https://sla.ny.gov",
       "agency": "SLA",
       "axeMonitorScore": 50,
-      "siteImproveScore": 91,
+      "siteImproveScore": 90,
       "axeMonitorPagesTested": 182,
       "siteImprovePagesIndexed": 1362,
       "teamScore": null,
@@ -4299,7 +4151,7 @@
       "url": "https://planforaging.ny.gov",
       "agency": "SOFA",
       "axeMonitorScore": 63,
-      "siteImproveScore": 95,
+      "siteImproveScore": 94,
       "axeMonitorPagesTested": 161,
       "siteImprovePagesIndexed": 199,
       "teamScore": null,
@@ -4399,9 +4251,9 @@
       "url": "https://justicecenter.ny.gov",
       "agency": "JCPPSN",
       "axeMonitorScore": 36,
-      "siteImproveScore": 91,
+      "siteImproveScore": 90,
       "axeMonitorPagesTested": 194,
-      "siteImprovePagesIndexed": 443,
+      "siteImprovePagesIndexed": 455,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -4421,7 +4273,7 @@
       "axeMonitorScore": 20,
       "siteImproveScore": 92,
       "axeMonitorPagesTested": 4,
-      "siteImprovePagesIndexed": 396,
+      "siteImprovePagesIndexed": 471,
       "teamScore": 20,
       "overrideJustification": "CLI scan results uploaded",
       "auditorScore": null,
@@ -4569,7 +4421,7 @@
       "axeMonitorScore": 47,
       "siteImproveScore": 92,
       "axeMonitorPagesTested": 379,
-      "siteImprovePagesIndexed": 666,
+      "siteImprovePagesIndexed": 663,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -4587,9 +4439,9 @@
       "url": "https://dps.ny.gov",
       "agency": "DPS",
       "axeMonitorScore": 23,
-      "siteImproveScore": 95,
+      "siteImproveScore": 90,
       "axeMonitorPagesTested": 902,
-      "siteImprovePagesIndexed": 2880,
+      "siteImprovePagesIndexed": 2820,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -4649,7 +4501,7 @@
       "axeMonitorScore": 53,
       "siteImproveScore": 92,
       "axeMonitorPagesTested": 153,
-      "siteImprovePagesIndexed": 147,
+      "siteImprovePagesIndexed": 146,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -4667,9 +4519,9 @@
       "url": "https://aging.ny.gov",
       "agency": "SOFA",
       "axeMonitorScore": 55,
-      "siteImproveScore": 90,
+      "siteImproveScore": 89,
       "axeMonitorPagesTested": 284,
-      "siteImprovePagesIndexed": 801,
+      "siteImprovePagesIndexed": 798,
       "teamScore": null,
       "overrideJustification": "Existing Auditor results",
       "auditorScore": 43,
@@ -4695,7 +4547,7 @@
       "url": "https://newyorkersvolunteer.ny.gov",
       "agency": "Governor",
       "axeMonitorScore": 46,
-      "siteImproveScore": 91,
+      "siteImproveScore": 90,
       "axeMonitorPagesTested": 58,
       "siteImprovePagesIndexed": 104,
       "teamScore": null,
@@ -4755,7 +4607,7 @@
       "url": "https://empiretrail.ny.gov",
       "agency": "Parks",
       "axeMonitorScore": 44,
-      "siteImproveScore": 83,
+      "siteImproveScore": 84,
       "axeMonitorPagesTested": 79,
       "siteImprovePagesIndexed": 147,
       "teamScore": null,
@@ -4797,7 +4649,7 @@
       "axeMonitorScore": 54,
       "siteImproveScore": 92,
       "axeMonitorPagesTested": 72,
-      "siteImprovePagesIndexed": 80,
+      "siteImprovePagesIndexed": 81,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -4815,9 +4667,9 @@
       "url": "https://gaming.ny.gov",
       "agency": "Gaming",
       "axeMonitorScore": 47,
-      "siteImproveScore": 93,
+      "siteImproveScore": 91,
       "axeMonitorPagesTested": 228,
-      "siteImprovePagesIndexed": 336,
+      "siteImprovePagesIndexed": 342,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -4855,7 +4707,7 @@
       "url": "https://knowledgebank.criminaljustice.ny.gov",
       "agency": "DCJS",
       "axeMonitorScore": 54,
-      "siteImproveScore": 91,
+      "siteImproveScore": 90,
       "axeMonitorPagesTested": 106,
       "siteImprovePagesIndexed": 68,
       "teamScore": null,
@@ -4915,9 +4767,9 @@
       "url": "https://criminaljustice.ny.gov",
       "agency": "DCJS",
       "axeMonitorScore": 38,
-      "siteImproveScore": 80,
+      "siteImproveScore": 89,
       "axeMonitorPagesTested": 560,
-      "siteImprovePagesIndexed": 287,
+      "siteImprovePagesIndexed": 363,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -4955,9 +4807,9 @@
       "url": "https://policereform.ny.gov",
       "agency": "DCJS",
       "axeMonitorScore": 52,
-      "siteImproveScore": 91,
+      "siteImproveScore": 92,
       "axeMonitorPagesTested": 229,
-      "siteImprovePagesIndexed": 544,
+      "siteImprovePagesIndexed": 549,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -5097,7 +4949,7 @@
       "axeMonitorScore": 42,
       "siteImproveScore": 87,
       "axeMonitorPagesTested": 681,
-      "siteImprovePagesIndexed": 253,
+      "siteImprovePagesIndexed": 232,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -5115,9 +4967,9 @@
       "url": "https://taste.ny.gov",
       "agency": "ESD",
       "axeMonitorScore": 63,
-      "siteImproveScore": 90,
+      "siteImproveScore": 88,
       "axeMonitorPagesTested": 44,
-      "siteImprovePagesIndexed": 407,
+      "siteImprovePagesIndexed": 415,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -5155,9 +5007,9 @@
       "url": "https://efc.ny.gov",
       "agency": "Environmental Facilities Corporation",
       "axeMonitorScore": 64,
-      "siteImproveScore": 92,
+      "siteImproveScore": 91,
       "axeMonitorPagesTested": 150,
-      "siteImprovePagesIndexed": 206,
+      "siteImprovePagesIndexed": 214,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -5197,7 +5049,7 @@
       "axeMonitorScore": 66,
       "siteImproveScore": 94,
       "axeMonitorPagesTested": 50,
-      "siteImprovePagesIndexed": 55,
+      "siteImprovePagesIndexed": 56,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -5235,9 +5087,9 @@
       "url": "https://its.ny.gov",
       "agency": "ITS",
       "axeMonitorScore": 58,
-      "siteImproveScore": 92,
+      "siteImproveScore": 91,
       "axeMonitorPagesTested": 252,
-      "siteImprovePagesIndexed": 188,
+      "siteImprovePagesIndexed": 195,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -5315,9 +5167,9 @@
       "url": "https://ny.gov",
       "agency": "ITS",
       "axeMonitorScore": 54,
-      "siteImproveScore": 85,
+      "siteImproveScore": 84,
       "axeMonitorPagesTested": 871,
-      "siteImprovePagesIndexed": 1017,
+      "siteImprovePagesIndexed": 967,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -5355,9 +5207,9 @@
       "url": "https://empirestateplaza.ny.gov",
       "agency": "OGS",
       "axeMonitorScore": 55,
-      "siteImproveScore": 90,
+      "siteImproveScore": 91,
       "axeMonitorPagesTested": 386,
-      "siteImprovePagesIndexed": 502,
+      "siteImprovePagesIndexed": 501,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -5377,7 +5229,7 @@
       "axeMonitorScore": 59,
       "siteImproveScore": 90,
       "axeMonitorPagesTested": 54,
-      "siteImprovePagesIndexed": 1271,
+      "siteImprovePagesIndexed": 1285,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -5497,7 +5349,7 @@
       "axeMonitorScore": 77,
       "siteImproveScore": 93,
       "axeMonitorPagesTested": 207,
-      "siteImprovePagesIndexed": 216,
+      "siteImprovePagesIndexed": 218,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -5535,9 +5387,9 @@
       "url": "https://omh.ny.gov",
       "agency": "OMH",
       "axeMonitorScore": 57,
-      "siteImproveScore": 78,
+      "siteImproveScore": 80,
       "axeMonitorPagesTested": 629,
-      "siteImprovePagesIndexed": 537,
+      "siteImprovePagesIndexed": 541,
       "teamScore": null,
       "overrideJustification": "Existing Auditor results",
       "auditorScore": 50,
@@ -5563,7 +5415,7 @@
       "url": "https://bewell.ny.gov",
       "agency": "OMH",
       "axeMonitorScore": 56,
-      "siteImproveScore": 92,
+      "siteImproveScore": 91,
       "axeMonitorPagesTested": 27,
       "siteImprovePagesIndexed": 27,
       "teamScore": null,
@@ -5705,7 +5557,7 @@
       "axeMonitorScore": 20,
       "siteImproveScore": 90,
       "axeMonitorPagesTested": 4,
-      "siteImprovePagesIndexed": 1219,
+      "siteImprovePagesIndexed": 1283,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -5723,9 +5575,9 @@
       "url": "https://nifa.ny.gov",
       "agency": "Nassau County Interim Finance Authority",
       "axeMonitorScore": 70,
-      "siteImproveScore": 91,
+      "siteImproveScore": 90,
       "axeMonitorPagesTested": 4,
-      "siteImprovePagesIndexed": 231,
+      "siteImprovePagesIndexed": 249,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -5965,7 +5817,7 @@
       "axeMonitorScore": 54,
       "siteImproveScore": 85,
       "axeMonitorPagesTested": 31,
-      "siteImprovePagesIndexed": 17,
+      "siteImprovePagesIndexed": 10,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -5983,9 +5835,9 @@
       "url": "https://bsc.ogs.ny.gov/",
       "agency": "OGS",
       "axeMonitorScore": null,
-      "siteImproveScore": 90,
+      "siteImproveScore": 91,
       "axeMonitorPagesTested": null,
-      "siteImprovePagesIndexed": 461,
+      "siteImprovePagesIndexed": 472,
       "teamScore": null,
       "overrideJustification": null,
       "auditorScore": null,
@@ -6003,7 +5855,7 @@
       "url": "https://nyess.ny.gov/",
       "agency": "DOL",
       "axeMonitorScore": null,
-      "siteImproveScore": 94,
+      "siteImproveScore": 93,
       "axeMonitorPagesTested": null,
       "siteImprovePagesIndexed": 10,
       "teamScore": null,
@@ -6017,6 +5869,34 @@
       "blocked": false,
       "conflict": false,
       "dct": "Michael Allen"
+    },
+    {
+      "domain": "nysfair.ny.gov",
+      "url": "https://nysfair.ny.gov/",
+      "agency": "Unattributed",
+      "axeMonitorScore": null,
+      "siteImproveScore": 78,
+      "axeMonitorPagesTested": null,
+      "siteImprovePagesIndexed": 827,
+      "teamScore": null,
+      "overrideJustification": "Existing Auditor results",
+      "auditorScore": 0,
+      "auditorDate": "2026-06-26",
+      "auditorReportUrl": "https://nysits-axeauditor.dequecloud.com/test-run/b3154520-5b79-11f1-84cc-1f70fc4e7ef1",
+      "auditorDeckUrl": "https://nysemail.sharepoint.com/:p:/t/its.grp.UX-Design-Team/IQCCHvWUpUoQTIHuMW9JpGWqAZ4NRse7lXqMedo8FNwVyc0?e=uPFyYF",
+      "auditorRuns": [
+        {
+          "date": "2026-06-26",
+          "score": 0,
+          "reportUrl": "https://nysits-axeauditor.dequecloud.com/test-run/b3154520-5b79-11f1-84cc-1f70fc4e7ef1",
+          "testCase": "NYS Fair",
+          "assetType": "Desktop Web"
+        }
+      ],
+      "monitorReportUrl": null,
+      "blocked": false,
+      "conflict": false,
+      "dct": null
     },
     {
       "domain": "search.its.ny.gov",
@@ -6610,6 +6490,11 @@
         "month": "2026-07",
         "capturedAt": "2026-07-27T17:59:08.066Z",
         "source": "dashboard"
+      },
+      {
+        "month": "2026-08",
+        "capturedAt": "2026-08-31T12:00:00.000Z",
+        "source": "dashboard"
       }
     ],
     "sites": [
@@ -6618,6 +6503,7 @@
         "agency": "DOT",
         "dct": "James Myran",
         "automated": [
+          null,
           null,
           null
         ],
@@ -6634,6 +6520,7 @@
         "dct": "Michael John",
         "automated": [
           null,
+          52,
           52
         ],
         "audits": []
@@ -6644,6 +6531,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          80,
           80
         ],
         "audits": []
@@ -6654,6 +6542,7 @@
         "dct": null,
         "automated": [
           null,
+          35,
           35
         ],
         "audits": []
@@ -6664,6 +6553,7 @@
         "dct": "Bryan Amedio",
         "automated": [
           null,
+          55,
           55
         ],
         "audits": [
@@ -6679,6 +6569,7 @@
         "dct": "Michele Jones",
         "automated": [
           null,
+          53,
           53
         ],
         "audits": []
@@ -6689,6 +6580,7 @@
         "dct": "Michael Harrigan",
         "automated": [
           null,
+          53,
           53
         ],
         "audits": []
@@ -6699,6 +6591,7 @@
         "dct": "Christopher O'Connor",
         "automated": [
           null,
+          80,
           80
         ],
         "audits": []
@@ -6708,6 +6601,7 @@
         "agency": "OER",
         "dct": "Brian Balle",
         "automated": [
+          null,
           null,
           null
         ],
@@ -6724,6 +6618,7 @@
         "dct": "Arne Louison",
         "automated": [
           null,
+          43,
           43
         ],
         "audits": []
@@ -6734,6 +6629,7 @@
         "dct": "Jeff Nuding",
         "automated": [
           null,
+          38,
           38
         ],
         "audits": []
@@ -6744,6 +6640,7 @@
         "dct": "Michael John",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -6753,6 +6650,7 @@
         "agency": "DHCR",
         "dct": "Tim Carroll",
         "automated": [
+          null,
           null,
           null
         ],
@@ -6768,6 +6666,7 @@
         "agency": "DOH",
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
+          null,
           null,
           null
         ],
@@ -6796,6 +6695,7 @@
         "dct": "Michael Allen",
         "automated": [
           null,
+          null,
           null
         ],
         "audits": [
@@ -6811,6 +6711,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          7,
           7
         ],
         "audits": []
@@ -6821,6 +6722,7 @@
         "dct": "Moses Kamya",
         "automated": [
           null,
+          null,
           null
         ],
         "audits": []
@@ -6830,6 +6732,7 @@
         "agency": "OMIG",
         "dct": "R. Grace Dillon",
         "automated": [
+          null,
           null,
           null
         ],
@@ -6850,6 +6753,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          35,
           35
         ],
         "audits": []
@@ -6859,6 +6763,7 @@
         "agency": "OMH",
         "dct": "Amtul Nayeem",
         "automated": [
+          null,
           null,
           null
         ],
@@ -6870,6 +6775,7 @@
         "dct": "Thomas Coon",
         "automated": [
           null,
+          39,
           39
         ],
         "audits": []
@@ -6880,6 +6786,7 @@
         "dct": null,
         "automated": [
           null,
+          77,
           77
         ],
         "audits": []
@@ -6890,6 +6797,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -6900,6 +6808,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          56,
           56
         ],
         "audits": []
@@ -6910,6 +6819,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          46,
           46
         ],
         "audits": []
@@ -6920,6 +6830,7 @@
         "dct": "Manohar Mathan",
         "automated": [
           null,
+          13,
           13
         ],
         "audits": []
@@ -6930,6 +6841,7 @@
         "dct": "Jeff Nuding",
         "automated": [
           null,
+          69,
           69
         ],
         "audits": []
@@ -6940,6 +6852,7 @@
         "dct": "Tim Carroll",
         "automated": [
           null,
+          22,
           22
         ],
         "audits": []
@@ -6950,6 +6863,7 @@
         "dct": null,
         "automated": [
           null,
+          38,
           38
         ],
         "audits": []
@@ -6960,6 +6874,7 @@
         "dct": "Elizabeth Lee",
         "automated": [
           null,
+          53,
           53
         ],
         "audits": []
@@ -6970,7 +6885,8 @@
         "dct": "Moses Kamya",
         "automated": [
           null,
-          90
+          90,
+          91
         ],
         "audits": []
       },
@@ -6979,6 +6895,7 @@
         "agency": "DOB",
         "dct": "Elizabeth Lee",
         "automated": [
+          null,
           null,
           null
         ],
@@ -6995,6 +6912,7 @@
         "dct": "Michael John",
         "automated": [
           null,
+          58,
           58
         ],
         "audits": [
@@ -7010,6 +6928,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          80,
           80
         ],
         "audits": []
@@ -7020,6 +6939,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -7030,6 +6950,7 @@
         "dct": "Divya Dileep",
         "automated": [
           null,
+          65,
           65
         ],
         "audits": []
@@ -7040,6 +6961,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          80,
           80
         ],
         "audits": []
@@ -7050,6 +6972,7 @@
         "dct": "Brian Balle",
         "automated": [
           null,
+          70,
           70
         ],
         "audits": [
@@ -7065,6 +6988,7 @@
         "dct": "Michael Allen",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -7075,6 +6999,7 @@
         "dct": "Divya Dileep",
         "automated": [
           null,
+          33,
           33
         ],
         "audits": [
@@ -7094,6 +7019,7 @@
         "dct": "Bryan Amedio",
         "automated": [
           null,
+          60,
           60
         ],
         "audits": []
@@ -7104,6 +7030,7 @@
         "dct": "Christopher O'Connor",
         "automated": [
           null,
+          38,
           38
         ],
         "audits": []
@@ -7114,6 +7041,7 @@
         "dct": "Michele Jones",
         "automated": [
           null,
+          59,
           59
         ],
         "audits": []
@@ -7124,6 +7052,7 @@
         "dct": "Michele Jones",
         "automated": [
           null,
+          60,
           60
         ],
         "audits": []
@@ -7134,6 +7063,7 @@
         "dct": "R. Grace Dillon",
         "automated": [
           null,
+          30,
           30
         ],
         "audits": []
@@ -7144,6 +7074,7 @@
         "dct": "Mark Kedik",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -7154,6 +7085,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -7164,6 +7096,7 @@
         "dct": "Bryan Amedio",
         "automated": [
           null,
+          55,
           55
         ],
         "audits": []
@@ -7174,6 +7107,7 @@
         "dct": "Gaurav Upadhyay",
         "automated": [
           null,
+          55,
           55
         ],
         "audits": []
@@ -7184,6 +7118,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -7194,6 +7129,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          80,
           80
         ],
         "audits": []
@@ -7204,6 +7140,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -7214,6 +7151,7 @@
         "dct": "Moses Kamya",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -7223,6 +7161,7 @@
         "agency": "DSP",
         "dct": "Michael Harrigan",
         "automated": [
+          null,
           null,
           null
         ],
@@ -7234,6 +7173,7 @@
         "dct": "Elizabeth Moran",
         "automated": [
           null,
+          43,
           43
         ],
         "audits": []
@@ -7244,6 +7184,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          31,
           31
         ],
         "audits": []
@@ -7254,6 +7195,7 @@
         "dct": "Divya Dileep",
         "automated": [
           null,
+          80,
           80
         ],
         "audits": []
@@ -7264,6 +7206,7 @@
         "dct": "Elizabeth Lee",
         "automated": [
           null,
+          60,
           60
         ],
         "audits": []
@@ -7273,6 +7216,7 @@
         "agency": "DOS",
         "dct": "Michael John",
         "automated": [
+          60,
           60,
           60
         ],
@@ -7284,6 +7228,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          33,
           33
         ],
         "audits": []
@@ -7294,6 +7239,7 @@
         "dct": "Jeff Nuding",
         "automated": [
           null,
+          38,
           38
         ],
         "audits": []
@@ -7303,6 +7249,7 @@
         "agency": "Parks",
         "dct": "Arne Louison",
         "automated": [
+          10,
           10,
           10
         ],
@@ -7314,6 +7261,7 @@
         "dct": "Brian Balle",
         "automated": [
           null,
+          12,
           12
         ],
         "audits": []
@@ -7324,6 +7272,7 @@
         "dct": "Brian Balle",
         "automated": [
           null,
+          100,
           100
         ],
         "audits": []
@@ -7334,6 +7283,7 @@
         "dct": "Manohar Mathan",
         "automated": [
           null,
+          43,
           43
         ],
         "audits": []
@@ -7344,6 +7294,7 @@
         "dct": "Gaurav Upadhyay",
         "automated": [
           null,
+          54,
           54
         ],
         "audits": []
@@ -7354,6 +7305,7 @@
         "dct": null,
         "automated": [
           null,
+          48,
           48
         ],
         "audits": []
@@ -7364,6 +7316,7 @@
         "dct": null,
         "automated": [
           null,
+          80,
           80
         ],
         "audits": []
@@ -7374,6 +7327,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          17,
           17
         ],
         "audits": []
@@ -7383,6 +7337,7 @@
         "agency": "ITS",
         "dct": "Manohar Mathan",
         "automated": [
+          null,
           null,
           null
         ],
@@ -7399,6 +7354,7 @@
         "dct": "Divya Dileep",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -7409,6 +7365,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          51,
           51
         ],
         "audits": []
@@ -7419,6 +7376,7 @@
         "dct": "R. Grace Dillon",
         "automated": [
           null,
+          70,
           70
         ],
         "audits": []
@@ -7429,6 +7387,7 @@
         "dct": "Christopher O'Connor",
         "automated": [
           null,
+          20,
           20
         ],
         "audits": []
@@ -7439,6 +7398,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          1,
           1
         ],
         "audits": []
@@ -7449,6 +7409,7 @@
         "dct": "Bryan Amedio",
         "automated": [
           null,
+          67,
           67
         ],
         "audits": []
@@ -7459,6 +7420,7 @@
         "dct": "Jeff Nuding",
         "automated": [
           null,
+          41,
           41
         ],
         "audits": []
@@ -7469,6 +7431,7 @@
         "dct": "Andrea Rohan",
         "automated": [
           null,
+          76,
           76
         ],
         "audits": []
@@ -7479,6 +7442,7 @@
         "dct": "Elizabeth Moran",
         "automated": [
           null,
+          59,
           59
         ],
         "audits": []
@@ -7489,6 +7453,7 @@
         "dct": "Michael Allen",
         "automated": [
           null,
+          70,
           70
         ],
         "audits": []
@@ -7499,6 +7464,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          25,
           25
         ],
         "audits": []
@@ -7509,6 +7475,7 @@
         "dct": "Michael John",
         "automated": [
           null,
+          66,
           66
         ],
         "audits": []
@@ -7519,6 +7486,7 @@
         "dct": "James Myran",
         "automated": [
           null,
+          3,
           3
         ],
         "audits": []
@@ -7529,6 +7497,7 @@
         "dct": "Michele Jones",
         "automated": [
           null,
+          23,
           23
         ],
         "audits": []
@@ -7539,6 +7508,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -7549,6 +7519,7 @@
         "dct": "Richard Cletus",
         "automated": [
           null,
+          87,
           87
         ],
         "audits": []
@@ -7559,6 +7530,7 @@
         "dct": "James Myran",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -7568,6 +7540,7 @@
         "agency": "OER",
         "dct": "Brian Balle",
         "automated": [
+          null,
           null,
           null
         ],
@@ -7579,6 +7552,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          53,
           53
         ],
         "audits": []
@@ -7589,6 +7563,7 @@
         "dct": "Thomas Coon",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -7599,6 +7574,7 @@
         "dct": "Brian Balle",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -7609,6 +7585,7 @@
         "dct": "Gaurav Upadhyay",
         "automated": [
           null,
+          64,
           64
         ],
         "audits": []
@@ -7619,6 +7596,7 @@
         "dct": "Michael John",
         "automated": [
           null,
+          80,
           80
         ],
         "audits": []
@@ -7629,6 +7607,7 @@
         "dct": null,
         "automated": [
           null,
+          51,
           51
         ],
         "audits": []
@@ -7639,6 +7618,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          20,
           20
         ],
         "audits": []
@@ -7649,6 +7629,7 @@
         "dct": "Moses Kamya",
         "automated": [
           null,
+          55,
           55
         ],
         "audits": []
@@ -7659,6 +7640,7 @@
         "dct": "Arne Louison",
         "automated": [
           null,
+          44,
           44
         ],
         "audits": []
@@ -7669,6 +7651,7 @@
         "dct": "Michael John",
         "automated": [
           null,
+          54,
           54
         ],
         "audits": []
@@ -7679,6 +7662,7 @@
         "dct": "Michele Jones",
         "automated": [
           null,
+          38,
           38
         ],
         "audits": []
@@ -7689,6 +7673,7 @@
         "dct": "R. Grace Dillon",
         "automated": [
           null,
+          53,
           53
         ],
         "audits": []
@@ -7699,6 +7684,7 @@
         "dct": "R. Grace Dillon",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -7709,6 +7695,7 @@
         "dct": "Bryan Amedio",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -7719,6 +7706,7 @@
         "dct": "Michele Jones",
         "automated": [
           null,
+          7,
           7
         ],
         "audits": []
@@ -7729,6 +7717,7 @@
         "dct": "R. Grace Dillon",
         "automated": [
           null,
+          34,
           34
         ],
         "audits": []
@@ -7739,6 +7728,7 @@
         "dct": "Michael John",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -7748,6 +7738,7 @@
         "agency": "DOS",
         "dct": "Michael John",
         "automated": [
+          null,
           null,
           null
         ],
@@ -7764,6 +7755,7 @@
         "dct": "Michele Jones",
         "automated": [
           null,
+          13,
           13
         ],
         "audits": []
@@ -7774,6 +7766,7 @@
         "dct": "Michael Harrigan",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -7784,6 +7777,7 @@
         "dct": "Michele Jones",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -7794,6 +7788,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          30,
           30
         ],
         "audits": []
@@ -7804,6 +7799,7 @@
         "dct": "R. Grace Dillon",
         "automated": [
           null,
+          54,
           54
         ],
         "audits": []
@@ -7814,6 +7810,7 @@
         "dct": "Elizabeth Lee",
         "automated": [
           null,
+          81,
           81
         ],
         "audits": []
@@ -7823,6 +7820,7 @@
         "agency": "ITS",
         "dct": "Manohar Mathan",
         "automated": [
+          null,
           null,
           null
         ],
@@ -7834,6 +7832,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -7844,6 +7843,7 @@
         "dct": "R. Grace Dillon",
         "automated": [
           null,
+          47,
           47
         ],
         "audits": []
@@ -7854,6 +7854,7 @@
         "dct": "Manohar Mathan",
         "automated": [
           null,
+          50,
           50
         ],
         "audits": []
@@ -7864,6 +7865,7 @@
         "dct": "Elizabeth Lee",
         "automated": [
           null,
+          76,
           76
         ],
         "audits": []
@@ -7874,6 +7876,7 @@
         "dct": "Christopher O'Connor",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -7884,6 +7887,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          72,
           72
         ],
         "audits": []
@@ -7894,6 +7898,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          3,
           3
         ],
         "audits": []
@@ -7904,6 +7909,7 @@
         "dct": "Jeff Nuding",
         "automated": [
           null,
+          69,
           69
         ],
         "audits": []
@@ -7914,6 +7920,7 @@
         "dct": "Tim Carroll",
         "automated": [
           null,
+          58,
           58
         ],
         "audits": []
@@ -7924,6 +7931,7 @@
         "dct": "Manohar Mathan",
         "automated": [
           null,
+          46,
           46
         ],
         "audits": []
@@ -7934,6 +7942,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          4,
           4
         ],
         "audits": []
@@ -7944,6 +7953,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          78,
           78
         ],
         "audits": []
@@ -7954,6 +7964,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          39,
           39
         ],
         "audits": []
@@ -7964,6 +7975,7 @@
         "dct": "Divya Dileep",
         "automated": [
           null,
+          38,
           38
         ],
         "audits": []
@@ -7974,6 +7986,7 @@
         "dct": "Praveen Setty",
         "automated": [
           null,
+          76,
           76
         ],
         "audits": []
@@ -7984,6 +7997,7 @@
         "dct": "Tim Carroll",
         "automated": [
           null,
+          78,
           78
         ],
         "audits": []
@@ -7994,6 +8008,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -8004,6 +8019,7 @@
         "dct": "Gaurav Upadhyay",
         "automated": [
           null,
+          66,
           66
         ],
         "audits": []
@@ -8014,6 +8030,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          47,
           47
         ],
         "audits": []
@@ -8024,6 +8041,7 @@
         "dct": "Manohar Mathan",
         "automated": [
           null,
+          59,
           59
         ],
         "audits": []
@@ -8034,7 +8052,8 @@
         "dct": "Michele Jones",
         "automated": [
           null,
-          29
+          29,
+          null
         ],
         "audits": []
       },
@@ -8044,6 +8063,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8054,6 +8074,7 @@
         "dct": "Michael Allen",
         "automated": [
           null,
+          64,
           64
         ],
         "audits": []
@@ -8064,6 +8085,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8074,6 +8096,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          51,
           51
         ],
         "audits": []
@@ -8084,6 +8107,7 @@
         "dct": "Manohar Mathan",
         "automated": [
           null,
+          58,
           58
         ],
         "audits": []
@@ -8094,6 +8118,7 @@
         "dct": "Michael Harrigan",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -8104,6 +8129,7 @@
         "dct": null,
         "automated": [
           null,
+          36,
           36
         ],
         "audits": []
@@ -8114,6 +8140,7 @@
         "dct": "Jeff Nuding",
         "automated": [
           null,
+          54,
           54
         ],
         "audits": []
@@ -8124,6 +8151,7 @@
         "dct": "Manohar Mathan",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -8134,6 +8162,7 @@
         "dct": "Munish Batra",
         "automated": [
           null,
+          80,
           80
         ],
         "audits": []
@@ -8143,6 +8172,7 @@
         "agency": "DOH",
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
+          null,
           null,
           null
         ],
@@ -8167,6 +8197,7 @@
         "dct": "R. Grace Dillon",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8177,6 +8208,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          59,
           59
         ],
         "audits": []
@@ -8187,6 +8219,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          51,
           51
         ],
         "audits": []
@@ -8197,6 +8230,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8206,6 +8240,7 @@
         "agency": "Ethics",
         "dct": "R. Grace Dillon",
         "automated": [
+          90,
           90,
           90
         ],
@@ -8217,6 +8252,7 @@
         "dct": "Michele Jones",
         "automated": [
           null,
+          80,
           80
         ],
         "audits": []
@@ -8227,6 +8263,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          56,
           56
         ],
         "audits": []
@@ -8237,6 +8274,7 @@
         "dct": "R. Grace Dillon",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": [
@@ -8252,6 +8290,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8262,6 +8301,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8272,6 +8312,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          39,
           39
         ],
         "audits": []
@@ -8282,6 +8323,7 @@
         "dct": null,
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -8292,6 +8334,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8302,6 +8345,7 @@
         "dct": "Jeff Nuding",
         "automated": [
           null,
+          25,
           25
         ],
         "audits": []
@@ -8312,6 +8356,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           0,
+          26,
           26
         ],
         "audits": [
@@ -8327,6 +8372,7 @@
         "dct": "Bryan Amedio",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8337,6 +8383,7 @@
         "dct": "Mark Kedik",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": [
@@ -8380,6 +8427,7 @@
         "dct": "Moses Kamya",
         "automated": [
           null,
+          null,
           null
         ],
         "audits": [
@@ -8399,6 +8447,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          28,
           28
         ],
         "audits": []
@@ -8409,6 +8458,7 @@
         "dct": "Elizabeth Lee",
         "automated": [
           null,
+          46,
           46
         ],
         "audits": []
@@ -8419,6 +8469,7 @@
         "dct": "Jeff Nuding",
         "automated": [
           null,
+          68,
           68
         ],
         "audits": []
@@ -8429,6 +8480,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          70,
           70
         ],
         "audits": []
@@ -8439,6 +8491,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -8449,6 +8502,7 @@
         "dct": "Michele Jones",
         "automated": [
           null,
+          80,
           80
         ],
         "audits": []
@@ -8459,6 +8513,7 @@
         "dct": "Manohar Mathan",
         "automated": [
           null,
+          54,
           54
         ],
         "audits": []
@@ -8469,6 +8524,7 @@
         "dct": "R. Grace Dillon",
         "automated": [
           null,
+          58,
           58
         ],
         "audits": []
@@ -8479,6 +8535,7 @@
         "dct": "Bryan Amedio",
         "automated": [
           null,
+          80,
           80
         ],
         "audits": []
@@ -8489,6 +8546,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8499,6 +8557,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          100,
           100
         ],
         "audits": []
@@ -8509,7 +8568,8 @@
         "dct": "Michael Allen",
         "automated": [
           null,
-          94
+          94,
+          93
         ],
         "audits": []
       },
@@ -8519,6 +8579,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          21,
           21
         ],
         "audits": []
@@ -8529,6 +8590,7 @@
         "dct": "R. Grace Dillon",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8539,6 +8601,7 @@
         "dct": "James Myran",
         "automated": [
           null,
+          14,
           14
         ],
         "audits": []
@@ -8549,6 +8612,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8559,6 +8623,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          28,
           28
         ],
         "audits": []
@@ -8569,6 +8634,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8579,6 +8645,7 @@
         "dct": null,
         "automated": [
           null,
+          39,
           39
         ],
         "audits": []
@@ -8589,6 +8656,7 @@
         "dct": "Michele Jones",
         "automated": [
           null,
+          76,
           76
         ],
         "audits": []
@@ -8599,6 +8667,7 @@
         "dct": "Brian Balle",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8609,6 +8678,7 @@
         "dct": "Elizabeth Moran",
         "automated": [
           null,
+          100,
           100
         ],
         "audits": []
@@ -8619,6 +8689,7 @@
         "dct": "Praveen Setty",
         "automated": [
           null,
+          27,
           27
         ],
         "audits": []
@@ -8629,6 +8700,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          45,
           45
         ],
         "audits": []
@@ -8639,17 +8711,19 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          62,
           62
         ],
         "audits": []
       },
       {
         "domain": "nysfair.ny.gov",
-        "agency": "Ag&Markets",
-        "dct": "Michele Jones",
+        "agency": "Unattributed",
+        "dct": null,
         "automated": [
           null,
-          82
+          82,
+          78
         ],
         "audits": [
           {
@@ -8664,6 +8738,7 @@
         "dct": "Michele Jones",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": [
@@ -8679,6 +8754,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8689,6 +8765,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -8699,6 +8776,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          37,
           37
         ],
         "audits": []
@@ -8709,6 +8787,7 @@
         "dct": "Jeff Nuding",
         "automated": [
           null,
+          14,
           14
         ],
         "audits": []
@@ -8719,6 +8798,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          70,
           70
         ],
         "audits": []
@@ -8729,6 +8809,7 @@
         "dct": "Jeff Nuding",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -8739,6 +8820,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          7,
           7
         ],
         "audits": []
@@ -8749,6 +8831,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          60,
           60
         ],
         "audits": []
@@ -8759,6 +8842,7 @@
         "dct": "R. Grace Dillon",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8769,6 +8853,7 @@
         "dct": "Michele Jones",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8779,6 +8864,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          51,
           51
         ],
         "audits": []
@@ -8789,6 +8875,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8799,6 +8886,7 @@
         "dct": "Divya Dileep",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -8809,6 +8897,7 @@
         "dct": "Brian Balle",
         "automated": [
           null,
+          77,
           77
         ],
         "audits": []
@@ -8819,6 +8908,7 @@
         "dct": "Moses Kamya",
         "automated": [
           null,
+          53,
           53
         ],
         "audits": [
@@ -8838,6 +8928,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          57,
           57
         ],
         "audits": [
@@ -8853,6 +8944,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          63,
           63
         ],
         "audits": []
@@ -8863,6 +8955,7 @@
         "dct": "R. Grace Dillon",
         "automated": [
           null,
+          42,
           42
         ],
         "audits": []
@@ -8873,6 +8966,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          29,
           29
         ],
         "audits": []
@@ -8883,6 +8977,7 @@
         "dct": "Christopher O'Connor",
         "automated": [
           null,
+          10,
           10
         ],
         "audits": []
@@ -8893,6 +8988,7 @@
         "dct": "Jeff Nuding",
         "automated": [
           null,
+          69,
           69
         ],
         "audits": []
@@ -8903,6 +8999,7 @@
         "dct": "Elizabeth Lee",
         "automated": [
           null,
+          70,
           70
         ],
         "audits": [
@@ -8918,6 +9015,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          38,
           38
         ],
         "audits": []
@@ -8928,6 +9026,7 @@
         "dct": "Bryan Amedio",
         "automated": [
           null,
+          58,
           58
         ],
         "audits": []
@@ -8938,6 +9037,7 @@
         "dct": "Christopher O'Connor",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -8948,6 +9048,7 @@
         "dct": "Michael Allen",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -8958,6 +9059,7 @@
         "dct": "Mark Kedik",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -8968,6 +9070,7 @@
         "dct": "Jeff Nuding",
         "automated": [
           null,
+          48,
           48
         ],
         "audits": []
@@ -8977,6 +9080,7 @@
         "agency": "Office of Victim Services",
         "dct": "Jeff Nuding",
         "automated": [
+          null,
           null,
           null
         ],
@@ -8997,6 +9101,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -9007,6 +9112,7 @@
         "dct": "Thomas Coon",
         "automated": [
           null,
+          53,
           53
         ],
         "audits": []
@@ -9017,6 +9123,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          33,
           33
         ],
         "audits": []
@@ -9027,6 +9134,7 @@
         "dct": "Arne Louison",
         "automated": [
           null,
+          77,
           77
         ],
         "audits": []
@@ -9037,6 +9145,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -9047,6 +9156,7 @@
         "dct": null,
         "automated": [
           null,
+          30,
           30
         ],
         "audits": []
@@ -9057,6 +9167,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          80,
           80
         ],
         "audits": []
@@ -9067,6 +9178,7 @@
         "dct": "Brian Balle",
         "automated": [
           null,
+          44,
           44
         ],
         "audits": []
@@ -9077,6 +9189,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          37,
           37
         ],
         "audits": []
@@ -9087,6 +9200,7 @@
         "dct": "James Myran",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -9097,6 +9211,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -9107,6 +9222,7 @@
         "dct": "Bryan Amedio",
         "automated": [
           null,
+          63,
           63
         ],
         "audits": []
@@ -9117,6 +9233,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          36,
           36
         ],
         "audits": []
@@ -9127,6 +9244,7 @@
         "dct": "Jeff Nuding",
         "automated": [
           null,
+          52,
           52
         ],
         "audits": []
@@ -9137,6 +9255,7 @@
         "dct": "Tim Carroll",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -9147,6 +9266,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -9157,6 +9277,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          1,
           1
         ],
         "audits": []
@@ -9167,6 +9288,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          24,
           24
         ],
         "audits": []
@@ -9177,6 +9299,7 @@
         "dct": "James Myran",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -9187,6 +9310,7 @@
         "dct": "R. Grace Dillon",
         "automated": [
           null,
+          80,
           80
         ],
         "audits": []
@@ -9197,6 +9321,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          10,
           10
         ],
         "audits": []
@@ -9206,6 +9331,7 @@
         "agency": "DOT",
         "dct": "James Myran",
         "automated": [
+          null,
           null,
           null
         ],
@@ -9217,7 +9343,19 @@
         "dct": "Bryan Amedio",
         "automated": [
           null,
+          40,
           40
+        ],
+        "audits": []
+      },
+      {
+        "domain": "psyckesmedicaid-qa-automation.omh.ny.gov",
+        "agency": "OMH",
+        "dct": "Amtul Nayeem",
+        "automated": [
+          null,
+          null,
+          0
         ],
         "audits": []
       },
@@ -9227,7 +9365,8 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
-          70
+          70,
+          null
         ],
         "audits": []
       },
@@ -9236,6 +9375,7 @@
         "agency": "Division of State Police",
         "dct": "Michael Harrigan",
         "automated": [
+          51,
           51,
           51
         ],
@@ -9247,6 +9387,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -9257,6 +9398,7 @@
         "dct": "James Myran",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -9267,6 +9409,7 @@
         "dct": "Manohar Mathan",
         "automated": [
           null,
+          20,
           20
         ],
         "audits": []
@@ -9277,6 +9420,7 @@
         "dct": "Michele Jones",
         "automated": [
           null,
+          42,
           42
         ],
         "audits": []
@@ -9287,6 +9431,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -9297,6 +9442,7 @@
         "dct": "Tim Carroll",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -9307,6 +9453,7 @@
         "dct": "Christopher O'Connor",
         "automated": [
           null,
+          76,
           76
         ],
         "audits": []
@@ -9317,6 +9464,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -9327,6 +9475,7 @@
         "dct": "James Myran",
         "automated": [
           null,
+          17,
           17
         ],
         "audits": []
@@ -9337,6 +9486,7 @@
         "dct": "James Myran",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -9347,6 +9497,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          60,
           60
         ],
         "audits": []
@@ -9357,6 +9508,7 @@
         "dct": "Mark Kedik",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -9367,6 +9519,7 @@
         "dct": "Moses Kamya",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -9377,6 +9530,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -9387,6 +9541,7 @@
         "dct": "Jeff Nuding",
         "automated": [
           null,
+          62,
           62
         ],
         "audits": []
@@ -9397,6 +9552,7 @@
         "dct": "Moses Kamya",
         "automated": [
           null,
+          60,
           60
         ],
         "audits": []
@@ -9407,6 +9563,7 @@
         "dct": "Manohar Mathan",
         "automated": [
           null,
+          94,
           94
         ],
         "audits": []
@@ -9417,6 +9574,7 @@
         "dct": "Manohar Mathan",
         "automated": [
           null,
+          80,
           80
         ],
         "audits": []
@@ -9427,6 +9585,7 @@
         "dct": "Michael Allen",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -9437,6 +9596,7 @@
         "dct": "Tim Carroll",
         "automated": [
           null,
+          72,
           72
         ],
         "audits": []
@@ -9447,6 +9607,7 @@
         "dct": "Bryan Amedio",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -9457,6 +9618,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          38,
           38
         ],
         "audits": []
@@ -9467,6 +9629,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          17,
           17
         ],
         "audits": []
@@ -9477,6 +9640,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          65,
           65
         ],
         "audits": []
@@ -9487,6 +9651,7 @@
         "dct": "Arne Louison",
         "automated": [
           null,
+          23,
           23
         ],
         "audits": [
@@ -9502,6 +9667,7 @@
         "dct": "Munish Batra",
         "automated": [
           null,
+          50,
           50
         ],
         "audits": [
@@ -9517,6 +9683,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          0,
           0
         ],
         "audits": []
@@ -9527,6 +9694,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          39,
           39
         ],
         "audits": []
@@ -9537,6 +9705,7 @@
         "dct": "Brian Balle",
         "automated": [
           null,
+          57,
           57
         ],
         "audits": []
@@ -9547,6 +9716,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          46,
           46
         ],
         "audits": []
@@ -9556,6 +9726,7 @@
         "agency": "HESC",
         "dct": "Praveen Setty",
         "automated": [
+          null,
           null,
           null
         ],
@@ -9572,6 +9743,7 @@
         "dct": "Michele Jones",
         "automated": [
           null,
+          63,
           63
         ],
         "audits": []
@@ -9582,6 +9754,7 @@
         "dct": "Richard Cletus",
         "automated": [
           null,
+          58,
           58
         ],
         "audits": []
@@ -9592,6 +9765,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          1,
           1
         ],
         "audits": []
@@ -9602,6 +9776,7 @@
         "dct": "James Myran",
         "automated": [
           null,
+          13,
           13
         ],
         "audits": []
@@ -9612,6 +9787,7 @@
         "dct": "Andrea Rohan",
         "automated": [
           null,
+          47,
           47
         ],
         "audits": []
@@ -9622,6 +9798,7 @@
         "dct": "Manohar Mathan",
         "automated": [
           null,
+          74,
           74
         ],
         "audits": []
@@ -9632,6 +9809,7 @@
         "dct": "Michael Harrigan",
         "automated": [
           null,
+          66,
           66
         ],
         "audits": []
@@ -9642,6 +9820,7 @@
         "dct": "Michael Allen",
         "automated": [
           null,
+          61,
           61
         ],
         "audits": []
@@ -9652,6 +9831,7 @@
         "dct": "Manohar Mathan",
         "automated": [
           null,
+          80,
           80
         ],
         "audits": []
@@ -9662,6 +9842,7 @@
         "dct": "R. Grace Dillon",
         "automated": [
           null,
+          55,
           55
         ],
         "audits": []
@@ -9672,6 +9853,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          100,
           100
         ],
         "audits": []
@@ -9681,6 +9863,7 @@
         "agency": "CJN",
         "dct": "Bryan Amedio",
         "automated": [
+          null,
           null,
           null
         ],
@@ -9701,6 +9884,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          44,
           44
         ],
         "audits": []
@@ -9710,6 +9894,7 @@
         "agency": "DEC",
         "dct": "Gaurav Upadhyay",
         "automated": [
+          20,
           20,
           20
         ],
@@ -9721,6 +9906,7 @@
         "dct": "Jeff Nuding",
         "automated": [
           null,
+          71,
           71
         ],
         "audits": []
@@ -9730,6 +9916,7 @@
         "agency": "WCB",
         "dct": "Thomas Coon",
         "automated": [
+          null,
           null,
           null
         ],
@@ -9745,6 +9932,7 @@
         "agency": "DHR",
         "dct": "R. Grace Dillon",
         "automated": [
+          null,
           null,
           null
         ],
@@ -9765,6 +9953,7 @@
         "dct": "James Myran",
         "automated": [
           null,
+          57,
           57
         ],
         "audits": []
@@ -9774,6 +9963,7 @@
         "agency": "HESC",
         "dct": "Praveen Setty",
         "automated": [
+          null,
           null,
           null
         ],
@@ -9798,6 +9988,7 @@
         "dct": "Amtul Nayeem",
         "automated": [
           null,
+          39,
           39
         ],
         "audits": []
@@ -9808,6 +9999,7 @@
         "dct": "Manohar Mathan",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -9818,6 +10010,7 @@
         "dct": "Ariel Vitello & Venkatesh Nattanmai",
         "automated": [
           null,
+          40,
           40
         ],
         "audits": []
@@ -9828,6 +10021,7 @@
         "dct": "Gaurav Upadhyay",
         "automated": [
           null,
+          55,
           55
         ],
         "audits": []
@@ -9838,6 +10032,7 @@
         "dct": "Kathryn Shelton",
         "automated": [
           null,
+          2,
           2
         ],
         "audits": []

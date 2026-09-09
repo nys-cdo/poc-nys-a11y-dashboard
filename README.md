@@ -111,7 +111,13 @@ npm run generate            # pull live data → public/dashboard-data.json + da
 npm run generate:refresh    # ignore cache, force a fresh pull
 npm run generate:offline    # rebuild from cache only, no network (never writes a snapshot)
 npm run generate:dcts       # refresh only the DCT list from its.ny.gov
+npm run generate -- --snapshot-month=2026-08   # record this pull as August's snapshot
 ```
+
+`--snapshot-month` is for a capture taken a few days into a month that really
+holds the previous month's numbers: the snapshot and the dashboard are dated
+noon UTC on that month's last day, and the snapshot file notes the real
+capture time.
 
 If a source's credentials are missing the script warns, skips that source, and
 will **not** clobber existing good data with an empty file. The axe Reports /
