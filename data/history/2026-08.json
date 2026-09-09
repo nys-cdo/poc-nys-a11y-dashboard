@@ -2471,7 +2471,7 @@
     },
     {
       "domain": "nysfair.ny.gov",
-      "agency": "Unattributed",
+      "agency": "Ag&Markets",
       "axeMonitorScore": null,
       "siteImproveScore": 78,
       "auditorScore": 0,
@@ -2641,5 +2641,5 @@
       "blocked": false
     }
   ],
-  "note": "Captured 2026-09-09T00:42:30.381Z; recorded as 2026-08's snapshot via --snapshot-month."
+  "note": "Captured 2026-09-09T00:43:49.349Z; recorded as 2026-08's snapshot via --snapshot-month."
 }

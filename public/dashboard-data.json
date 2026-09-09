@@ -5873,7 +5873,7 @@
     {
       "domain": "nysfair.ny.gov",
       "url": "https://nysfair.ny.gov/",
-      "agency": "Unattributed",
+      "agency": "Ag&Markets",
       "axeMonitorScore": null,
       "siteImproveScore": 78,
       "axeMonitorPagesTested": null,
@@ -5896,7 +5896,7 @@
       "monitorReportUrl": null,
       "blocked": false,
       "conflict": false,
-      "dct": null
+      "dct": "Michele Jones"
     },
     {
       "domain": "search.its.ny.gov",
@@ -8718,8 +8718,8 @@
       },
       {
         "domain": "nysfair.ny.gov",
-        "agency": "Unattributed",
-        "dct": null,
+        "agency": "Ag&Markets",
+        "dct": "Michele Jones",
         "automated": [
           null,
           82,

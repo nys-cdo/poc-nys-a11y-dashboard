@@ -28,6 +28,7 @@
     { "domain": "filings.dos.ny.gov", "agency": "DOS" },
     { "domain": "leadsafeny.health.ny.gov", "agency": "DOH" },
     { "domain": "mypublicdashboard.ny.gov", "agency": "OGS" },
+    { "domain": "nysfair.ny.gov", "agency": "Ag&Markets" },
     { "domain": "ovscompass.ovs.ny.gov", "agency": "Office of Victim Services" },
     { "domain": "tap.hesc.ny.gov", "agency": "HESC" },
     { "domain": "vpcr.justicecenter.ny.gov", "agency": "CJN" },
