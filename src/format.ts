@@ -28,19 +28,19 @@ export function statusShort(status: Status | 'unknown'): string {
   }
 }
 
-/** Maps our status to a nys-badge `intent`. */
+/** Maps our status to a nys-badge `intent` (`danger` replaced the deprecated `error` in NYSDS 1.21). */
 export function statusIntent(
   status: Status | 'unknown',
-): 'error' | 'warning' | 'success' | 'neutral' {
+): 'danger' | 'warning' | 'success' | 'base' {
   switch (status) {
     case 'red':
-      return 'error';
+      return 'danger';
     case 'yellow':
       return 'warning';
     case 'green':
       return 'success';
     case 'unknown':
-      return 'neutral';
+      return 'base';
   }
 }
 

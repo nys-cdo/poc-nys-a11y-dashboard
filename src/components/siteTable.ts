@@ -290,7 +290,7 @@ export function renderSiteTable(
 function statusBadge(status: Status | 'unknown'): string {
   return `<nys-badge
       size="sm"
-      variant="strong"
+      strong
       intent="${statusIntent(status)}"
       label="${statusShort(status)}"
       prefixIcon
@@ -492,7 +492,7 @@ function fullRowHtml(site: Site, status: Status | 'unknown', _index: number): st
   const flags: string[] = [];
   if (site.blocked) {
     flags.push(
-      `<nys-badge size="sm" variant="strong" intent="error" label="Blocked" prefixIcon srText="could not be scanned or scored"></nys-badge>`,
+      `<nys-badge size="sm" strong intent="danger" label="Blocked" prefixIcon srText="could not be scanned or scored"></nys-badge>`,
     );
   }
 

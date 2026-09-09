@@ -135,7 +135,7 @@ function render(site: Site, data: DashboardData): string {
             <p class="kpi__label">Official score</p>
             <p class="kpi__value">${value === null ? '—' : formatScore(value)}</p>
             <p class="kpi__sub">
-              <nys-badge size="sm" variant="strong" intent="${statusIntent(status)}" label="${statusShort(status)}" prefixIcon></nys-badge>
+              <nys-badge size="sm" strong intent="${statusIntent(status)}" label="${statusShort(status)}" prefixIcon></nys-badge>
               <span class="kpi__sub-lead">${esc(scoreSourceLabel(source))}</span>
             </p>
           </div>
