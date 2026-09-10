@@ -5,7 +5,7 @@
  * column, independent of the current view or filters.
  */
 import { NO_DCT, type DashboardData } from './types';
-import { issuesPerPage, officialScore, officialStatus, scoreSourceShort } from './status';
+import { issuesPerPage, officialScore, officialStatus, scoreSourceLabel } from './status';
 import { statusShort } from './format';
 
 /** Quote a value only when it contains a comma, quote, or newline (RFC 4180). */
@@ -25,9 +25,9 @@ export function buildSitesCsv(data: DashboardData): string {
     'Official score',
     'Score source',
     'Status',
-    'axe Monitor (automated)',
+    'Axe Monitor (automated)',
     'SiteImprove (automated)',
-    'Auditor (manual)',
+    'Axe Auditor (manual)',
     'Auditor date',
     'Auditor runs',
     'Team (manual)',
@@ -58,7 +58,7 @@ export function buildSitesCsv(data: DashboardData): string {
         s.agency,
         s.dct ?? NO_DCT,
         value,
-        source ? scoreSourceShort(source) : null,
+        source ? scoreSourceLabel(source) : null,
         statusShort(status),
         s.axeMonitorScore,
         s.siteImproveScore,

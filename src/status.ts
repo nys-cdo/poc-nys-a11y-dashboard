@@ -57,27 +57,11 @@ export function scoreSourceLabel(source: ScoreSource): string {
     case 'auditor':
       return 'Axe Auditor (manual)';
     case 'monitor':
-      return 'axe Monitor (automated)';
+      return 'Axe Monitor (automated)';
     case 'siteimprove':
       return 'SiteImprove (automated)';
     default:
       return 'No score';
-  }
-}
-
-/** Compact source name for table cells. */
-export function scoreSourceShort(source: ScoreSource): string {
-  switch (source) {
-    case 'team':
-      return 'Team';
-    case 'auditor':
-      return 'Auditor';
-    case 'monitor':
-      return 'axe Monitor';
-    case 'siteimprove':
-      return 'SiteImprove';
-    default:
-      return '—';
   }
 }
 

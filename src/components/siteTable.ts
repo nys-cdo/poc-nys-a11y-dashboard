@@ -5,7 +5,6 @@ import {
   officialScore,
   officialStatus,
   scoreSourceLabel,
-  scoreSourceShort,
   siteCoverage,
   type ScoreSource,
 } from '../status';
@@ -338,7 +337,7 @@ function issuesCell(site: Site): string {
 function sourceCell(source: ScoreSource): string {
   if (!source) return '<span class="muted">—</span>';
   const manual = source === 'team' || source === 'auditor';
-  return `<span class="source source--${manual ? 'manual' : 'automated'}" title="${esc(scoreSourceLabel(source))}">${esc(scoreSourceShort(source))}<span class="visually-hidden"> (${manual ? 'manual' : 'automated'})</span></span>`;
+  return `<span class="source source--${manual ? 'manual' : 'automated'}">${esc(scoreSourceLabel(source))}</span>`;
 }
 
 function caveatLine(mode: TableMode, coveragePct: number): string {
